@@ -18,12 +18,59 @@
 #define REC_INTRPT_MASK   0xDF09
 #define REC_ADDR_CTRL     0xDF0A
 
+void reu_copy(int c64loc, int reuloc, int rowsize, unsigned char rows)
+{
+  unsigned char y;
+  for (y = 0; y < rows; y++)
+  {
+    // c64base = 8192 = 0x2000
+    Poke(REC_C64_ADDR_LO, c64loc & 0xff);
+    Poke(REC_C64_ADDR_HI, c64loc >> 8);
+    Poke(REC_REU_ADDR_LO, reuloc & 0xff);
+    Poke(REC_REU_ADDR_HI, reuloc >> 8);
+    Poke(REC_REU_ADDR_BANK, 0x00);
+    Poke(REC_TXFR_LEN_LO, rowsize & 0xff);
+    Poke(REC_TXFR_LEN_HI, rowsize >> 8);
+    // REU to c64 with immediate execution
+    Poke(REC_COMMAND, 0x91); // %10010001
+    c64loc += 40*8;
+    reuloc += rowsize;
+  }
+}
+ 
+void rotate_anim(unsigned char* anim_dir, unsigned char* anim_idx, unsigned char max_frames)
+{
+  if (*anim_dir)
+  {
+    if (*anim_idx == max_frames)
+    {
+      *anim_dir = 0;
+      *anim_idx = *anim_idx-1;
+    }
+    else
+      *anim_idx = *anim_idx + 1;
+  }
+  else
+  {
+    if (*anim_idx == 0)
+    {
+      *anim_dir = 1;
+      *anim_idx = *anim_idx + 1;
+    }
+    else
+      *anim_idx = *anim_idx - 1;
+  }
+}
+
+
 void main(void)
 {
   unsigned int base, i, k;
   int rowsize, c64loc, reuloc;
+  int idle_loc, walk_loc;
   unsigned char y;
   unsigned char anim_idx, anim_dir;
+  unsigned char walk_anim_idx, walk_anim_dir;
   //printf("hello world\n");
 
   base=2*4096;
@@ -57,48 +104,22 @@ void main(void)
   // draw it one row at a time
   anim_dir = 1;
   anim_idx = 0;
+
+  walk_anim_dir = 1;
+  walk_anim_idx = 0;
+
+  idle_loc = 0x0000;
+  walk_loc = idle_loc + 784*4;
   while(1)
   {
-    // Poke(53280L, anim_idx);
-    c64loc = 0x2000;
-    reuloc = 0x0000 + anim_idx * 784;
-    for (y = 0; y < 14; y++)
-    {
-      // c64base = 8192 = 0x2000
-      Poke(REC_C64_ADDR_LO, c64loc & 0xff);
-      Poke(REC_C64_ADDR_HI, c64loc >> 8);
-      Poke(REC_REU_ADDR_LO, reuloc & 0xff);
-      Poke(REC_REU_ADDR_HI, reuloc >> 8);
-      Poke(REC_REU_ADDR_BANK, 0x00);
-      Poke(REC_TXFR_LEN_LO, rowsize & 0xff);
-      Poke(REC_TXFR_LEN_HI, rowsize >> 8);
-      // REU to c64 with immediate execution
-      Poke(REC_COMMAND, 0x91); // %10010001
-      c64loc += 40*8;
-      reuloc += rowsize;
-    }
+
+    reu_copy(0x2000, idle_loc + anim_idx * 784, rowsize, 14);
+
+    reu_copy(0x2000 + 8*20, walk_loc + anim_idx * 784, rowsize, 14);
 
     // rotate animation
-    if (anim_dir)
-    {
-      if (anim_idx == 3)
-      {
-        anim_dir = 0;
-        anim_idx--;
-      }
-      else
-        anim_idx++;
-    }
-    else
-    {
-      if (anim_idx == 0)
-      {
-        anim_dir = 1;
-        anim_idx++;
-      }
-      else
-        anim_idx--;
-    }
+    rotate_anim(&anim_dir, &anim_idx, 3);
+    rotate_anim(&walk_anim_dir, &walk_anim_idx, 4);
 
     for (k=0; k < 1000; k++)
       ;

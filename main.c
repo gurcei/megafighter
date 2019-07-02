@@ -23,6 +23,7 @@ void main(void)
   unsigned int base, i, k;
   int rowsize, c64loc, reuloc;
   unsigned char y;
+  unsigned char anim_idx, anim_dir;
   //printf("hello world\n");
 
   base=2*4096;
@@ -54,21 +55,52 @@ void main(void)
   // = 784 bytes = 0x0310
   rowsize = 7 * 8;
   // draw it one row at a time
-  c64loc = 0x2000;
-  reuloc = 0x0000;
-  for (y = 0; y < 14; y++)
+  anim_dir = 1;
+  anim_idx = 0;
+  while(1)
   {
-    // c64base = 8192 = 0x2000
-    Poke(REC_C64_ADDR_LO, c64loc & 0xff);
-    Poke(REC_C64_ADDR_HI, c64loc >> 8);
-    Poke(REC_REU_ADDR_LO, reuloc & 0xff);
-    Poke(REC_REU_ADDR_HI, reuloc >> 8);
-    Poke(REC_REU_ADDR_BANK, 0x00);
-    Poke(REC_TXFR_LEN_LO, rowsize & 0xff);
-    Poke(REC_TXFR_LEN_HI, rowsize >> 8);
-    // REU to c64 with immediate execution
-    Poke(REC_COMMAND, 0x91); // %10010001
-    c64loc += 40*8;
-    reuloc += rowsize;
-  }
+    // Poke(53280L, anim_idx);
+    c64loc = 0x2000;
+    reuloc = 0x0000 + anim_idx * 784;
+    for (y = 0; y < 14; y++)
+    {
+      // c64base = 8192 = 0x2000
+      Poke(REC_C64_ADDR_LO, c64loc & 0xff);
+      Poke(REC_C64_ADDR_HI, c64loc >> 8);
+      Poke(REC_REU_ADDR_LO, reuloc & 0xff);
+      Poke(REC_REU_ADDR_HI, reuloc >> 8);
+      Poke(REC_REU_ADDR_BANK, 0x00);
+      Poke(REC_TXFR_LEN_LO, rowsize & 0xff);
+      Poke(REC_TXFR_LEN_HI, rowsize >> 8);
+      // REU to c64 with immediate execution
+      Poke(REC_COMMAND, 0x91); // %10010001
+      c64loc += 40*8;
+      reuloc += rowsize;
+    }
+
+    // rotate animation
+    if (anim_dir)
+    {
+      if (anim_idx == 3)
+      {
+        anim_dir = 0;
+        anim_idx--;
+      }
+      else
+        anim_idx++;
+    }
+    else
+    {
+      if (anim_idx == 0)
+      {
+        anim_dir = 1;
+        anim_idx++;
+      }
+      else
+        anim_idx--;
+    }
+
+    for (k=0; k < 1000; k++)
+      ;
+  } // end while
 }

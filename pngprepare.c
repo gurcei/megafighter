@@ -459,11 +459,13 @@ void process_file(int mode, char *outputfilename)
       } // end for x
     } // end for y
 
+    /*
     while (cnt < 16777216)
     {
       fprintf(outfile, "%c", 255);
       cnt++;
     }
+    */
   } // if mode == gihires
 
 }

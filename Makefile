@@ -14,42 +14,31 @@ ASSFILES = main.s \
 #						charset.s
 
 # DATAFILES=  ascii8x8.bin dad.bin mum.bin tram.bin
-DATAFILES= ryu.bin
+DATAFILES= ryu_idle1.bin ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
+	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin
 
-all: gidemo.d64
+all: gidemo.d64 data.reu
 
 run:
 	#open -a /Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64
 	#/Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64 &
-	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage ryu_idle1.bin gidemo.d64"
+	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
 %.s:	%.c $(DATAFILES) gidemo.cfg
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
 data.reu: $(DATAFILES)
-	
+	rm -f data.reu
+	cat $(DATAFILES) > data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215
 
 # 'pngprepare' and 'asciih' tools borrowed from mega65-ide project
 # --------------------------------------------------
 # ascii8x8.bin: ascii00-7f.png pngprepare
 # 	./pngprepare charrom ascii00-7f.png ascii8x8.bin
 
-ryu.bin: ryu_idle1.png pngprepare
-	./pngprepare gihires ryu_idle1.png ryu_idle1.bin
-
-#dad.bin: dad.png pngprepare
-#	./pngprepare 4sprmulti dad.png dad.bin 0 25
-#
-#mum.bin: mum.png pngprepare
-#	./pngprepare 4sprmulti mum.png mum.bin 25 20
-#
-#tram.bin: tram.png pngprepare
-#	./pngprepare 4sprmulti tram.png tram.bin 0 16
-
-#asciih: asciih.c
-#	$(CC) -o asciih asciih.c
-#ascii.h:  asciih
-#	./asciih
+%.bin: %.png pngprepare
+	./pngprepare gihires $< $@
 
 pngprepare: pngprepare.c
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
@@ -70,4 +59,5 @@ clean:
 	rm -f gidemo.d64
 	rm -f asciih ascii.h ascii8x8.bin
 	rm -f dad.bin mum.bin tram.bin
+	rm -f data.reu
 

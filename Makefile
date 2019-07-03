@@ -14,8 +14,9 @@ ASSFILES = main.s \
 #						charset.s
 
 # DATAFILES=  ascii8x8.bin dad.bin mum.bin tram.bin
-DATAFILES= ryu_idle1.bin ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
-	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin
+DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
+	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin \
+	ryu_jump1.bin ryu_jump2.bin ryu_jump3.bin ryu_jump4.bin
 
 all: gidemo.d64 data.reu
 

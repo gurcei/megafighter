@@ -5,6 +5,48 @@
 #define PokeW(A,X) (*(unsigned int *)(A)) = (X)
 #define PeekW(A)   (*(unsigned int *)(A))
 
+// ================================
+
+#define RYU_IDLE  0
+#define RYU_WALK  1
+#define RYU_JUMP  2
+#define RYU_MAX   3
+
+typedef struct
+{
+  unsigned int reu_loc;
+  unsigned char frame_count;
+  unsigned char pingpong;
+  unsigned int  rowsize;
+  unsigned char rows;
+} anim_detail;
+
+anim_detail anims[RYU_MAX] =
+{
+  { 0x0000, 3, 1, 7*8, 14 }, // RYU_IDLE
+  { 0x0930, 5, 1, 7*8, 14 }, // RYU_WALK
+  { 0x1880, 4, 1, 7*8, 14 }  // RYU_JUMP
+};
+
+typedef struct
+{
+  unsigned char posx, posy;
+  unsigned char anim;
+  unsigned char anim_idx;
+  unsigned char anim_dir;
+} sprite_detail;
+
+#define SPR_MAX 3
+
+sprite_detail sprites[SPR_MAX] =
+{
+  { 0, 0, RYU_IDLE, 0, 1 },
+  { 15, 0, RYU_WALK, 0, 1 },
+  { 30, 0, RYU_JUMP, 0, 1 }
+};
+
+// ================================
+
 // RAM Expansion Controller (REC) Registers
 #define REC_STATUS        0xDF00
 #define REC_COMMAND       0xDF01
@@ -38,27 +80,27 @@ void reu_copy(int c64loc, int reuloc, int rowsize, unsigned char rows)
   }
 }
  
-void rotate_anim(unsigned char* anim_dir, unsigned char* anim_idx, unsigned char max_frames)
+void animate_sprite(sprite_detail* spr)
 {
-  if (*anim_dir)
+  if (spr->anim_dir)
   {
-    if (*anim_idx == max_frames)
+    if (spr->anim_idx == anims[spr->anim].frame_count-1)
     {
-      *anim_dir = 0;
-      *anim_idx = *anim_idx-1;
+      spr->anim_dir = 0;
+      spr->anim_idx--;
     }
     else
-      *anim_idx = *anim_idx + 1;
+      spr->anim_idx++;
   }
   else
   {
-    if (*anim_idx == 0)
+    if (spr->anim_idx == 0)
     {
-      *anim_dir = 1;
-      *anim_idx = *anim_idx + 1;
+      spr->anim_dir = 1;
+      spr->anim_idx++;
     }
     else
-      *anim_idx = *anim_idx - 1;
+      spr->anim_idx--;
   }
 }
 
@@ -109,17 +151,24 @@ void main(void)
   walk_anim_idx = 0;
 
   idle_loc = 0x0000;
-  walk_loc = idle_loc + 784*4;
+  walk_loc = idle_loc + 784*3;
   while(1)
   {
+    for (i = 0; i < SPR_MAX; i++)
+    {
+      reu_copy(0x2000 + sprites[i].posx*8 + sprites[i].posy*40*8,
+        anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * 784,
+        anims[sprites[i].anim].rowsize, anims[sprites[i].anim].rows);
 
-    reu_copy(0x2000, idle_loc + anim_idx * 784, rowsize, 14);
+      animate_sprite(&(sprites[i]));
+    }
+    //reu_copy(0x2000, anims[RYU_IDLE].reuloc + anim_idx * 784, rowsize, 14);
 
-    reu_copy(0x2000 + 8*20, walk_loc + anim_idx * 784, rowsize, 14);
+    //reu_copy(0x2000 + 8*15, walk_loc + walk_anim_idx * 784, rowsize, 14);
 
     // rotate animation
-    rotate_anim(&anim_dir, &anim_idx, 3);
-    rotate_anim(&walk_anim_dir, &walk_anim_idx, 4);
+    //rotate_anim(&anim_dir, &anim_idx, 2);
+    //rotate_anim(&walk_anim_dir, &walk_anim_idx, 4);
 
     for (k=0; k < 1000; k++)
       ;

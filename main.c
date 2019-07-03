@@ -11,7 +11,8 @@
 #define RYU_WALK  1
 #define RYU_JUMP  2
 #define RYU_FJUMP 3
-#define RYU_MAX   4
+#define RYU_CROUCHBLOCK 4
+#define RYU_MAX   5
 
 typedef struct
 {
@@ -28,7 +29,8 @@ anim_detail anims[RYU_MAX] =
   { 0x0000, 784,  3, 1, 7*8,  14 }, // RYU_IDLE
   { 0x0930, 784,  5, 1, 7*8,  14 }, // RYU_WALK
   { 0x1880, 784,  4, 1, 7*8,  14 }, // RYU_JUMP
-  { 0x24C0, 1120, 7, 0, 10*8, 14 }  // RYU_FJUMP
+  { 0x24C0, 1120, 7, 0, 10*8, 14 }, // RYU_FJUMP
+  { 0x4360, 784,  4, 0, 7*8, 14 }   // RYU_CROUCHBLOCK
 };
 
 typedef struct
@@ -39,7 +41,7 @@ typedef struct
   unsigned char anim_dir;
 } sprite_detail;
 
-#define SPR_MAX 4
+#define SPR_MAX 5
 
 sprite_detail sprites[SPR_MAX] =
 {
@@ -47,6 +49,7 @@ sprite_detail sprites[SPR_MAX] =
   { 7, 0, RYU_WALK, 0, 1 },
   { 14, 0, RYU_JUMP, 0, 1 },
   { 21, 0, RYU_FJUMP, 0, 1 },
+  { 31, 0, RYU_CROUCHBLOCK, 0, 1 },
 };
 
 // ================================

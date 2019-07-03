@@ -10,11 +10,13 @@
 #define RYU_IDLE  0
 #define RYU_WALK  1
 #define RYU_JUMP  2
-#define RYU_MAX   3
+#define RYU_FJUMP 3
+#define RYU_MAX   4
 
 typedef struct
 {
   unsigned int reu_loc;
+  unsigned int frame_size;  // in bytes
   unsigned char frame_count;
   unsigned char pingpong;
   unsigned int  rowsize;
@@ -23,9 +25,10 @@ typedef struct
 
 anim_detail anims[RYU_MAX] =
 {
-  { 0x0000, 3, 1, 7*8, 14 }, // RYU_IDLE
-  { 0x0930, 5, 1, 7*8, 14 }, // RYU_WALK
-  { 0x1880, 4, 1, 7*8, 14 }  // RYU_JUMP
+  { 0x0000, 784,  3, 1, 7*8,  14 }, // RYU_IDLE
+  { 0x0930, 784,  5, 1, 7*8,  14 }, // RYU_WALK
+  { 0x1880, 784,  4, 1, 7*8,  14 }, // RYU_JUMP
+  { 0x24C0, 1120, 7, 0, 10*8, 14 }  // RYU_FJUMP
 };
 
 typedef struct
@@ -36,13 +39,14 @@ typedef struct
   unsigned char anim_dir;
 } sprite_detail;
 
-#define SPR_MAX 3
+#define SPR_MAX 4
 
 sprite_detail sprites[SPR_MAX] =
 {
   { 0, 0, RYU_IDLE, 0, 1 },
-  { 15, 0, RYU_WALK, 0, 1 },
-  { 30, 0, RYU_JUMP, 0, 1 }
+  { 7, 0, RYU_WALK, 0, 1 },
+  { 14, 0, RYU_JUMP, 0, 1 },
+  { 21, 0, RYU_FJUMP, 0, 1 },
 };
 
 // ================================
@@ -86,8 +90,13 @@ void animate_sprite(sprite_detail* spr)
   {
     if (spr->anim_idx == anims[spr->anim].frame_count-1)
     {
-      spr->anim_dir = 0;
-      spr->anim_idx--;
+      if (anims[spr->anim].pingpong)
+      {
+        spr->anim_dir = 0;
+        spr->anim_idx--;
+      }
+      else
+        spr->anim_idx=0;
     }
     else
       spr->anim_idx++;
@@ -117,7 +126,7 @@ void main(void)
 
   base=2*4096;
 
-  Poke(53280L,1);
+  Poke(53280L,0);
 
   // Put bitmap at 8192
   Poke(53272L, Peek(53272L) | 8);
@@ -157,7 +166,7 @@ void main(void)
     for (i = 0; i < SPR_MAX; i++)
     {
       reu_copy(0x2000 + sprites[i].posx*8 + sprites[i].posy*40*8,
-        anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * 784,
+        anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
         anims[sprites[i].anim].rowsize, anims[sprites[i].anim].rows);
 
       animate_sprite(&(sprites[i]));

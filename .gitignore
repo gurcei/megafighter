@@ -1,0 +1,10 @@
+*.bin
+*.o
+*.s
+*.reu
+*.d64
+*.lbl
+*.list
+*.prg
+*.swp
+tags

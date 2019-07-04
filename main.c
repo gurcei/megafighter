@@ -157,6 +157,10 @@ void get_keyboard_input(void)
     if (key & 1 && !jumping) // up
     {
       jumping = 1;
+      walkingright = 0; // TODO: consider how far we've walked in deciding where to jump
+      sprites[0].anim = RYU_JUMP;
+      sprites[0].anim_idx = 0;
+      sprites[0].anim_dir = 1;
       //vely=-6 << 5;
     }
     if (key & 4) // left
@@ -167,7 +171,7 @@ void get_keyboard_input(void)
       //  frame = (frame+1) % 2; // & 0x01; // % 2;
       //if (girlx < 25) girlx = 25;
     }
-    if (key & 8 && !walkingright) // right
+    if (key & 8 && !walkingright && !jumping) // right
     {
       walkingright = 1;
       sprites[0].anim = RYU_WALK;
@@ -182,6 +186,8 @@ void get_keyboard_input(void)
     }
   } // end if
 
+  Poke(8192L, walkingright);
+  Poke(8193L, jumping);
 }
 
 void post_draw_processing(unsigned char sprite)
@@ -196,6 +202,21 @@ void post_draw_processing(unsigned char sprite)
       sprites[0].anim = RYU_IDLE;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
+    }
+
+    if (jumping && sprites[0].anim_idx==0)
+    {
+      if (jumping == 1)
+      {
+        jumping++;
+      }
+      else
+      {
+        jumping=0;
+        sprites[0].anim = RYU_IDLE;
+        sprites[0].anim_idx = 0;
+        sprites[0].anim_dir = 1;
+      }
     }
   }
 }

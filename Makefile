@@ -18,7 +18,13 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin \
 	ryu_jump1.bin ryu_jump2.bin ryu_jump3.bin ryu_jump4.bin \
 	ryu_fjump1.bin ryu_fjump2.bin ryu_fjump3.bin ryu_fjump4.bin ryu_fjump5.bin ryu_fjump6.bin ryu_fjump7.bin \
-	ryu_crouch1.bin ryu_crouch2.bin ryu_block1.bin ryu_block2.bin
+	ryu_crouch1.bin ryu_crouch2.bin ryu_block1.bin ryu_block2.bin \
+	ryu_lpunch1.bin ryu_lpunch2.bin ryu_lpunch3.bin \
+	ryu_mhpunch1.bin ryu_mhpunch2.bin ryu_mhpunch3.bin \
+	ryu_flpunch1.bin ryu_flpunch2.bin \
+	ryu_fmpunch1.bin ryu_fmpunch2.bin ryu_fmpunch3.bin ryu_fmpunch4.bin \
+	ryu_fhpunch1.bin ryu_fhpunch2.bin ryu_fhpunch3.bin ryu_fhpunch4.bin
+
 
 all: gidemo.d64 data.reu
 

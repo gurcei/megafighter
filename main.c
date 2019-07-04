@@ -182,14 +182,21 @@ void get_keyboard_input(void)
     }
   } // end if
 
-  // extra movement-related processing
-  if (walkingright && sprites[0].anim_idx==7)
+}
+
+void post_draw_processing(unsigned char sprite)
+{
+  if (sprite == 0)
   {
-    walkingright=0;
-    sprites[0].posx += 2;
-    sprites[0].anim = RYU_IDLE;
-    sprites[0].anim_idx = 0;
-    sprites[0].anim_dir = 1;
+    // extra movement-related processing
+    if (walkingright && sprites[0].anim_idx==7)
+    {
+      walkingright=0;
+      sprites[0].posx += 2;
+      sprites[0].anim = RYU_IDLE;
+      sprites[0].anim_idx = 0;
+      sprites[0].anim_dir = 1;
+    }
   }
 }
 
@@ -244,16 +251,12 @@ void main(void)
         anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
         anims[sprites[i].anim].cols*8, anims[sprites[i].anim].rows);
 
+      post_draw_processing(i);
+
       animate_sprite(&(sprites[i]));
     }
-    //reu_copy(0x2000, anims[RYU_IDLE].reuloc + anim_idx * 784, rowsize, 14);
 
-    //reu_copy(0x2000 + 8*15, walk_loc + walk_anim_idx * 784, rowsize, 14);
-
-    // rotate animation
-    //rotate_anim(&anim_dir, &anim_idx, 2);
-    //rotate_anim(&walk_anim_dir, &walk_anim_idx, 4);
-
+    // add a delay
     for (k=0; k < 1000; k++)
       ;
   } // end while

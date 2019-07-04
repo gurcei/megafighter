@@ -131,15 +131,54 @@ void animate_sprite(sprite_detail* spr)
   }
 }
 
+unsigned char firedown=0;
+unsigned char jumping=0;
+
+void get_keyboard_input(void)
+{
+  unsigned char key;
+
+  // JOYSTICK: left=4, right=8, up=1, down=2, fire=16
+  key  = (~Peek(56320U)) & 31; //cgetc();
+
+  if (!(key & 16))  // test if fire was released
+    firedown=0;
+
+  if (key != 0)
+  {
+    if (key & 16 && !firedown) // fire button
+    {
+      firedown=1;
+      // TODO: change anim state to a random kick/punch
+    }
+    if (key & 1 && !jumping) // up
+    {
+      jumping = 1;
+      //vely=-6 << 5;
+    }
+    if (key & 4) // left
+    {
+      //dir = 1;
+      //girlx -= 2;
+      //if (!(i % 6)) // modulo operation seems to be time consuming !(i % 6))
+      //  frame = (frame+1) % 2; // & 0x01; // % 2;
+      //if (girlx < 25) girlx = 25;
+    }
+    if (key & 8) // right
+    {
+      //dir = 0;
+      //girlx += 2;
+
+      //if (!(i & 0x03)) // don't use modulo operation !(i % 6))
+      //  frame = (frame+1) % 2; //& 0x01; // % 2;
+      //if (girlx > 323) girlx = 323;
+    }
+  } // end if
+}
 
 void main(void)
 {
   unsigned int base, i, k;
-  int rowsize, c64loc, reuloc;
-  int idle_loc, walk_loc;
-  unsigned char y;
-  unsigned char anim_idx, anim_dir;
-  unsigned char walk_anim_idx, walk_anim_dir;
   //printf("hello world\n");
 
   base=2*4096;
@@ -169,18 +208,11 @@ void main(void)
 
   // size is 7 x 14 char-blocks
   // = 784 bytes = 0x0310
-  rowsize = 7 * 8;
   // draw it one row at a time
-  anim_dir = 1;
-  anim_idx = 0;
 
-  walk_anim_dir = 1;
-  walk_anim_idx = 0;
-
-  idle_loc = 0x0000;
-  walk_loc = idle_loc + 784*3;
   while(1)
   {
+    get_keyboard_input();
     for (i = 0; i < SPR_MAX; i++)
     {
       reu_copy(0x2000 + sprites[i].posx*8 + sprites[i].posy*40*8,

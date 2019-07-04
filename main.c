@@ -9,15 +9,16 @@
 
 #define RYU_IDLE  0
 #define RYU_WALK  1
-#define RYU_JUMP  2
-#define RYU_FJUMP 3
-#define RYU_CROUCHBLOCK 4
-#define RYU_LPUNCH  5
-#define RYU_MHPUNCH 6
-#define RYU_FLPUNCH 7
-#define RYU_FMPUNCH 8
-#define RYU_FHPUNCH 9
-#define RYU_MAX     10
+#define RYU_WALKB 2
+#define RYU_JUMP  3
+#define RYU_FJUMP 4
+#define RYU_CROUCHBLOCK 5
+#define RYU_LPUNCH  6
+#define RYU_MHPUNCH 7
+#define RYU_FLPUNCH 8
+#define RYU_FMPUNCH 9
+#define RYU_FHPUNCH 10
+#define RYU_MAX     11
 
 typedef struct
 {
@@ -35,6 +36,7 @@ anim_detail anims[RYU_MAX] =
   // (reu_loc and frame_size)
   { 0, 0,  3, 1, 7,  14 }, // RYU_IDLE
   { 0, 0,  8, 0, 8,  14 }, // RYU_WALK
+  { 0, 0,  8, 0, 8,  14 }, // RYU_WALKB
   { 0, 0,  4, 1, 7,  14 }, // RYU_JUMP
   { 0, 0,  7, 0, 10, 14 }, // RYU_FJUMP
   { 0, 0,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
@@ -106,7 +108,7 @@ void reu_copy(int c64loc, int reuloc, int rowsize, unsigned char rows)
  
 void animate_sprite(sprite_detail* spr)
 {
-  if (spr->anim_dir)
+  if (spr->anim_dir == 1)
   {
     if (spr->anim_idx == anims[spr->anim].frame_count-1)
     {
@@ -121,7 +123,7 @@ void animate_sprite(sprite_detail* spr)
     else
       spr->anim_idx++;
   }
-  else
+  else if (spr->anim_dir == 0)
   {
     if (spr->anim_idx == 0)
     {
@@ -136,6 +138,8 @@ void animate_sprite(sprite_detail* spr)
 unsigned char firedown=0;
 unsigned char jumping=0;
 unsigned char walkingright=0;
+unsigned char walkingback=0;
+unsigned char crouching=0;
 
 void get_keyboard_input(void)
 {
@@ -146,6 +150,15 @@ void get_keyboard_input(void)
 
   if (!(key & 16))  // test if fire was released
     firedown=0;
+
+  // did we release down key?
+  if (!(key & 2) && crouching)
+  {
+    crouching = 0;
+    sprites[0].anim = RYU_IDLE;
+    sprites[0].anim_idx = 0;
+    sprites[0].anim_dir = 1;
+  }
 
   if (key != 0)
   {
@@ -158,20 +171,33 @@ void get_keyboard_input(void)
     {
       jumping = 1;
       walkingright = 0; // TODO: consider how far we've walked in deciding where to jump
+      walkingback = 0;
       sprites[0].anim = RYU_JUMP;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
       //vely=-6 << 5;
     }
-    if (key & 4) // left
+    if (key & 2 && !jumping && !walkingback && !walkingright)
     {
+      crouching = 1;
+      sprites[0].anim = RYU_CROUCHBLOCK;
+      sprites[0].anim_idx = 1;
+      sprites[0].anim_dir = 2;
+    }
+    if (key & 4 && !walkingback && !walkingright && !jumping) // left
+    {
+      walkingback = 1;
+      sprites[0].posx -= 2;
+      sprites[0].anim = RYU_WALKB;
+      sprites[0].anim_idx = 0;
+      sprites[0].anim_dir = 1;
       //dir = 1;
       //girlx -= 2;
       //if (!(i % 6)) // modulo operation seems to be time consuming !(i % 6))
       //  frame = (frame+1) % 2; // & 0x01; // % 2;
       //if (girlx < 25) girlx = 25;
     }
-    if (key & 8 && !walkingright && !jumping) // right
+    if (key & 8 && !walkingback && !walkingright && !jumping) // right
     {
       walkingright = 1;
       sprites[0].anim = RYU_WALK;
@@ -187,7 +213,8 @@ void get_keyboard_input(void)
   } // end if
 
   Poke(8192L, walkingright);
-  Poke(8193L, jumping);
+  Poke(8193L, walkingback);
+  Poke(8194L, jumping);
 }
 
 void post_draw_processing(unsigned char sprite)
@@ -199,6 +226,14 @@ void post_draw_processing(unsigned char sprite)
     {
       walkingright=0;
       sprites[0].posx += 2;
+      sprites[0].anim = RYU_IDLE;
+      sprites[0].anim_idx = 0;
+      sprites[0].anim_dir = 1;
+    }
+
+    if (walkingback && sprites[0].anim_idx==7)
+    {
+      walkingback=0;
       sprites[0].anim = RYU_IDLE;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;

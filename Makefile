@@ -35,9 +35,8 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_crouch_hpunch1.bin ryu_crouch_hpunch2.bin ryu_crouch_hpunch3.bin \
 	ryu_crouch_lkick1.bin ryu_crouch_lkick2.bin \
 	ryu_crouch_mkick1.bin ryu_crouch_mkick2.bin \
-	ryu_crouch_hkick1.bin ryu_crouch_hkick2.bin ryu_crouch_hkick3.bin ryu_crouch_hkick4.bin ryu_crouch_hkick5.bin
-
-
+	ryu_crouch_hkick1.bin ryu_crouch_hkick2.bin ryu_crouch_hkick3.bin ryu_crouch_hkick4.bin ryu_crouch_hkick5.bin \
+	ryu_jump_lmhpunch1.bin ryu_jump_lmhpunch2.bin ryu_jump_lmhpunch3.bin \
 
 
 all: gidemo.d64 data.reu

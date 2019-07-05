@@ -22,13 +22,14 @@
 #define RYU_HKICK   12
 #define RYU_FLKICK  13
 #define RYU_FMKICK  14
-#define RYU_MAX     15
+#define RYU_FHKICK  15
+#define RYU_MAX     16
 
 unsigned char punch_style = RYU_LMKICK;
 
 typedef struct
 {
-  unsigned int reu_loc;
+  unsigned long reu_loc;
   unsigned int frame_size;  // in bytes
   unsigned char frame_count;
   unsigned char pingpong;
@@ -55,6 +56,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  5, 0, 10, 17 }, // RYU_HKICK
   { 0, 0,  2, 1, 10, 17 }, // RYU_FLKICK
   { 0, 0,  3, 1, 8, 17 },  // RYU_FMKICK
+  { 0, 0,  3, 1, 11, 17 }, // RYU_FHKICK
 };
 
 typedef struct
@@ -96,7 +98,7 @@ sprite_detail sprites[SPR_MAX] =
 #define REC_INTRPT_MASK   0xDF09
 #define REC_ADDR_CTRL     0xDF0A
 
-void reu_copy(int c64loc, int reuloc, int rowsize, unsigned char rows)
+void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
 {
   unsigned char y;
   for (y = 0; y < rows; y++)
@@ -105,8 +107,8 @@ void reu_copy(int c64loc, int reuloc, int rowsize, unsigned char rows)
     Poke(REC_C64_ADDR_LO, c64loc & 0xff);
     Poke(REC_C64_ADDR_HI, c64loc >> 8);
     Poke(REC_REU_ADDR_LO, reuloc & 0xff);
-    Poke(REC_REU_ADDR_HI, reuloc >> 8);
-    Poke(REC_REU_ADDR_BANK, 0x00);
+    Poke(REC_REU_ADDR_HI, (reuloc >> 8) & 0xff);
+    Poke(REC_REU_ADDR_BANK, (reuloc >> 16) & 0xff);
     Poke(REC_TXFR_LEN_LO, rowsize & 0xff);
     Poke(REC_TXFR_LEN_HI, rowsize >> 8);
     // REU to c64 with immediate execution
@@ -279,7 +281,7 @@ void post_draw_processing(unsigned char sprite)
 void main(void)
 {
   unsigned int base, i, k;
-  //printf("hello world\n");
+  unsigned long loc;
 
   base=2*4096;
 
@@ -310,12 +312,12 @@ void main(void)
   // = 784 bytes = 0x0310
   // draw it one row at a time
 
-  k = 0x0000;
+  loc = 0x0000;
   for (i = 0; i < RYU_MAX; i++)
   {
-    anims[i].reu_loc = k;
+    anims[i].reu_loc = loc;
     anims[i].frame_size = anims[i].cols * 8 * anims[i].rows;
-    k += anims[i].frame_size * anims[i].frame_count;
+    loc += anims[i].frame_size * anims[i].frame_count;
   }
 
   while(1)

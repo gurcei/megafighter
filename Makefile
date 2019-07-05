@@ -40,7 +40,8 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_jump_lmkick1.bin ryu_jump_lmkick2.bin \
 	ryu_jump_hkick1.bin ryu_jump_hkick2.bin ryu_jump_hkick3.bin \
 	ryu_fjump_lpunch1.bin ryu_fjump_lpunch2.bin \
-	ryu_fjump_mhkick1.bin ryu_fjump_mhkick2.bin ryu_fjump_mhkick3.bin
+	ryu_fjump_mhkick1.bin ryu_fjump_mhkick2.bin ryu_fjump_mhkick3.bin \
+	ryu_shouryuken1.bin ryu_shouryuken2.bin ryu_shouryuken3.bin ryu_shouryuken4.bin ryu_shouryuken5.bin ryu_shouryuken6.bin ryu_shouryuken7.bin
 
 
 all: gidemo.d64 data.reu

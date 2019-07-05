@@ -26,7 +26,9 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_fmpunch1.bin ryu_fmpunch2.bin ryu_fmpunch3.bin ryu_fmpunch4.bin \
 	ryu_fhpunch1.bin ryu_fhpunch2.bin ryu_fhpunch3.bin ryu_fhpunch4.bin \
 	ryu_lmkick1.bin ryu_lmkick2.bin \
-	ryu_hkick1.bin ryu_hkick2.bin ryu_hkick3.bin ryu_hkick4.bin ryu_hkick5.bin
+	ryu_hkick1.bin ryu_hkick2.bin ryu_hkick3.bin ryu_hkick4.bin ryu_hkick5.bin \
+	ryu_flkick1.bin ryu_flkick2.bin \
+	ryu_fmkick1.bin ryu_fmkick2.bin ryu_fmkick3.bin
 
 
 all: gidemo.d64 data.reu

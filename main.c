@@ -20,7 +20,9 @@
 #define RYU_FHPUNCH 10
 #define RYU_LMKICK  11
 #define RYU_HKICK   12
-#define RYU_MAX     13
+#define RYU_FLKICK  13
+#define RYU_FMKICK  14
+#define RYU_MAX     15
 
 unsigned char punch_style = RYU_LMKICK;
 
@@ -51,6 +53,8 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  4, 1, 8, 15 },  // RYU_FHPUNCH
   { 0, 0,  2, 1, 9, 17 },  // RYU_LMKICK
   { 0, 0,  5, 0, 10, 17 }, // RYU_HKICK
+  { 0, 0,  2, 1, 10, 17 }, // RYU_FLKICK
+  { 0, 0,  3, 1, 8, 17 },  // RYU_FMKICK
 };
 
 typedef struct

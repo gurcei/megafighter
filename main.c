@@ -20,6 +20,8 @@ enum anim_ids
   RYU_CROUCH_LKICK, RYU_CROUCH_MKICK, RYU_CROUCH_HKICK,
   RYU_JUMP_LMHPUNCH,
   RYU_JUMP_LMKICK, RYU_JUMP_HKICK,
+  RYU_FJUMP_LPUNCH,
+  RYU_FJUMP_MHKICK,
   RYU_MAX
 };
 
@@ -66,6 +68,8 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  3, 0, 7,  18 }, // RYU_JUMP_LMHPUNCH
   { 0, 0,  2, 0, 7,  18 }, // RYU_JUMP_LMKICK
   { 0, 0,  3, 0, 8,  18 }, // RYU_JUMP_HKICK
+  { 0, 0,  2, 0, 6,  18 }, // RYU_FJUMP_LPUNCH
+  { 0, 0,  3, 0, 9,  18 }, // RYU_FJUMP_MHKICK
 };
 
 typedef struct

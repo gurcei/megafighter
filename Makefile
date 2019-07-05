@@ -22,7 +22,7 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_crouch1.bin ryu_crouch2.bin ryu_block1.bin ryu_block2.bin \
 	ryu_lpunch1.bin ryu_lpunch2.bin ryu_lpunch3.bin \
 	ryu_mhpunch1.bin ryu_mhpunch2.bin ryu_mhpunch3.bin \
-	ryu_flpunch1.bin ryu_flpunch2.bin \
+	ryu_flpunch1.bin ryu_flpunch2.bin ryu_flpunch3.bin \
 	ryu_fmpunch1.bin ryu_fmpunch2.bin ryu_fmpunch3.bin ryu_fmpunch4.bin \
 	ryu_fhpunch1.bin ryu_fhpunch2.bin ryu_fhpunch3.bin ryu_fhpunch4.bin
 

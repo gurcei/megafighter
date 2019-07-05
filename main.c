@@ -20,6 +20,8 @@
 #define RYU_FHPUNCH 10
 #define RYU_MAX     11
 
+unsigned char punch_style = RYU_LPUNCH;
+
 typedef struct
 {
   unsigned int reu_loc;
@@ -42,7 +44,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
   { 0, 0,  3, 0, 8, 15 },  // RYU_LPUNCH
   { 0, 0,  3, 1, 10, 15 }, // RYU_MHPUNCH
-  { 0, 0,  2, 1, 7, 15 },  // RYU_FLPUNCH
+  { 0, 0,  3, 1, 7, 15 },  // RYU_FLPUNCH
   { 0, 0,  4, 1, 8, 15 },  // RYU_FMPUNCH
   { 0, 0,  4, 1, 8, 15 },  // RYU_FHPUNCH
 };
@@ -64,7 +66,7 @@ sprite_detail sprites[SPR_MAX] =
   { 17, 10, RYU_FLPUNCH, 0, 1 },
   { 24, 10, RYU_FMPUNCH, 0, 1 },
   { 32, 10, RYU_FHPUNCH, 0, 1 }, */
-  { 4,  10,  RYU_IDLE, 0, 1 },
+  { 4,  22,  RYU_IDLE, 0, 1 },
 /*  { 7,  0,  RYU_WALK, 0, 1 },
   { 14, 0,  RYU_JUMP, 0, 1 },
   { 21, 0,  RYU_FJUMP, 0, 1 },
@@ -148,8 +150,13 @@ void get_keyboard_input(void)
   // JOYSTICK: left=4, right=8, up=1, down=2, fire=16
   key  = (~Peek(56320U)) & 31; //cgetc();
 
-  if (!(key & 16))  // test if fire was released
+  if (!(key & 16) && firedown)  // test if fire was released
+  {
     firedown=0;
+    sprites[0].anim = RYU_IDLE;
+    sprites[0].anim_idx = 0;
+    sprites[0].anim_dir = 1;
+  }
 
   // did we release down key?
   if (!(key & 2) && crouching)
@@ -165,7 +172,12 @@ void get_keyboard_input(void)
     if (key & 16 && !firedown) // fire button
     {
       firedown=1;
-      // TODO: change anim state to a random kick/punch
+      sprites[0].anim = punch_style;
+      sprites[0].anim_idx = 0;
+      sprites[0].anim_dir = 1;
+      punch_style++;
+      if (punch_style == RYU_MAX)
+        punch_style = RYU_LPUNCH;
     }
     if (key & 1 && !jumping) // up
     {
@@ -303,7 +315,7 @@ void main(void)
     get_keyboard_input();
     for (i = 0; i < SPR_MAX; i++)
     {
-      reu_copy(0x2000 + sprites[i].posx*8 + sprites[i].posy*40*8,
+      reu_copy(0x2000 + sprites[i].posx*8 + (sprites[i].posy - anims[sprites[i].anim].rows)*40*8,
         anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
         anims[sprites[i].anim].cols*8, anims[sprites[i].anim].rows);
 

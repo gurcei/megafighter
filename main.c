@@ -25,9 +25,11 @@
 #define RYU_FHKICK  15
 #define RYU_CROUCH_LPUNCH 16
 #define RYU_CROUCH_MPUNCH 17
-#define RYU_MAX     18
+#define RYU_CROUCH_HPUNCH 18
+#define RYU_CROUCH_LKICK 19
+#define RYU_MAX     20
 
-unsigned char punch_style = RYU_LMKICK;
+unsigned char punch_style = RYU_CROUCH_LPUNCH;
 
 typedef struct
 {
@@ -61,6 +63,8 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  3, 1, 11, 17 }, // RYU_FHKICK
   { 0, 0,  2, 1, 9, 16 },  // RYU_CROUCH_LPUNCH
   { 0, 0,  2, 1, 9, 16 },  // RYU_CROUCH_MPUNCH
+  { 0, 0,  3, 1, 7, 16 },  // RYU_CROUCH_HPUNCH
+  { 0, 0,  2, 1, 10, 16 }, // RYU_CROUCH_LKICK
 };
 
 typedef struct
@@ -191,7 +195,7 @@ void get_keyboard_input(void)
       sprites[0].anim_dir = 1;
       punch_style++;
       if (punch_style == RYU_MAX)
-        punch_style = RYU_LMKICK;
+        punch_style = RYU_CROUCH_LPUNCH;
     }
     if (key & 1 && !jumping) // up
     {

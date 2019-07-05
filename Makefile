@@ -33,7 +33,9 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_crouch_lpunch1.bin ryu_crouch_lpunch2.bin \
 	ryu_crouch_mpunch1.bin ryu_crouch_mpunch2.bin \
 	ryu_crouch_hpunch1.bin ryu_crouch_hpunch2.bin ryu_crouch_hpunch3.bin \
-	ryu_crouch_lkick1.bin ryu_crouch_lkick2.bin
+	ryu_crouch_lkick1.bin ryu_crouch_lkick2.bin \
+	ryu_crouch_mkick1.bin ryu_crouch_mkick2.bin
+
 
 
 

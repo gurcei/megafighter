@@ -7,27 +7,19 @@
 
 // ================================
 
-#define RYU_IDLE  0
-#define RYU_WALK  1
-#define RYU_WALKB 2
-#define RYU_JUMP  3
-#define RYU_FJUMP 4
-#define RYU_CROUCHBLOCK 5
-#define RYU_LPUNCH  6
-#define RYU_MHPUNCH 7
-#define RYU_FLPUNCH 8
-#define RYU_FMPUNCH 9
-#define RYU_FHPUNCH 10
-#define RYU_LMKICK  11
-#define RYU_HKICK   12
-#define RYU_FLKICK  13
-#define RYU_FMKICK  14
-#define RYU_FHKICK  15
-#define RYU_CROUCH_LPUNCH 16
-#define RYU_CROUCH_MPUNCH 17
-#define RYU_CROUCH_HPUNCH 18
-#define RYU_CROUCH_LKICK 19
-#define RYU_MAX     20
+enum anim_ids
+{ RYU_IDLE,
+  RYU_WALK, RYU_WALKB,
+  RYU_JUMP, RYU_FJUMP,
+  RYU_CROUCHBLOCK,
+  RYU_LPUNCH, RYU_MHPUNCH,
+  RYU_FLPUNCH, RYU_FMPUNCH, RYU_FHPUNCH,
+  RYU_LMKICK, RYU_HKICK,
+  RYU_FLKICK, RYU_FMKICK, RYU_FHKICK,
+  RYU_CROUCH_LPUNCH, RYU_CROUCH_MPUNCH, RYU_CROUCH_HPUNCH,
+  RYU_CROUCH_LKICK, RYU_CROUCH_MKICK,
+  RYU_MAX
+};
 
 unsigned char punch_style = RYU_CROUCH_LPUNCH;
 
@@ -65,6 +57,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  2, 1, 9, 16 },  // RYU_CROUCH_MPUNCH
   { 0, 0,  3, 1, 7, 16 },  // RYU_CROUCH_HPUNCH
   { 0, 0,  2, 1, 10, 16 }, // RYU_CROUCH_LKICK
+  { 0, 0,  2, 1, 12, 16 }, // RYU_CROUCH_MKICK
 };
 
 typedef struct

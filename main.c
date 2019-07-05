@@ -19,11 +19,13 @@ enum anim_ids
   RYU_CROUCH_LPUNCH, RYU_CROUCH_MPUNCH, RYU_CROUCH_HPUNCH,
   RYU_CROUCH_LKICK, RYU_CROUCH_MKICK, RYU_CROUCH_HKICK,
   RYU_JUMP_LMHPUNCH,
-  RYU_JUMP_LMKICK,
+  RYU_JUMP_LMKICK, RYU_JUMP_HKICK,
   RYU_MAX
 };
 
-unsigned char punch_style = RYU_CROUCH_LPUNCH;
+#define FIRST_ATTACK RYU_JUMP_LMHPUNCH
+
+unsigned char punch_style = FIRST_ATTACK;
 
 typedef struct
 {
@@ -63,6 +65,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  5, 0, 10, 16 }, // RYU_CROUCH_HKICK
   { 0, 0,  3, 0, 7,  18 }, // RYU_JUMP_LMHPUNCH
   { 0, 0,  2, 0, 7,  18 }, // RYU_JUMP_LMKICK
+  { 0, 0,  3, 0, 8,  18 }, // RYU_JUMP_HKICK
 };
 
 typedef struct
@@ -193,7 +196,7 @@ void get_keyboard_input(void)
       sprites[0].anim_dir = 1;
       punch_style++;
       if (punch_style == RYU_MAX)
-        punch_style = RYU_CROUCH_LPUNCH;
+        punch_style = FIRST_ATTACK;
     }
     if (key & 1 && !jumping) // up
     {

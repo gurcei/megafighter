@@ -23,7 +23,7 @@ enum anim_ids
   RYU_FJUMP_LPUNCH,
   RYU_FJUMP_MHKICK,
   RYU_SHOURYUKEN, RYU_TATSUMAKI,
-  RYU_HADOUKEN,
+  RYU_HADOUKEN, RYU_HADPROJ,
   RYU_MAX
 };
 
@@ -75,6 +75,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  7, 0, 7,  18 }, // RYU_SHOURYUKEN
   { 0, 0,  9, 0, 12, 18 }, // RYU_TATSUMAKI
   { 0, 0,  5, 0, 12, 13 }, // RYU_HADOUKEN
+  { 0, 0,  18, 0, 6, 8  }, // RYU_HADPROJ
 };
 
 typedef struct

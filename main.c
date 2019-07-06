@@ -25,10 +25,11 @@ enum anim_ids
   RYU_SHOURYUKEN, RYU_TATSUMAKI,
   RYU_HADOUKEN,
   RYU_HADPROJ_START, RYU_HADPROJ, RYU_HADPROJ_END,
+  RYU_SHOULDERTOSS, RYU_BACKROLL,
   RYU_MAX
 };
 
-#define FIRST_ATTACK RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK RYU_SHOULDERTOSS // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -79,6 +80,8 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  2, 0, 6,  8  }, // RYU_HADPROJ_START
   { 0, 0,  12, 0, 9, 8  }, // RYU_HADPROJ
   { 0, 0,  4, 0, 6,  8  }, // RYU_HADPROJ_END
+  { 0, 0,  5, 0, 9,  13 }, // RYU_SHOULDERTOSS
+  { 0, 0,  7, 0, 10, 13 }, // RYU_BACKROLL
 };
 
 typedef struct
@@ -208,7 +211,7 @@ void get_keyboard_input(void)
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
       punch_style++;
-      if (punch_style == RYU_HADPROJ_START)
+      if (punch_style == RYU_MAX)
         punch_style = RYU_LPUNCH;
     }
     if (key & 1 && !jumping) // up

@@ -46,7 +46,8 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_hadouken1.bin ryu_hadouken2.bin ryu_hadouken3.bin ryu_hadouken4.bin ryu_hadouken5.bin \
 	ryu_hadproj1.bin ryu_hadproj2.bin ryu_hadproj3.bin ryu_hadproj4.bin ryu_hadproj5.bin ryu_hadproj6.bin ryu_hadproj7.bin ryu_hadproj8.bin ryu_hadproj9.bin ryu_hadproj10.bin ryu_hadproj11.bin ryu_hadproj12.bin ryu_hadproj13.bin ryu_hadproj14.bin ryu_hadproj15.bin ryu_hadproj16.bin ryu_hadproj17.bin ryu_hadproj18.bin \
 	ryu_shouldertoss1.bin ryu_shouldertoss2.bin ryu_shouldertoss3.bin ryu_shouldertoss4.bin ryu_shouldertoss5.bin \
-	ryu_backroll1.bin ryu_backroll2.bin ryu_backroll3.bin ryu_backroll4.bin ryu_backroll5.bin ryu_backroll6.bin ryu_backroll7.bin
+	ryu_backroll1.bin ryu_backroll2.bin ryu_backroll3.bin ryu_backroll4.bin ryu_backroll5.bin ryu_backroll6.bin ryu_backroll7.bin \
+	ryu_hit1.bin ryu_hit2.bin ryu_hit3.bin ryu_hit4.bin
 
 
 all: gidemo.d64 data.reu

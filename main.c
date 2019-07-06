@@ -23,7 +23,8 @@ enum anim_ids
   RYU_FJUMP_LPUNCH,
   RYU_FJUMP_MHKICK,
   RYU_SHOURYUKEN, RYU_TATSUMAKI,
-  RYU_HADOUKEN, RYU_HADPROJ,
+  RYU_HADOUKEN,
+  RYU_HADPROJ_START, RYU_HADPROJ, RYU_HADPROJ_END,
   RYU_MAX
 };
 
@@ -75,7 +76,9 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  7, 0, 7,  18 }, // RYU_SHOURYUKEN
   { 0, 0,  9, 0, 12, 18 }, // RYU_TATSUMAKI
   { 0, 0,  5, 0, 12, 13 }, // RYU_HADOUKEN
-  { 0, 0,  18, 0, 6, 8  }, // RYU_HADPROJ
+  { 0, 0,  2, 0, 6,  8  }, // RYU_HADPROJ_START
+  { 0, 0,  12, 0, 9, 8  }, // RYU_HADPROJ
+  { 0, 0,  4, 0, 6,  8  }, // RYU_HADPROJ_END
 };
 
 typedef struct
@@ -84,18 +87,16 @@ typedef struct
   unsigned char anim;
   unsigned char anim_idx;
   unsigned char anim_dir;
+  unsigned char visible;
 } sprite_detail;
 
-#define SPR_MAX 1
+#define SPR_MAX 2
 
 sprite_detail sprites[SPR_MAX] =
 {
-/*  { 0,  10, RYU_LPUNCH, 0, 1 },
-  { 7, 10, RYU_MHPUNCH, 0, 1 },
-  { 17, 10, RYU_FLPUNCH, 0, 1 },
-  { 24, 10, RYU_FMPUNCH, 0, 1 },
-  { 32, 10, RYU_FHPUNCH, 0, 1 }, */
-  { 4,  22,  RYU_IDLE, 0, 1 },
+  { 4,  22,  RYU_IDLE, 0, 1, 1 },
+  { 10, 15,  RYU_HADPROJ_START, 0, 1, 0 },
+
 /*  { 7,  0,  RYU_WALK, 0, 1 },
   { 14, 0,  RYU_JUMP, 0, 1 },
   { 21, 0,  RYU_FJUMP, 0, 1 },
@@ -171,6 +172,7 @@ unsigned char jumping=0;
 unsigned char walkingright=0;
 unsigned char walkingback=0;
 unsigned char crouching=0;
+unsigned char punching=0;
 
 void get_keyboard_input(void)
 {
@@ -182,9 +184,9 @@ void get_keyboard_input(void)
   if (!(key & 16) && firedown)  // test if fire was released
   {
     firedown=0;
-    sprites[0].anim = RYU_IDLE;
-    sprites[0].anim_idx = 0;
-    sprites[0].anim_dir = 1;
+//    sprites[0].anim = RYU_IDLE;
+//    sprites[0].anim_idx = 0;
+//    sprites[0].anim_dir = 1;
   }
 
   // did we release down key?
@@ -201,12 +203,13 @@ void get_keyboard_input(void)
     if (key & 16 && !firedown) // fire button
     {
       firedown=1;
+      punching=1;
       sprites[0].anim = punch_style;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
       punch_style++;
-      if (punch_style == RYU_MAX)
-        punch_style = FIRST_ATTACK;
+      if (punch_style == RYU_HADPROJ_START)
+        punch_style = RYU_LPUNCH;
     }
     if (key & 1 && !jumping) // up
     {
@@ -258,7 +261,9 @@ void get_keyboard_input(void)
   Poke(8194L, jumping);
 }
 
-void post_draw_processing(unsigned char sprite)
+// returns 1 = skip next animation step
+// returns 0 = perform next animation step
+unsigned char post_draw_processing(unsigned char sprite)
 {
   if (sprite == 0)
   {
@@ -294,7 +299,68 @@ void post_draw_processing(unsigned char sprite)
         sprites[0].anim_dir = 1;
       }
     }
+
+    // start hadouken projectile?
+    if (sprites[0].anim == RYU_HADOUKEN && sprites[0].anim_idx == 4)
+    {
+      sprites[1].anim=RYU_HADPROJ_START;
+      sprites[1].anim_idx=0;
+      sprites[1].visible=1;
+      sprites[1].posx = sprites[0].posx + 9;
+      sprites[1].posy = sprites[0].posy - 4;
+    }
+
+    if (punching)
+    {
+      if (anims[sprites[0].anim].pingpong)
+      {
+        if (sprites[0].anim_idx == 0 && sprites[0].anim_dir==0)
+        {
+          punching = 0;
+          sprites[0].anim = RYU_IDLE;
+          sprites[0].anim_idx = 0;
+          sprites[0].anim_dir = 1;
+          return 1;
+        }
+      }
+      else if (sprites[0].anim_idx == anims[sprites[0].anim].frame_count-1)
+      {
+        punching = 0;
+        sprites[0].anim = RYU_IDLE;
+        sprites[0].anim_idx = 0;
+        sprites[0].anim_dir = 1;
+        return 1;
+      }
+    }
+
+  } // end sprite0 processing
+
+  // hadouken projectile sprite?
+  if (sprite == 1)
+  {
+    if (sprites[1].anim == RYU_HADPROJ_START && sprites[1].anim_idx == 1)
+    {
+      sprites[1].anim = RYU_HADPROJ;
+      sprites[1].anim_idx = 0;
+    }
+    else if (sprites[1].anim == RYU_HADPROJ && sprites[1].anim_idx == 11)
+    {
+      if (sprites[1].posx > 28)
+      {
+        sprites[1].anim=RYU_HADPROJ_END;
+        sprites[1].anim_idx=0;
+        sprites[1].posx += 3;
+      }
+      else
+        sprites[1].posx += 3;
+    }
+    else if (sprites[1].anim == RYU_HADPROJ_END && sprites[1].anim_idx == 3)
+    {
+      sprites[1].visible=0;
+    }
   }
+
+  return 0;
 }
 
 void main(void)
@@ -344,13 +410,17 @@ void main(void)
     get_keyboard_input();
     for (i = 0; i < SPR_MAX; i++)
     {
-      reu_copy(0x2000 + sprites[i].posx*8 + (sprites[i].posy - anims[sprites[i].anim].rows)*40*8,
-        anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
-        anims[sprites[i].anim].cols*8, anims[sprites[i].anim].rows);
+      if (sprites[i].visible)
+      {
+        reu_copy(0x2000 + sprites[i].posx*8 + (sprites[i].posy - anims[sprites[i].anim].rows)*40*8,
+          anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
+          anims[sprites[i].anim].cols*8, anims[sprites[i].anim].rows);
 
-      post_draw_processing(i);
-
-      animate_sprite(&(sprites[i]));
+        if (post_draw_processing(i) == 0)
+        {
+          animate_sprite(&(sprites[i]));
+        }
+      }
     }
 
     // add a delay

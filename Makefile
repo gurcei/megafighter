@@ -49,7 +49,8 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_backroll1.bin ryu_backroll2.bin ryu_backroll3.bin ryu_backroll4.bin ryu_backroll5.bin ryu_backroll6.bin ryu_backroll7.bin \
 	ryu_hit1.bin ryu_hit2.bin ryu_hit3.bin ryu_hit4.bin \
 	ryu_facehit1.bin ryu_facehit2.bin ryu_facehit3.bin ryu_facehit4.bin \
-	ryu_crouchhit1.bin ryu_crouchhit2.bin ryu_crouchhit3.bin
+	ryu_crouchhit1.bin ryu_crouchhit2.bin ryu_crouchhit3.bin \
+	ryu_knockdown1.bin ryu_knockdown2.bin ryu_knockdown3.bin ryu_knockdown4.bin ryu_knockdown5.bin ryu_knockdown6.bin ryu_knockdown7.bin ryu_knockdown8.bin
 
 
 all: gidemo.d64 data.reu

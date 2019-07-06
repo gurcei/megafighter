@@ -54,7 +54,8 @@ DATAFILES= ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_stunned1.bin ryu_stunned2.bin ryu_stunned3.bin \
 	ryu_ko1.bin ryu_ko2.bin ryu_ko3.bin ryu_ko4.bin ryu_ko5.bin \
 	ryu_victory1.bin ryu_victory2.bin ryu_victory3.bin \
-	ryu_victoryalt1.bin ryu_victoryalt2.bin ryu_victoryalt3.bin ryu_victoryalt4.bin ryu_victoryalt5.bin ryu_victoryalt6.bin ryu_victoryalt7.bin
+	ryu_victoryalt1.bin ryu_victoryalt2.bin ryu_victoryalt3.bin ryu_victoryalt4.bin ryu_victoryalt5.bin ryu_victoryalt6.bin ryu_victoryalt7.bin \
+	ryu_mugshot1.bin ryu_mugshot2.bin ryu_mugshot3.bin
 
 
 all: gidemo.d64 data.reu

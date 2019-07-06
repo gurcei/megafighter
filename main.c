@@ -29,6 +29,7 @@ enum anim_ids
   RYU_HIT, RYU_FACEHIT, RYU_CROUCHHIT,
   RYU_KNOCKDOWN, RYU_STUNNED, RYU_KO,
   RYU_VICTORY, RYU_VICTORYALT,
+  RYU_MUGSHOT,
   RYU_MAX
 };
 
@@ -93,6 +94,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  5, 0, 10, 15 }, // RYU_KO
   { 0, 0,  3, 0, 7,  16 }, // RYU_VICTORY
   { 0, 0,  7, 1, 7,  16 }, // RYU_VICTORYALT
+  { 0, 0,  3, 0, 11, 16 }, // RYU_MUGSHOT
 };
 
 typedef struct
@@ -377,6 +379,13 @@ unsigned char post_draw_processing(unsigned char sprite)
   return 0;
 }
 
+void draw_anim_frame(unsigned char anim, unsigned char frame, unsigned char posx, unsigned char posy)
+{
+  reu_copy(0x2000 + posx*8 + (posy - anims[anim].rows)*40*8,
+    anims[anim].reu_loc + frame * anims[anim].frame_size,
+    anims[anim].cols*8, anims[anim].rows);
+}
+
 void main(void)
 {
   unsigned int base, i, k;
@@ -418,6 +427,8 @@ void main(void)
     anims[i].frame_size = anims[i].cols * 8 * anims[i].rows;
     loc += anims[i].frame_size * anims[i].frame_count;
   }
+
+  draw_anim_frame(RYU_MUGSHOT, 1, 20, 15);
 
   while(1)
   {

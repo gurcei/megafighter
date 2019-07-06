@@ -28,6 +28,7 @@ enum anim_ids
   RYU_SHOULDERTOSS, RYU_BACKROLL,
   RYU_HIT, RYU_FACEHIT, RYU_CROUCHHIT,
   RYU_KNOCKDOWN, RYU_STUNNED, RYU_KO,
+  RYU_VICTORY,
   RYU_MAX
 };
 
@@ -90,6 +91,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  8, 0, 10, 15 }, // RYU_KNOCKDOWN
   { 0, 0,  3, 1, 8,  15 }, // RYU_STUNNED
   { 0, 0,  5, 0, 10, 15 }, // RYU_KO
+  { 0, 0,  3, 0, 7,  16 }, // RYU_VICTORY
 };
 
 typedef struct

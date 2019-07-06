@@ -23,10 +23,11 @@ enum anim_ids
   RYU_FJUMP_LPUNCH,
   RYU_FJUMP_MHKICK,
   RYU_SHOURYUKEN, RYU_TATSUMAKI,
+  RYU_HADOUKEN,
   RYU_MAX
 };
 
-#define FIRST_ATTACK RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -73,6 +74,7 @@ anim_detail anims[RYU_MAX] =
   { 0, 0,  3, 0, 9,  18 }, // RYU_FJUMP_MHKICK
   { 0, 0,  7, 0, 7,  18 }, // RYU_SHOURYUKEN
   { 0, 0,  9, 0, 12, 18 }, // RYU_TATSUMAKI
+  { 0, 0,  5, 0, 12, 13 }, // RYU_HADOUKEN
 };
 
 typedef struct

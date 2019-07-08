@@ -8,3 +8,5 @@
 *.prg
 *.swp
 tags
+*.bin.bmp_meta
+*.bin.segs_meta

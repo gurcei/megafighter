@@ -82,7 +82,7 @@ data.reu: $(DATAFILES)
 # 	./pngprepare charrom ascii00-7f.png ascii8x8.bin
 
 %.bin: %.png pngprepare
-	./pngprepare gihires $< $@
+	./pngprepare gihires2 $< $@
 
 pngprepare: pngprepare.c
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
@@ -102,6 +102,6 @@ clean:
 	rm -f gidemo.list
 	rm -f gidemo.d64
 	rm -f asciih ascii.h ascii8x8.bin
-	rm -f dad.bin mum.bin tram.bin
 	rm -f data.reu
+	rm -f *.bin *.bin.bmp_meta *.bin.segs_meta
 

@@ -115,6 +115,27 @@ void read_png_file(char* file_name)
 
 /* ============================================================= */
 
+typedef struct
+{
+  unsigned short reloffset;    // this is the byte-offset starting from the top-right corner of the object, but will increment per row_segment
+  unsigned char length;    // the number of length in chars for this row segment
+} reu_row_segment;
+
+typedef struct
+{
+  unsigned char num_segments;
+  unsigned short start_segment_idx;   // NOTE: reu_loc for segment metadata = start_segment_idx * sizeof(reu_row_segment)
+              // NOTE: this might have to be a relative value, and I make it absolute at run-time
+  unsigned int reu_ptr;  // pointer to reu-memory for the data for the first row-segment (for the next segment, it'll be adjecent to this one in reu memory)
+												// I might have to leave this last field empty (relocatable?) and fill it in at run-time, depending on the ordering of all the objects
+} reu_segged_bmp_obj;
+
+#define MAX_SEGS 1000
+
+unsigned short seg_cnt = 0;
+reu_row_segment rowsegs[MAX_SEGS] = { 0 };
+reu_segged_bmp_obj seggedbmp = { 0 };
+
 void process_file(int mode, char *outputfilename)
 {
   int multiplier=-1;
@@ -468,6 +489,106 @@ void process_file(int mode, char *outputfilename)
     */
   } // if mode == gihires
 
+  /* ============================ */
+
+  if (mode==5)  // mode == gihires2
+  {
+    unsigned int transparent = (112 << 16) + (136 << 8) + 136;
+
+    reu_row_segment* curseg = &(rowsegs[seg_cnt]);
+    unsigned char found_start = 0;
+    unsigned char charbytes[8];
+
+    for (y=0; y<height; y += 8) {
+      for (x=0; x<width; x += 8) {
+
+      int transparent_count = 0;
+
+        for (int yd=0; yd<8; yd++) {
+          unsigned char byteval = 0;
+          png_byte* row = row_pointers[y+yd];
+
+          for (int xd=0; xd<8; xd++) {
+            png_byte* ptr = &(row[(x+xd)*multiplier]);
+            // check if it's a transparent pixel
+            if (y+yd>= height || (ptr[0] == 112 && ptr[1] == 136 && ptr[2] == 136))
+            {
+              transparent_count++;
+            }
+            if (y+yd < height)
+            {
+              // check threshold for black
+              png_byte* ptr = &(row[(x+xd)*multiplier]);
+              int r=(ptr[0] + ptr[1] + ptr[2]) / 3;
+              if (r < 80 && (x+xd < width))
+              {
+                byteval |= (1 << (7 - xd));
+              }
+              else if (r < 160 && (x+xd < width))
+              {
+                if ( ((xd%2) && (yd%2)) || (!(xd%2) && !(yd%2)))
+                  byteval |= (1 << (7 - xd));
+              }
+            }
+          } // end for xd
+
+          charbytes[yd] = byteval;
+        } // end for yd
+
+        // if all transparent, skip this char and move onto the next
+        if (transparent_count == 64)
+        {
+          if (found_start)
+          {
+            // if we already started a segment, then a transparent char indicates
+            // the end of a segment. So move to next segment
+            seg_cnt++;
+          }
+          else
+          {
+            // if we haven't started a segment yet, then increment the upcoming
+            // segment's reloffset
+            curseg->reloffset += 8;
+          }
+        }
+        // else if (transparent_count > 0)
+        //{
+        //  TODO: In future, this should spawn a 'mask' character, instead of
+        //        being part of the segment
+        //}
+        else
+        {
+          // TODO: I might need to catch the very last byte in the bitmap in this part too?
+          if (!found_start)
+            found_start = 1;
+          // this is a non-transparent character, to let's save this data to the file
+          fprintf(outfile, "%c%c%c%c%c%c%c%c", charbytes[0], charbytes[1], charbytes[2],
+            charbytes[3], charbytes[4], charbytes[5], charbytes[6], charbytes[7]);
+          curseg->length++;
+        }
+      } // end for y
+    } // end for x
+
+    seggedbmp.num_segments = seg_cnt;
+
+    // write the meta files
+    FILE *bmp_meta;
+    FILE *segs_meta;
+    char bmpMetaFname[256];
+    char segsMetaFname[256];
+    sprintf(bmpMetaFname, "%s.bmp_meta", outputfilename);
+    sprintf(segsMetaFname, "%s.segs_meta", outputfilename);
+    
+    bmp_meta=fopen(bmpMetaFname,"w");
+    segs_meta=fopen(segsMetaFname,"w");
+
+    fwrite(&seggedbmp,sizeof(reu_segged_bmp_obj), 1, bmp_meta);
+    fwrite(&rowsegs,sizeof(reu_row_segment), seg_cnt, segs_meta);
+
+    fclose(bmp_meta);
+    fclose(segs_meta);
+  } // end mode==5
+
 }
 
 /* ============================================================= */
@@ -486,6 +607,7 @@ int main(int argc, char **argv)
   if (!strcasecmp("hires",argv[1])) mode=2;
   if (!strcasecmp("4sprmulti",argv[1])) mode=3;
   if (!strcasecmp("gihires",argv[1])) mode=4;
+  if (!strcasecmp("gihires2",argv[1])) mode=5;
   if (mode==-1) {
     fprintf(stderr,"Usage: program_name <logo|charrom|hires|4sprmulti|gihires> <file_in> <file_out>\n");
     exit(-1);

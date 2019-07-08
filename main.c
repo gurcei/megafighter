@@ -125,6 +125,23 @@ sprite_detail sprites[SPR_MAX] =
   { 31, 0,  RYU_CROUCHBLOCK, 0, 1 }, */
 };
 
+typedef struct
+{
+  unsigned int reloffset;    // this is the byte-offset starting from the top-right corner of the object, but will increment per row_segment
+  unsigned char length;    // the number of length in chars for this row segment
+} reu_row_segment;
+
+typedef struct
+{
+  unsigned char num_segments;
+  unsigned int start_segment_idx;   // NOTE: reu_loc for segment metadata = start_segment_idx * sizeof(reu_row_segment)
+              // NOTE: this might have to be a relative value, and I make it absolute at run-time
+  unsigned long reu_ptr;  // pointer to reu-memory for the data for the first row-segment (for the next segment, it'll be adjecent to this one in reu memory)
+												// I might have to leave this last field empty (relocatable?) and fill it in at run-time, depending on the ordering of all the objects
+} reu_segged_bmp_obj;
+
+reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
+
 // ================================
 
 // RAM Expansion Controller (REC) Registers
@@ -139,6 +156,20 @@ sprite_detail sprites[SPR_MAX] =
 #define REC_TXFR_LEN_HI   0xDF08
 #define REC_INTRPT_MASK   0xDF09
 #define REC_ADDR_CTRL     0xDF0A
+
+void reu_simple_copy(int c64loc, unsigned long reuloc, unsigned int length)
+{
+  // c64base = 8192 = 0x2000
+  Poke(REC_C64_ADDR_LO, c64loc & 0xff);
+  Poke(REC_C64_ADDR_HI, c64loc >> 8);
+  Poke(REC_REU_ADDR_LO, reuloc & 0xff);
+  Poke(REC_REU_ADDR_HI, (reuloc >> 8) & 0xff);
+  Poke(REC_REU_ADDR_BANK, (reuloc >> 16) & 0xff);
+  Poke(REC_TXFR_LEN_LO, length & 0xff);
+  Poke(REC_TXFR_LEN_HI, length >> 8);
+  // REU to c64 with immediate execution
+  Poke(REC_COMMAND, 0x91); // %10010001
+}
 
 void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
 {
@@ -410,6 +441,38 @@ void draw_anim_frame(unsigned char anim, unsigned char frame, unsigned char posx
     anims[anim].cols*8, anims[anim].rows);
 }
 
+void calc_absolute_addresses(void)
+{
+  // TODO: early on, iterate through the bitmap meta objects to figure out the
+  // missing address fields
+  // Will probably need to refer to segdata too
+}
+
+void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
+{
+  unsigned char k, num;
+  reu_row_segment* seg;
+  unsigned int screen_loc;
+  unsigned long bmp_data_loc;
+
+  //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
+  num = segbmps[0].num_segments;
+
+  // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
+  reu_simple_copy(0x1800, 0x0000, segbmps[0].num_segments*sizeof(reu_row_segment));
+
+  seg = (reu_row_segment*)0x1800;
+
+  screen_loc = 0x2000 + posx*8 + posy*40*8;
+  bmp_data_loc = 0x00010000; // reu bank 1 contains bitmap data
+  for (k = 0; k < num; k++)
+  {
+    screen_loc += seg->reloffset;
+    reu_simple_copy(0x2000 + posx*8 + posy*40*8, bmp_data_loc, seg->length);
+    bmp_data_loc += seg->length*8;
+  }
+}
+
 enum { GAME_TITLE, GAME_MAIN };
 
 unsigned char gamestate = GAME_TITLE;
@@ -418,7 +481,8 @@ void game_title(void)
 {
   unsigned char key;
 
-  draw_anim_frame(TITLE, 0, 0, 25);
+  //draw_anim_frame(TITLE, 0, 0, 25);
+  draw_bitmap(TITLE, 0, 25);
   // TODO: draw title screen via new segmented bitmap technique...
   // ...need to locate segged_bitmap array at 0x1000
   // ...that are should match the content of the "bmp_meta.bin" file

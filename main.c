@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "bitmap_ids.h"
 
 #define Poke(A,X)  (*(unsigned char *)(A)) = (X)
 #define Peek(A)    (*(unsigned char *)(A))
@@ -9,8 +10,8 @@
 
 enum anim_ids
 {
-  TITLE,
-  RYU_STAGE_CROPPED,
+  TITLEZ,
+  RYU_STAGE_CROPPEDZ,
   RYU_IDLE,
   RYU_WALK, RYU_WALKB,
   RYU_JUMP, RYU_FJUMP,
@@ -418,6 +419,9 @@ void game_title(void)
   unsigned char key;
 
   draw_anim_frame(TITLE, 0, 0, 25);
+  // TODO: draw title screen via new segmented bitmap technique...
+  // ...need to locate segged_bitmap array at 0x1000
+  // ...that are should match the content of the "bmp_meta.bin" file
 
   while(1)
   {

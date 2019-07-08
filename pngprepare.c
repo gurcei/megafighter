@@ -115,6 +115,9 @@ void read_png_file(char* file_name)
 
 /* ============================================================= */
 
+#pragma pack(push)
+#pragma pack(1)
+
 typedef struct
 {
   unsigned short reloffset;    // this is the byte-offset starting from the top-right corner of the object, but will increment per row_segment
@@ -130,11 +133,14 @@ typedef struct
 												// I might have to leave this last field empty (relocatable?) and fill it in at run-time, depending on the ordering of all the objects
 } reu_segged_bmp_obj;
 
+
 #define MAX_SEGS 1000
 
 unsigned short seg_cnt = 0;
 reu_row_segment rowsegs[MAX_SEGS] = { 0 };
 reu_segged_bmp_obj seggedbmp = { 0 };
+
+#pragma pack(pop)
 
 void process_file(int mode, char *outputfilename)
 {
@@ -495,14 +501,16 @@ void process_file(int mode, char *outputfilename)
   {
     unsigned int transparent = (112 << 16) + (136 << 8) + 136;
 
-    reu_row_segment* curseg = &(rowsegs[seg_cnt]);
     unsigned char found_start = 0;
     unsigned char charbytes[8];
+
+    reu_row_segment* curseg = NULL;
 
     for (y=0; y<height; y += 8) {
       for (x=0; x<width; x += 8) {
 
       int transparent_count = 0;
+      curseg = &(rowsegs[seg_cnt]);
 
         for (int yd=0; yd<8; yd++) {
           unsigned char byteval = 0;
@@ -540,9 +548,11 @@ void process_file(int mode, char *outputfilename)
         {
           if (found_start)
           {
+            found_start = 0;
             // if we already started a segment, then a transparent char indicates
             // the end of a segment. So move to next segment
             seg_cnt++;
+            rowsegs[seg_cnt].reloffset += 8;
           }
           else
           {
@@ -566,8 +576,16 @@ void process_file(int mode, char *outputfilename)
             charbytes[3], charbytes[4], charbytes[5], charbytes[6], charbytes[7]);
           curseg->length++;
         }
-      } // end for y
-    } // end for x
+      } // end for x
+
+      // if we finished this line and we're mid-segment, lets move to next segment
+      if (found_start)
+      {
+        found_start = 0;
+        seg_cnt++;
+        curseg->reloffset += (40*8 - ((width+7)/8)*8);
+      }
+    } // end for y
 
     seggedbmp.num_segments = seg_cnt;
 
@@ -584,6 +602,9 @@ void process_file(int mode, char *outputfilename)
 
     fwrite(&seggedbmp,sizeof(reu_segged_bmp_obj), 1, bmp_meta);
     fwrite(&rowsegs,sizeof(reu_row_segment), seg_cnt, segs_meta);
+
+    printf("num_segments = %d\n", seggedbmp.num_segments);
+    printf("segs-size = %d\n", sizeof(reu_row_segment));
 
     fclose(bmp_meta);
     fclose(segs_meta);

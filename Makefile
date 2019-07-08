@@ -4,6 +4,7 @@ COPTS=	-t c64 -O -Or -Oi -Os --cpu 6502
 LOPTS=	-C gidemo.cfg
 
 ASSFILES = main.s \
+						bmpmeta.s \
 #						music.s \
 #						music_game.s \
 #						music_intro.s \
@@ -60,6 +61,9 @@ DATAFILES= \
 	ryu_victoryalt1.bin ryu_victoryalt2.bin ryu_victoryalt3.bin ryu_victoryalt4.bin ryu_victoryalt5.bin ryu_victoryalt6.bin ryu_victoryalt7.bin \
 	ryu_mugshot1.bin ryu_mugshot2.bin ryu_mugshot3.bin
 
+BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
+SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)
+
 
 all: gidemo.d64 data.reu
 
@@ -68,13 +72,25 @@ run:
 	#/Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64 &
 	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
-%.s:	%.c $(DATAFILES) gidemo.cfg
+%.s: %.c $(DATAFILES) gidemo.cfg
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
 data.reu: $(DATAFILES)
 	rm -f data.reu
-	cat $(DATAFILES) > data.reu
+	rm -f segs_meta.reu
+	rm -f bmp_meta.bin
+	cat $(BMP_META_FILES) > bmp_meta.bin
+	# reu bank 0 is segment data
+	cat $(SEGS_META_FILES) > data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=65536
+	# reu bank 1 and onwards is bitmap data
+	cat $(DATAFILES) >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215
+	rm -f bitmap_ids.h
+	echo "enum BMP_IDS {" > bitmap_ids.h
+	ls -1 *.bin | sed "s/.bin/,/" | tr [a-z] [A-Z] >> bitmap_ids.h
+	echo "BMP_MAX" >> bitmap_ids.h
+	echo "};" >> bitmap_ids.h
 
 # 'pngprepare' and 'asciih' tools borrowed from mega65-ide project
 # --------------------------------------------------
@@ -88,7 +104,7 @@ pngprepare: pngprepare.c
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
 # --------------------------------------------------
 
-gidemo.prg: $(ASSFILES) gidemo.cfg
+gidemo.prg: data.reu $(ASSFILES) gidemo.cfg
 	$(CL65) $(COPTS) $(LOPTS) -vm -l gidemo.list -m gidemo.map -Ln gidemo.lbl -o gidemo.prg $(ASSFILES)
 
 gidemo.d64: gidemo.prg

@@ -63,7 +63,7 @@ DATAFILES= \
 
 BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
 SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)
-
+ID_NAMES=`echo $(DATAFILES:.bin=,) | tr [a-z] [A-Z]`
 
 all: gidemo.d64 data.reu
 
@@ -82,14 +82,14 @@ data.reu: $(DATAFILES)
 	rm -f bitmap_ids.h
 	# create a 'bitmap_ids.h' file to list ids for all bitmaps
 	echo "enum BMP_IDS {" > bitmap_ids.h
-	ls -1 *.bin | sed "s/.bin/,/" | tr [a-z] [A-Z] >> bitmap_ids.h
+	echo $(ID_NAMES) | sed "s/ /\n/g" >> bitmap_ids.h
 	echo "BMP_MAX" >> bitmap_ids.h
 	echo "};" >> bitmap_ids.h
 	# bulk bitmap_meta.bin file will reside in c64 memory, at 0x1000
 	cat $(BMP_META_FILES) > bmp_meta.bin
 	# reu bank 0 is segment data
 	cat $(SEGS_META_FILES) > data.reu
-	dd if=/dev/zero of=data.reu bs=1 count=1 seek=65536
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=65535
 	# reu bank 1 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215

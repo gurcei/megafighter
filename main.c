@@ -452,7 +452,7 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 {
   unsigned char k, num;
   reu_row_segment* seg;
-  unsigned int screen_loc;
+  unsigned int screen_loc, len;
   unsigned long bmp_data_loc;
 
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
@@ -467,9 +467,21 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
   bmp_data_loc = 0x00010000; // reu bank 1 contains bitmap data
   for (k = 0; k < num; k++)
   {
+    len = seg->length << 3;
     screen_loc += seg->reloffset;
-    reu_simple_copy(0x2000 + posx*8 + posy*40*8, bmp_data_loc, seg->length);
-    bmp_data_loc += seg->length*8;
+
+    reu_simple_copy(screen_loc, bmp_data_loc, len);
+
+  //printf("%d - %d - %lu\n", seg->reloffset, screen_loc, bmp_data_loc);
+  //if (k == 1)
+  //{
+  //while(1)
+  //  ;
+  //}
+
+    bmp_data_loc += len;
+    screen_loc += len;
+    seg++;
   }
 }
 
@@ -482,7 +494,7 @@ void game_title(void)
   unsigned char key;
 
   //draw_anim_frame(TITLE, 0, 0, 25);
-  draw_bitmap(TITLE, 0, 25);
+  draw_bitmap(TITLE, 0, 0);
   // TODO: draw title screen via new segmented bitmap technique...
   // ...need to locate segged_bitmap array at 0x1000
   // ...that are should match the content of the "bmp_meta.bin" file

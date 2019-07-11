@@ -519,7 +519,8 @@ void process_file(int mode, char *outputfilename)
           for (int xd=0; xd<8; xd++) {
             png_byte* ptr = &(row[(x+xd)*multiplier]);
             // check if it's a transparent pixel
-            if (y+yd>= height || (ptr[0] == 112 && ptr[1] == 136 && ptr[2] == 136))
+            if (y+yd>= height || (ptr[0] == 112 && ptr[1] == 136 && ptr[2] == 136)
+              || (ptr[0] == 128 && ptr[1] == 128 && ptr[2] == 128))
             {
               transparent_count++;
             }

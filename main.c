@@ -42,6 +42,9 @@ unsigned char punch_style = FIRST_ATTACK;
 unsigned int anim_ryu_idle[] = { RYU_IDLE2, RYU_IDLE3, RYU_IDLE4 };
 unsigned int anim_ryu_walk[] = { RYU_WALK1, RYU_WALK2, RYU_WALK3, RYU_WALK4, RYU_WALK5, RYU_WALK6, RYU_WALK7, RYU_WALK8 };
 unsigned int anim_ryu_walkb[] = { RYU_WALK8, RYU_WALK7, RYU_WALK6, RYU_WALK5, RYU_WALK4, RYU_WALK3, RYU_WALK2, RYU_WALK1 };
+unsigned int anim_ryu_jump[] = { RYU_JUMP2, RYU_JUMP3, RYU_JUMP4 };
+unsigned int anim_ryu_fjump[] = { RYU_FJUMP2, RYU_FJUMP3, RYU_FJUMP4, RYU_FJUMP5, RYU_FJUMP6, RYU_FJUMP7 };
+unsigned int anim_ryu_crouchblock[] = { RYU_CROUCH1, RYU_CROUCH2, RYU_BLOCK1, RYU_BLOCK2 };
 
 typedef struct
 {
@@ -61,9 +64,9 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_idle,  3, 1, 7,  14 }, // RYU_IDLE
   { anim_ryu_walk,  8, 0, 8,  14 }, // RYU_WALK
   { anim_ryu_walkb,  8, 0, 8,  14 }, // RYU_WALKB
-  { 0,  4, 1, 7,  14 }, // RYU_JUMP
-  { 0,  7, 0, 10, 14 }, // RYU_FJUMP
-  { 0,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
+  { anim_ryu_jump,  4, 1, 7,  14 }, // RYU_JUMP
+  { anim_ryu_fjump,  7, 0, 10, 14 }, // RYU_FJUMP
+  { anim_ryu_crouchblock,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
   { 0,  3, 0, 8, 15 },  // RYU_LPUNCH
   { 0,  3, 1, 10, 15 }, // RYU_MHPUNCH
   { 0,  3, 1, 7, 15 },  // RYU_FLPUNCH

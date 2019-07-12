@@ -584,8 +584,8 @@ void process_file(int mode, char *outputfilename)
       {
         found_start = 0;
         seg_cnt++;
-        rowsegs[seg_cnt].reloffset += (40*8 - ((width+7)/8)*8);
       }
+      rowsegs[seg_cnt].reloffset += (40*8 - ((width+7)/8)*8);
     } // end for y
 
     seggedbmp.num_segments = seg_cnt;

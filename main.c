@@ -35,7 +35,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK RYU_SHOULDERTOSS // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -45,6 +45,11 @@ unsigned int anim_ryu_walkb[] = { RYU_WALK8, RYU_WALK7, RYU_WALK6, RYU_WALK5, RY
 unsigned int anim_ryu_jump[] = { RYU_JUMP2, RYU_JUMP3, RYU_JUMP4 };
 unsigned int anim_ryu_fjump[] = { RYU_FJUMP2, RYU_FJUMP3, RYU_FJUMP4, RYU_FJUMP5, RYU_FJUMP6, RYU_FJUMP7 };
 unsigned int anim_ryu_crouchblock[] = { RYU_CROUCH1, RYU_CROUCH2, RYU_BLOCK1, RYU_BLOCK2 };
+unsigned int anim_ryu_lpunch[] = { RYU_LPUNCH1, RYU_LPUNCH2, RYU_LPUNCH3 };
+unsigned int anim_ryu_mhpunch[] = { RYU_MHPUNCH1, RYU_MHPUNCH2, RYU_MHPUNCH3 };
+unsigned int anim_ryu_flpunch[] = { RYU_FLPUNCH1, RYU_FLPUNCH2, RYU_FLPUNCH3 };
+unsigned int anim_ryu_fmpunch[] = { RYU_FMPUNCH1, RYU_FMPUNCH2, RYU_FMPUNCH3, RYU_FMPUNCH4 };
+unsigned int anim_ryu_fhpunch[] = { RYU_FHPUNCH1, RYU_FHPUNCH2, RYU_FHPUNCH3, RYU_FHPUNCH4 };
 
 typedef struct
 {
@@ -64,14 +69,14 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_idle,  3, 1, 7,  14 }, // RYU_IDLE
   { anim_ryu_walk,  8, 0, 8,  14 }, // RYU_WALK
   { anim_ryu_walkb,  8, 0, 8,  14 }, // RYU_WALKB
-  { anim_ryu_jump,  4, 1, 7,  14 }, // RYU_JUMP
+  { anim_ryu_jump,  3, 1, 7,  14 }, // RYU_JUMP
   { anim_ryu_fjump,  7, 0, 10, 14 }, // RYU_FJUMP
   { anim_ryu_crouchblock,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
-  { 0,  3, 0, 8, 15 },  // RYU_LPUNCH
-  { 0,  3, 1, 10, 15 }, // RYU_MHPUNCH
-  { 0,  3, 1, 7, 15 },  // RYU_FLPUNCH
-  { 0,  4, 1, 8, 15 },  // RYU_FMPUNCH
-  { 0,  4, 1, 8, 15 },  // RYU_FHPUNCH
+  { anim_ryu_lpunch,  3, 0, 8, 15 },  // RYU_LPUNCH
+  { anim_ryu_mhpunch,  3, 1, 10, 15 }, // RYU_MHPUNCH
+  { anim_ryu_flpunch,  3, 1, 7, 15 },  // RYU_FLPUNCH
+  { anim_ryu_fmpunch,  4, 1, 8, 15 },  // RYU_FMPUNCH
+  { anim_ryu_fhpunch,  4, 1, 8, 15 },  // RYU_FHPUNCH
   { 0,  2, 1, 9, 17 },  // RYU_LMKICK
   { 0,  5, 0, 10, 17 }, // RYU_HKICK
   { 0,  2, 1, 10, 17 }, // RYU_FLKICK
@@ -195,19 +200,26 @@ void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
   }
 }
  
-unsigned int base = 2*4096;
+unsigned int vicbase = 0x0000;
+unsigned int draw_page = 0;
 
 void clear_screen(void)
 {
   unsigned int i;
   // Clear bitmap
-  for (i = base; i < base+8000; i++)
+  for (i = vicbase+0x2000; i < vicbase+0x2000+8000; i++)
   {
     Poke(i, 0x00);
   }
 
   // Set bitmap colours
-  for (i = 1024; i < 2024; i++)
+  for (i = vicbase+1024; i < vicbase+2024; i++)
+  {
+    Poke(i, (0 << 4) + 1);  // black and white
+  }
+  //
+  // Set bitmap colours
+  for (i = vicbase+0x4000+1024; i < vicbase+0x4000+2024; i++)
   {
     Poke(i, (0 << 4) + 1);  // black and white
   }
@@ -331,9 +343,9 @@ void get_keyboard_input(void)
     }
   } // end if
 
-  Poke(8192L, walkingright);
-  Poke(8193L, walkingback);
-  Poke(8194L, jumping);
+  //Poke(8192L, walkingright);
+  //Poke(8193L, walkingback);
+  //Poke(8194L, jumping);
 }
 
 // returns 1 = skip next animation step
@@ -453,7 +465,7 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 
   seg = (reu_row_segment*)0x1800;
 
-  screen_loc = 0x2000 + posx*8 + posy*40*8;
+  screen_loc = vicbase+0x2000 + posx*8 + posy*40*8;
   bmp_data_loc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
   for (k = 0; k < num; k++)
   {
@@ -477,7 +489,7 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 
 void draw_anim_frame(unsigned char anim, unsigned char frame, unsigned char posx, unsigned char posy)
 {
-  draw_bitmap(anims[anim].frames[frame], 0, 0);
+  draw_bitmap(anims[anim].frames[frame], posx, 13);
   // reu_copy(0x2000 + posx*8 + (posy - anims[anim].rows)*40*8,
   //   anims[anim].reu_loc + frame * anims[anim].frame_size,
   //   anims[anim].cols*8, anims[anim].rows);
@@ -516,8 +528,10 @@ void game_title(void)
 
       clear_screen();
       //draw_anim_frame(RYU_MUGSHOT, 1, 20, 15);
-      draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
       //draw_anim_frame(RYU_STAGE_CROPPED, 0, 0, 25);
+
+      vicbase=0x4000;
+      draw_page = 1;
 
       gamestate = GAME_MAIN;
       return;
@@ -538,11 +552,15 @@ void game_main(void)
   unsigned int i, k;
 
   get_keyboard_input();
+  
+  // draw scenery first
+  draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+
   for (i = 0; i < SPR_MAX; i++)
   {
     if (sprites[i].visible)
     {
-  draw_bitmap(anims[sprites[i].anim].frames[sprites[i].anim_idx], 0, 0);
+  draw_bitmap(anims[sprites[i].anim].frames[sprites[i].anim_idx], sprites[i].posx, 10);
   // reu_copy(0x2000 + posx*8 + (posy - anims[anim].rows)*40*8,
   //   anims[anim].reu_loc + frame * anims[anim].frame_size,
   //   anims[anim].cols*8, anims[anim].rows);
@@ -558,8 +576,24 @@ void game_main(void)
     }
   }
 
+  // perform page flip
+  if (draw_page == 0)
+  {
+    Poke(56578L, Peek(56578L) | 3); // set bits0+1 to be output bits (to permit bank selection)
+    Poke(56576L, (Peek(56576L) & 252) + 3); // select bank 0
+    vicbase=0x4000;
+    draw_page = 1;
+  }
+  else
+  {
+    Poke(56578L, Peek(56578L) | 3); // set bits0+1 to be output bits (to permit bank selection)
+    Poke(56576L, (Peek(56576L) & 252) + 2); // select bank 1
+    vicbase=0x0000;
+    draw_page = 0;
+  }
+
   // add a delay
-  for (k=0; k < 1000; k++)
+  for (k=0; k < 500; k++)
     ;
 }
 
@@ -570,6 +604,10 @@ void main(void)
   reu_row_segment* seg;
 
   Poke(53280L,0);
+
+  // Select Bank1 for bitmap pages
+  //Poke(56578, Peek(56578) | 3); // make sure CIA bits 0+1 are set to outputs (DDR)
+  //Poke(56576, (Peek(56576) & 252) | 2); // change to vic bank1 ($4000-$7fff)
 
   // Put bitmap at 8192
   Poke(53272L, Peek(53272L) | 8);

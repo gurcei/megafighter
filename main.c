@@ -552,7 +552,7 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
       {
         tmp = Peek(screen_loc);
         tmp &= repair->vals[(l<<1)+1];
-        tmp |= repair->vals[(l<<1)];
+        tmp |= (repair->vals[(l<<1)] & ~repair->vals[(l<<1)+1]);
         Poke(screen_loc, tmp);
         screen_loc++;
       }

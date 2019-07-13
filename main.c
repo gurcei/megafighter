@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "bitmap_ids.h"
 
 #define Poke(A,X)  (*(unsigned char *)(A)) = (X)
@@ -109,7 +111,7 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_crouchblock,  4, 0, 7, 14 },  // RYU_CROUCHBLOCK
   { anim_ryu_lpunch,  3, 0, 8, 15 },  // RYU_LPUNCH
   { anim_ryu_mhpunch,  3, 1, 10, 15 }, // RYU_MHPUNCH
-  { anim_ryu_flpunch,  3, 1, 7, 15 },  // RYU_FLPUNCH
+  { anim_ryu_flpunch,  3, 0, 7, 15 },  // RYU_FLPUNCH
   { anim_ryu_fmpunch,  4, 1, 8, 15 },  // RYU_FMPUNCH
   { anim_ryu_fhpunch,  4, 1, 8, 15 },  // RYU_FHPUNCH
   { anim_ryu_lmkick,  2, 1, 9, 17 },  // RYU_LMKICK
@@ -180,9 +182,16 @@ typedef struct
   unsigned char num_segments;
   unsigned int start_segment_idx;   // NOTE: reu_loc for segment metadata = start_segment_idx * sizeof(reu_row_segment)
               // NOTE: this might have to be a relative value, and I make it absolute at run-time
+  unsigned char num_repairs;  // how many repair chars are needed for this bitmap
   unsigned long reu_ptr;  // pointer to reu-memory for the data for the first row-segment (for the next segment, it'll be adjecent to this one in reu memory)
 												// I might have to leave this last field empty (relocatable?) and fill it in at run-time, depending on the ordering of all the objects
 } reu_segged_bmp_obj;
+
+typedef struct
+{
+  unsigned int reloffset;    // this is the byte-offset starting from the top-left corner of the object, but will increment per row_segment
+  unsigned char vals[16];     // 0=bmpval0, 1=maskval0, 2=bmpval1, 3=maskval1, etc...
+} reu_repair_obj;
 
 reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
 
@@ -487,39 +496,70 @@ unsigned char post_draw_processing(unsigned char sprite)
 
 void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 {
-  unsigned char k, num;
+  unsigned char k, l, num, tmp;
   reu_row_segment* seg;
   unsigned int screen_loc, len;
   unsigned long bmp_data_loc;
+  reu_repair_obj *repair;
 
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
-  // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
-  reu_simple_copy(0x1800, 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment), segbmps[frame].num_segments*sizeof(reu_row_segment));
-
-  seg = (reu_row_segment*)0x1800;
-
   screen_loc = vicbase+0x2000 + posx*8 + posy*40*8;
   bmp_data_loc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
-  for (k = 0; k < num; k++)
+
+  // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
+  if (num > 0)
   {
-    len = seg->length << 3;
-    screen_loc += seg->reloffset;
+    reu_simple_copy(0x1800, 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment), segbmps[frame].num_segments*sizeof(reu_row_segment));
 
-    reu_simple_copy(screen_loc, bmp_data_loc, len);
+    seg = (reu_row_segment*)0x1800;
 
-  //printf("%d - %d - %lu\n", seg->reloffset, screen_loc, bmp_data_loc);
-  //if (k == 1)
-  //{
-  //while(1)
-  //  ;
-  //}
+    for (k = 0; k < num; k++)
+    {
+      len = seg->length << 3;
+      screen_loc += seg->reloffset;
 
-    bmp_data_loc += len;
-    screen_loc += len;
-    seg++;
+      reu_simple_copy(screen_loc, bmp_data_loc, len);
+
+    //printf("%d - %d - %lu\n", seg->reloffset, screen_loc, bmp_data_loc);
+    //if (k == 1)
+    //{
+    //while(1)
+    //  ;
+    //}
+
+      bmp_data_loc += len;
+      screen_loc += len;
+      seg++;
+    } // end for k
+
   }
+
+  // draw repairs
+  if (segbmps[frame].num_repairs > 0)
+  {
+    screen_loc = vicbase+0x2000 + posx*8 + posy*40*8;
+
+    // copy across repair data to temp memory
+    reu_simple_copy(0x1800, bmp_data_loc, segbmps[frame].num_repairs*18);
+    repair = (reu_repair_obj*)0x1800;
+    for (k = 0; k < segbmps[frame].num_repairs; k++)
+    {
+      screen_loc += repair->reloffset;
+
+      for (l = 0; l < 8; l++)
+      {
+        tmp = Peek(screen_loc);
+        tmp &= repair->vals[(l<<1)+1];
+        tmp |= repair->vals[(l<<1)];
+        Poke(screen_loc, tmp);
+        screen_loc++;
+      }
+      repair++;
+      screen_loc -= 8;
+    } // end for
+  } // end if
 }
 
 void calc_absolute_addresses(void)
@@ -619,9 +659,12 @@ void game_main(void)
     draw_page = 0;
   }
 
+  //if (anims[sprites[i].anim].frames[sprites[i].anim_idx]== RYU_IDLE2)
+  //  exit(0);
+
   // add a delay
-  for (k=0; k < 500; k++)
-    ;
+  //for (k=0; k < 500; k++)
+  //  ;
 }
 
 void main(void)
@@ -658,14 +701,27 @@ void main(void)
     segbmps[i].start_segment_idx = seg_idx;
     segbmps[i].reu_ptr = loc;
 
+    //Poke(0x400L+i, 0);
+    //if (i == 112)
+    //{
+    //  Poke(0x400L, segbmps[i].num_segments);
+    //  PokeW(0x401L, &segbmps[i]);
+    //  return;
+    //}
+
     // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
-    reu_simple_copy(0x1800, 0x0000 + seg_idx*sizeof(reu_row_segment), segbmps[i].num_segments*sizeof(reu_row_segment));
-    seg = (reu_row_segment*)0x1800;
-    for (j = 0; j < segbmps[i].num_segments; j++)
+    if (segbmps[i].num_segments > 0)
     {
-      loc += (seg[j].length << 3);
+      reu_simple_copy(0x1800, 0x0000 + seg_idx*sizeof(reu_row_segment), segbmps[i].num_segments*sizeof(reu_row_segment));
+
+      seg = (reu_row_segment*)0x1800;
+      for (j = 0; j < segbmps[i].num_segments; j++)
+      {
+        loc += (seg[j].length << 3);
+      }
+      loc += segbmps[i].num_repairs * 18; // 18 = sizeof(reu_repair_obj)
+      seg_idx += segbmps[i].num_segments; // get this ready for the next segged bmp
     }
-    seg_idx += segbmps[i].num_segments; // get this ready for the next segged bmp
   }
 
   while(1)

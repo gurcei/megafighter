@@ -120,7 +120,7 @@ void read_png_file(char* file_name)
 
 typedef struct
 {
-  unsigned short reloffset;    // this is the byte-offset starting from the top-right corner of the object, but will increment per row_segment
+  unsigned short reloffset;    // this is the byte-offset starting from the top-left corner of the object, but will increment per row_segment
   unsigned char length;    // the number of length in chars for this row segment
 } reu_row_segment;
 
@@ -128,16 +128,24 @@ typedef struct
 {
   unsigned char num_segments;
   unsigned short start_segment_idx;   // NOTE: reu_loc for segment metadata = start_segment_idx * sizeof(reu_row_segment)
+  unsigned char num_repairs;  // how many repair chars are needed for this bitmap
               // NOTE: this might have to be a relative value, and I make it absolute at run-time
   unsigned int reu_ptr;  // pointer to reu-memory for the data for the first row-segment (for the next segment, it'll be adjecent to this one in reu memory)
 												// I might have to leave this last field empty (relocatable?) and fill it in at run-time, depending on the ordering of all the objects
 } reu_segged_bmp_obj;
 
+typedef struct
+{
+  unsigned short reloffset;    // this is the byte-offset starting from the top-left corner of the object, but will increment per row_segment
+  unsigned char vals[16];     // 0=bmpval0, 1=maskval0, 2=bmpval1, 3=maskval1, etc...
+} reu_repair_obj;
 
 #define MAX_SEGS 1000
 
 unsigned short seg_cnt = 0;
+unsigned char repair_cnt = 0;
 reu_row_segment rowsegs[MAX_SEGS] = { 0 };
+reu_repair_obj repairs[MAX_SEGS] = { 0 };
 reu_segged_bmp_obj seggedbmp = { 0 };
 
 #pragma pack(pop)
@@ -499,16 +507,16 @@ void process_file(int mode, char *outputfilename)
 
   if (mode==5)  // mode == gihires2
   {
-    unsigned int transparent = (112 << 16) + (136 << 8) + 136;
-
     unsigned char found_start = 0;
     unsigned char charbytes[8];
 
     reu_row_segment* curseg = NULL;
+    reu_repair_obj* currepair = &(repairs[0]);
 
     for (y=0; y<height; y += 8) {
       for (x=0; x<width; x += 8) {
 
+      unsigned char maskbytes[8] = { 0 };
       int transparent_count = 0;
       curseg = &(rowsegs[seg_cnt]);
 
@@ -523,6 +531,7 @@ void process_file(int mode, char *outputfilename)
               || (ptr[0] == 128 && ptr[1] == 128 && ptr[2] == 128))
             {
               transparent_count++;
+              maskbytes[yd] |= 1 << (7 - xd);
             }
             if (y+yd < height)
             {
@@ -562,14 +571,31 @@ void process_file(int mode, char *outputfilename)
             curseg->reloffset += 8;
           }
         }
-        // else if (transparent_count > 0)
-        //{
-        //  TODO: In future, this should spawn a 'mask' character, instead of
-        //        being part of the segment
-        //}
+        else if (transparent_count > 16)
+        {
+          if (found_start)
+          {
+            found_start = 0;
+            seg_cnt++;
+            rowsegs[seg_cnt].reloffset += 8;
+          }
+          else
+          {
+            curseg->reloffset += 8;
+          }
+          //  spawn a 'mask' repair character, instead of
+          //        being part of the segment
+          // currepair->reloffset should be already set
+          for (int l = 0; l < 8; l++)
+          {
+            currepair->vals[l*2] = charbytes[l];
+            currepair->vals[l*2+1] = maskbytes[l];
+          }
+          currepair++;
+          repair_cnt++;
+        }
         else
         {
-          // TODO: I might need to catch the very last byte in the bitmap in this part too?
           if (!found_start)
             found_start = 1;
           // this is a non-transparent character, to let's save this data to the file
@@ -577,6 +603,7 @@ void process_file(int mode, char *outputfilename)
             charbytes[3], charbytes[4], charbytes[5], charbytes[6], charbytes[7]);
           curseg->length++;
         }
+        currepair->reloffset += 8;
       } // end for x
 
       // if we finished this line and we're mid-segment, lets move to next segment
@@ -586,9 +613,17 @@ void process_file(int mode, char *outputfilename)
         seg_cnt++;
       }
       rowsegs[seg_cnt].reloffset += (40*8 - ((width+7)/8)*8);
+      currepair->reloffset += (40*8 - ((width+7)/8)*8);
     } // end for y
 
     seggedbmp.num_segments = seg_cnt;
+    seggedbmp.num_repairs = repair_cnt;
+
+    // write the extra repair info to the main graphic data file
+    for (int k = 0; k < seggedbmp.num_repairs; k++)
+    {
+      fwrite(&(repairs[k]), sizeof(reu_repair_obj), 1, outfile);
+    }
 
     // write the meta files
     FILE *bmp_meta;
@@ -606,6 +641,7 @@ void process_file(int mode, char *outputfilename)
 
     printf("num_segments = %d\n", seggedbmp.num_segments);
     printf("segs-size = %d\n", sizeof(reu_row_segment));
+    printf("num_repairs = %d\n", seggedbmp.num_repairs);
 
     fclose(bmp_meta);
     fclose(segs_meta);

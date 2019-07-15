@@ -719,9 +719,9 @@ void main(void)
       {
         loc += (seg[j].length << 3);
       }
-      loc += segbmps[i].num_repairs * 18; // 18 = sizeof(reu_repair_obj)
       seg_idx += segbmps[i].num_segments; // get this ready for the next segged bmp
     }
+    loc += segbmps[i].num_repairs * 18; // 18 = sizeof(reu_repair_obj)
   }
 
   while(1)

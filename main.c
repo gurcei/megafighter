@@ -121,6 +121,33 @@ anim_movement ryu_anim_jump =
   ryu_jump_frame
 };
 
+char ryu_fjump_relx[]  = {  1,  1,  1,  1,  1,  1, 1, 1, 1, 1 };
+char ryu_fjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
+char ryu_fjump_frame[] = {  0,  1,  1,  2,  2,  3, 3, 4, 5, 6 };
+
+anim_movement ryu_anim_fjump =
+{
+  0,
+  10,
+  ryu_fjump_relx,
+  ryu_fjump_rely,
+  ryu_fjump_frame
+};
+
+char ryu_bjump_relx[]  = {  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1 };
+char ryu_bjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
+char ryu_bjump_frame[] = {  6,  5,  4,  3,  3,  2, 2, 1, 1, 0 };
+
+anim_movement ryu_anim_bjump =
+{
+  0,
+  10,
+  ryu_bjump_relx,
+  ryu_bjump_rely,
+  ryu_bjump_frame
+};
+
+
 typedef struct
 {
   //unsigned long reu_loc;
@@ -397,11 +424,30 @@ void get_keyboard_input(void)
       jumping = 1;
       walkingright = 0; // TODO: consider how far we've walked in deciding where to jump
       walkingback = 0;
-      sprites[0].anim = RYU_JUMP;
-      sprites[0].anim_idx = 0;
-      sprites[0].anim_dir = 1;
-      sprites[0].anim_movement = &ryu_anim_jump;
-      sprites[0].anim_movement->anim_idx = 0;
+      if (key & 8) // are we walking right too?
+      {
+        sprites[0].anim = RYU_FJUMP;
+        sprites[0].anim_idx = 0;
+        sprites[0].anim_dir = 1;
+        sprites[0].anim_movement = &ryu_anim_fjump;
+        sprites[0].anim_movement->anim_idx = 0;
+      }
+      else if (key & 4) // left jump?
+      {
+        sprites[0].anim = RYU_FJUMP;
+        sprites[0].anim_idx = 0;
+        sprites[0].anim_dir = 1;
+        sprites[0].anim_movement = &ryu_anim_bjump;
+        sprites[0].anim_movement->anim_idx = 0;
+      }
+      else
+      {
+        sprites[0].anim = RYU_JUMP;
+        sprites[0].anim_idx = 0;
+        sprites[0].anim_dir = 1;
+        sprites[0].anim_movement = &ryu_anim_jump;
+        sprites[0].anim_movement->anim_idx = 0;
+      }
       //vely=-6 << 5;
     }
     if (key & 2 && !jumping && !walkingback && !walkingright)

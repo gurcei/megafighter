@@ -362,7 +362,7 @@ void get_keyboard_input(void)
     if (key & 4 && !walkingback && !walkingright && !jumping) // left
     {
       walkingback = 1;
-      sprites[0].posx -= 2;
+      sprites[0].posx -= 3;
       sprites[0].anim = RYU_WALKB;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
@@ -402,7 +402,7 @@ unsigned char post_draw_processing(unsigned char sprite)
     if (walkingright && sprites[0].anim_idx==7)
     {
       walkingright=0;
-      sprites[0].posx += 2;
+      sprites[0].posx += 3;
       sprites[0].anim = RYU_IDLE;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;

@@ -495,16 +495,16 @@ unsigned char post_draw_processing(unsigned char sprite)
 }
 
 unsigned int screen_loc;
-unsigned char a, b;
+unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
+reu_repair_obj *repair;
 
 void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 {
-  unsigned char k, l, num, tmp, num_repairs;
+  unsigned char k, l, num;
   reu_row_segment* seg;
   unsigned int len;
   unsigned long bmp_data_loc;
-  reu_repair_obj *repair;
 
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
@@ -549,22 +549,93 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
     // copy across repair data to temp memory
     reu_simple_copy(0x1800, bmp_data_loc, num_repairs*18);
     repair = (reu_repair_obj*)0x1800;
-    for (k = 0; k < num_repairs; k++)
+    for (gk = 0; gk < num_repairs; gk++)
     {
       screen_loc += repair->reloffset;
 
       ptr = &(repair->vals[0]);
-      for (l = 0; l < 8; l++)
+      //for (l = 0; l < 8; l++)
       {
-        tmp = Peek(screen_loc);
+        gtmp = Peek(screen_loc);
         a = *(ptr);
         ptr++;
         b = *(ptr);
         ptr++;
-        tmp &= b;
-        tmp |= (a & ~b);
-        Poke(screen_loc, tmp);
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
         screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
+        gtmp = Peek(screen_loc);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        gtmp &= b;
+        gtmp |= (a & ~b);
+        Poke(screen_loc, gtmp);
+        screen_loc++;
+        // --------------
       }
       repair++;
       screen_loc -= 8;

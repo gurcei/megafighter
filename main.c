@@ -50,7 +50,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK  RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK  RYU_SHOURYUKEN // RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -147,6 +147,18 @@ anim_movement ryu_anim_bjump =
   ryu_bjump_frame
 };
 
+char ryu_shouryuken_relx[]  = {  0,  0,  1,  1,  1,  1,  0,  0,  0, 0, 0, 0, 0 };
+char ryu_shouryuken_rely[]  = {  0,  0,  0,  0, -1, -2, -1, -1,  1, 1, 2, 1, 0 };
+char ryu_shouryuken_frame[] = {  0,  1,  2,  3,  3,  4,  4,  5,  5, 6, 6, 6, 7 };
+
+anim_movement ryu_anim_shouryuken =
+{
+  0,
+  13,
+  ryu_shouryuken_relx,
+  ryu_shouryuken_rely,
+  ryu_shouryuken_frame
+};
 
 typedef struct
 {
@@ -343,7 +355,7 @@ void animate_sprite(sprite_detail* spr)
     spr->anim_movement->anim_idx++;
 
     // test for end of jump (probably not the nicest place to put this, but it'll do)
-    if (jumping && spr->anim_movement->anim_idx == spr->anim_movement->anim_length)
+    if (spr->anim_movement->anim_idx == spr->anim_movement->anim_length)
     {
       jumping=0;
       spr->anim = RYU_IDLE;
@@ -412,12 +424,19 @@ void get_keyboard_input(void)
     {
       firedown=1;
       punching=1;
+
+      if (punch_style == RYU_SHOURYUKEN)
+      {
+        sprites[0].anim_movement = &ryu_anim_shouryuken;
+        sprites[0].anim_movement->anim_idx = 0;
+      }
+
       sprites[0].anim = punch_style;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
       punch_style++;
-      if (punch_style == RYU_MAX)
-        punch_style = RYU_LPUNCH;
+      if (punch_style == RYU_SHOURYUKEN+1)
+        punch_style = RYU_SHOURYUKEN;
     }
     if (key & 1 && !jumping) // up
     {
@@ -524,7 +543,7 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[1].posy = sprites[0].posy - 4;
     }
 
-    if (punching)
+    if (punching && !sprites[0].anim_movement)
     {
       if (anims[sprites[0].anim].pingpong)
       {

@@ -494,11 +494,15 @@ unsigned char post_draw_processing(unsigned char sprite)
   return 0;
 }
 
+unsigned int screen_loc;
+unsigned char a, b;
+unsigned char* ptr;
+
 void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 {
-  unsigned char k, l, num, tmp;
+  unsigned char k, l, num, tmp, num_repairs;
   reu_row_segment* seg;
-  unsigned int screen_loc, len;
+  unsigned int len;
   unsigned long bmp_data_loc;
   reu_repair_obj *repair;
 
@@ -537,22 +541,28 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
   }
 
   // draw repairs
-  if (segbmps[frame].num_repairs > 0)
+  num_repairs = segbmps[frame].num_repairs;
+  if (num_repairs > 0)
   {
     screen_loc = vicbase+0x2000 + posx*8 + posy*40*8;
 
     // copy across repair data to temp memory
-    reu_simple_copy(0x1800, bmp_data_loc, segbmps[frame].num_repairs*18);
+    reu_simple_copy(0x1800, bmp_data_loc, num_repairs*18);
     repair = (reu_repair_obj*)0x1800;
-    for (k = 0; k < segbmps[frame].num_repairs; k++)
+    for (k = 0; k < num_repairs; k++)
     {
       screen_loc += repair->reloffset;
 
+      ptr = &(repair->vals[0]);
       for (l = 0; l < 8; l++)
       {
         tmp = Peek(screen_loc);
-        tmp &= repair->vals[(l<<1)+1];
-        tmp |= (repair->vals[(l<<1)] & ~repair->vals[(l<<1)+1]);
+        a = *(ptr);
+        ptr++;
+        b = *(ptr);
+        ptr++;
+        tmp &= b;
+        tmp |= (a & ~b);
         Poke(screen_loc, tmp);
         screen_loc++;
       }

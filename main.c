@@ -9,6 +9,19 @@
 #define PeekW(A)   (*(unsigned int *)(A))
 
 // ================================
+// GLOBALS
+// ================================
+unsigned int screen_loc;
+unsigned char a, b, gk, gtmp, num_repairs;
+unsigned char* ptr;
+
+unsigned char firedown=0;
+unsigned char jumping=0;
+unsigned char walkingright=0;
+unsigned char walkingback=0;
+unsigned char crouching=0;
+unsigned char punching=0;
+
 
 enum anim_ids
 {
@@ -86,7 +99,27 @@ unsigned int anim_ryu_victory[] = { RYU_VICTORY1, RYU_VICTORY2, RYU_VICTORY3 };
 unsigned int anim_ryu_victoryalt[] = { RYU_VICTORYALT1, RYU_VICTORYALT2, RYU_VICTORYALT3, RYU_VICTORYALT4, RYU_VICTORYALT5, RYU_VICTORYALT6, RYU_VICTORYALT7 };
 unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
 
+typedef struct
+{
+  unsigned char anim_idx;
+  unsigned char anim_length;
+  char *relx;
+  char *rely;
+  unsigned char *frame;
+} anim_movement;
 
+char ryu_jump_relx[]  = {  0,  0,  0,  0,  0,  0, 0, 0, 0, 0 };
+char ryu_jump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
+char ryu_jump_frame[] = {  0,  0,  1,  1,  2,  2, 1, 1, 0, 0 };
+
+anim_movement ryu_anim_jump =
+{
+  0,
+  10,
+  ryu_jump_relx,
+  ryu_jump_rely,
+  ryu_jump_frame
+};
 
 typedef struct
 {
@@ -156,14 +189,15 @@ typedef struct
   unsigned char anim_idx;
   unsigned char anim_dir;
   unsigned char visible;
+  anim_movement *anim_movement;
 } sprite_detail;
 
 #define SPR_MAX 2
 
 sprite_detail sprites[SPR_MAX] =
 {
-  { 4,  23,  RYU_IDLE, 0, 1, 1 },
-  { 10, 15,  RYU_HADPROJ_START, 0, 1, 0 },
+  { 4,  23,  RYU_IDLE, 0, 1, 1, NULL },
+  { 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL },
 
 /*  { 7,  0,  RYU_WALK, 0, 1 },
   { 14, 0,  RYU_JUMP, 0, 1 },
@@ -194,6 +228,8 @@ typedef struct
 } reu_repair_obj;
 
 reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
+reu_repair_obj *repair;
+
 
 // ================================
 
@@ -271,6 +307,27 @@ void clear_screen(void)
 
 void animate_sprite(sprite_detail* spr)
 {
+  if (spr->anim_movement)
+  {
+    gk = spr->anim_movement->anim_idx;
+    spr->posx += spr->anim_movement->relx[gk];
+    spr->posy += spr->anim_movement->rely[gk];
+    spr->anim_idx = spr->anim_movement->frame[gk];
+    spr->anim_movement->anim_idx++;
+
+    // test for end of jump (probably not the nicest place to put this, but it'll do)
+    if (jumping && spr->anim_movement->anim_idx == spr->anim_movement->anim_length)
+    {
+      jumping=0;
+      spr->anim = RYU_IDLE;
+      spr->anim_idx = 0;
+      spr->anim_dir = 1;
+      spr->anim_movement = NULL;
+    }
+
+    return;
+  }
+
   if (spr->anim_dir == 1)
   {
     if (spr->anim_idx == anims[spr->anim].frame_count-1)
@@ -297,13 +354,6 @@ void animate_sprite(sprite_detail* spr)
       spr->anim_idx--;
   }
 }
-
-unsigned char firedown=0;
-unsigned char jumping=0;
-unsigned char walkingright=0;
-unsigned char walkingback=0;
-unsigned char crouching=0;
-unsigned char punching=0;
 
 void get_keyboard_input(void)
 {
@@ -350,6 +400,8 @@ void get_keyboard_input(void)
       sprites[0].anim = RYU_JUMP;
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
+      sprites[0].anim_movement = &ryu_anim_jump;
+      sprites[0].anim_movement->anim_idx = 0;
       //vely=-6 << 5;
     }
     if (key & 2 && !jumping && !walkingback && !walkingright)
@@ -416,21 +468,6 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[0].anim_dir = 1;
     }
 
-    if (jumping && sprites[0].anim_idx==0)
-    {
-      if (jumping == 1)
-      {
-        jumping++;
-      }
-      else
-      {
-        jumping=0;
-        sprites[0].anim = RYU_IDLE;
-        sprites[0].anim_idx = 0;
-        sprites[0].anim_dir = 1;
-      }
-    }
-
     // start hadouken projectile?
     if (sprites[0].anim == RYU_HADOUKEN && sprites[0].anim_idx == 4)
     {
@@ -494,14 +531,9 @@ unsigned char post_draw_processing(unsigned char sprite)
   return 0;
 }
 
-unsigned int screen_loc;
-unsigned char a, b, gk, gtmp, num_repairs;
-unsigned char* ptr;
-reu_repair_obj *repair;
-
 void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 {
-  unsigned char k, l, num;
+  unsigned char num;
   reu_row_segment* seg;
   unsigned int len;
   unsigned long bmp_data_loc;
@@ -519,7 +551,7 @@ void draw_bitmap(unsigned char frame, unsigned char posx, unsigned char posy)
 
     seg = (reu_row_segment*)0x1800;
 
-    for (k = 0; k < num; k++)
+    for (gk = 0; gk < num; gk++)
     {
       len = seg->length << 3;
       screen_loc += seg->reloffset;
@@ -653,7 +685,7 @@ void calc_absolute_addresses(void)
 
 enum { GAME_TITLE, GAME_MAIN };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_MAIN;
 
 void game_title(void)
 {

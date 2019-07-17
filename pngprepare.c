@@ -21,6 +21,7 @@
 /* ============================================================= */
 
 int x, y;
+char* orig_fname;
 
 int width, height;
 png_byte color_type;
@@ -149,6 +150,105 @@ reu_repair_obj repairs[MAX_SEGS] = { 0 };
 reu_segged_bmp_obj seggedbmp = { 0 };
 
 #pragma pack(pop)
+
+// writing of png example taken from:
+// http://www.labbookpages.co.uk/software/imgProc/libPNG.html#write
+
+void setRGB(png_byte *ptr, float val)
+{
+	int v = (int)(val * 767);
+	if (v < 0) v = 0;
+	if (v > 767) v = 767;
+	int offset = v % 256;
+
+	if (v<256) {
+		ptr[0] = 0; ptr[1] = 0; ptr[2] = offset;
+	}
+	else if (v<512) {
+		ptr[0] = 0; ptr[1] = offset; ptr[2] = 255-offset;
+	}
+	else {
+		ptr[0] = offset; ptr[1] = 255-offset; ptr[2] = 0;
+	}
+}
+
+int writeImage(char* filename, int width, int height, png_bytep *new_row_pointers, char* title)
+{
+   int code = 0;
+   FILE *fp = NULL;
+   png_structp png_ptr = NULL;
+   png_infop info_ptr = NULL;
+   png_bytep row = NULL;
+
+   // Open file for writing (binary mode)
+   fp = fopen(filename, "wb");
+   if (fp == NULL) {
+      fprintf(stderr, "Could not open file %s for writing\n", filename);
+      code = 1;
+      goto finalise;
+   }
+
+   // Initialize write structure
+   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+   if (png_ptr == NULL) {
+      fprintf(stderr, "Could not allocate write struct\n");
+      code = 1;
+      goto finalise;
+   }
+
+   // Initialize info structure
+   info_ptr = png_create_info_struct(png_ptr);
+   if (info_ptr == NULL) {
+      fprintf(stderr, "Could not allocate info struct\n");
+      code = 1;
+      goto finalise;
+   }
+
+   // Setup Exception handling
+   if (setjmp(png_jmpbuf(png_ptr))) {
+      fprintf(stderr, "Error during png creation\n");
+      code = 1;
+      goto finalise;
+   }
+
+   png_init_io(png_ptr, fp);
+
+   // Write header (8 bit colour depth)
+   png_set_IHDR(png_ptr, info_ptr, width, height,
+         8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+         PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+
+   // Set title
+   if (title != NULL) {
+      png_text title_text;
+      title_text.compression = PNG_TEXT_COMPRESSION_NONE;
+      title_text.key = "Title";
+      title_text.text = title;
+      png_set_text(png_ptr, info_ptr, &title_text, 1);
+   }
+
+   png_write_info(png_ptr, info_ptr);
+
+   // Allocate memory for one row (3 bytes per pixel - RGB)
+   //row = (png_bytep) malloc(3 * width * sizeof(png_byte));
+
+   // Write image data
+   int x, y;
+   for (y=0 ; y<height ; y++) {
+	 	row = new_row_pointers[y];
+      png_write_row(png_ptr, row);
+   }
+
+   // End write
+   png_write_end(png_ptr, NULL);
+
+   finalise:
+   if (fp != NULL) fclose(fp);
+   if (info_ptr != NULL) png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+   if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
+
+   return code;
+}
 
 void process_file(int mode, char *outputfilename)
 {
@@ -647,14 +747,72 @@ void process_file(int mode, char *outputfilename)
     fclose(segs_meta);
   } // end mode==5
 
-}
+  /* ============================ */
 
+  if (mode==6)  // mode == giparallax
+  {
+    // first 30 pixels should be affected by parallax scrolling
+    // furthest away from player shall move the slowest (1 pixel per frame?)
+    // closest to the player shall move the fastest (4 pixels per frame)
+
+   // Allocate memory for new rows (3 bytes per pixel - RGB)
+	png_bytep * new_row_pointers;
+
+	char fname[256];
+
+	for (int k = 0; k < strlen(orig_fname); k++)
+		if (orig_fname[k] == '.') orig_fname[k] = '\0';
+
+  new_row_pointers = (png_bytep*) malloc(sizeof(png_bytep) * height);
+  for (int y=0; y<height; y++)
+	{
+    new_row_pointers[y] = (png_byte*) malloc(png_get_rowbytes(png_ptr,info_ptr));
+	}
+
+		int cnt = 0;
+		for (int iter = -15; iter <= 15; iter++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				png_byte* orig_row = row_pointers[y];
+				png_byte* new_row = new_row_pointers[y];
+				memset(new_row, 0, png_get_rowbytes(png_ptr,info_ptr));
+				double stepsize = (1.0 + 3.0 * (double)y / 29.0) * iter;
+				int istep = (int)stepsize;
+				if (y >= 30)
+				{
+						istep = 4*iter;
+				}
+
+				for (int x = 0; x < width; x++)
+				{
+					int newx = x+istep;
+					if (newx < 0 || newx >= width)
+						continue;
+					
+					png_byte* ptr1 = &(orig_row[(x)*multiplier]);
+					png_byte* ptr2 = &(new_row[(newx)*multiplier]);
+					ptr2[0] = ptr1[0];
+					ptr2[1] = ptr1[1];
+					ptr2[2] = ptr1[2];
+				} // end for x
+			} //end for y
+
+			sprintf(fname, "%s%02d.png", orig_fname, cnt);
+			writeImage(fname, width, height, new_row_pointers, "test");
+			cnt++;
+		} //end iter
+
+  } // end if mode == 6
+}
+;
+ 
 /* ============================================================= */
 
 int main(int argc, char **argv)
 {
   if (argc < 4) {
-    fprintf(stderr,"Usage: program_name <logo|charrom|hires|4sprmulti|gihires> <file_in> <file_out>\n");
+    fprintf(stderr,"Usage: program_name <logo|charrom|hires|4sprmulti|gihires|gihires2|giparallax> <file_in> <file_out> <options\n");
     exit(-1);
   }
 
@@ -666,8 +824,9 @@ int main(int argc, char **argv)
   if (!strcasecmp("4sprmulti",argv[1])) mode=3;
   if (!strcasecmp("gihires",argv[1])) mode=4;
   if (!strcasecmp("gihires2",argv[1])) mode=5;
+  if (!strcasecmp("giparallax", argv[1])) mode=6;
   if (mode==-1) {
-    fprintf(stderr,"Usage: program_name <logo|charrom|hires|4sprmulti|gihires> <file_in> <file_out>\n");
+    fprintf(stderr,"Usage: program_name <logo|charrom|hires|4sprmulti|gihires|gihires2|giparallax> <file_in> <file_out> <options>\n");
     exit(-1);
   }
 
@@ -683,6 +842,8 @@ int main(int argc, char **argv)
 
   printf("Reading %s\n",argv[2]);
   read_png_file(argv[2]);
+
+	orig_fname = argv[2];
 
   printf("Processing with mode=%d and output=%s\n", mode, argv[3]);
   process_file(mode,argv[3]);

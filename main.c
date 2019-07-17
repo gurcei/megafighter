@@ -21,7 +21,7 @@ unsigned char walkingright=0;
 unsigned char walkingback=0;
 unsigned char crouching=0;
 unsigned char punching=0;
-
+unsigned char floor_idx=12;
 
 enum anim_ids
 {
@@ -50,7 +50,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK  RYU_SHOURYUKEN // RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK  RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -435,8 +435,8 @@ void get_keyboard_input(void)
       sprites[0].anim_idx = 0;
       sprites[0].anim_dir = 1;
       punch_style++;
-      if (punch_style == RYU_SHOURYUKEN+1)
-        punch_style = RYU_SHOURYUKEN;
+      if (punch_style == RYU_MAX)
+        punch_style = RYU_LPUNCH;
     }
     if (key & 1 && !jumping) // up
     {
@@ -800,6 +800,11 @@ void game_main(void)
   
   // draw scenery first
   draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+
+	// draw floor at desired index
+	draw_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 19);
+
+	floor_idx = (floor_idx + 1) % 25;
 
   for (i = 0; i < SPR_MAX; i++)
   {

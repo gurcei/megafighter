@@ -770,7 +770,7 @@ void process_file(int mode, char *outputfilename)
 	}
 
 		int cnt = 0;
-		for (int iter = -15; iter <= 15; iter++)
+		for (int iter = -12; iter <= 12; iter++)
 		{
 			for (int y = 0; y < height; y++)
 			{

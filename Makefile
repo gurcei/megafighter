@@ -18,6 +18,7 @@ ASSFILES = main.s \
 DATAFILES= \
 	title.bin \
 	ryu_stage_cropped.bin \
+	stage_ryu_floor00.bin stage_ryu_floor01.bin stage_ryu_floor02.bin stage_ryu_floor03.bin stage_ryu_floor04.bin stage_ryu_floor05.bin stage_ryu_floor06.bin stage_ryu_floor07.bin  stage_ryu_floor08.bin  stage_ryu_floor09.bin stage_ryu_floor10.bin stage_ryu_floor11.bin stage_ryu_floor12.bin stage_ryu_floor13.bin stage_ryu_floor14.bin stage_ryu_floor15.bin stage_ryu_floor16.bin stage_ryu_floor17.bin stage_ryu_floor18.bin   stage_ryu_floor19.bin stage_ryu_floor20.bin stage_ryu_floor21.bin stage_ryu_floor22.bin stage_ryu_floor23.bin stage_ryu_floor24.bin \
 	ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin ryu_walk6.bin ryu_walk7.bin ryu_walk8.bin \
 	ryu_jump2.bin ryu_jump3.bin ryu_jump4.bin \

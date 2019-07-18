@@ -19,6 +19,12 @@ DATAFILES= \
 	title.bin \
 	ryu_stage_cropped.bin \
 	stage_ryu_floor00.bin stage_ryu_floor01.bin stage_ryu_floor02.bin stage_ryu_floor03.bin stage_ryu_floor04.bin stage_ryu_floor05.bin stage_ryu_floor06.bin stage_ryu_floor07.bin  stage_ryu_floor08.bin  stage_ryu_floor09.bin stage_ryu_floor10.bin stage_ryu_floor11.bin stage_ryu_floor12.bin stage_ryu_floor13.bin stage_ryu_floor14.bin stage_ryu_floor15.bin stage_ryu_floor16.bin stage_ryu_floor17.bin stage_ryu_floor18.bin   stage_ryu_floor19.bin stage_ryu_floor20.bin stage_ryu_floor21.bin stage_ryu_floor22.bin stage_ryu_floor23.bin stage_ryu_floor24.bin \
+  stage_ryu_sky_left1.bin stage_ryu_sky_left2.bin stage_ryu_sky_left3.bin stage_ryu_sky_left4.bin stage_ryu_sky_left5.bin stage_ryu_sky_left6.bin stage_ryu_sky_left7.bin stage_ryu_sky_left8.bin \
+  stage_ryu_sky_right1.bin stage_ryu_sky_right2.bin stage_ryu_sky_right3.bin stage_ryu_sky_right4.bin stage_ryu_sky_right5.bin stage_ryu_sky_right6.bin stage_ryu_sky_right7.bin stage_ryu_sky_right8.bin \
+	stage_ryu_fence_left1.bin stage_ryu_fence_left2.bin stage_ryu_fence_left3.bin stage_ryu_fence_left4.bin stage_ryu_fence_left5.bin stage_ryu_fence_left6.bin stage_ryu_fence_left7.bin stage_ryu_fence_left8.bin \
+	stage_ryu_fence_right1.bin stage_ryu_fence_right2.bin stage_ryu_fence_right3.bin stage_ryu_fence_right4.bin stage_ryu_fence_right5.bin stage_ryu_fence_right6.bin stage_ryu_fence_right7.bin stage_ryu_fence_right8.bin \
+	stage_ryu_building_left1.bin stage_ryu_building_left2.bin stage_ryu_building_left3.bin stage_ryu_building_left4.bin stage_ryu_building_left5.bin stage_ryu_building_left6.bin stage_ryu_building_left7.bin stage_ryu_building_left8.bin \
+	stage_ryu_building_right1.bin stage_ryu_building_right2.bin stage_ryu_building_right3.bin stage_ryu_building_right4.bin stage_ryu_building_right5.bin stage_ryu_building_right6.bin stage_ryu_building_right7.bin stage_ryu_building_right8.bin \
 	ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin ryu_walk6.bin ryu_walk7.bin ryu_walk8.bin \
 	ryu_jump2.bin ryu_jump3.bin ryu_jump4.bin \

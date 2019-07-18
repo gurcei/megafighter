@@ -799,10 +799,23 @@ void game_main(void)
   get_keyboard_input();
   
   // draw scenery first
-  draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+  // draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+
+	// draw sky
+	draw_bitmap(STAGE_RYU_SKY_LEFT1, 0, 0);
+	
+	// draw fence
+	draw_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
+
+	draw_bitmap(STAGE_RYU_FENCE_RIGHT1, 17, 0);
+
+	// draw building
+	draw_bitmap(STAGE_RYU_BUILDING_LEFT1, 0, 0);
+
+	draw_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
 
 	// draw floor at desired index
-	draw_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 19);
+	draw_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
 
 	floor_idx = (floor_idx + 1) % 25;
 

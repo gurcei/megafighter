@@ -540,7 +540,7 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[1].anim_idx=0;
       sprites[1].visible=1;
       sprites[1].posx = sprites[0].posx + 9;
-      sprites[1].posy = sprites[0].posy - 4;
+      sprites[1].posy = sprites[0].posy - 3;
     }
 
     if (punching && !sprites[0].anim_movement)
@@ -804,6 +804,9 @@ void game_main(void)
 	// draw sky
 	draw_bitmap(STAGE_RYU_SKY_LEFT1, 0, 0);
 	
+	// draw temple
+	draw_bitmap(STAGE_RYU_TEMPLE1, 10, 5);
+
 	// draw fence
 	draw_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
 

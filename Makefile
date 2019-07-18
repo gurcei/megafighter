@@ -25,6 +25,7 @@ DATAFILES= \
 	stage_ryu_fence_right1.bin stage_ryu_fence_right2.bin stage_ryu_fence_right3.bin stage_ryu_fence_right4.bin stage_ryu_fence_right5.bin stage_ryu_fence_right6.bin stage_ryu_fence_right7.bin stage_ryu_fence_right8.bin \
 	stage_ryu_building_left1.bin stage_ryu_building_left2.bin stage_ryu_building_left3.bin stage_ryu_building_left4.bin stage_ryu_building_left5.bin stage_ryu_building_left6.bin stage_ryu_building_left7.bin stage_ryu_building_left8.bin \
 	stage_ryu_building_right1.bin stage_ryu_building_right2.bin stage_ryu_building_right3.bin stage_ryu_building_right4.bin stage_ryu_building_right5.bin stage_ryu_building_right6.bin stage_ryu_building_right7.bin stage_ryu_building_right8.bin \
+  stage_ryu_temple1.bin stage_ryu_temple2.bin stage_ryu_temple3.bin stage_ryu_temple4.bin stage_ryu_temple5.bin stage_ryu_temple6.bin stage_ryu_temple7.bin stage_ryu_temple8.bin \
 	ryu_idle2.bin ryu_idle3.bin ryu_idle4.bin \
 	ryu_walk1.bin ryu_walk2.bin ryu_walk3.bin ryu_walk4.bin ryu_walk5.bin ryu_walk6.bin ryu_walk7.bin ryu_walk8.bin \
 	ryu_jump2.bin ryu_jump3.bin ryu_jump4.bin \

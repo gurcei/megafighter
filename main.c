@@ -851,7 +851,10 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       c64loc += length;
       seg++;
     } // end for k
-
+  }
+  else // num_segments == 0
+  {
+		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
   }
 
   // draw repairs

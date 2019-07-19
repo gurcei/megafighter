@@ -50,7 +50,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK  RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK  RYU_VICTORYALT // RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -605,21 +605,21 @@ reu_row_segment* seg;
 unsigned int len;
 unsigned long bmp_data_loc;
 
-void draw_bitmap(unsigned char frame, int posx, int posy)
+void draw_bitmap(unsigned int frame, int posx, int posy)
 {
 
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
-  // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
+  // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
   if (num > 0)
   {
-    c64loc = 0x1800;
+    c64loc = 0x4000;
     reuloc= 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment);
     length = segbmps[frame].num_segments*sizeof(reu_row_segment);
 		reu_simple_copy();
 
-    seg = (reu_row_segment*)0x1800;
+    seg = (reu_row_segment*)0x4000;
 
 		c64loc = (signed int)(vicbase+0x2000) + posx*8 + posy*40*8;
 		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
@@ -650,13 +650,13 @@ void draw_bitmap(unsigned char frame, int posx, int posy)
   if (num_repairs > 0)
   {
     // copy across repair data to temp memory
-		c64loc = 0x1800;
+		c64loc = 0x4000;
 		length = num_repairs*18;
     reu_simple_copy();
 
     c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
 
-    repair = (reu_repair_obj*)0x1800;
+    repair = (reu_repair_obj*)0x4000;
     for (gk = 0; gk < num_repairs; gk++)
     {
       c64loc += repair->reloffset;
@@ -664,86 +664,25 @@ void draw_bitmap(unsigned char frame, int posx, int posy)
       ptr = &(repair->vals[0]);
       //for (l = 0; l < 8; l++)
       {
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
+#define REPAIR_CHAR \
+        gtmp = Peek(c64loc); \
+        a = *(ptr); \
+        ptr++; \
+        b = *(ptr); \
+        ptr++; \
+        gtmp &= b; \
+        gtmp |= (a & ~b); \
+        Poke(c64loc, gtmp); \
         c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
-        gtmp = Peek(c64loc);
-        a = *(ptr);
-        ptr++;
-        b = *(ptr);
-        ptr++;
-        gtmp &= b;
-        gtmp |= (a & ~b);
-        Poke(c64loc, gtmp);
-        c64loc++;
-        // --------------
+
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
+        REPAIR_CHAR
       }
       repair++;
       c64loc -= 8;
@@ -761,7 +700,7 @@ void calc_absolute_addresses(void)
 
 enum { GAME_TITLE, GAME_MAIN };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_MAIN;
 
 void game_title(void)
 {
@@ -922,15 +861,15 @@ void main(void)
     //  return;
     //}
 
-    // copy segments metadata from reu (in bank0) to main memory (at 0x1800)
+    // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
     if (segbmps[i].num_segments > 0)
     {
-			c64loc = 0x1800;
+			c64loc = 0x4000;
 			reuloc = 0x0000 + seg_idx*sizeof(reu_row_segment);
 			length = segbmps[i].num_segments*sizeof(reu_row_segment);
       reu_simple_copy();
 
-      seg = (reu_row_segment*)0x1800;
+      seg = (reu_row_segment*)0x4000;
       for (j = 0; j < segbmps[i].num_segments; j++)
       {
         loc += (seg[j].length << 3);

@@ -5,6 +5,7 @@ LOPTS=	-C gidemo.cfg
 
 ASSFILES = main.s \
 						bmpmeta.s \
+						util.s
 #						music.s \
 #						music_game.s \
 #						music_intro.s \

@@ -605,6 +605,29 @@ reu_row_segment* seg;
 unsigned int len;
 unsigned long bmp_data_loc;
 
+void draw_fullwidth_bitmap(unsigned int frame, int posx, int posy)
+{
+  num = segbmps[frame].num_segments;
+
+  // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
+  if (num > 0)
+  {
+    c64loc = 0x4000;
+    reuloc= 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment);
+    length = segbmps[frame].num_segments*sizeof(reu_row_segment);
+		reu_simple_copy();
+
+    seg = (reu_row_segment*)0x4000;
+		c64loc = (signed int)(vicbase+0x2000) + posx*8 + posy*40*8;
+		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
+
+    length = (40 << 3) * num;
+    //c64loc += seg->reloffset;
+
+    reu_simple_copy();
+  }
+}
+
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
 
@@ -757,6 +780,8 @@ void game_main(void)
 	draw_bitmap(STAGE_RYU_SKY_LEFT1 + (sky_idx % 8), -(sky_idx>>3), 0);
 	sky_idx++;
 
+  //__asm__ ( "jsr $4800" );
+
 	// draw temple
 	draw_bitmap(STAGE_RYU_TEMPLE1, 10, 5);
 
@@ -771,7 +796,7 @@ void game_main(void)
 	draw_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
 
 	// draw floor at desired index
-	draw_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
+	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
 
 	floor_idx = (floor_idx + 1) % 25;
 

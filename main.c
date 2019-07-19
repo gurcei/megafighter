@@ -24,6 +24,7 @@ unsigned char walkingback=0;
 unsigned char crouching=0;
 unsigned char punching=0;
 unsigned char floor_idx=12;
+int building_idx=20;
 
 enum anim_ids
 {
@@ -481,6 +482,21 @@ void get_keyboard_input(void)
       sprites[0].anim = RYU_CROUCHBLOCK;
       sprites[0].anim_idx = 1;
       sprites[0].anim_dir = 2;
+    }
+    // floor animate
+    if (key & 4) // floor-left animate
+    {
+      building_idx++;
+
+      if (floor_idx < 24)
+        floor_idx++;
+    }
+    if (key & 8) // floor-right animate
+    {
+      building_idx--;
+
+      if (floor_idx > 0)
+        floor_idx--;
     }
     if (key & 4 && !walkingback && !walkingright && !jumping) // left
     {
@@ -978,14 +994,12 @@ void game_main(void)
 	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 25, -1);
 
 	// draw building
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1, -8, -2);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + (building_idx % 8), -8 + (building_idx>>3), -2);
 
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + (building_idx % 8), 25 + (building_idx>>3), 11);
 
 	// draw floor at desired index
 	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
-
-	floor_idx = (floor_idx + 1) % 25;
 
   for (i = 0; i < SPR_MAX; i++)
   {

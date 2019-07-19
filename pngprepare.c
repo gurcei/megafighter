@@ -638,38 +638,15 @@ void process_file(int mode, char *outputfilename)
               // check threshold for black
               png_byte* ptr = &(row[(x+xd)*multiplier]);
               int r=(ptr[0] + ptr[1] + ptr[2]) / 3;
-							
-							// check threshold for 100% black
-              if (r < 50 && (x+xd < width))
+              if (r < 80 && (x+xd < width))
               {
                 byteval |= (1 << (7 - xd));
               }
-							else if (r < 65 && (x+xd < width))
-							{
-                if (!(!(xd%4) && !(yd%4)))
-                  byteval |= (1 << (7 - xd));
-							}
-							else if (r < 80 && (x+xd < width))
-							{
-                if (!(!(xd%2) && !(yd%2)))
-                  byteval |= (1 << (7 - xd));
-							}
-							// check threshold for 50% black
-              else if (r < 140 && (x+xd < width))
+              else if (r < 160 && (x+xd < width))
               {
                 if ( ((xd%2) && (yd%2)) || (!(xd%2) && !(yd%2)))
                   byteval |= (1 << (7 - xd));
               }
-							else if (r < 170 && (x+xd < width))
-							{
-                if (!(xd%2) && !(yd%2))
-                  byteval |= (1 << (7 - xd));
-							}
-							else if (r < 200 && (x+xd < width))
-							{
-                if (!(xd%4) && !(yd%4))
-                  byteval |= (1 << (7 - xd));
-							}
             }
           } // end for xd
 

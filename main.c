@@ -779,6 +779,7 @@ void draw_sky_bitmap(int frame)
 
   frame += (sky_idx % 8);
 
+
   // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
   if (num > 0)
   {
@@ -788,6 +789,10 @@ void draw_sky_bitmap(int frame)
 		reu_simple_copy();
 
     seg = (reu_row_segment*)0x4000;
+
+    // loop-over point?
+    if (sky_idx == (seg->length << 3)-320)
+      sky_idx = 0;
 
 		c64loc = (signed int)(vicbase+0x2000);
 		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
@@ -970,7 +975,7 @@ void game_main(void)
 	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 25, -1);
 
 	// draw building
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1, -8, 0);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1, -8, -2);
 
 	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
 

@@ -24,7 +24,9 @@ unsigned char walkingback=0;
 unsigned char crouching=0;
 unsigned char punching=0;
 unsigned char floor_idx=12;
-int building_idx=20;
+int building_idx=0;
+int fence_idx=0;
+int temple_idx=0;
 
 enum anim_ids
 {
@@ -486,14 +488,18 @@ void get_keyboard_input(void)
     // floor animate
     if (key & 4) // floor-left animate
     {
-      building_idx++;
+      building_idx--;
+      fence_idx--;
+      temple_idx--;
 
       if (floor_idx < 24)
         floor_idx++;
     }
     if (key & 8) // floor-right animate
     {
-      building_idx--;
+      building_idx++;
+      fence_idx++;
+      temple_idx++;
 
       if (floor_idx > 0)
         floor_idx--;
@@ -706,7 +712,7 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
       }
 
       // completely cropped to the right?
-      if (c64loc > nextx)
+      if (c64loc >= nextx)
       {
         PokeW(0xc000+gk*4, c64loc);
         PokeW(0xc002+gk*4, startx);
@@ -986,17 +992,17 @@ void game_main(void)
   //__asm__ ( "jsr $4800" );
 
 	// draw temple
-	draw_bitmap(STAGE_RYU_TEMPLE1, 10, 4);
+	draw_bitmap(STAGE_RYU_TEMPLE1 + ((unsigned int)(temple_idx>>2) % 8), 10 - (temple_idx>>5), 4);
 
 	// draw fence
-	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1 + ((unsigned int)(fence_idx>>1) % 8), 0 - (fence_idx>>4), 12);
 
-	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 25, -1);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1 + ((unsigned int)(fence_idx>>1) % 8), 25 - (fence_idx>>4), -1);
 
 	// draw building
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + (building_idx % 8), -8 + (building_idx>>3), -2);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + ((unsigned int)building_idx % 8), -8 - (building_idx>>3), -2);
 
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + (building_idx % 8), 25 + (building_idx>>3), 11);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + ((unsigned int)building_idx % 8), 26 - (building_idx>>3), 11);
 
 	// draw floor at desired index
 	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);

@@ -14,6 +14,8 @@
 unsigned int screen_loc;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
+int sky_idx = 0;
+
 
 unsigned char firedown=0;
 unsigned char jumping=0;
@@ -770,6 +772,43 @@ skip:
   } // end if
 }
 
+void draw_sky_bitmap(int frame)
+{
+  //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
+  num = segbmps[frame].num_segments;
+
+  frame += (sky_idx % 8);
+
+  // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
+  if (num > 0)
+  {
+    c64loc = 0x4000;
+    reuloc= 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment);
+    length = segbmps[frame].num_segments*sizeof(reu_row_segment);
+		reu_simple_copy();
+
+    seg = (reu_row_segment*)0x4000;
+
+		c64loc = (signed int)(vicbase+0x2000);
+		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
+    reuloc += ((sky_idx >> 3) << 3);
+
+
+    for (gk = 0; gk < num; gk++)
+    {
+      length = 40*8;
+      //c64loc += seg->reloffset;
+
+      reu_simple_copy();
+
+      reuloc += (seg->length << 3);
+      c64loc += 40*8;
+      seg++;
+    } // end for k
+
+  }
+
+}
 
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
@@ -907,8 +946,6 @@ void game_title(void)
   }
 }
 
-int sky_idx = 0;
-
 void game_main(void)
 {
   unsigned int i, k;
@@ -919,7 +956,7 @@ void game_main(void)
   // draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
 
 	// draw sky
-	draw_bitmap(STAGE_RYU_SKY_LEFT1 + (sky_idx % 8), -(sky_idx>>3), 0);
+	draw_sky_bitmap(STAGE_RYU_SKY1);
 	sky_idx++;
 
   //__asm__ ( "jsr $4800" );

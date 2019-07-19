@@ -631,6 +631,7 @@ void draw_fullwidth_bitmap(unsigned int frame, int posx, int posy)
 unsigned char xoff = 0;
 unsigned char yoff = 0;
 unsigned int startx = 0;
+unsigned int nextx = 0;
 unsigned int diffx = 0;
 
 void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
@@ -654,7 +655,8 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
     seg = (reu_row_segment*)0x4000;
 
 		c64loc = (signed int)(vicbase+0x2000) + posx*8 + posy*40*8;
-    startx = c64loc + (xoff <<3);
+    startx = (signed int)(vicbase+0x2000) + posy*40*8 + (seg->reloffset / 320 * 320);
+    nextx = startx + 320;
 		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
 
     if (posy < 0)
@@ -668,9 +670,7 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
       length = seg->length << 3;
       c64loc += seg->reloffset;
       
-      PokeW(0xc000+gk*4, c64loc);
-      PokeW(0xc002+gk*4, startx);
-
+      // check for left-side cropping
       if (c64loc < startx)
       {
         diffx = startx - c64loc;
@@ -687,6 +687,27 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
         }
       }
 
+      // completely cropped to the right?
+      if (c64loc > nextx)
+      {
+        PokeW(0xc000+gk*4, c64loc);
+        PokeW(0xc002+gk*4, startx);
+        goto skip;
+      }
+
+      // check for right-side cropping
+      if (c64loc + length > nextx)
+      {
+        diffx = c64loc+length - nextx;
+        length -= diffx;
+        // check for top-side cropping
+        if (gk >= yoff)
+          reu_simple_copy();
+        length += diffx;
+        goto skip;
+      }
+
+      // check for top-side cropping
       if (gk >= yoff)
         reu_simple_copy();
 
@@ -701,7 +722,8 @@ skip:
       reuloc += length;
       c64loc += length;
       seg++;
-      startx += 320; //40*8;
+      startx = nextx;
+      nextx += 320; //40*8;
     } // end for k
 
   }
@@ -908,7 +930,7 @@ void game_main(void)
 	// draw fence
 	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
 
-	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 17, -1);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 25, -1);
 
 	// draw building
 	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1, -8, 0);

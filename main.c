@@ -50,7 +50,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK  RYU_VICTORYALT // RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK  RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -287,7 +287,7 @@ reu_repair_obj *repair;
 
 int c64loc;
 unsigned long reuloc;
-unsigned int length;
+int length;
 
 void reu_simple_copy(void)
 {
@@ -628,9 +628,129 @@ void draw_fullwidth_bitmap(unsigned int frame, int posx, int posy)
   }
 }
 
+unsigned char xoff = 0;
+unsigned char yoff = 0;
+unsigned int startx = 0;
+unsigned int diffx = 0;
+
+void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
+{
+  xoff = 0;
+  yoff = 0;
+  //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
+  num = segbmps[frame].num_segments;
+
+  // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
+  if (num > 0)
+  {
+    if (posx < 0)
+      xoff = -posx;
+
+    c64loc = 0x4000;
+    reuloc= 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment);
+    length = segbmps[frame].num_segments*sizeof(reu_row_segment);
+		reu_simple_copy();
+
+    seg = (reu_row_segment*)0x4000;
+
+		c64loc = (signed int)(vicbase+0x2000) + posx*8 + posy*40*8;
+    startx = c64loc + (xoff <<3);
+		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
+
+    if (posy < 0)
+    {
+      yoff = -posy;
+      yoff -= seg->reloffset / 320;
+    }
+
+    for (gk = 0; gk < num; gk++)
+    {
+      length = seg->length << 3;
+      c64loc += seg->reloffset;
+      
+      PokeW(0xc000+gk*4, c64loc);
+      PokeW(0xc002+gk*4, startx);
+
+      if (c64loc < startx)
+      {
+        diffx = startx - c64loc;
+        if (length > diffx)
+        {
+          length -= diffx;
+          reuloc += diffx;
+          c64loc += diffx;
+        }
+        else
+        {
+          //exit(0);
+          goto skip;
+        }
+      }
+
+      if (gk >= yoff)
+        reu_simple_copy();
+
+skip:
+    //printf("%d - %d - %lu\n", seg->reloffset, screen_loc, bmp_data_loc);
+    //if (k == 1)
+    //{
+    //while(1)
+    //  ;
+    //}
+
+      reuloc += length;
+      c64loc += length;
+      seg++;
+      startx += 320; //40*8;
+    } // end for k
+
+  }
+
+  // draw repairs
+  num_repairs = segbmps[frame].num_repairs;
+  if (0) //num_repairs > 0)
+  {
+    // copy across repair data to temp memory
+		c64loc = 0x4000;
+		length = num_repairs*18;
+    reu_simple_copy();
+
+    c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
+
+    repair = (reu_repair_obj*)0x4000;
+    for (gk = 0; gk < num_repairs; gk++)
+    {
+      c64loc += repair->reloffset;
+
+      ptr = &(repair->vals[0]);
+      //for (l = 0; l < 8; l++)
+      {
+#define REPAIR_CHAR_NO_TRANSPARENCY \
+        gtmp = Peek(c64loc); \
+        a = *(ptr); \
+        ptr++; \
+        ptr++; \
+        Poke(c64loc, a); \
+        c64loc++;
+
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+        REPAIR_CHAR_NO_TRANSPARENCY
+      }
+      repair++;
+      c64loc -= 8;
+    } // end for
+  } // end if
+}
+
+
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
-
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
@@ -783,17 +903,17 @@ void game_main(void)
   //__asm__ ( "jsr $4800" );
 
 	// draw temple
-	draw_bitmap(STAGE_RYU_TEMPLE1, 10, 5);
+	draw_bitmap(STAGE_RYU_TEMPLE1, 10, 4);
 
 	// draw fence
-	draw_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1, 0, 12);
 
-	draw_bitmap(STAGE_RYU_FENCE_RIGHT1, 17, 0);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1, 17, -1);
 
 	// draw building
-	draw_bitmap(STAGE_RYU_BUILDING_LEFT1, 0, 0);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1, -8, 0);
 
-	draw_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1, 25, 11);
 
 	// draw floor at desired index
 	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);

@@ -355,11 +355,14 @@ void process_file(int mode, char *outputfilename)
       bytes++;
     }
     // Fill in any missing bytes
-    if (bytes<2048) {
+    if (offset != 1) // disable padding
+    {
+      if (bytes<2048) {
 
-      printf("Padding output file to 2048 bytes\n");
+        printf("Padding output file to 2048 bytes\n");
 
-      for(;bytes<2048;bytes++) fprintf(outfile,"%c",0);
+        for(;bytes<2048;bytes++) fprintf(outfile,"%c",0);
+      }
     }
 
     if (outfile != NULL) {

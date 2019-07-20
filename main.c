@@ -971,6 +971,50 @@ void calc_absolute_addresses(void)
 #define OPTIONS_Y 2
 #define OPTIONS_H 5
 
+void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
+{
+	screen_loc = (vicbase+0x2000) + posx*8 + posy*40*8;
+
+	a = 0;
+	while (str[a] != 0)
+	{
+		c64loc = 0x5c00 + ( (str[a] & 0x3f) << 3); // base of my character data
+
+		if (invert)
+		{
+#define INV_CHAR_LINE \
+		Poke(screen_loc, ~Peek(c64loc)); \
+		screen_loc++; \
+		c64loc++;
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+			INV_CHAR_LINE
+		}
+		else
+		{
+#define CHAR_LINE \
+		Poke(screen_loc, Peek(c64loc)); \
+		screen_loc++; \
+		c64loc++;
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+			CHAR_LINE
+		}
+
+		a++;
+	}
+}
+
 void game_options(void)
 {
 	unsigned char k;
@@ -981,11 +1025,20 @@ void game_options(void)
 	else
 		vicbase=0x4000;
 	
-	// draw options
+	// draw border
 	draw_bitmap(OPTIONS_BORDER_TOP, OPTIONS_X, OPTIONS_Y);
 	for (k = 0; k < OPTIONS_H; k++)
 		draw_bitmap(OPTIONS_BORDER_MID, OPTIONS_X, OPTIONS_Y+2+ k*2);
 	draw_bitmap(OPTIONS_BORDER_BOTTOM, OPTIONS_X, OPTIONS_Y+4+OPTIONS_H*2);
+
+	// draw actual options
+	draw_text("options", 17, 4, 0);
+	draw_text("=======", 17, 5, 0);
+	draw_text("( ) static background",           6, 7, 1);
+	draw_text("( ) anim. background",            6, 8, 0);
+	draw_text("( ) anim. background+repairs",    6, 9, 0);
+	draw_text("    return to game",              6, 11, 0);
+	draw_text("    exit to title",               6, 13, 0);
 
 	while(1)
 	{

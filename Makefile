@@ -5,7 +5,8 @@ LOPTS=	-C gidemo.cfg
 
 ASSFILES = main.s \
 						bmpmeta.s \
-						util.s
+						util.s \
+						charset.s
 #						music.s \
 #						music_game.s \
 #						music_intro.s \
@@ -80,7 +81,7 @@ run:
 	#/Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64 &
 	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
-%.s: %.c $(DATAFILES) gidemo.cfg
+%.s: %.c $(DATAFILES) gidemo.cfg ascii8x8.bin
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
 data.reu: $(DATAFILES)
@@ -104,8 +105,8 @@ data.reu: $(DATAFILES)
 
 # 'pngprepare' and 'asciih' tools borrowed from mega65-ide project
 # --------------------------------------------------
-# ascii8x8.bin: ascii00-7f.png pngprepare
-# 	./pngprepare charrom ascii00-7f.png ascii8x8.bin
+ascii8x8.bin: ascii00-7f.png pngprepare
+	./pngprepare charrom ascii00-7f.png ascii8x8.bin 1
 
 %.bin: %.png pngprepare
 	./pngprepare gihires2 $< $@

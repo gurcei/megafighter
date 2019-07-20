@@ -3,6 +3,7 @@
 *.s
 !util.s
 !bmpmeta.s
+!charset.s
 *.reu
 *.d64
 *.lbl

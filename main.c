@@ -28,6 +28,10 @@ int building_idx=0;
 int fence_idx=0;
 int temple_idx=0;
 
+enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
+
+unsigned char gamestate = GAME_MAIN;
+
 enum anim_ids
 {
   RYU_IDLE,
@@ -403,9 +407,31 @@ void animate_sprite(sprite_detail* spr)
   }
 }
 
+unsigned keycode;
+unsigned char col;
+
+void real_keyboard(void)
+{
+	keycode = 0;
+	__asm__ ( "jsr $4800" );
+	__asm__ ( "bcc rkskip" );
+	__asm__ ( "sta %v", keycode );
+  __asm__ ( "rkskip:" );
+	__asm__ ( "lda #$0" );	// set DDR for CIA-portA back to input so we can read joyport2 again
+  __asm__ ( "sta $dc02" );
+
+	// check for escape key
+	if (keycode == 0x77)
+	{
+		gamestate = GAME_TITLE;
+	}
+}
+
 void get_keyboard_input(void)
 {
   unsigned char key;
+
+  real_keyboard();
 
   // JOYSTICK: left=4, right=8, up=1, down=2, fire=16
   key  = (~Peek(56320U)) & 31; //cgetc();
@@ -932,19 +958,17 @@ void calc_absolute_addresses(void)
 }
 
 
-enum { GAME_TITLE, GAME_MAIN };
-
-unsigned char gamestate = GAME_MAIN;
-
 void game_title(void)
 {
   unsigned char key;
 
-  //draw_anim_frame(TITLE, 0, 0, 25);
+	// jump back to the currently visible page and draw on that
+	if (draw_page == 1)
+		vicbase=0x0000;
+	else
+		vicbase=0x4000;
+	
   draw_bitmap(TITLE, 0, 0);
-  // TODO: draw title screen via new segmented bitmap technique...
-  // ...need to locate segged_bitmap array at 0x1000
-  // ...that are should match the content of the "bmp_meta.bin" file
 
   while(1)
   {
@@ -992,17 +1016,17 @@ void game_main(void)
   //__asm__ ( "jsr $4800" );
 
 	// draw temple
-	draw_bitmap(STAGE_RYU_TEMPLE1 + ((unsigned int)(temple_idx>>2) % 8), 10 - (temple_idx>>5), 4);
+	draw_bitmap(STAGE_RYU_TEMPLE1 + ((unsigned int)(temple_idx>>2) & 0x07), 10 - (temple_idx>>5), 4);
 
 	// draw fence
-	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1 + ((unsigned int)(fence_idx>>1) % 8), 0 - (fence_idx>>4), 12);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1 + ((unsigned int)(fence_idx>>1) & 0x07), 0 - (fence_idx>>4), 12);
 
-	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1 + ((unsigned int)(fence_idx>>1) % 8), 25 - (fence_idx>>4), -1);
+	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1 + ((unsigned int)(fence_idx>>1) & 0x07), 25 - (fence_idx>>4), -1);
 
 	// draw building
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + ((unsigned int)building_idx % 8), -8 - (building_idx>>3), -2);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + ((unsigned int)building_idx & 0x07), -8 - (building_idx>>3), -2);
 
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + ((unsigned int)building_idx % 8), 26 - (building_idx>>3), 11);
+	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + ((unsigned int)building_idx & 0x07), 26 - (building_idx>>3), 11);
 
 	// draw floor at desired index
 	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);

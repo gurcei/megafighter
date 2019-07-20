@@ -26,6 +26,9 @@ unsigned char punching=0;
 unsigned char floor_idx=12;
 unsigned char escdown = 0;
 
+enum OPT_BKGND { BKGND_STATIC, BKGND_ANIM, BKGND_ANIM_REPAIR };
+unsigned char option_background = BKGND_ANIM;
+
 int building_idx=0;
 int fence_idx=0;
 int temple_idx=0;
@@ -1018,13 +1021,21 @@ void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char 
 unsigned char menu_highlight = 0;
 unsigned char up_pressed = 0;
 unsigned char down_pressed = 0;
+char* strSelected = "(*)";
+char* strUnselected = "( )";
 #define TOTAL_MENU_ITEMS	5
 
 void draw_options(void)
 {
-	draw_text("( )", 6, 7, 0); draw_text("static background",           10, 7, menu_highlight==0);
-	draw_text("( )", 6, 8, 0); draw_text("anim. background",            10, 8, menu_highlight==1);
-	draw_text("( )", 6, 9, 0); draw_text("anim. background+repairs",    10, 9, menu_highlight==2);
+	draw_text(option_background == BKGND_STATIC ? strSelected : strUnselected, 6, 7, 0);
+	draw_text("static background",           10, 7, menu_highlight==0);
+	
+	draw_text(option_background == BKGND_ANIM ? strSelected : strUnselected, 6, 8, 0);
+	draw_text("anim. background",            10, 8, menu_highlight==1);
+
+	draw_text(option_background == BKGND_ANIM_REPAIR ? strSelected : strUnselected, 6, 9, 0);
+	draw_text("anim. background+repairs",    10, 9, menu_highlight==2);
+
 	draw_text("return to game",              10, 11, menu_highlight==3);
 	draw_text("exit to title",               10, 13, menu_highlight==4);
 }
@@ -1083,8 +1094,42 @@ void game_options(void)
 		// JOYSTICK: left=4, right=8, up=1, down=2, fire=16
 		key  = (~Peek(56320U)) & 31; //cgetc();
 
+		// fire key
+		if (key & 16)
+		{
+			if (!firedown)
+			{
+				firedown = 1;
+				if (menu_highlight == 0) option_background = BKGND_STATIC;
+				else if (menu_highlight == 1) option_background = BKGND_ANIM;
+				else if (menu_highlight == 2) option_background = BKGND_ANIM_REPAIR;
+				// are we exiting the options menu?
+				else
+				{
+					if (menu_highlight == 3)
+						gamestate = GAME_MAIN;
+					else if (menu_highlight == 4)
+						gamestate = GAME_TITLE;
+
+					// jump back to the currently visible page and draw on that
+					if (draw_page == 0)
+						vicbase=0x0000;
+					else
+						vicbase=0x4000;
+
+					break;
+				}
+
+				draw_options();
+			}
+			else
+			{
+				firedown = 0;
+			}
+		}
+
 		// up key
-		if ((key & 1))
+		if (key & 1)
 		{
 			if (!up_pressed)
 			{
@@ -1103,7 +1148,7 @@ void game_options(void)
 		}
 
 		// down key
-		if ((key & 2))
+		if (key & 2)
 		{
 			if (!down_pressed)
 			{
@@ -1119,7 +1164,7 @@ void game_options(void)
 		{
 			down_pressed = 0;
 		}
-	}
+	} // end while(1)
 }
 
 void game_title(void)
@@ -1169,31 +1214,40 @@ void game_main(void)
   unsigned int i, k;
 
   get_keyboard_input();
-  
+
   // draw scenery first
-  // draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+  
+	// use static background?
+	if (option_background == BKGND_STATIC)
+	{
+    draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+	}
+	
+	// use animated background?
+	else
+	{
+		// draw sky
+		draw_sky_bitmap(STAGE_RYU_SKY1);
+		sky_idx++;
 
-	// draw sky
-	draw_sky_bitmap(STAGE_RYU_SKY1);
-	sky_idx++;
+		//__asm__ ( "jsr $4800" );
 
-  //__asm__ ( "jsr $4800" );
+		// draw temple
+		draw_bitmap(STAGE_RYU_TEMPLE1 + ((unsigned int)(temple_idx>>2) & 0x07), 10 - (temple_idx>>5), 4);
 
-	// draw temple
-	draw_bitmap(STAGE_RYU_TEMPLE1 + ((unsigned int)(temple_idx>>2) & 0x07), 10 - (temple_idx>>5), 4);
+		// draw fence
+		draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1 + ((unsigned int)(fence_idx>>1) & 0x07), 0 - (fence_idx>>4), 12);
 
-	// draw fence
-	draw_cropped_bitmap(STAGE_RYU_FENCE_LEFT1 + ((unsigned int)(fence_idx>>1) & 0x07), 0 - (fence_idx>>4), 12);
+		draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1 + ((unsigned int)(fence_idx>>1) & 0x07), 25 - (fence_idx>>4), -1);
 
-	draw_cropped_bitmap(STAGE_RYU_FENCE_RIGHT1 + ((unsigned int)(fence_idx>>1) & 0x07), 25 - (fence_idx>>4), -1);
+		// draw building
+		draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + ((unsigned int)building_idx & 0x07), -8 - (building_idx>>3), -2);
 
-	// draw building
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_LEFT1 + ((unsigned int)building_idx & 0x07), -8 - (building_idx>>3), -2);
+		draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + ((unsigned int)building_idx & 0x07), 26 - (building_idx>>3), 11);
 
-	draw_cropped_bitmap(STAGE_RYU_BUILDING_RIGHT1 + ((unsigned int)building_idx & 0x07), 26 - (building_idx>>3), 11);
-
-	// draw floor at desired index
-	draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
+		// draw floor at desired index
+		draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
+	}
 
   for (i = 0; i < SPR_MAX; i++)
   {

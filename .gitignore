@@ -2,6 +2,7 @@
 *.o
 *.s
 !util.s
+!bmpmeta.s
 *.reu
 *.d64
 *.lbl

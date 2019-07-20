@@ -1015,9 +1015,26 @@ void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char 
 	}
 }
 
+unsigned char menu_highlight = 0;
+unsigned char up_pressed = 0;
+unsigned char down_pressed = 0;
+#define TOTAL_MENU_ITEMS	5
+
+void draw_options(void)
+{
+	draw_text("( )", 6, 7, 0); draw_text("static background",           10, 7, menu_highlight==0);
+	draw_text("( )", 6, 8, 0); draw_text("anim. background",            10, 8, menu_highlight==1);
+	draw_text("( )", 6, 9, 0); draw_text("anim. background+repairs",    10, 9, menu_highlight==2);
+	draw_text("return to game",              10, 11, menu_highlight==3);
+	draw_text("exit to title",               10, 13, menu_highlight==4);
+}
+
 void game_options(void)
 {
 	unsigned char k;
+  unsigned char key;
+
+	menu_highlight = 0;
 
 	// jump back to the currently visible page and draw on that
 	if (draw_page == 1)
@@ -1034,11 +1051,8 @@ void game_options(void)
 	// draw actual options
 	draw_text("options", 17, 4, 0);
 	draw_text("=======", 17, 5, 0);
-	draw_text("( ) static background",           6, 7, 1);
-	draw_text("( ) anim. background",            6, 8, 0);
-	draw_text("( ) anim. background+repairs",    6, 9, 0);
-	draw_text("    return to game",              6, 11, 0);
-	draw_text("    exit to title",               6, 13, 0);
+
+	draw_options();
 
 	while(1)
 	{
@@ -1064,6 +1078,46 @@ void game_options(void)
 
 				break;
 			}
+		}
+
+		// JOYSTICK: left=4, right=8, up=1, down=2, fire=16
+		key  = (~Peek(56320U)) & 31; //cgetc();
+
+		// up key
+		if ((key & 1))
+		{
+			if (!up_pressed)
+			{
+				up_pressed = 1;
+				if (menu_highlight == 0)
+					menu_highlight = TOTAL_MENU_ITEMS - 1;
+				else
+					menu_highlight--;
+
+				draw_options();
+			}
+		}
+		else
+		{
+			up_pressed = 0;
+		}
+
+		// down key
+		if ((key & 2))
+		{
+			if (!down_pressed)
+			{
+				down_pressed = 1;
+				menu_highlight++;
+				if (menu_highlight == TOTAL_MENU_ITEMS)
+					menu_highlight = 0;
+
+				draw_options();
+			}
+		}
+		else
+		{
+			down_pressed = 0;
 		}
 	}
 }

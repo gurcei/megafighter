@@ -11,7 +11,7 @@
 // ================================
 // GLOBALS
 // ================================
-unsigned int screen_loc;
+unsigned int screen_loc, rel_loc;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
 int sky_idx = 0;
@@ -35,7 +35,7 @@ int temple_idx=0;
 
 enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_MAIN;
 
 enum anim_ids
 {
@@ -435,15 +435,15 @@ void get_keyboard_input(void)
 	// check for escape key
 	if (keycode == 0x77)
 	{
-		escdown = 1;
+		if (!escdown)
+		{
+			escdown = 1;
+			gamestate = GAME_OPTIONS;
+		}
 	}
 	else
 	{
-		if (escdown)
-		{
-			escdown=0;
-			gamestate = GAME_OPTIONS;
-		}
+		escdown = 0;
 	}
 
   // JOYSTICK: left=4, right=8, up=1, down=2, fire=16
@@ -704,12 +704,12 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
+	if (posx < 0)
+		xoff = -posx;
+
   // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
   if (num > 0)
   {
-    if (posx < 0)
-      xoff = -posx;
-
     c64loc = 0x4000;
     reuloc= 0x0000 + segbmps[frame].start_segment_idx*sizeof(reu_row_segment);
     length = segbmps[frame].num_segments*sizeof(reu_row_segment);
@@ -793,42 +793,82 @@ skip:
 
   // draw repairs
   num_repairs = segbmps[frame].num_repairs;
-  if (0) //num_repairs > 0)
+  if (num_repairs > 0 && option_background == BKGND_ANIM_REPAIR)
   {
+    if (posy < 0)
+    {
+      yoff = -posy;
+    }
+
     // copy across repair data to temp memory
 		c64loc = 0x4000;
 		length = num_repairs*18;
     reu_simple_copy();
 
     c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
+		screen_loc = vicbase+0x2000;
+		rel_loc = 0;
+    startx = (signed int)(vicbase+0x2000) + posy*40*8;
+    nextx = startx + 320;
 
     repair = (reu_repair_obj*)0x4000;
     for (gk = 0; gk < num_repairs; gk++)
     {
       c64loc += repair->reloffset;
+			rel_loc += repair->reloffset;
 
-      ptr = &(repair->vals[0]);
-      //for (l = 0; l < 8; l++)
-      {
+			// move my line range up to where the repair is
+			while (rel_loc > 320)
+			{
+				rel_loc -= 320;
+				startx = nextx;
+				nextx += 320;
+			}
+
+			// check for left-side cropping
+			if (c64loc < startx || c64loc >= nextx)
+			{
+				goto skip2;
+			}
+
+
+			// check for top-side cropping
+			if (c64loc < screen_loc)
+				goto skip2;
+
+			ptr = &(repair->vals[0]);
+
 #define REPAIR_CHAR_NO_TRANSPARENCY \
-        gtmp = Peek(c64loc); \
-        a = *(ptr); \
-        ptr++; \
-        ptr++; \
-        Poke(c64loc, a); \
-        c64loc++;
+			gtmp = Peek(c64loc); \
+			a = *(ptr); \
+			ptr++; \
+			ptr++; \
+			Poke(c64loc, a); \
+			c64loc++;
 
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-        REPAIR_CHAR_NO_TRANSPARENCY
-      }
-      repair++;
+#define REPAIR_CHAR \
+			gtmp = Peek(c64loc); \
+			a = *(ptr); \
+			ptr++; \
+			b = *(ptr); \
+			ptr++; \
+			gtmp &= b; \
+			gtmp |= (a & ~b); \
+			Poke(c64loc, gtmp); \
+			c64loc++;
+
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+			REPAIR_CHAR
+
       c64loc -= 8;
+skip2:
+      repair++;
     } // end for
   } // end if
 }
@@ -937,17 +977,6 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       ptr = &(repair->vals[0]);
       //for (l = 0; l < 8; l++)
       {
-#define REPAIR_CHAR \
-        gtmp = Peek(c64loc); \
-        a = *(ptr); \
-        ptr++; \
-        b = *(ptr); \
-        ptr++; \
-        gtmp &= b; \
-        gtmp |= (a & ~b); \
-        Poke(c64loc, gtmp); \
-        c64loc++;
-
         REPAIR_CHAR
         REPAIR_CHAR
         REPAIR_CHAR
@@ -1072,13 +1101,9 @@ void game_options(void)
 		// check for escape key
 		if (keycode == 0x77)
 		{
-			escdown = 1;
-		}
-		else
-		{
-			if (escdown)
+			if (!escdown)
 			{
-				escdown=0;
+				escdown = 1;
 				gamestate = GAME_MAIN;
 
 				// jump back to the currently visible page and draw on that
@@ -1089,6 +1114,10 @@ void game_options(void)
 
 				break;
 			}
+		}
+		else
+		{
+			escdown = 0;
 		}
 
 		// JOYSTICK: left=4, right=8, up=1, down=2, fire=16

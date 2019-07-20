@@ -35,7 +35,7 @@ int temple_idx=0;
 
 enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
-unsigned char gamestate = GAME_MAIN;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -338,7 +338,7 @@ void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
 }
  
 int vicbase = 0x0000;
-unsigned int draw_page = 0;
+unsigned int draw_page = 1;
 
 void clear_screen(void)
 {
@@ -1184,28 +1184,24 @@ void game_title(void)
     // wait for fire-button
     key  = (~Peek(56320U)) & 31; //cgetc();
 
-    if (!(key & 16) && firedown)  // test if fire was released
-    {
-      firedown=0;
+		if (key & 16)
+		{
+			if (!firedown)
+			{
+				firedown = 1;
+				clear_screen();
 
-      clear_screen();
-      //draw_anim_frame(RYU_MUGSHOT, 1, 20, 15);
-      //draw_anim_frame(RYU_STAGE_CROPPED, 0, 0, 25);
+				vicbase=0x4000;
+				draw_page = 1;
 
-      vicbase=0x4000;
-      draw_page = 1;
-
-      gamestate = GAME_MAIN;
-      return;
-    }
-
-    if (key != 0)
-    {
-      if (key & 16 && !firedown) // fire button
-      {
-        firedown=1;
-      }
-    }
+				gamestate = GAME_MAIN;
+				return;
+			}
+		}
+		else
+		{
+			firedown = 0;
+		}
   }
 }
 

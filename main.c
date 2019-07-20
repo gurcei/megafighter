@@ -24,6 +24,8 @@ unsigned char walkingback=0;
 unsigned char crouching=0;
 unsigned char punching=0;
 unsigned char floor_idx=12;
+unsigned char escdown = 0;
+
 int building_idx=0;
 int fence_idx=0;
 int temple_idx=0;
@@ -410,7 +412,7 @@ void animate_sprite(sprite_detail* spr)
 unsigned keycode;
 unsigned char col;
 
-void real_keyboard(void)
+void check_real_keyboard(void)
 {
 	keycode = 0;
 	__asm__ ( "jsr $4800" );
@@ -419,19 +421,27 @@ void real_keyboard(void)
   __asm__ ( "rkskip:" );
 	__asm__ ( "lda #$0" );	// set DDR for CIA-portA back to input so we can read joyport2 again
   __asm__ ( "sta $dc02" );
-
-	// check for escape key
-	if (keycode == 0x77)
-	{
-		gamestate = GAME_TITLE;
-	}
 }
 
 void get_keyboard_input(void)
 {
   unsigned char key;
 
-  real_keyboard();
+  check_real_keyboard();
+
+	// check for escape key
+	if (keycode == 0x77)
+	{
+		escdown = 1;
+	}
+	else
+	{
+		if (escdown)
+		{
+			escdown=0;
+			gamestate = GAME_OPTIONS;
+		}
+	}
 
   // JOYSTICK: left=4, right=8, up=1, down=2, fire=16
   key  = (~Peek(56320U)) & 31; //cgetc();
@@ -825,7 +835,7 @@ void draw_sky_bitmap(int frame)
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
-  frame += (sky_idx % 8);
+  frame += (sky_idx & 0x07);
 
 
   // copy segments metadata from reu (in bank0) to main memory (at 0x4000)
@@ -957,6 +967,53 @@ void calc_absolute_addresses(void)
   // Will probably need to refer to segdata too
 }
 
+#define OPTIONS_X	4
+#define OPTIONS_Y 2
+#define OPTIONS_H 5
+
+void game_options(void)
+{
+	unsigned char k;
+
+	// jump back to the currently visible page and draw on that
+	if (draw_page == 1)
+		vicbase=0x0000;
+	else
+		vicbase=0x4000;
+	
+	// draw options
+	draw_bitmap(OPTIONS_BORDER_TOP, OPTIONS_X, OPTIONS_Y);
+	for (k = 0; k < OPTIONS_H; k++)
+		draw_bitmap(OPTIONS_BORDER_MID, OPTIONS_X, OPTIONS_Y+2+ k*2);
+	draw_bitmap(OPTIONS_BORDER_BOTTOM, OPTIONS_X, OPTIONS_Y+4+OPTIONS_H*2);
+
+	while(1)
+	{
+		check_real_keyboard();
+
+		// check for escape key
+		if (keycode == 0x77)
+		{
+			escdown = 1;
+		}
+		else
+		{
+			if (escdown)
+			{
+				escdown=0;
+				gamestate = GAME_MAIN;
+
+				// jump back to the currently visible page and draw on that
+				if (draw_page == 0)
+					vicbase=0x0000;
+				else
+					vicbase=0x4000;
+
+				break;
+			}
+		}
+	}
+}
 
 void game_title(void)
 {
@@ -1146,6 +1203,10 @@ void main(void)
       case GAME_MAIN:
         game_main();
         break;
+
+			case GAME_OPTIONS:
+				game_options();
+				break;
     }
   } // end while
 }

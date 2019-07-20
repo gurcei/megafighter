@@ -35,7 +35,7 @@ int temple_idx=0;
 
 enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
-unsigned char gamestate = GAME_MAIN;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -344,19 +344,20 @@ void clear_screen(void)
 {
   unsigned int i;
   // Clear bitmap
-  for (i = vicbase+0x2000; i < vicbase+0x2000+8000; i++)
+	rel_loc = vicbase+0x2000+8000;
+  for (screen_loc = vicbase+0x2000; screen_loc < rel_loc; screen_loc++)
   {
-    Poke(i, 0x00);
+    Poke(screen_loc, 0x00);
   }
 
   // Set bitmap colours
-  for (i = vicbase+1024; i < vicbase+2024; i++)
+  for (i = 1024; i < 2024; i++)
   {
     Poke(i, (0 << 4) + 1);  // black and white
   }
   //
   // Set bitmap colours
-  for (i = vicbase+0x4000+1024; i < vicbase+0x4000+2024; i++)
+  for (i = 0x4000+1024; i < 0x4000+2024; i++)
   {
     Poke(i, (0 << 4) + 1);  // black and white
   }

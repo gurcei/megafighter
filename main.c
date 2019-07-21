@@ -11,7 +11,7 @@
 // ================================
 // GLOBALS
 // ================================
-unsigned int screen_loc, rel_loc;
+unsigned int screen_loc, rel_loc, gtmpw;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
 int sky_idx = 0;
@@ -237,6 +237,7 @@ anim_detail anims[RYU_MAX] =
 
 typedef struct
 {
+	unsigned char dir;	// if dir == 1 then use the mirrored version of the sprite
   unsigned char posx, posy;
   unsigned char anim;
   unsigned char anim_idx;
@@ -245,12 +246,15 @@ typedef struct
   anim_movement *anim_movement;
 } sprite_detail;
 
-#define SPR_MAX 2
+#define SPR_MAX 4
 
+sprite_detail* cur_spr;
 sprite_detail sprites[SPR_MAX] =
 {
-  { 4,  23,  RYU_IDLE, 0, 1, 1, NULL },
-  { 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL },
+  { 0, 4,  23,  RYU_IDLE, 0, 1, 1, NULL },
+  { 0, 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL },
+  { 1, 30, 23,  RYU_IDLE, 0, 1, 1, NULL },
+  { 0, 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL },
 
 /*  { 7,  0,  RYU_WALK, 0, 1 },
   { 14, 0,  RYU_JUMP, 0, 1 },
@@ -1275,24 +1279,23 @@ void game_main(void)
 		draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
 	}
 
+	cur_spr = sprites;
+	// draw all visible sprites
   for (i = 0; i < SPR_MAX; i++)
   {
-    if (sprites[i].visible)
+    if (cur_spr->visible)
     {
-  draw_bitmap(anims[sprites[i].anim].frames[sprites[i].anim_idx], sprites[i].posx, sprites[i].posy - anims[sprites[i].anim].rows);
-  // reu_copy(0x2000 + posx*8 + (posy - anims[anim].rows)*40*8,
-  //   anims[anim].reu_loc + frame * anims[anim].frame_size,
-  //   anims[anim].cols*8, anims[anim].rows);
-
-//      reu_copy(0x2000 + sprites[i].posx*8 + (sprites[i].posy - anims[sprites[i].anim].rows)*40*8,
-//        anims[sprites[i].anim].reu_loc + sprites[i].anim_idx * anims[sprites[i].anim].frame_size,
-//        anims[sprites[i].anim].cols*8, anims[sprites[i].anim].rows);
+			gtmpw = anims[cur_spr->anim].frames[cur_spr->anim_idx];
+			if (cur_spr->dir) // mirror to other direction?
+				gtmpw += TITLE_REV;
+			draw_bitmap(gtmpw, cur_spr->posx, cur_spr->posy - anims[cur_spr->anim].rows);
 
       if (post_draw_processing(i) == 0)
       {
         animate_sprite(&(sprites[i]));
       }
     }
+		cur_spr++;
   }
 
   // perform page flip

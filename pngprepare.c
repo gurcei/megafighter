@@ -24,6 +24,7 @@ int x, y;
 char* orig_fname;
 
 int width, height;
+int multiplier=-1;
 png_byte color_type;
 png_byte bit_depth;
 
@@ -215,7 +216,8 @@ int writeImage(char* filename, int width, int height, png_bytep *new_row_pointer
 
    // Write header (8 bit colour depth)
    png_set_IHDR(png_ptr, info_ptr, width, height,
-         8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
+         8, multiplier==3 ? PNG_COLOR_TYPE_RGB : PNG_COLOR_TYPE_RGBA,
+         PNG_INTERLACE_NONE,
          PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
    // Set title
@@ -252,7 +254,6 @@ int writeImage(char* filename, int width, int height, png_bytep *new_row_pointer
 
 void process_file(int mode, char *outputfilename)
 {
-  int multiplier=-1;
   if (png_get_color_type(png_ptr, info_ptr) == PNG_COLOR_TYPE_RGB)
     multiplier=3;
 
@@ -612,6 +613,16 @@ void process_file(int mode, char *outputfilename)
   {
     unsigned char found_start = 0;
     unsigned char charbytes[8];
+    unsigned char out2name[256];
+    seg_cnt = 0;
+    repair_cnt = 0;
+
+    for (int k = 0; k < MAX_SEGS; k++)
+    {
+      memset(&rowsegs[k], 0, sizeof(reu_row_segment));
+      memset(&repairs[k], 0, sizeof(reu_repair_obj));
+    }
+    memset(&seggedbmp, 0, sizeof(reu_segged_bmp_obj));
 
     reu_row_segment* curseg = NULL;
     reu_repair_obj* currepair = &(repairs[0]);
@@ -849,7 +860,56 @@ int main(int argc, char **argv)
 	orig_fname = argv[2];
 
   printf("Processing with mode=%d and output=%s\n", mode, argv[3]);
+
+  //sprintf(out2name, "%s.mirror");
+  //FILE* outfile2=fopen(out2name,"w");
   process_file(mode,argv[3]);
+
+  // for gihires2, process the same file, but mirrored
+  if (mode == 5)
+  {
+    char* orig_outfname = argv[3];
+    char fname[256];
+    char revpngname[256];
+
+    for (int k = 0; k < strlen(orig_outfname); k++)
+      if (orig_outfname[k] == '.') orig_outfname[k] = '\0';
+
+    sprintf(fname, "%s_rev.bin", orig_outfname);
+    sprintf(revpngname, "%s_rev.png", orig_outfname);
+
+    // reverse/mirror the pixels in the png rows
+    png_byte* tmp_row = (png_byte*) malloc(width*multiplier);
+    for (y=0; y<height; y++)
+    {
+      png_byte* row = row_pointers[y];
+      for (x=0; x<width; x++)
+      {
+        png_byte* ptr1 = &(row[x*multiplier]);
+        png_byte* ptr2 = &(tmp_row[(width-x-1)*multiplier]);
+
+        ptr2[0] = ptr1[0];
+        ptr2[1] = ptr1[1];
+        ptr2[2] = ptr1[2];
+        if (multiplier == 4)
+          ptr2[3] = ptr1[3];
+      }
+      for (x=0; x<width; x++)
+      {
+        png_byte* ptr1 = &(row[x*multiplier]);
+        png_byte* ptr2 = &(tmp_row[x*multiplier]);
+
+        ptr1[0] = ptr2[0];
+        ptr1[1] = ptr2[1];
+        ptr1[2] = ptr2[2];
+        if (multiplier == 4)
+          ptr1[3] = ptr2[3];
+      }
+    }
+    //writeImage(revpngname, width, height, row_pointers, "blah");
+
+    process_file(mode, fname);
+  }
 
   printf("done\n");
 

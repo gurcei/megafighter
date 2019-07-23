@@ -555,7 +555,7 @@ void get_keyboard_input(void)
 			{
 				walkingback[pi] = 1;
 				sprites[pi].posx -= 3;
-				sprites[pi].anim = RYU_WALKB;
+				sprites[pi].anim = sprites[pi].dir ? RYU_WALK : RYU_WALKB;
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
 				//dir = 1;
@@ -567,7 +567,7 @@ void get_keyboard_input(void)
 			if (key & 8 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // right
 			{
 				walkingright[pi] = 1;
-				sprites[pi].anim = RYU_WALK;
+				sprites[pi].anim = sprites[pi].dir ? RYU_WALKB : RYU_WALK;
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
 				//dir = 0;
@@ -592,7 +592,7 @@ unsigned char post_draw_processing(unsigned char sprite)
   if (sprite < 2) // player 1 or 2?
   {
     // extra movement-related processing
-    if (walkingright && sprites[sprite].anim_idx==7)
+    if (walkingright[sprite] && sprites[sprite].anim_idx==7)
     {
       walkingright[sprite]=0;
       sprites[sprite].posx += 3;

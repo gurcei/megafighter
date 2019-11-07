@@ -26,7 +26,7 @@ unsigned char floor_idx=12;
 unsigned char escdown = 0;
 
 enum OPT_BKGND { BKGND_STATIC, BKGND_ANIM, BKGND_ANIM_REPAIR };
-unsigned char option_background = BKGND_ANIM;
+unsigned char option_background = BKGND_ANIM_REPAIR; //BKGND_STATIC; //BKGND_ANIM;
 
 int building_idx=0;
 int fence_idx=0;
@@ -118,7 +118,6 @@ unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
 
 typedef struct
 {
-  unsigned char anim_idx;
   unsigned char anim_length;
   char *relx;
   char *rely;
@@ -131,7 +130,6 @@ char ryu_jump_frame[] = {  0,  0,  1,  1,  2,  2, 1, 1, 0, 0 };
 
 anim_movement ryu_anim_jump =
 {
-  0,
   10,
   ryu_jump_relx,
   ryu_jump_rely,
@@ -144,7 +142,6 @@ char ryu_fjump_frame[] = {  0,  1,  1,  2,  2,  3, 3, 4, 5, 6 };
 
 anim_movement ryu_anim_fjump =
 {
-  0,
   10,
   ryu_fjump_relx,
   ryu_fjump_rely,
@@ -157,7 +154,6 @@ char ryu_bjump_frame[] = {  6,  5,  4,  3,  3,  2, 2, 1, 1, 0 };
 
 anim_movement ryu_anim_bjump =
 {
-  0,
   10,
   ryu_bjump_relx,
   ryu_bjump_rely,
@@ -170,7 +166,6 @@ char ryu_shouryuken_frame[] = {  0,  1,  2,  3,  3,  4,  4,  5,  5, 6, 6, 6, 7 }
 
 anim_movement ryu_anim_shouryuken =
 {
-  0,
   13,
   ryu_shouryuken_relx,
   ryu_shouryuken_rely,
@@ -243,7 +238,8 @@ typedef struct
 	unsigned char dir;	// if dir == 1 then use the mirrored version of the sprite
   unsigned char posx, posy;
   unsigned char anim;
-  unsigned char anim_idx;
+  unsigned char anim_idx;  // the index within an animation
+  unsigned char anim_tmr;  // how many ticks within the animation (i.e., you will sit on some frame-indexes for multiple ticks)
   unsigned char anim_dir;
   unsigned char visible;
   anim_movement *anim_movement;
@@ -255,10 +251,10 @@ typedef struct
 sprite_detail* cur_spr;
 sprite_detail sprites[SPR_MAX] =
 {
-  { 0, 4,  23,  RYU_IDLE, 0, 1, 1, NULL, 0 }, // player 1 (port 2)
-  { 1, 30, 23,  RYU_IDLE, 0, 1, 1, NULL, 0 }, // player 2 (port 1)
-  { 0, 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL, 0 },
-  { 0, 10, 15,  RYU_HADPROJ_START, 0, 1, 0, NULL, 0 },
+  { 0, 4,  23,  RYU_IDLE, 0, 0, 1, 1, NULL, 0 }, // player 1 (port 2)
+  { 1, 30, 23,  RYU_IDLE, 0, 0, 1, 1, NULL, 0 }, // player 2 (port 1)
+  { 0, 10, 15,  RYU_HADPROJ_START, 0, 0, 1, 0, NULL, 0 },
+  { 0, 10, 15,  RYU_HADPROJ_START, 0, 0, 1, 0, NULL, 0 },
 
 /*  { 7,  0,  RYU_WALK, 0, 1 },
   { 14, 0,  RYU_JUMP, 0, 1 },
@@ -375,14 +371,14 @@ void animate_sprite(sprite_detail* spr)
 {
   if (spr->anim_movement)
   {
-    gk = spr->anim_movement->anim_idx;
+    gk = spr->anim_tmr;
     spr->posx += spr->anim_movement->relx[gk];
     spr->posy += spr->anim_movement->rely[gk];
     spr->anim_idx = spr->anim_movement->frame[gk];
-    spr->anim_movement->anim_idx++;
+    spr->anim_tmr++;
 
     // test for end of jump (probably not the nicest place to put this, but it'll do)
-    if (spr->anim_movement->anim_idx == spr->anim_movement->anim_length)
+    if (spr->anim_tmr == spr->anim_movement->anim_length)
     {
       spr->jumping=0;
       spr->anim = RYU_IDLE;
@@ -488,7 +484,7 @@ void get_keyboard_input(void)
 				if (punch_style == RYU_SHOURYUKEN)
 				{
 					sprites[pi].anim_movement = &ryu_anim_shouryuken;
-					sprites[pi].anim_movement->anim_idx = 0;
+					sprites[pi].anim_tmr = 0;
 				}
 
 				sprites[pi].anim = punch_style;
@@ -509,7 +505,7 @@ void get_keyboard_input(void)
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
 					sprites[pi].anim_movement = &ryu_anim_fjump;
-					sprites[pi].anim_movement->anim_idx = 0;
+					sprites[pi].anim_tmr = 0;
 				}
 				else if (key & 4) // left jump?
 				{
@@ -517,7 +513,7 @@ void get_keyboard_input(void)
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
 					sprites[pi].anim_movement = &ryu_anim_bjump;
-					sprites[pi].anim_movement->anim_idx = 0;
+					sprites[pi].anim_tmr = 0;
 				}
 				else
 				{
@@ -525,7 +521,7 @@ void get_keyboard_input(void)
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
 					sprites[pi].anim_movement = &ryu_anim_jump;
-					sprites[pi].anim_movement->anim_idx = 0;
+					sprites[pi].anim_tmr = 0;
 				}
 				//vely=-6 << 5;
 			}
@@ -1316,6 +1312,8 @@ void game_main(void)
     }
 		cur_spr++;
   }
+
+  draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
 
   // perform page flip
   if (draw_page == 0)

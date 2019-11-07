@@ -34,6 +34,10 @@ int temple_idx=0;
 
 enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
+void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
+void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
+
+
 unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
@@ -63,7 +67,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK  RYU_LPUNCH // RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK   RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -615,8 +619,8 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[sprite+2].anim=RYU_HADPROJ_START;
       sprites[sprite+2].anim_idx=0;
       sprites[sprite+2].visible=1;
-      sprites[sprite+2].posx = sprites[sprite+2].posx + 9;
-      sprites[sprite+2].posy = sprites[sprite+2].posy - 3;
+      sprites[sprite+2].posx = sprites[sprite].posx + 9;
+      sprites[sprite+2].posy = sprites[sprite].posy - 3;
     }
 
     if (punching[sprite] && !sprites[sprite].anim_movement)
@@ -647,6 +651,8 @@ unsigned char post_draw_processing(unsigned char sprite)
   // hadouken projectile sprite?
   if (sprite == 2 || sprite == 3)
   {
+    draw_sprintf(0, 0, "posx=%d", sprites[sprite].posx);
+    draw_sprintf(0, 1, "posy=%d", sprites[sprite].posy);
     if (sprites[sprite].anim == RYU_HADPROJ_START && sprites[sprite].anim_idx == 1)
     {
       sprites[sprite].anim = RYU_HADPROJ;
@@ -1011,6 +1017,15 @@ void calc_absolute_addresses(void)
 #define OPTIONS_X	4
 #define OPTIONS_Y 2
 #define OPTIONS_H 5
+
+char dstr[40];
+void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
+{
+  va_list args;
+  va_start (args, str);
+  vsprintf(dstr, str, args);
+  draw_text(dstr, posx, posy, 0);
+}
 
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
 {

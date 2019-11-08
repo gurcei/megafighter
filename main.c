@@ -26,7 +26,7 @@ unsigned char floor_idx=12;
 unsigned char escdown = 0;
 
 enum OPT_BKGND { BKGND_STATIC, BKGND_ANIM, BKGND_ANIM_REPAIR };
-unsigned char option_background = BKGND_ANIM_REPAIR; //BKGND_STATIC; //BKGND_ANIM;
+unsigned char option_background = BKGND_STATIC; //BKGND_ANIM;
 
 int building_idx=0;
 int fence_idx=0;
@@ -481,20 +481,54 @@ void get_keyboard_input(void)
 				firedown[pi]=1;
 				punching[pi]=1;
 
-				if (punch_style == RYU_SHOURYUKEN)
-				{
-					sprites[pi].anim_movement = &ryu_anim_shouryuken;
-					sprites[pi].anim_tmr = 0;
-				}
+        // check direction of joystick to decide on which punch/kick to use
+        if (key & 1) // up
+        {
+          if (key &  8) // right
+          {
+            sprites[pi].anim = RYU_SHOURYUKEN;
+            sprites[pi].anim_movement = &ryu_anim_shouryuken;
+            sprites[pi].anim_tmr = 0;
+          }
+          else if (key & 4) // left
+            sprites[pi].anim = RYU_TATSUMAKI;
+          else // purely up
+            sprites[pi].anim = RYU_HKICK;
 
-				sprites[pi].anim = punch_style;
+          key &= ~(1+4+8);  // remove up flag
+        }
+        else if (key & 2) // down
+        {
+          if (key &  8) // right
+            sprites[pi].anim = RYU_CROUCH_HKICK;
+          else if (key & 4) // left
+            sprites[pi].anim = RYU_HADOUKEN;
+          else // purely down
+            sprites[pi].anim = RYU_CROUCH_HPUNCH;
+
+          key &= ~(4+8);
+        }
+        else if (key & 8) // right only
+        {
+          sprites[pi].anim = RYU_MHPUNCH;
+          key &= ~8;
+        }
+        else if (key & 4) // left only
+        {
+          sprites[pi].anim = RYU_LMKICK;
+          key &= ~4;
+        }
+        else
+        {
+          sprites[pi].anim = punch_style;
+          punch_style++;
+        }
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
-				punch_style++;
 				if (punch_style == RYU_MAX)
 					punch_style = RYU_LPUNCH;
 			}
-			if (key & 1 && !sprites[pi].jumping) // up
+			if (key & 1 && !sprites[pi].jumping && sprites[pi].anim == RYU_IDLE) // up
 			{
 				sprites[pi].jumping = 1;
 				walkingright[pi] = 0; // TODO: consider how far we've walked in deciding where to jump
@@ -615,8 +649,17 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[sprite+2].anim=RYU_HADPROJ_START;
       sprites[sprite+2].anim_idx=0;
       sprites[sprite+2].visible=1;
-      sprites[sprite+2].posx = sprites[sprite].posx + 9;
-      sprites[sprite+2].posy = sprites[sprite].posy - 3;
+      sprites[sprite+2].dir = sprites[sprite].dir;
+      if (sprites[sprite].dir)
+      {
+        sprites[sprite+2].posx = sprites[sprite].posx - 9;
+        sprites[sprite+2].posy = sprites[sprite].posy - 3;
+      }
+      else
+      {
+        sprites[sprite+2].posx = sprites[sprite].posx + 9;
+        sprites[sprite+2].posy = sprites[sprite].posy - 3;
+      }
     }
 
     if (punching[sprite] && !sprites[sprite].anim_movement)
@@ -647,8 +690,8 @@ unsigned char post_draw_processing(unsigned char sprite)
   // hadouken projectile sprite?
   if (sprite == 2 || sprite == 3)
   {
-    draw_sprintf(0, 0, "posx=%d", sprites[sprite].posx);
-    draw_sprintf(0, 1, "posy=%d", sprites[sprite].posy);
+    //draw_sprintf(0, 0, "posx=%d", sprites[sprite].posx);
+    //draw_sprintf(0, 1, "posy=%d", sprites[sprite].posy);
     if (sprites[sprite].anim == RYU_HADPROJ_START && sprites[sprite].anim_idx == 1)
     {
       sprites[sprite].anim = RYU_HADPROJ;
@@ -656,14 +699,22 @@ unsigned char post_draw_processing(unsigned char sprite)
     }
     else if (sprites[sprite].anim == RYU_HADPROJ && sprites[sprite].anim_idx == 11)
     {
-      if (sprites[sprite].posx > 28)
+      if (sprites[sprite].posx <= 3 || sprites[sprite].posx > 28)
       {
         sprites[sprite].anim=RYU_HADPROJ_END;
         sprites[sprite].anim_idx=0;
-        sprites[sprite].posx += 3;
+        if (sprites[sprite].dir)
+          sprites[sprite].posx -= 3;
+        else
+          sprites[sprite].posx += 3;
       }
       else
-        sprites[sprite].posx += 3;
+      {
+        if (sprites[sprite].dir)
+          sprites[sprite].posx -= 3;
+        else
+          sprites[sprite].posx += 3;
+      }
     }
     else if (sprites[sprite].anim == RYU_HADPROJ_END && sprites[sprite].anim_idx == 3)
     {
@@ -1313,7 +1364,7 @@ void game_main(void)
 		cur_spr++;
   }
 
-  draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
+  //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
 
   // perform page flip
   if (draw_page == 0)

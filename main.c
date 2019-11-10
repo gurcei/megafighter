@@ -32,13 +32,13 @@ int building_idx=0;
 int fence_idx=0;
 int temple_idx=0;
 
-enum { GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
+enum { GAME_INTRO, GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
 void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -1274,9 +1274,85 @@ void game_options(void)
 	} // end while(1)
 }
 
+void draw_screen(unsigned char idx)
+{
+  // copy screen 0 chars
+  c64loc = 0x400;
+  reuloc = 0x10000 + idx*2000;
+  length = 1000;
+  reu_simple_copy();
+
+  c64loc = 0xd800;
+  reuloc = 0x10000 + 1000 + idx*2000;
+  length = 1000;
+  reu_simple_copy();
+}
+
+void game_intro(void)
+{
+  unsigned char key;
+	
+  Poke(53281L,0);
+
+  draw_screen(0);
+
+  while(1)
+  {
+    // wait for fire-button
+    key  = (~Peek(56320U)) & 31; //cgetc();
+
+		if (key & 16)
+		{
+      break;
+    }
+  }
+
+  draw_screen(1);
+
+  while(1)
+  {
+    // wait for fire-button
+    key  = (~Peek(56320U)) & 31; //cgetc();
+
+		if (key & 16)
+		{
+			if (!firedown[0])
+			{
+				firedown[0] = 1;
+				clear_screen();
+
+				vicbase=0x4000;
+				draw_page = 1;
+
+				gamestate = GAME_TITLE;
+				return;
+			}
+		}
+		else
+		{
+			firedown[0] = 0;
+		}
+  }
+}
+
 void game_title(void)
 {
   unsigned char key;
+
+  // Select Bank1 for bitmap pages
+  //Poke(56578, Peek(56578) | 3); // make sure CIA bits 0+1 are set to outputs (DDR)
+  //Poke(56576, (Peek(56576) & 252) | 2); // change to vic bank1 ($4000-$7fff)
+
+  // Put bitmap at 8192
+  Poke(53272L, Peek(53272L) | 8);
+
+  // Enter bitmap mode
+  Poke(53265L, Peek(53265L) | 32);
+
+  // Try a REU ram transfer
+  Poke(REC_ADDR_CTRL, 0); // make sure both addresses are counted up
+
+  clear_screen();
 
 	// jump back to the currently visible page and draw on that
 	if (draw_page == 1)
@@ -1406,26 +1482,15 @@ void main(void)
 
   Poke(53280L,0);
 
-  // Select Bank1 for bitmap pages
-  //Poke(56578, Peek(56578) | 3); // make sure CIA bits 0+1 are set to outputs (DDR)
-  //Poke(56576, (Peek(56576) & 252) | 2); // change to vic bank1 ($4000-$7fff)
-
-  // Put bitmap at 8192
-  Poke(53272L, Peek(53272L) | 8);
-
-  // Enter bitmap mode
-  Poke(53265L, Peek(53265L) | 32);
-
-  // Try a REU ram transfer
-  Poke(REC_ADDR_CTRL, 0); // make sure both addresses are counted up
-
-  clear_screen();
+  // switch back to upper-case
+  // https://www.cc65.org/mailarchive/2004-09/4446.html
+  Poke(0xd018, 0x15);
 
   // size is 7 x 14 char-blocks
   // = 784 bytes = 0x0310
   // draw it one row at a time
 
-  loc = 0x00010000;
+  loc = 0x00020000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {
@@ -1462,6 +1527,10 @@ void main(void)
   {
     switch(gamestate)
     {
+      case GAME_INTRO:
+        game_intro();
+        break;
+
       case GAME_TITLE:
         game_title();
         break;

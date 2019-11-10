@@ -110,7 +110,11 @@ data.reu: $(DATAFILES)
 	cat $(SEGS_META_FILES_REV) >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=65535
 
-	# reu bank 1 and onwards is bitmap data
+	# reu bank 1 is petscii screen data
+	cat intro.bin >> data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=131071
+
+	# reu bank 2 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu

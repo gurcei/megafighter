@@ -161,6 +161,7 @@ anim_movement ryu_anim_bjump =
 };
 
 char ryu_shouryuken_relx[]  = {  0,  0,  1,  1,  1,  1,  0,  0,  0, 0, 0, 0, 0 };
+char ryu_shouryuken_relx_opp[]  = {  0,  0,  -1,  -1,  -1,  -1,  0,  0,  0, 0, 0, 0, 0 };
 char ryu_shouryuken_rely[]  = {  0,  0,  0,  0, -1, -2, -1, -1,  1, 1, 2, 1, 0 };
 char ryu_shouryuken_frame[] = {  0,  1,  2,  3,  3,  4,  4,  5,  5, 6, 6, 6, 7 };
 
@@ -168,6 +169,14 @@ anim_movement ryu_anim_shouryuken =
 {
   13,
   ryu_shouryuken_relx,
+  ryu_shouryuken_rely,
+  ryu_shouryuken_frame
+};
+
+anim_movement ryu_anim_shouryuken_opp =
+{
+  13,
+  ryu_shouryuken_relx_opp,
   ryu_shouryuken_rely,
   ryu_shouryuken_frame
 };
@@ -484,13 +493,13 @@ void get_keyboard_input(void)
         // check direction of joystick to decide on which punch/kick to use
         if (key & 1) // up
         {
-          if (key &  8) // right
+          if (sprites[pi].dir ? (key &  4) : (key & 8)) // right
           {
             sprites[pi].anim = RYU_SHOURYUKEN;
-            sprites[pi].anim_movement = &ryu_anim_shouryuken;
+            sprites[pi].anim_movement = sprites[pi].dir ? &ryu_anim_shouryuken_opp : &ryu_anim_shouryuken;
             sprites[pi].anim_tmr = 0;
           }
-          else if (key & 4) // left
+          else if (sprites[pi].dir ? (key & 8) : (key & 4)) // left
             sprites[pi].anim = RYU_TATSUMAKI;
           else // purely up
             sprites[pi].anim = RYU_HKICK;
@@ -500,9 +509,9 @@ void get_keyboard_input(void)
         else if (key & 2) // down
         {
           if (key &  8) // right
-            sprites[pi].anim = RYU_CROUCH_HKICK;
+            sprites[pi].anim = sprites[pi].dir ? RYU_HADOUKEN : RYU_CROUCH_HKICK;
           else if (key & 4) // left
-            sprites[pi].anim = RYU_HADOUKEN;
+            sprites[pi].anim = sprites[pi].dir ? RYU_CROUCH_HKICK : RYU_HADOUKEN;
           else // purely down
             sprites[pi].anim = RYU_CROUCH_HPUNCH;
 
@@ -510,12 +519,12 @@ void get_keyboard_input(void)
         }
         else if (key & 8) // right only
         {
-          sprites[pi].anim = RYU_MHPUNCH;
+          sprites[pi].anim = sprites[pi].dir ? RYU_LMKICK : RYU_MHPUNCH;
           key &= ~8;
         }
         else if (key & 4) // left only
         {
-          sprites[pi].anim = RYU_LMKICK;
+          sprites[pi].anim = sprites[pi].dir ? RYU_MHPUNCH : RYU_LMKICK;
           key &= ~4;
         }
         else
@@ -652,7 +661,7 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[sprite+2].dir = sprites[sprite].dir;
       if (sprites[sprite].dir)
       {
-        sprites[sprite+2].posx = sprites[sprite].posx - 9;
+        sprites[sprite+2].posx = sprites[sprite].posx - 5;
         sprites[sprite+2].posy = sprites[sprite].posy - 3;
       }
       else

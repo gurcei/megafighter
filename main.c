@@ -815,8 +815,6 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
       // completely cropped to the right?
       if (c64loc >= nextx)
       {
-        PokeW(0xc000+gk*4, c64loc);
-        PokeW(0xc002+gk*4, startx);
         goto skip;
       }
 
@@ -1365,6 +1363,7 @@ void game_main(void)
   }
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
+  draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
 
   // perform page flip
   if (draw_page == 0)

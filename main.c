@@ -1303,7 +1303,18 @@ void game_intro(void)
 
 		if (key & 16)
 		{
-      break;
+			if (!firedown[0])
+			{
+				firedown[0] = 1;
+      }
+    }
+    else
+    {
+      if (firedown[0])
+      {
+        firedown[0] = 0;
+        break;
+      }
     }
   }
 

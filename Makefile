@@ -72,12 +72,12 @@ DATAFILES= \
 
 BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
 SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)
-ID_NAMES=`echo $(DATAFILES:.bin=,) | tr [a-z] [A-Z]`
+ID_NAMES=`echo $(DATAFILES:.bin=,) | tr \[a-z\] \[A-Z\]`
 
 DATAFILES_REV=$(DATAFILES:.bin=_rev.bin)
 BMP_META_FILES_REV=$(DATAFILES_REV:bin=bin.bmp_meta)
 SEGS_META_FILES_REV=$(DATAFILES_REV:bin=bin.segs_meta)
-ID_NAMES_REV=`echo $(DATAFILES_REV:.bin=,) | tr [a-z] [A-Z]`
+ID_NAMES_REV=`echo $(DATAFILES_REV:.bin=,) | tr \[a-z\] \[A-Z\]`
 
 all: gidemo.d64 data.reu
 

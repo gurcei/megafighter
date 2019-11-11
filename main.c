@@ -7,7 +7,7 @@
 
 #include "bitmap_ids.h"
 
-#define SAVEMEM
+//#define SAVEMEM
 
 // ================================
 // GLOBALS
@@ -1367,7 +1367,7 @@ void game_intro(void)
 				draw_page = 1;
 
 				gamestate = GAME_TITLE;
-        reset_irq();
+        //reset_irq();
 				return;
 			}
 		}

@@ -103,4 +103,4 @@ void prepare_sid(void);
 void music_loop_iteration(void);
 void prepare_ADSRs(void);
 void music_loop_preparation(void);
-void prepare_song(char **p_lyrics, int *pv1, int *pv2, int *pv3, unsigned char p_bar_length, unsigned char p_delay_cnt, unsigned char p_use_bug);
+void prepare_song(int *pv1, int *pv2, int *pv3, unsigned char p_bar_length, unsigned char p_delay_cnt, unsigned char p_use_bug);

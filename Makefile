@@ -79,7 +79,7 @@ BMP_META_FILES_REV=$(DATAFILES_REV:bin=bin.bmp_meta)
 SEGS_META_FILES_REV=$(DATAFILES_REV:bin=bin.segs_meta)
 ID_NAMES_REV=`echo $(DATAFILES_REV:.bin=,) | tr \[a-z\] \[A-Z\]`
 
-all: gidemo.d64 data.reu
+all: gidemo.d64 data.reu util.h
 
 run:
 	#open -a /Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64
@@ -123,6 +123,10 @@ data.reu: $(DATAFILES)
 	ls -lh data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215
 
+util.h: gidemo.lbl
+	cat gidemo.lbl | grep \.func_ | sed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \L\"$$\2\"/" > util.h
+	cat gidemo.lbl | grep \.var_ | sed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \L\"$$\2\"/" >> util.h
+
 # 'pngprepare' and 'asciih' tools borrowed from mega65-ide project
 # --------------------------------------------------
 ascii8x8.bin: ascii00-7f.png pngprepare
@@ -135,7 +139,7 @@ pngprepare: pngprepare.c
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
 # --------------------------------------------------
 
-gidemo.prg: data.reu $(ASSFILES) gidemo.cfg
+gidemo.prg gidemo.lbl: data.reu $(ASSFILES) gidemo.cfg
 	$(CL65) $(COPTS) $(LOPTS) -vm -l gidemo.list -m gidemo.map -Ln gidemo.lbl -o gidemo.prg $(ASSFILES)
 
 gidemo.d64: gidemo.prg

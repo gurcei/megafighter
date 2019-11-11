@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <6502.h>
 #include "common.h"
+#include "util.h"
+#include "music_intro.h"
 
 #include "bitmap_ids.h"
+
+#define SAVEMEM
 
 // ================================
 // GLOBALS
@@ -12,6 +17,7 @@ unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
 int sky_idx = 0;
 
+unsigned char screen_flag = 0;
 
 unsigned char firedown[2]= { 0 };
 unsigned char walkingright[2]= { 0 };
@@ -428,7 +434,7 @@ unsigned char col;
 void check_real_keyboard(void)
 {
 	keycode = 0;
-	__asm__ ( "jsr $4800" );
+	__asm__ ( "jsr " FUNC_MINIKEY );
 	__asm__ ( "bcc rkskip" );
 	__asm__ ( "sta %v", keycode );
   __asm__ ( "rkskip:" );
@@ -981,6 +987,7 @@ void draw_sky_bitmap(int frame)
 
 }
 
+#ifndef SAVEMEM
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
@@ -1056,6 +1063,7 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
     } // end for
   } // end if
 }
+#endif
 
 void calc_absolute_addresses(void)
 {
@@ -1128,6 +1136,7 @@ char* strSelected = "(*)";
 char* strUnselected = "( )";
 #define TOTAL_MENU_ITEMS	5
 
+#ifndef SAVEMEM
 void draw_options(void)
 {
 	draw_text(option_background == BKGND_STATIC ? strSelected : strUnselected, 6, 7, 0);
@@ -1142,7 +1151,9 @@ void draw_options(void)
 	draw_text("return to game",              10, 11, menu_highlight==3);
 	draw_text("exit to title",               10, 13, menu_highlight==4);
 }
+#endif
 
+#ifndef SAVEMEM
 void game_options(void)
 {
 	unsigned char k;
@@ -1269,6 +1280,7 @@ void game_options(void)
 		}
 	} // end while(1)
 }
+#endif
 
 void draw_screen(unsigned char idx)
 {
@@ -1284,11 +1296,34 @@ void draw_screen(unsigned char idx)
   reu_simple_copy();
 }
 
+unsigned char irqs;
+
+unsigned char intro_irq(void)
+{
+  irqs = Peek(0xd019);
+
+  __asm__ ( "jsr " FUNC_MUSIC_LOOP_ITERATION);
+
+  if (screen_flag)
+  {
+    Poke(0xd020, Peek(0xd020)+1);
+    screen_flag = 0;
+  }
+
+  return IRQ_HANDLED;
+}
+
 void game_intro(void)
 {
   unsigned char key;
 	
   Poke(53281L,0);
+
+  reset_irq();
+  __asm__ ( "jsr " FUNC_PREPARE_SID);
+  prepare_intro_song();
+  __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
+  set_irq(intro_irq, (void *)0xca00, 200);
 
   draw_screen(0);
 
@@ -1332,6 +1367,7 @@ void game_intro(void)
 				draw_page = 1;
 
 				gamestate = GAME_TITLE;
+        reset_irq();
 				return;
 			}
 		}
@@ -1342,6 +1378,7 @@ void game_intro(void)
   }
 }
 
+#ifndef SAVEMEM
 void game_title(void)
 {
   unsigned char key;
@@ -1394,7 +1431,9 @@ void game_title(void)
 		}
   }
 }
+#endif
 
+#ifndef SAVEMEM
 void game_main(void)
 {
   unsigned int i, k;
@@ -1480,6 +1519,7 @@ void game_main(void)
   //for (k=0; k < 500; k++)
   //  ;
 }
+#endif // SAVEMEM
 
 void main(void)
 {
@@ -1539,15 +1579,21 @@ void main(void)
         break;
 
       case GAME_TITLE:
+#ifndef SAVEMEM
         game_title();
+#endif
         break;
 
       case GAME_MAIN:
+#ifndef SAVEMEM
         game_main();
+#endif
         break;
 
 			case GAME_OPTIONS:
+#ifndef SAVEMEM
 				game_options();
+#endif
 				break;
     }
   } // end while

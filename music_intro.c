@@ -1,4 +1,5 @@
 #include "music.h"
+#include "util.h"
 
 #define CHORUS_V1 0
 #define VERSE_V1  1
@@ -294,60 +295,7 @@ static int v3[] =
   0
 };
 
-static char *lyrics[] =
-{
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "        t&n t&n, t&n& m&n& hanim        ",
-  "          t&n t&n, t&n& m&n& hanim      ",
-  "           sen& sev&yor canim           ",
-  "             sen& sev&yor canim         ",
-  "        t&n t&n, t&n& m&n& hanim        ",
-  "          t&n t&n, t&n& m&n& hanim      ",
-  "           sen& sev&yor canim           ",
-  "             sen& sev&yor canim         ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "            \"eftal& a#a!lari            ",
-  "              \"eftal& a#a!lari          ",
-  "           t%rl% !&!ek ba\"lari          ",
-  "             t%rl% !i!ek ba\"lari        ",
-  "            \"eftal& a#a!lari            ",
-  "              \"eftal& a#a!lari          ",
-  "           t%rl% !&!ek ba\"lari          ",
-  "             t%rl% !&!ek ba\"lari        ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "        t&n t&n, t&n& m&n& hanim        ",
-  "          t&n t&n, t&n& m&n& hanim      ",
-  "           sen& sev&yor canim           ",
-  "             sen& sev&yor canim         ",
-  "        t&n t&n, t&n& m&n& hanim        ",
-  "          t&n t&n, t&n& m&n& hanim      ",
-  "           sen& sev&yor canim           ",
-  "             sen& sev&yor canim         ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "                                        ",
-  "           yakti yandirdi ben&          ",
-  "             yakti yandirdi ben&        ",
-  "           yarin h&lal ka\"lari          ",
-  "             yarin h&lal ka\"lari        ",
-  "           yakti yandirdi ben&          ",
-  "             yakti yandirdi ben&        ",
-  "           yarin h&lal ka\"lari          ",
-  "             yarin h&lal ka\"lari        ",
-  0 
-};
-
 void prepare_intro_song(void)
 {
-  prepare_song(lyrics, v1, v2, v3, 32, 3, 1);
+  prepare_song(v1, v2, v3, 32, 3, 1);
 }

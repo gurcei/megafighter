@@ -1327,7 +1327,7 @@ void game_intro(void)
 
   // speed up the tempo a bit :)
   Poke(0xdc04, 10); // LO: set CIA#1 TimerA value
-  Poke(0xdc05, 40); // HI: set CIA#1 TimerA value
+  Poke(0xdc05, 52); // HI: set CIA#1 TimerA value
 
   Poke(0xdc0d, 0x81); // turn on CIA#2 timera interrupt only
   //Poke(0xdd0f, /*(1<<5) +*/ (1<<4) + (1<<3) + 1); // CIA#1 Control Register B (count positive transitions, force load, start timer)

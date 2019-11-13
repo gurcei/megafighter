@@ -355,6 +355,17 @@ void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
 int vicbase = 0x0000;
 unsigned int draw_page = 1;
 
+void clear_petscii(void)
+{
+  vicbase = 0xd800;
+
+  while (vicbase < 0xd800+1000)
+  {
+    Poke(vicbase, 0);
+    vicbase++;
+  }
+}
+
 void clear_screen(void)
 {
   unsigned int i;
@@ -1304,18 +1315,14 @@ unsigned char intro_irq(void)
 
   __asm__ ( "jsr " FUNC_MUSIC_LOOP_ITERATION);
 
-  if (screen_flag)
-  {
-    Poke(0xd020, Peek(0xd020)+1);
-    screen_flag = 0;
-  }
-
   return IRQ_HANDLED;
 }
 
 void game_intro(void)
 {
   unsigned char key;
+  unsigned char scr_idx = 0;
+  unsigned int cnt = 0;
 	
   Poke(53281L,0);
 
@@ -1352,30 +1359,36 @@ void game_intro(void)
 
   while(1)
   {
-    // wait for fire-button
-    key  = (~Peek(56320U)) & 31; //cgetc();
-
-		if (key & 16)
-		{
-			if (!firedown[0])
-			{
-				firedown[0] = 1;
-      }
-    }
-    else
+    if (screen_flag)
     {
-      if (firedown[0])
-      {
-        firedown[0] = 0;
-        break;
-      }
+      screen_flag = 0;
+      cnt = 0;
+      break;
+    }
+    cnt++;
+    if (cnt == 800)
+    {
+      cnt = 0;
+      scr_idx = (scr_idx + 1) % 4;
+      draw_screen(scr_idx);
     }
   }
 
-  draw_screen(1);
+  scr_idx = 4;
+  draw_screen(scr_idx);
 
   while(1)
   {
+    cnt++;
+    if (cnt == 800)
+    {
+      cnt = 0;
+      scr_idx++;
+      if (scr_idx >= 24)
+        scr_idx = 23;
+      draw_screen(scr_idx);
+    }
+
     // wait for fire-button
     key  = (~Peek(56320U)) & 31; //cgetc();
 
@@ -1384,6 +1397,7 @@ void game_intro(void)
 			if (!firedown[0])
 			{
 				firedown[0] = 1;
+        clear_petscii();
 				clear_screen();
 
 				vicbase=0x4000;

@@ -1319,6 +1319,29 @@ void game_intro(void)
 	
   Poke(53281L,0);
 
+  __asm__ ( "sei" );
+  Poke(0xd011, Peek(0xd011) & 127); // turning off raster register MSB bit-8
+  Poke(0xdc0d, 127); // switch off interrupt signals from cia-1 (https://www.c64-wiki.com/wiki/Raster_interrupt)
+  Poke(0xdd0d, 127); // stop the cursor flash interrupt? (http://codebase64.org/doku.php?id=base:introduction_to_raster_irqs)
+  Poke(0xdd0d, 0x7f); // turn off cia interrupts (https://dustlayer.com/c64-coding-tutorials/2013/4/8/episode-2-3-did-i-interrupt-you)
+
+  // speed up the tempo a bit :)
+  Poke(0xdc04, 10); // LO: set CIA#1 TimerA value
+  Poke(0xdc05, 40); // HI: set CIA#1 TimerA value
+
+  Poke(0xdc0d, 0x81); // turn on CIA#2 timera interrupt only
+  //Poke(0xdd0f, /*(1<<5) +*/ (1<<4) + (1<<3) + 1); // CIA#1 Control Register B (count positive transitions, force load, start timer)
+
+/*
+  Poke(0xdc0f, 0); (1<<5) + (1<<4) + 1); // CIA#1 Control Register B (count positive transitions, force load, start timer)
+
+
+  Poke(0xdc0d, 0x7f);
+  Poke(0xdc0d, 0x82); // CIA#1 Interrupt Register: turn on CIA#1 TimerB interrupt
+  Peek(0xdc0d);
+*/
+  __asm__ ( "cli" );
+
   reset_irq();
   __asm__ ( "jsr " FUNC_PREPARE_SID);
   prepare_intro_song();
@@ -1494,7 +1517,7 @@ void game_main(void)
   }
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
-  draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
+  //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
 
   // perform page flip
   if (draw_page == 0)

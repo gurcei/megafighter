@@ -238,11 +238,11 @@ static int v1[] =
   // SONG BEGINS HERE
   // ----------------
   DO_CMD_CONTROL(C_SAWTOOTH + C_GATE),
-  //DO_CMD_GOSUB(DITTY_V1),
-  //DO_CMD_GOSUB(DITTY_V1),
-  //DO_CMD_NEXT_SCREEN,
-  //DO_CMD_GOSUB(DITTY_V1),
-  //DO_CMD_GOSUB(DITTY2_V1),
+  DO_CMD_GOSUB(DITTY_V1),
+  DO_CMD_GOSUB(DITTY_V1),
+  DO_CMD_NEXT_SCREEN,
+  DO_CMD_GOSUB(DITTY_V1),
+  DO_CMD_GOSUB(DITTY2_V1),
 
   // chorus
   DO_CMD_GOSUB(DITTY_V1),
@@ -259,6 +259,11 @@ static int v1[] =
 
 static int v2[] =
 {
+  -D1, -D1,
+  -D1, -D1,
+  -D1, -D1,
+  -D1, -D1,
+
   -D1_4,
   NFs + O5 + D1_8,
   ND + O5 + D1_8,
@@ -322,7 +327,7 @@ static int v2[] =
   NFs + O7 + D1_8,
   ND + O7 + D1_8,
   ND + O7 + D1_8,
-//
+
   REPEAT_TO_BEGINNING,
   0
 };
@@ -420,11 +425,18 @@ static int v3[] =
   DO_CMD_SUB_RETURN,
 
   DO_CMD_SET_ADSR(1, 9, 0, 0),
-	//DO_CMD_GOSUB(DRUM_PAT1),
+	DO_CMD_GOSUB(DRUM_PAT1),
 
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
-  //DO_CMD_GOSUB(DRUM_PAT3),
+  DO_CMD_GOSUB(DRUM_PAT3),
+
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
   REPEAT_TO_BEGINNING,
   0
 };

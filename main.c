@@ -998,7 +998,7 @@ void draw_sky_bitmap(int frame)
 
 }
 
-#ifndef SAVEMEM
+//#ifndef SAVEMEM
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
@@ -1074,7 +1074,7 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
     } // end for
   } // end if
 }
-#endif
+//#endif
 
 void calc_absolute_addresses(void)
 {
@@ -1415,7 +1415,7 @@ void game_intro(void)
   }
 }
 
-#ifndef SAVEMEM
+//#ifndef SAVEMEM
 void game_title(void)
 {
   unsigned char key;
@@ -1424,16 +1424,16 @@ void game_title(void)
   //Poke(56578, Peek(56578) | 3); // make sure CIA bits 0+1 are set to outputs (DDR)
   //Poke(56576, (Peek(56576) & 252) | 2); // change to vic bank1 ($4000-$7fff)
 
+  // Try a REU ram transfer
+  Poke(REC_ADDR_CTRL, 0); // make sure both addresses are counted up
+
+  clear_screen();
+
   // Put bitmap at 8192
   Poke(53272L, Peek(53272L) | 8);
 
   // Enter bitmap mode
   Poke(53265L, Peek(53265L) | 32);
-
-  // Try a REU ram transfer
-  Poke(REC_ADDR_CTRL, 0); // make sure both addresses are counted up
-
-  clear_screen();
 
 	// jump back to the currently visible page and draw on that
 	if (draw_page == 1)
@@ -1468,9 +1468,9 @@ void game_title(void)
 		}
   }
 }
-#endif
+//#endif
 
-#ifndef SAVEMEM
+//#ifndef SAVEMEM
 void game_main(void)
 {
   unsigned int i, k;
@@ -1556,7 +1556,7 @@ void game_main(void)
   //for (k=0; k < 500; k++)
   //  ;
 }
-#endif // SAVEMEM
+//#endif // SAVEMEM
 
 void main(void)
 {
@@ -1616,15 +1616,15 @@ void main(void)
         break;
 
       case GAME_TITLE:
-#ifndef SAVEMEM
+//#ifndef SAVEMEM
         game_title();
-#endif
+//#endif
         break;
 
       case GAME_MAIN:
-#ifndef SAVEMEM
+//#ifndef SAVEMEM
         game_main();
-#endif
+//#endif
         break;
 
 			case GAME_OPTIONS:

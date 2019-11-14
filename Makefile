@@ -8,7 +8,8 @@ ASSFILES = main.s \
 						charset.s \
 						music.s \
 						music_intro.s \
-						util.s \
+						music_game.s \
+						util.s
 #						music_game.s \
 #						music_outro.s \
 #						music_credits.s \

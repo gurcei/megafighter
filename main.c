@@ -4,6 +4,7 @@
 #include "common.h"
 #include "util.h"
 #include "music_intro.h"
+#include "music_game.h"
 
 #include "bitmap_ids.h"
 
@@ -40,7 +41,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -1459,6 +1460,19 @@ void game_title(void)
 				draw_page = 1;
 
 				gamestate = GAME_MAIN;
+
+        __asm__ ( "cli" );
+
+        // speed up the tempo a bit :)
+        Poke(0xdc04, 10); // LO: set CIA#1 TimerA value
+        Poke(0xdc05, 52); // HI: set CIA#1 TimerA value
+
+        reset_irq();
+        __asm__ ( "jsr " FUNC_PREPARE_SID);
+        prepare_game_song();
+        __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
+        set_irq(intro_irq, (void *)0xca00, 200);
+
 				return;
 			}
 		}

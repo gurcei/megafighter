@@ -40,6 +40,63 @@
     NE + O4 + D1_32, \
     NA + O1 + D1_16,
 
+#define ARPAs_3_2D \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O3 + D1_32, \
+    NCs + O4 + D1_32, \
+    NAs + O1 + D1_16,
+
 #define ARPAs_1_4 \
     NAs + O3 + D1_32, \
     NF + O4 + D1_32, \
@@ -57,19 +114,68 @@
 #define ARPC_1_8 \
     DO_CMD_AUTO_GATE_OFF(0), \
     NC + O4 + D1_32, \
-    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
     NC + O1 + D1_16, // using this low note to get around gating problems
 
 #define ARPC_1_4 \
-    DO_CMD_AUTO_GATE_OFF(0), \
     NC + O4 + D1_32, \
-    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
     NC + O4 + D1_32, \
-    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
     NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O1 + D1_16, // using this low note to get around gating problems
+
+#define ARPE_1_8 \
+    NE + O4 + D1_32, \
     NG + O4 + D1_32, \
-    DO_CMD_AUTO_GATE_OFF(1), \
+    NE + O1 + D1_16,
+
+#define ARPE_5_8 \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NE + O1 + D1_16,
+
+#define ARPC_1_2D \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
     NC + O1 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1 \
@@ -125,92 +231,121 @@
 
 #define ARPF_5_4D \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O4 + D1_32, \
+    NGs + O4 + D1_32, \
     NF + O1 + D1_16,
+
+#define ARPF_1_8 \
+    NF + O4 + D1_32, \
+    NGs + O4 + D1_32, \
+    NF + O1 + D1_16,
+
+#define ARPG_1_8 \
+    NG + O4 + D1_32, \
+    NAs + O4 + D1_32, \
+    NG + O1 + D1_16,
+
+#define ARPDs_1_4 \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O1 + D1_16,
+
+#define ARPCs_1_8 \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O1 + D1_16,
+
+#define ARPCs_5_4D \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O1 + D1_16,
 
 // voice 1
 static int v1[] =
 {
-  DO_CMD_SET_ADSR(1, 9, 0, 0),
-  DO_CMD_AUTO_GATE_OFF(0),
-  NF + O4 + D1,
-
-  DO_CMD_AUTO_GATE_OFF(1),
-  NF + O4 + D1_4D,
-  NC + O4 + D1_8,
-  NF + O4 + D1_8,
-  NDs + O4 + D1_4,
-  NDs + O4 + D1_4,
-
-  NCs + O4 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NCs + O4 + D1,
-
-  DO_CMD_AUTO_GATE_OFF(1),
-  NCs + O4 + D1_4D,
-
-  NCs + O4 + D1_8,
-  NC + O4 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NAs + O3 + D1,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NAs + O3 + D1_2D,
-
-  NAs + O3 + D1_4,
-  NC + O4 + D1_2D,
-  NC + O4 + D1_4,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NE + O4 + D1_2,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NE + O4 + D1_8,
-
-  NE + O4 + D1_8,
-  NF + O4 + D1_8,
-  NG + O4 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NF + O4 + D1_8,
-
-  REPEAT_TO_BEGINNING,
   0
 };
 
@@ -220,43 +355,54 @@ static int v1[] =
 
 static int v2[] =
 {
-  DO_CMD_AUTO_GATE_OFF(0),
-  NC + O4 + D1,
-
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
   DO_CMD_AUTO_GATE_OFF(1),
-  NC + O4 + D1_4D,
-  NF + O3 + D1_8,
-  NC + O4 + D1_8,
-  NC + O4 + D1_4,
-  NC + O4 + D1_4,
 
-  NAs + O3 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NAs + O3 + D1,
+  ARPF_5_4D
 
-  DO_CMD_AUTO_GATE_OFF(1),
-  NAs + O3 + D1_4D,
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPC_1_8
 
-  NAs + O3 + D1_8,
-  NGs + O3 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NF + O3 + D1,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NF + O3 + D1_2D,
+  ARPF_1_8
 
-  NF + O3 + D1_4,
-  NG + O3 + D1_2D,
-  NG + O3 + D1_4,
-  DO_CMD_AUTO_GATE_OFF(0),
-  NC + O4 + D1_2,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NC + O4 + D1_8,
+  ARPDs_1_4
+  ARPDs_1_4
 
-  NC + O4 + D1_8,
-  NCs + O4 + D1_8,
-  NE + O4 + D1_8,
-  DO_CMD_AUTO_GATE_OFF(1),
-  NC + O4 + D1_8,
+  ARPCs_1_8
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPCs_5_4D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPCs_1_8
+
+  ARPC_1_8
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPAs_3_2D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPAs_1_4
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPC_1_2D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPC_1_4
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPE_5_8
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPE_1_8
+  ARPF_1_8
+  ARPG_1_8
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  NF + O4 + D1_32,
+  NGs + O4 + D1_32,
+  NF + O4 + D1_32,
+  NGs + O4 + D1_32,
 
   REPEAT_TO_BEGINNING,
   0

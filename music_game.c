@@ -1,11 +1,9 @@
 #include "music.h"
 #include "util.h"
 
-#define CHORUS_V1 0
-#define VERSE_V1  1
-#define DITTY_V1  2
-#define DITTY2_V1 3
-#define DITTY3_V1 4
+#define DITTY1_V1 0
+#define DITTY2_V1 1
+#define DITTY3_V1 2
 
 #define ARPA_1 \
     NA + O3 + D1_32, \
@@ -346,6 +344,55 @@
 // voice 1
 static int v1[] =
 {
+  -D1, -D1, -D1, -D1, -D1, -D1, -D1, -D1,
+
+  DO_CMD_DEFINE_SUB(DITTY1_V1),
+    -D1_4,
+    NC + O5 + D1_4,
+    NF + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_8,
+    NF + O5 + D1_4D,
+    NDs + O5 + D1_4,
+    NF + O5 + D1_4D,
+
+    NC + O5 + D1_4,
+    NF + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_8,
+    NF + O5 + D1_4D,
+    NDs + O5 + D1_4,
+    NF + O5 + D1_4D,
+
+    NC + O5 + D1_4,
+    NF + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NC + O6 + D1_4,
+    NCs + O6 + D1_8,
+    NC + O6 + D1_8,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_8,
+    NAs + O5 + D1_8,
+
+    NC + O6 + D1_32,
+    NC + O6 + D1_32,
+    NC + O6 + D1_32,
+    NC + O6 + D1_32,
+    NC + O6 + D1_2,
+
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_4,
+    NF + O5 + D1_8,
+    NE + O5 + D1_2,
+    -D1_8,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_GOSUB(DITTY1_V1),
+  DO_CMD_GOSUB(DITTY1_V1),
+
   0
 };
 

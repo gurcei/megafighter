@@ -999,9 +999,9 @@ void draw_sky_bitmap(int frame)
 
 }
 
-//#ifndef SAVEMEM
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
+#ifndef SAVEMEM
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
   num = segbmps[frame].num_segments;
 
@@ -1074,8 +1074,8 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       c64loc -= 8;
     } // end for
   } // end if
+#endif
 }
-//#endif
 
 void calc_absolute_addresses(void)
 {

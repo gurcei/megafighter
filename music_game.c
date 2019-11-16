@@ -350,11 +350,14 @@ static int v1[] =
 };
 
 
-#define CHORUS_V2 0
-#define DITTY_V2  1
+#define DITTY1_V2  0
+#define DITTY2_V2  1
+#define DITTY3_V2  2
+#define DITTY4_V2  3
 
 static int v2[] =
 {
+  // intro part
   DO_CMD_SET_ADSR(1, 13, 0, 0),
   DO_CMD_AUTO_GATE_OFF(1),
 
@@ -398,11 +401,157 @@ static int v2[] =
   ARPF_1_8
   ARPG_1_8
 
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  NF + O4 + D1_32,
-  NGs + O4 + D1_32,
-  NF + O4 + D1_32,
-  NGs + O4 + D1_32,
+  DO_CMD_DEFINE_SUB(DITTY1_V2),
+    // start of main chord pattern
+    DO_CMD_SET_ADSR(1, 13, 0, 0),
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O1 + D1_16,
+
+    -D1_4,
+
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O1 + D1_16,
+      
+    -D1_2D,
+    -D1_8,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_DEFINE_SUB(DITTY2_V2),
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NGs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NGs + O1 + D1_16,
+
+    -D1_4,
+
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NGs + O4 + D1_32,
+    NCs + O4 + D1_32,
+    NGs + O1 + D1_16,
+      
+    -D1_2D,
+    -D1_8,
+  DO_CMD_SUB_RETURN,
+    
+  DO_CMD_DEFINE_SUB(DITTY3_V2),
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O1 + D1_16,
+
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NAs + O3 + D1_32,
+    NAs + O1 + D1_16,
+
+    -D1_4,
+
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O1 + D1_16,
+
+    NC + O5 + D1_32,
+    NAs + O3 + D1_32,
+    NC + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NAs + O3 + D1_32,
+    NAs + O1 + D1_16,
+      
+    -D1_2D,
+    -D1_8,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_DEFINE_SUB(DITTY4_V2),
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NG + O4 + D1_32,
+    NC + O4 + D1_32,
+    NG + O1 + D1_16,
+
+    -D1_4,
+
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NAs + O4 + D1_32,
+    NC + O4 + D1_32,
+    NAs + O1 + D1_16,
+
+    NG + O4 + D1_32,
+    NC + O4 + D1_32,
+    NG + O1 + D1_16,
+      
+    -D1_2D,
+    -D1_8,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_GOSUB(DITTY1_V2),
+  DO_CMD_GOSUB(DITTY2_V2),
+  DO_CMD_GOSUB(DITTY3_V2),
+  DO_CMD_GOSUB(DITTY4_V2),
+
+  DO_CMD_GOSUB(DITTY1_V2),
+  DO_CMD_GOSUB(DITTY2_V2),
+  DO_CMD_GOSUB(DITTY3_V2),
+  DO_CMD_GOSUB(DITTY4_V2),
 
   REPEAT_TO_BEGINNING,
   0

@@ -36,7 +36,7 @@
     NE + O4 + D1_32, \
     NA + O3 + D1_32, \
     NE + O4 + D1_32, \
-    NA + O1 + D1_16,
+    NA + O3 + D1_16,
 
 #define ARPAs_3_2D \
     NAs + O3 + D1_32, \
@@ -93,7 +93,7 @@
     NCs + O4 + D1_32, \
     NAs + O3 + D1_32, \
     NCs + O4 + D1_32, \
-    NAs + O1 + D1_16,
+    NAs + O3 + D1_16,
 
 #define ARPAs_1_4 \
     NAs + O3 + D1_32, \
@@ -102,19 +102,19 @@
     NF + O4 + D1_32, \
     NAs + O3 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O1 + D1_16,
+    NAs + O3 + D1_16,
 
 #define ARPAs_1_8 \
     NAs + O3 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O1 + D1_16,
+    NAs + O3 + D1_16,
 
 #define ARPC_1_8 \
     DO_CMD_AUTO_GATE_OFF(0), \
     NC + O4 + D1_32, \
     NE + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    NC + O1 + D1_16, // using this low note to get around gating problems
+    NC + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPC_1_4 \
     NC + O4 + D1_32, \
@@ -123,12 +123,12 @@
     NE + O4 + D1_32, \
     NC + O4 + D1_32, \
     NE + O4 + D1_32, \
-    NC + O1 + D1_16, // using this low note to get around gating problems
+    NC + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPE_1_8 \
     NE + O4 + D1_32, \
     NG + O4 + D1_32, \
-    NE + O1 + D1_16,
+    NE + O4 + D1_16,
 
 #define ARPE_5_8 \
     NE + O4 + D1_32, \
@@ -149,7 +149,7 @@
     NG + O4 + D1_32, \
     NE + O4 + D1_32, \
     NG + O4 + D1_32, \
-    NE + O1 + D1_16,
+    NE + O4 + D1_16,
 
 #define ARPC_1_2D \
     NC + O4 + D1_32, \
@@ -174,7 +174,7 @@
     NE + O4 + D1_32, \
     NC + O4 + D1_32, \
     NE + O4 + D1_32, \
-    NC + O1 + D1_16, // using this low note to get around gating problems
+    NC + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1 \
     DO_CMD_AUTO_GATE_OFF(0), \
@@ -209,7 +209,7 @@
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    ND + O1 + D1_16, // using this low note to get around gating problems
+    ND + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1_4 \
     DO_CMD_AUTO_GATE_OFF(0), \
@@ -220,12 +220,12 @@
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    ND + O1 + D1_16, // using this low note to get around gating problems
+    ND + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1_8 \
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
-    ND + O1 + D1_16, // bum note
+    ND + O4 + D1_16, // bum note
 
 #define ARPF_5_4D \
     NF + O4 + D1_32, \
@@ -270,17 +270,17 @@
     NGs + O4 + D1_32, \
     NF + O4 + D1_32, \
     NGs + O4 + D1_32, \
-    NF + O1 + D1_16,
+    NF + O4 + D1_16,
 
 #define ARPF_1_8 \
     NF + O4 + D1_32, \
     NGs + O4 + D1_32, \
-    NF + O1 + D1_16,
+    NF + O4 + D1_16,
 
 #define ARPG_1_8 \
     NG + O4 + D1_32, \
     NAs + O4 + D1_32, \
-    NG + O1 + D1_16,
+    NG + O4 + D1_16,
 
 #define ARPDs_1_4 \
     NDs + O4 + D1_32, \
@@ -289,12 +289,12 @@
     NG + O4 + D1_32, \
     NDs + O4 + D1_32, \
     NG + O4 + D1_32, \
-    NDs + O1 + D1_16,
+    NDs + O4 + D1_16,
 
 #define ARPCs_1_8 \
     NCs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NCs + O1 + D1_16,
+    NCs + O4 + D1_16,
 
 #define ARPCs_5_4D \
     NCs + O4 + D1_32, \
@@ -339,7 +339,7 @@
     NF + O4 + D1_32, \
     NCs + O4 + D1_32, \
     NF + O4 + D1_32, \
-    NCs + O1 + D1_16,
+    NCs + O4 + D1_16,
 
 // voice 1
 static int v1[] =
@@ -458,29 +458,29 @@ static int v2[] =
     NF + O4 + D1_32,
     NAs + O4 + D1_32,
     NF + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NF + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NGs + O4 + D1_32,
     NF + O4 + D1_32,
-    NGs + O1 + D1_16,
+    NGs + O4 + D1_16,
 
     -D1_4,
 
     NAs + O4 + D1_32,
     NF + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NF + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NGs + O4 + D1_32,
     NF + O4 + D1_32,
-    NGs + O1 + D1_16,
+    NGs + O4 + D1_16,
       
     -D1_2D,
     -D1_8,
@@ -493,29 +493,29 @@ static int v2[] =
     NCs + O4 + D1_32,
     NAs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NGs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NGs + O1 + D1_16,
+    NGs + O4 + D1_16,
 
     -D1_4,
 
     NAs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NGs + O4 + D1_32,
     NCs + O4 + D1_32,
-    NGs + O1 + D1_16,
+    NGs + O4 + D1_16,
       
     -D1_2D,
     -D1_8,
@@ -528,29 +528,29 @@ static int v2[] =
     NAs + O3 + D1_32,
     NC + O5 + D1_32,
     NAs + O3 + D1_32,
-    NC + O1 + D1_16,
+    NC + O5 + D1_16,
 
     NC + O5 + D1_32,
     NAs + O3 + D1_32,
-    NC + O1 + D1_16,
+    NC + O5 + D1_16,
 
     NAs + O4 + D1_32,
     NAs + O3 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     -D1_4,
 
     NC + O5 + D1_32,
     NAs + O3 + D1_32,
-    NC + O1 + D1_16,
+    NC + O5 + D1_16,
 
     NC + O5 + D1_32,
     NAs + O3 + D1_32,
-    NC + O1 + D1_16,
+    NC + O5 + D1_16,
 
     NAs + O4 + D1_32,
     NAs + O3 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
       
     -D1_2D,
     -D1_8,
@@ -563,29 +563,29 @@ static int v2[] =
     NC + O4 + D1_32,
     NAs + O4 + D1_32,
     NC + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NC + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NG + O4 + D1_32,
     NC + O4 + D1_32,
-    NG + O1 + D1_16,
+    NG + O4 + D1_16,
 
     -D1_4,
 
     NAs + O4 + D1_32,
     NC + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NAs + O4 + D1_32,
     NC + O4 + D1_32,
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
     NG + O4 + D1_32,
     NC + O4 + D1_32,
-    NG + O1 + D1_16,
+    NG + O4 + D1_16,
       
     -D1_2D,
     -D1_8,
@@ -655,8 +655,19 @@ static int v3[] =
     -D1_4,
     NC + O2 + D1_4,
     -D1_4,
+    NC + O2 + D1_8,
+    NC + O2 + D1_8,
+    NC + O4 + D1_8,
+    NC + O4 + D1_4,
+    NC + O4 + D1_4D,
+
     NC + O2 + D1_4,
     -D1_4,
+    NC + O2 + D1_4,
+    -D1_4,
+    NC + O2 + D1_4,
+    -D1_8,
+    NC + O4 + D1_8,
     NC + O4 + D1_8,
     NC + O2 + D1_8,
   DO_CMD_SUB_RETURN,
@@ -701,7 +712,6 @@ static int v3[] =
   DO_CMD_SET_ADSR(1, 9, 0, 0),
 	DO_CMD_GOSUB(DRUM_PAT1),
 
-	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 

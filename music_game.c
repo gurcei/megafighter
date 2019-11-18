@@ -5,6 +5,8 @@
 #define DITTY2_V1 1
 #define DITTY3_V1 2
 
+//#define STARTSONG
+
 #define ARPA_1 \
     NA + O3 + D1_32, \
     NE + O4 + D1_32, \
@@ -37,6 +39,64 @@
     NA + O3 + D1_32, \
     NE + O4 + D1_32, \
     NA + O3 + D1_16,
+
+#define ARPDs_3_2D \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_32, \
+    NG + O4 + D1_32, \
+    NDs + O4 + D1_16,
+
 
 #define ARPAs_3_2D \
     NAs + O3 + D1_32, \
@@ -296,6 +356,72 @@
     NF + O4 + D1_32, \
     NCs + O4 + D1_16,
 
+#define ARPC_2D \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_32, \
+    NE + O4 + D1_32, \
+    NC + O4 + D1_16,
+
+
 #define ARPCs_2D \
     NCs + O4 + D1_32, \
     NF + O4 + D1_32, \
@@ -409,6 +535,7 @@
 // voice 1
 static int v1[] =
 {
+#ifdef STARTSONG
   -D1, -D1, -D1, -D1, -D1, -D1, -D1, -D1,
 
   DO_CMD_DEFINE_SUB(DITTY1_V1),
@@ -457,6 +584,7 @@ static int v1[] =
 
   DO_CMD_GOSUB(DITTY1_V1),
   DO_CMD_GOSUB(DITTY1_V1),
+#endif
 
   // gentle refrain
  
@@ -481,8 +609,9 @@ static int v1[] =
     NAs + O5 + D1_8,
     DO_CMD_AUTO_GATE_OFF(0),
     NC + O6 + D1,
-    DO_CMD_AUTO_GATE_OFF(1),
     NC + O6 + D1,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1_8,
 
     // again
     NF + O5 + D1_4D,
@@ -506,10 +635,9 @@ static int v1[] =
     NAs + O5 + D1_8,
     DO_CMD_AUTO_GATE_OFF(0),
     NC + O6 + D1,
-    DO_CMD_AUTO_GATE_OFF(1),
     NC + O6 + D1,
-
-
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1_8,
 
   REPEAT_TO_BEGINNING,
   0
@@ -667,6 +795,7 @@ static int v2[] =
 
   // intro part
   DO_CMD_SET_ADSR(1, 13, 0, 0),
+#ifdef STARTSONG
   DO_CMD_AUTO_GATE_OFF(1),
 
   ARPF_5_4D
@@ -720,17 +849,20 @@ static int v2[] =
   DO_CMD_GOSUB(DITTY4_V2),
 
   -D1_8,
+#endif
   // refrain
   ARPCs_2D
   ARPAs_3_2D
   -D1_8,
   DO_CMD_GOSUB(DITTY1_V2),
+  -D1_8,
 
   // refrain2
   ARPCs_2D
-  ARPAs_3_2D
+  ARPDs_3_2D
   -D1_8,
-  DO_CMD_GOSUB(DITTY1_V2),
+  ARPC_2D
+  -D1_8,
 
   REPEAT_TO_BEGINNING,
   0
@@ -844,6 +976,7 @@ static int v3[] =
   DO_CMD_SUB_RETURN,
 
   DO_CMD_SET_ADSR(1, 9, 0, 0),
+#ifdef STARTSONG
 	DO_CMD_GOSUB(DRUM_PAT1),
 
 	DO_CMD_GOSUB(DRUM_PAT2),
@@ -857,6 +990,7 @@ static int v3[] =
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
+#endif
 
     // refrain 
     DO_CMD_AUTO_GATE_OFF(1),
@@ -890,7 +1024,7 @@ static int v3[] =
     NC + O4 + D1_8,
     NC + O2 + D1_4,
     NC + O2 + D1_8,
-    NC + O4 + D1_8,
+    NC + O4 + D1_4,
 
     // 2nd refrain
     DO_CMD_AUTO_GATE_OFF(1),
@@ -924,7 +1058,7 @@ static int v3[] =
     NC + O4 + D1_8,
     NC + O2 + D1_4,
     NC + O2 + D1_8,
-    NC + O4 + D1_8,
+    NC + O4 + D1_4,
     
   REPEAT_TO_BEGINNING,
   0

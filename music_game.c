@@ -6,6 +6,7 @@
 #define DITTY3_V1 2
 
 #define STARTSONG
+#define ENDSONG
 
 #define ARPA_1 \
     NA + O3 + D1_32, \
@@ -586,6 +587,7 @@ static int v1[] =
   DO_CMD_GOSUB(DITTY1_V1),
 #endif
 
+#ifdef ENDSONG
   // gentle refrain
  
     NF + O5 + D1_4D,
@@ -715,7 +717,7 @@ static int v1[] =
     -D1_2D,
 
   -D1_8,
-
+#endif
   REPEAT_TO_BEGINNING,
   0
 };
@@ -1003,6 +1005,8 @@ static int v2[] =
 
   // intro part
   DO_CMD_SET_ADSR(1, 13, 0, 0),
+  DO_CMD_CONTROL(C_TRIANGLE + C_GATE),
+
 #ifdef STARTSONG
   DO_CMD_AUTO_GATE_OFF(1),
 
@@ -1058,6 +1062,8 @@ static int v2[] =
 
   -D1_8,
 #endif
+
+#ifdef ENDSONG
   // refrain
   ARPCs_2D
   ARPAs_3_2D
@@ -1085,6 +1091,7 @@ static int v2[] =
 
   -D1_8,
 
+#endif
   REPEAT_TO_BEGINNING,
   0
 };
@@ -1095,46 +1102,14 @@ static int v2[] =
 #define DRUM_PAT3  3
 #define DITTY_V3   4
 
-#define DRUM_PAT1x2 \
-  DO_CMD_GOSUB(DRUM_PAT1), \
-  DO_CMD_GOSUB(DRUM_PAT1),
-
-#define DRUM_PAT1n2 \
-  DO_CMD_GOSUB(DRUM_PAT1), \
-  DO_CMD_GOSUB(DRUM_PAT2),
-
-#define DRUM_PAT3n2 \
-  DO_CMD_GOSUB(DRUM_PAT3), \
-  DO_CMD_GOSUB(DRUM_PAT2),
-
-#define DRUM_PAT1x4 \
-  DRUM_PAT1x2 \
-  DRUM_PAT1n2
-
-#define BASS_1_4 \
-    NC + O2 + D1_32, \
-    NB + O1 + D1_32, \
-    NAs + O1 + D1_32, \
-    NA + O1 + D1_32, \
-    NGs + O1 + D1_32, \
-    NG + O1 + D1_32, \
-    NFs + O1 + D1_16,
-
-#define BASS_1_8 \
-    NC + O2 + D1_32, \
-    NB + O1 + D1_32, \
-    NAs + O1 + D1_16,
-
-#define KICK_1_8 \
-    NC + O4 + D1_32, \
-    NB + O3 + D1_32, \
-    NAs + O3 + D1_16,
-
 // voice 3
 static int v3[] =
 {
   DO_CMD_DEFINE_SUB(DRUM_PAT1),
-    -D1_4,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O1 + D1_16,
+    -D1_16
+    -D1_8,
     NC + O2 + D1_4,
     -D1_4,
     NC + O2 + D1_4,
@@ -1236,6 +1211,7 @@ static int v3[] =
 	DO_CMD_GOSUB(DRUM_PAT2),
 #endif
 
+#ifdef ENDSONG
     // refrain 
     DO_CMD_AUTO_GATE_OFF(1),
     NC + O2 + D1_4D,
@@ -1314,6 +1290,7 @@ static int v3[] =
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 
+#endif
   REPEAT_TO_BEGINNING,
   0
 };

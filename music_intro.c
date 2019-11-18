@@ -38,7 +38,7 @@
     NE + O4 + D1_32, \
     NA + O3 + D1_32, \
     NE + O4 + D1_32, \
-    NA + O1 + D1_16,
+    NA + O4 + D1_16,
 
 #define ARPAs_1_4 \
     NAs + O3 + D1_32, \
@@ -47,19 +47,19 @@
     NF + O4 + D1_32, \
     NAs + O3 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
 #define ARPAs_1_8 \
     NAs + O3 + D1_32, \
     NF + O4 + D1_32, \
-    NAs + O1 + D1_16,
+    NAs + O4 + D1_16,
 
 #define ARPC_1_8 \
     DO_CMD_AUTO_GATE_OFF(0), \
     NC + O4 + D1_32, \
     NG + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    NC + O1 + D1_16, // using this low note to get around gating problems
+    NC + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPC_1_4 \
     DO_CMD_AUTO_GATE_OFF(0), \
@@ -70,7 +70,7 @@
     NC + O4 + D1_32, \
     NG + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    NC + O1 + D1_16, // using this low note to get around gating problems
+    NC + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1 \
     DO_CMD_AUTO_GATE_OFF(0), \
@@ -105,7 +105,7 @@
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    ND + O1 + D1_16, // using this low note to get around gating problems
+    ND + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1_4 \
     DO_CMD_AUTO_GATE_OFF(0), \
@@ -116,12 +116,12 @@
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
     DO_CMD_AUTO_GATE_OFF(1), \
-    ND + O1 + D1_16, // using this low note to get around gating problems
+    ND + O4 + D1_16, // using this low note to get around gating problems
 
 #define ARPD_1_8 \
     ND + O4 + D1_32, \
     NA + O4 + D1_32, \
-    ND + O1 + D1_16, // bum note
+    ND + O4 + D1_16, // bum note
 
 // voice 1
 static int v1[] =

@@ -637,8 +637,8 @@ static int v1[] =
     NAs + O5 + D1_8,
     DO_CMD_AUTO_GATE_OFF(0),
     NC + O6 + D1,
-    DO_CMD_AUTO_GATE_OFF(1),
     NC + O6 + D1,
+    DO_CMD_AUTO_GATE_OFF(1),
     NC + O6 + D1_8,
 
   // repeat versey pattern, but it's a permutation

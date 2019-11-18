@@ -41,7 +41,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -1473,6 +1473,13 @@ void game_title(void)
         __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
         set_irq(intro_irq, (void *)0xca00, 200);
 
+        Poke(0x01, 0x35); // turn off BASIC and KERNAL ROMs
+
+        // ignore most of the guts of the kernal's standard irq handler
+        Poke(0xea31, 0x4c);
+        Poke(0xea32, 0x7e);
+        Poke(0xea33, 0xea);
+
 				return;
 			}
 		}
@@ -1483,6 +1490,7 @@ void game_title(void)
   }
 }
 //#endif
+
 
 //#ifndef SAVEMEM
 void game_main(void)
@@ -1587,6 +1595,10 @@ void main(void)
   // size is 7 x 14 char-blocks
   // = 784 bytes = 0x0310
   // draw it one row at a time
+
+  // copy kernal into ram
+  for (gtmpw = 0xe000; gtmpw < 0xffff; gtmpw++)
+    Poke(gtmpw, Peek(gtmpw));
 
   loc = 0x00020000;
   seg_idx = 0;

@@ -523,50 +523,6 @@ static int v1[] =
 
 static int v2[] =
 {
-  // intro part
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  DO_CMD_AUTO_GATE_OFF(1),
-
-  ARPF_5_4D
-
-  DO_CMD_SET_ADSR(1, 10, 0, 0),
-  ARPC_1_8
-
-  ARPF_1_8
-
-  ARPDs_1_4
-  ARPDs_1_4
-
-  ARPCs_1_8
-
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  ARPCs_5_4D
-
-  DO_CMD_SET_ADSR(1, 10, 0, 0),
-  ARPCs_1_8
-
-  ARPC_1_8
-
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  ARPAs_3_2D
-
-  DO_CMD_SET_ADSR(1, 10, 0, 0),
-  ARPAs_1_4
-
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  ARPC_1_2D
-
-  DO_CMD_SET_ADSR(1, 10, 0, 0),
-  ARPC_1_4
-
-  DO_CMD_SET_ADSR(1, 13, 0, 0),
-  ARPE_5_8
-
-  DO_CMD_SET_ADSR(1, 10, 0, 0),
-  ARPE_1_8
-  ARPF_1_8
-  ARPG_1_8
-
   DO_CMD_DEFINE_SUB(DITTY1_V2),
     // start of main chord pattern
     DO_CMD_SET_ADSR(1, 13, 0, 0),
@@ -708,6 +664,50 @@ static int v2[] =
     -D1_2D,
     -D1_8,
   DO_CMD_SUB_RETURN,
+
+  // intro part
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  DO_CMD_AUTO_GATE_OFF(1),
+
+  ARPF_5_4D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPC_1_8
+
+  ARPF_1_8
+
+  ARPDs_1_4
+  ARPDs_1_4
+
+  ARPCs_1_8
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPCs_5_4D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPCs_1_8
+
+  ARPC_1_8
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPAs_3_2D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPAs_1_4
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPC_1_2D
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPC_1_4
+
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
+  ARPE_5_8
+
+  DO_CMD_SET_ADSR(1, 10, 0, 0),
+  ARPE_1_8
+  ARPF_1_8
+  ARPG_1_8
 
   DO_CMD_GOSUB(DITTY1_V2),
   DO_CMD_GOSUB(DITTY2_V2),

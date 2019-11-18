@@ -5,7 +5,7 @@
 #define DITTY2_V1 1
 #define DITTY3_V1 2
 
-//#define STARTSONG
+#define STARTSONG
 
 #define ARPA_1 \
     NA + O3 + D1_32, \
@@ -724,7 +724,9 @@ static int v1[] =
 #define DITTY1_V2  0
 #define DITTY2_V2  1
 #define DITTY3_V2  2
-#define DITTY4_V2  3
+#define DITTY3A_V2 3
+#define DITTY4_V2  4
+#define DITTY4A_V2 5
 
 static int v2[] =
 {
@@ -870,6 +872,135 @@ static int v2[] =
     -D1_8,
   DO_CMD_SUB_RETURN,
 
+  DO_CMD_DEFINE_SUB(DITTY3A_V2),
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_32,
+    NG + O4 + D1_32,
+    NDs + O4 + D1_16,
+
+    // E
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_32,
+    NG + O4 + D1_32,
+    NE + O4 + D1_16,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_DEFINE_SUB(DITTY4A_V2),
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_32,
+    NGs + O4 + D1_32,
+    NF + O4 + D1_16,
+    -D1_2,
+  DO_CMD_SUB_RETURN,
+
   // intro part
   DO_CMD_SET_ADSR(1, 13, 0, 0),
 #ifdef STARTSONG
@@ -949,17 +1080,20 @@ static int v2[] =
 
   DO_CMD_GOSUB(DITTY1_V2),
   DO_CMD_GOSUB(DITTY2_V2),
-  DO_CMD_GOSUB(DITTY3_V2),
-  DO_CMD_GOSUB(DITTY4_V2),
+  DO_CMD_GOSUB(DITTY3A_V2),
+  DO_CMD_GOSUB(DITTY4A_V2),
+
+  -D1_8,
 
   REPEAT_TO_BEGINNING,
   0
 };
 
-#define DRUM_PAT1 0
-#define DRUM_PAT2 1
-#define DRUM_PAT3 2
-#define DITTY_V3  3
+#define DRUM_PAT1  0
+#define DRUM_PAT2  1
+#define DRUM_PAT2A 2
+#define DRUM_PAT3  3
+#define DITTY_V3   4
 
 #define DRUM_PAT1x2 \
   DO_CMD_GOSUB(DRUM_PAT1), \
@@ -1040,6 +1174,28 @@ static int v3[] =
     NC + O2 + D1_4,
     NC + O2 + D1_8,
     NC + O4 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NC + O2 + D1_8,
+  DO_CMD_SUB_RETURN,
+
+  DO_CMD_DEFINE_SUB(DRUM_PAT2A),
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O2 + D1_8,
+
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O4 + D1_8,
+    NC + O4 + D1_8,
+    NC + O4 + D1_8,
+    NC + O4 + D1_8,
+    NC + O4 + D1_8,
+    -D1_8,
     DO_CMD_AUTO_GATE_OFF(0),
     NC + O2 + D1_8,
   DO_CMD_SUB_RETURN,
@@ -1152,7 +1308,7 @@ static int v3[] =
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
-	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2A),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),

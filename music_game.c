@@ -296,6 +296,71 @@
     NF + O4 + D1_32, \
     NCs + O4 + D1_16,
 
+#define ARPCs_2D \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_32, \
+    NF + O4 + D1_32, \
+    NCs + O4 + D1_16,
+
 #define ARPCs_5_4D \
     NCs + O4 + D1_32, \
     NF + O4 + D1_32, \
@@ -387,11 +452,64 @@ static int v1[] =
     NG + O5 + D1_4,
     NF + O5 + D1_8,
     NE + O5 + D1_2,
-    -D1_8,
+  -D1_8,
   DO_CMD_SUB_RETURN,
 
   DO_CMD_GOSUB(DITTY1_V1),
   DO_CMD_GOSUB(DITTY1_V1),
+
+  // gentle refrain
+ 
+    NF + O5 + D1_4D,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NG + O5 + D1_2,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NG + O5 + D1_8,
+
+    NGs + O5 + D1_4D,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_8,
+    NG + O5 + D1_8,
+    NF + O5 + D1_8,
+
+    NCs + O5 + D1_4D,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NC + O6 + D1,
+    NC + O6 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1_4,
+    NAs + O5 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NC + O6 + D1,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1,
+
+    // again
+    NF + O5 + D1_4D,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NG + O5 + D1_2,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NG + O5 + D1_8,
+
+    NGs + O5 + D1_4D,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_8,
+    NG + O5 + D1_8,
+    NF + O5 + D1_8,
+
+    NCs + O5 + D1_4D,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NC + O6 + D1,
+    NC + O6 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1_4,
+    NAs + O5 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(0),
+    NC + O6 + D1,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1,
+
+
 
   REPEAT_TO_BEGINNING,
   0
@@ -602,6 +720,18 @@ static int v2[] =
   DO_CMD_GOSUB(DITTY4_V2),
 
   -D1_8,
+  // refrain
+  ARPCs_2D
+  ARPAs_3_2D
+  -D1_8,
+  DO_CMD_GOSUB(DITTY1_V2),
+
+  // refrain2
+  ARPCs_2D
+  ARPAs_3_2D
+  -D1_8,
+  DO_CMD_GOSUB(DITTY1_V2),
+
   REPEAT_TO_BEGINNING,
   0
 };
@@ -669,12 +799,15 @@ static int v3[] =
     -D1_8,
     NC + O4 + D1_8,
     NC + O4 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(0),
     NC + O2 + D1_8,
   DO_CMD_SUB_RETURN,
 
 
   DO_CMD_DEFINE_SUB(DRUM_PAT2),
-    -D1_8,
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O2 + D1_8,
+
     NC + O2 + D1_8,
     NC + O4 + D1_4,
 
@@ -687,6 +820,7 @@ static int v3[] =
     NC + O2 + D1_4,
     NC + O2 + D1_8,
     NC + O4 + D1_8,
+    DO_CMD_AUTO_GATE_OFF(0),
     NC + O2 + D1_8,
   DO_CMD_SUB_RETURN,
 
@@ -723,14 +857,75 @@ static int v3[] =
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
 	DO_CMD_GOSUB(DRUM_PAT2),
-  //DO_CMD_GOSUB(DRUM_PAT3),
 
-	// DO_CMD_GOSUB(DRUM_PAT2),
-	// DO_CMD_GOSUB(DRUM_PAT2),
-	// DO_CMD_GOSUB(DRUM_PAT2),
-	// DO_CMD_GOSUB(DRUM_PAT2),
-	// DO_CMD_GOSUB(DRUM_PAT2),
-	// DO_CMD_GOSUB(DRUM_PAT2),
+    // refrain 
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4D,
+    NC + O4 + D1_4,
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4,
+    NE + O4 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4D,
+    NC + O4 + D1_4,
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4,
+    NC + O4 + D1_8,
+    NG + O3 + D1_8,
+
+    // fast-beat
+    NC + O2 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_4,
+    NC + O4 + D1_8,
+    NC + O2 + D1_4,
+    NC + O2 + D1_8,
+    NC + O4 + D1_8,
+
+    // 2nd refrain
+    DO_CMD_AUTO_GATE_OFF(1),
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4D,
+    NC + O4 + D1_4,
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4,
+    NE + O4 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4D,
+    NC + O4 + D1_4,
+    NC + O2 + D1_4D,
+    NC + O2 + D1_4,
+    NC + O4 + D1_8,
+    NG + O3 + D1_8,
+
+    // fast-beat
+    NC + O2 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_8,
+    NC + O2 + D1_8,
+    NC + O4 + D1_4,
+
+    NC + O2 + D1_4,
+    NC + O4 + D1_8,
+    NC + O2 + D1_4,
+    NC + O2 + D1_8,
+    NC + O4 + D1_8,
+    
   REPEAT_TO_BEGINNING,
   0
 };

@@ -535,9 +535,6 @@
 // voice 1
 static int v1[] =
 {
-#ifdef STARTSONG
-  -D1, -D1, -D1, -D1, -D1, -D1, -D1, -D1,
-
   DO_CMD_DEFINE_SUB(DITTY1_V1),
     -D1_4,
     NC + O5 + D1_4,
@@ -581,6 +578,9 @@ static int v1[] =
     NE + O5 + D1_2,
   -D1_8,
   DO_CMD_SUB_RETURN,
+
+#ifdef STARTSONG
+  -D1, -D1, -D1, -D1, -D1, -D1, -D1, -D1,
 
   DO_CMD_GOSUB(DITTY1_V1),
   DO_CMD_GOSUB(DITTY1_V1),
@@ -635,9 +635,86 @@ static int v1[] =
     NAs + O5 + D1_8,
     DO_CMD_AUTO_GATE_OFF(0),
     NC + O6 + D1,
-    NC + O6 + D1,
     DO_CMD_AUTO_GATE_OFF(1),
+    NC + O6 + D1,
     NC + O6 + D1_8,
+
+  // repeat versey pattern, but it's a permutation
+
+    -D1_4,
+    NC + O5 + D1_4,
+    NF + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NC + O6 + D1_4D,
+    NAs + O5 + D1_8,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_4,
+    NGs + O5 + D1_4D,
+
+    NG + O5 + D1_8,
+    NF + O5 + D1_4,
+    NDs + O5 + D1_4,
+    NF + O5 + D1_2,
+    NF + O5 + D1_8,
+    NG + O5 + D1_8,
+    NGs + O5 + D1_4,
+
+    NC + O6 + D1_4D,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_8,
+    NAs + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_4,
+    NGs + O5 + D1_8,
+
+    NG + O5 + D1_4,
+    NG + O5 + D1_8,
+    NF + O5 + D1_4,
+    NE + O5 + D1_4,
+    NF + O5 + D1_8,
+
+    NC + O6 + D1_4,
+    NC + O6 + D1_8,
+    NC + O6 + D1_8,
+    NC + O6 + D1_8,
+    NC + O6 + D1_8,
+    NC + O6 + D1_8,
+    -D1_8,
+
+    NC + O6 + D1_4D,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_4,
+    NAs + O5 + D1_8,
+    NGs + O5 + D1_4,
+    NG + O5 + D1_4,
+    NF + O5 + D1_4D,
+    NC + O5 + D1_8,
+
+    NGs + O5 + D1_4,
+    NG + O5 + D1_4,
+    NF + O5 + D1_4,
+    NDs + O5 + D1_4,
+    NF + O5 + D1_2,
+    NF + O5 + D1_8,
+    NG + O5 + D1_8,
+    NGs + O5 + D1_8,
+
+    -D1_2,
+    NAs + O5 + D1_4,
+    NC + O6 + D1_4,
+    NCs + O6 + D1_8,
+    NC + O6 + D1_4,
+    NC + O6 + D1_8,
+    NAs + O5 + D1_4,
+    NGs + O5 + D1_4,
+    NE + O5 + D1_8,
+    NG + O5 + D1_4,
+    NF + O5 + D1,
+    -D1_2D,
+
+  -D1_8,
 
   REPEAT_TO_BEGINNING,
   0
@@ -862,7 +939,18 @@ static int v2[] =
   ARPDs_3_2D
   -D1_8,
   ARPC_2D
-  -D1_8,
+  //-D1_8,
+
+  // 2nd verse-like bit
+  DO_CMD_GOSUB(DITTY1_V2),
+  DO_CMD_GOSUB(DITTY2_V2),
+  DO_CMD_GOSUB(DITTY3_V2),
+  DO_CMD_GOSUB(DITTY4_V2),
+
+  DO_CMD_GOSUB(DITTY1_V2),
+  DO_CMD_GOSUB(DITTY2_V2),
+  DO_CMD_GOSUB(DITTY3_V2),
+  DO_CMD_GOSUB(DITTY4_V2),
 
   REPEAT_TO_BEGINNING,
   0
@@ -1060,6 +1148,16 @@ static int v3[] =
     NC + O2 + D1_8,
     NC + O4 + D1_4,
     
+  // next versey bit
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+	DO_CMD_GOSUB(DRUM_PAT2),
+
   REPEAT_TO_BEGINNING,
   0
 };

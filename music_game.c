@@ -5,7 +5,7 @@
 #define DITTY2_V1 1
 #define DITTY3_V1 2
 
-#define STARTSONG
+//#define STARTSONG
 #define ENDSONG
 
 #define ARPA_1 \
@@ -580,6 +580,7 @@ static int v1[] =
   -D1_8,
   DO_CMD_SUB_RETURN,
 
+  DO_CMD_SET_ADSR(1, 13, 0, 0),
 #ifdef STARTSONG
   -D1, -D1, -D1, -D1, -D1, -D1, -D1, -D1,
 

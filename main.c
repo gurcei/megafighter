@@ -128,8 +128,8 @@ typedef struct
 enum { SONG_INTRO, SONG_GAME };
 voice_offset lstVoiceOffsets[2] =
 {
-  { 0xe000, 0xe000 + 0x0307, 0xe000 + 0x03f2 }, // INTRO SONG
-  { 0xe000, 0xe000 + 0x0132, 0xe000 + 0x056c }  // GAME SONG
+  { 0xe000, 0xe000 + 0x0370, 0xe000 + 0x03f2 }, // INTRO SONG
+  { 0xe000, 0xe000 + 0x0146, 0xe000 + 0x0796 }  // GAME SONG
 };
 
 typedef struct
@@ -1335,8 +1335,8 @@ unsigned char intro_irq(void)
 void prep_song(unsigned char idx)
 {
   c64loc = 0xE000;
-  reuloc = 0x20000 + idx * 0x0a01;
-  length = 0x0a01;
+  reuloc = 0x20000 + idx * 0x0a00;
+  length = 0x0a00;
   reu_simple_copy();
   prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0);
 }

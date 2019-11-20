@@ -3,8 +3,7 @@
 #include <6502.h>
 #include "common.h"
 #include "util.h"
-#include "music_intro.h"
-#include "music_game.h"
+#include "music.h"
 
 #include "bitmap_ids.h"
 
@@ -118,6 +117,20 @@ unsigned int anim_ryu_ko[] = { RYU_KO1, RYU_KO2, RYU_KO3, RYU_KO4, RYU_KO5 };
 unsigned int anim_ryu_victory[] = { RYU_VICTORY1, RYU_VICTORY2, RYU_VICTORY3 };
 unsigned int anim_ryu_victoryalt[] = { RYU_VICTORYALT1, RYU_VICTORYALT2, RYU_VICTORYALT3, RYU_VICTORYALT4, RYU_VICTORYALT5, RYU_VICTORYALT6, RYU_VICTORYALT7 };
 unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
+
+typedef struct
+{
+  unsigned int v1;
+  unsigned int v2;
+  unsigned int v3;
+} voice_offset;
+
+enum { SONG_INTRO, SONG_GAME };
+voice_offset lstVoiceOffsets[2] =
+{
+  { 0xe000, 0xe000 + 0x0307, 0xe000 + 0x03f2 }, // INTRO SONG
+  { 0xe000, 0xe000 + 0x0132, 0xe000 + 0x056c }  // GAME SONG
+};
 
 typedef struct
 {
@@ -1319,6 +1332,15 @@ unsigned char intro_irq(void)
   return IRQ_HANDLED;
 }
 
+void prep_song(unsigned char idx)
+{
+  c64loc = 0xE000;
+  reuloc = 0x20000 + idx * 0x0a00;
+  length = 0x0a00;
+  reu_simple_copy();
+  prepare_song(lstVoiceOffsets[SONG_INTRO].v1, lstVoiceOffsets[SONG_INTRO].v2, lstVoiceOffsets[SONG_INTRO].v3, 32, 3, 0);
+}
+
 void game_intro(void)
 {
   unsigned char key;
@@ -1352,7 +1374,8 @@ void game_intro(void)
 
   reset_irq();
   __asm__ ( "jsr " FUNC_PREPARE_SID);
-  prepare_intro_song();
+  //prepare_intro_song();
+  prep_song(SONG_INTRO);
   __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
   set_irq(intro_irq, (void *)0xca00, 200);
 
@@ -1469,16 +1492,10 @@ void game_title(void)
 
         reset_irq();
         __asm__ ( "jsr " FUNC_PREPARE_SID);
-        prepare_game_song();
+        //prepare_game_song();
+        prep_song(SONG_GAME);
         __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
         set_irq(intro_irq, (void *)0xca00, 200);
-
-        Poke(0x01, 0x35); // turn off BASIC and KERNAL ROMs
-
-        // ignore most of the guts of the kernal's standard irq handler
-        Poke(0xea31, 0x4c);
-        Poke(0xea32, 0x7e);
-        Poke(0xea33, 0xea);
 
 				return;
 			}
@@ -1600,7 +1617,14 @@ void main(void)
   for (gtmpw = 0xe000; gtmpw < 0xffff; gtmpw++)
     Poke(gtmpw, Peek(gtmpw));
 
-  loc = 0x00020000;
+  Poke(0x01, 0x35); // turn off BASIC and KERNAL ROMs
+
+  // ignore most of the guts of the kernal's standard irq handler
+  Poke(0xea31, 0x4c);
+  Poke(0xea32, 0x7e);
+  Poke(0xea33, 0xea);
+
+  loc = 0x00030000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {

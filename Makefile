@@ -7,9 +7,9 @@ ASSFILES = main.s \
 						bmpmeta.s \
 						charset.s \
 						music.s \
-						music_intro.s \
-						music_game.s \
 						util.s
+#						music_intro.s \
+#						music_game.s \
 #						music_game.s \
 #						music_outro.s \
 #						music_credits.s \
@@ -115,7 +115,13 @@ data.reu: $(DATAFILES)
 	cat intro.bin >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=131071
 
-	# reu bank 2 and onwards is bitmap data
+	# reu bank 2 is music data
+	cat music_intro.bin >> data.reu
+	cat music_game.bin >> data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=196607
+
+
+	# reu bank 3 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu

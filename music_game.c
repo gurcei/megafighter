@@ -5,7 +5,7 @@
 #define DITTY2_V1 1
 #define DITTY3_V1 2
 
-//#define STARTSONG
+#define STARTSONG
 #define ENDSONG
 
 #define ARPA_1 \

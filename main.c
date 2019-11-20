@@ -1335,10 +1335,10 @@ unsigned char intro_irq(void)
 void prep_song(unsigned char idx)
 {
   c64loc = 0xE000;
-  reuloc = 0x20000 + idx * 0x0a00;
-  length = 0x0a00;
+  reuloc = 0x20000 + idx * 0x0a01;
+  length = 0x0a01;
   reu_simple_copy();
-  prepare_song(lstVoiceOffsets[SONG_INTRO].v1, lstVoiceOffsets[SONG_INTRO].v2, lstVoiceOffsets[SONG_INTRO].v3, 32, 3, 0);
+  prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0);
 }
 
 void game_intro(void)

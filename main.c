@@ -7,7 +7,7 @@
 
 #include "bitmap_ids.h"
 
-#define SAVEMEM
+//#define SAVEMEM
 
 // ================================
 // GLOBALS

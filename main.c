@@ -40,7 +40,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -1508,6 +1508,46 @@ void game_title(void)
 }
 //#endif
 
+void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
+{
+  unsigned int len = x2 - x1;
+  unsigned char offs = x1 & 0x07;
+
+	rel_loc = vicbase+0x2000;
+  gtmpw = rel_loc;
+
+  // take offset to the start of which character block the first pixel resides in
+  rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
+  // now take offset to the start of the row within the char-block
+  rel_loc += (y1 & 0x07);
+  Poke(rel_loc, 0xff >> offs);
+
+  // do the same for the lower line
+  gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
+  gtmpw += (y2 & 0x07);
+  Poke(gtmpw, 0xff >> offs);
+
+  // draw the rest of the horizontal line, in 8-bit chunks
+  len -= (8 - offs);
+  rel_loc += 8;
+  gtmpw += 8;
+  while (len > 8)
+  {
+    Poke(rel_loc, 0xff);
+    Poke(gtmpw, 0xff);
+    len -=8;
+    rel_loc += 8;
+    gtmpw += 8;
+  }
+
+  // draw the vertical lines...
+  // TODO
+
+  // draw any trailing end
+  offs = x2 & 0x07;
+  Poke(rel_loc, 0xff << (8 - offs));
+  Poke(gtmpw, 0xff << (8 - offs));
+}
 
 //#ifndef SAVEMEM
 void game_main(void)
@@ -1517,7 +1557,7 @@ void game_main(void)
   get_keyboard_input();
 
   // draw scenery first
-  
+ /* 
 	// use static background?
 	if (option_background == BKGND_STATIC)
 	{
@@ -1568,6 +1608,9 @@ void game_main(void)
     }
 		cur_spr++;
   }
+*/
+
+  drawbox(50, 50, 100, 100);
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
   //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);

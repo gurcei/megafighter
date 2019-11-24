@@ -1522,7 +1522,7 @@ void game_title(void)
 }
 //#endif
 
-void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
+void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned char white)
 {
   unsigned int len = x2 - x1;
   unsigned char offs = x1 & 0x07;
@@ -1536,14 +1536,20 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
   rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
   // now take offset to the start of the row within the char-block
   rel_loc += (y1 & 0x07);
-  Poke(rel_loc, 0xff >> offs);
+  if (white)
+    Poke(rel_loc, (0xff >> offs) ^ 0xff);
+  else
+    Poke(rel_loc, 0xff >> offs);
   // back up this location for later
   gtmpw2 = rel_loc;
 
   // do the same for the lower line
   gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
   gtmpw += (y2 & 0x07);
-  Poke(gtmpw, 0xff >> offs);
+  if (white)
+    Poke(gtmpw, (0xff >> offs) ^ 0xff);
+  else
+    Poke(gtmpw, 0xff >> offs);
 
   // draw the rest of the horizontal line, in 8-bit chunks
   offs2 = x2 & 0x07;
@@ -1552,16 +1558,32 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
   gtmpw += 8;
   while (len > 8)
   {
-    Poke(rel_loc, 0xff);
-    Poke(gtmpw, 0xff);
+    if (white)
+    {
+      Poke(rel_loc, 0x00);
+      Poke(gtmpw, 0x00);
+    }
+    else
+    {
+      Poke(rel_loc, 0xff);
+      Poke(gtmpw, 0xff);
+    }
     len -=8;
     rel_loc += 8;
     gtmpw += 8;
   }
 
   // draw any trailing end
-  Poke(rel_loc, 0xff << (7 - offs2));
-  Poke(gtmpw, 0xff << (7 - offs2));
+  if (white)
+  {
+    Poke(rel_loc, (0xff << (7 - offs2)) ^ 0xff);
+    Poke(gtmpw, (0xff << (7 - offs2)) ^ 0xff);
+  }
+  else
+  {
+    Poke(rel_loc, 0xff << (7 - offs2));
+    Poke(gtmpw, 0xff << (7 - offs2));
+  }
 
   // draw the vertical lines...
   offsy = y1 & 0x07;
@@ -1586,8 +1608,16 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
       gtmpw3++;
     }
 
-    Poke(gtmpw2, (1 << (7-offs)) );
-    Poke(gtmpw3, (1 << (7-offs2)) );
+    if (white)
+    {
+      Poke(gtmpw2, (1 << (7-offs)) ^ 0xff );
+      Poke(gtmpw3, (1 << (7-offs2)) ^ 0xff );
+    }
+    else
+    {
+      Poke(gtmpw2, (1 << (7-offs)) );
+      Poke(gtmpw3, (1 << (7-offs2)) );
+    }
   }
 
 }
@@ -1654,7 +1684,7 @@ void game_main(void)
   }
 */
 
-  drawbox(50+bx, 50+by, 100+cx, 100+cy);
+  drawbox(50+bx, 50+by, 100+cx, 100+cy, 1);
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
   //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);

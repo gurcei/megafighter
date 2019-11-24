@@ -10,6 +10,7 @@
 //#define SAVEMEM
 //#define SHOW_OPTIONS
 //#define DEBUG
+//#define ANIMBKGND
 #define BLANKSCREEN
 
 // ================================
@@ -813,6 +814,26 @@ unsigned int startx = 0;
 unsigned int nextx = 0;
 unsigned int diffx = 0;
 
+#define REPAIR_CHAR_NO_TRANSPARENCY \
+			gtmp = Peek(c64loc); \
+			a = *(ptr); \
+			ptr++; \
+			ptr++; \
+			Poke(c64loc, a); \
+			c64loc++;
+
+#define REPAIR_CHAR \
+			gtmp = Peek(c64loc); \
+			a = *(ptr); \
+			ptr++; \
+			b = *(ptr); \
+			ptr++; \
+			gtmp &= b; \
+			gtmp |= (a & ~b); \
+			Poke(c64loc, gtmp); \
+			c64loc++;
+
+#ifdef ANIMBKGND
 void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
 {
   xoff = 0;
@@ -952,25 +973,6 @@ skip:
 
 			ptr = &(repair->vals[0]);
 
-#define REPAIR_CHAR_NO_TRANSPARENCY \
-			gtmp = Peek(c64loc); \
-			a = *(ptr); \
-			ptr++; \
-			ptr++; \
-			Poke(c64loc, a); \
-			c64loc++;
-
-#define REPAIR_CHAR \
-			gtmp = Peek(c64loc); \
-			a = *(ptr); \
-			ptr++; \
-			b = *(ptr); \
-			ptr++; \
-			gtmp &= b; \
-			gtmp |= (a & ~b); \
-			Poke(c64loc, gtmp); \
-			c64loc++;
-
 			REPAIR_CHAR
 			REPAIR_CHAR
 			REPAIR_CHAR
@@ -986,7 +988,9 @@ skip2:
     } // end for
   } // end if
 }
+#endif
 
+#ifdef ANIMBKGND
 void draw_sky_bitmap(int frame)
 {
   //reu_segged_bmp_obj* segbmps = (reu_segged_bmp_obj*)0x1000;
@@ -1029,6 +1033,7 @@ void draw_sky_bitmap(int frame)
   }
 
 }
+#endif
 
 void draw_bitmap(unsigned int frame, int posx, int posy)
 {
@@ -1108,12 +1113,6 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
 #endif
 }
 
-void calc_absolute_addresses(void)
-{
-  // TODO: early on, iterate through the bitmap meta objects to figure out the
-  // missing address fields
-  // Will probably need to refer to segdata too
-}
 
 #define OPTIONS_X	4
 #define OPTIONS_Y 2
@@ -1130,6 +1129,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
 }
 #endif
 
+#ifdef SHOW_OPTIONS
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
 {
 	screen_loc = (vicbase+0x2000) + posx*8 + posy*40*8;
@@ -1181,7 +1181,6 @@ char* strSelected = "(*)";
 char* strUnselected = "( )";
 #define TOTAL_MENU_ITEMS	5
 
-#ifdef SHOW_OPTIONS
 void draw_options(void)
 {
 	draw_text(option_background == BKGND_STATIC ? strSelected : strUnselected, 6, 7, 0);
@@ -1196,9 +1195,7 @@ void draw_options(void)
 	draw_text("return to game",              10, 11, menu_highlight==3);
 	draw_text("exit to title",               10, 13, menu_highlight==4);
 }
-#endif
 
-#ifdef SHOW_OPTIONS
 void game_options(void)
 {
 	unsigned char k;
@@ -1650,16 +1647,16 @@ void game_main(void)
 
   // draw scenery first
 
-#ifdef BLANKSCREEN
-  draw_bitmap(BLANK, 0, 0);
-#else
 	// use static background?
 	if (option_background == BKGND_STATIC)
 	{
+#ifdef BLANKSCREEN
+    draw_bitmap(BLANK, 0, 0);
+#else
     draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
-	}
 #endif
-/* 	
+	}
+#ifdef ANIMBKGND
 	// use animated background?
 	else
 	{
@@ -1685,7 +1682,8 @@ void game_main(void)
 		// draw floor at desired index
 		draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
 	}
-*/
+#endif
+
 	cur_spr = sprites;
 	// draw all visible sprites
   for (i = 0; i < SPR_MAX; i++)

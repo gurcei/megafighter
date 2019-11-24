@@ -10,6 +10,7 @@
 //#define SAVEMEM
 //#define SHOW_OPTIONS
 //#define DEBUG
+#define BLANKSCREEN
 
 // ================================
 // GLOBALS
@@ -1649,12 +1650,15 @@ void game_main(void)
 
   // draw scenery first
 
-
+#ifdef BLANKSCREEN
+  draw_bitmap(BLANK, 0, 0);
+#else
 	// use static background?
 	if (option_background == BKGND_STATIC)
 	{
     draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
 	}
+#endif
 /* 	
 	// use animated background?
 	else
@@ -1681,7 +1685,7 @@ void game_main(void)
 		// draw floor at desired index
 		draw_fullwidth_bitmap(STAGE_RYU_FLOOR00 + floor_idx, 0, 20);
 	}
-
+*/
 	cur_spr = sprites;
 	// draw all visible sprites
   for (i = 0; i < SPR_MAX; i++)
@@ -1700,9 +1704,9 @@ void game_main(void)
     }
 		cur_spr++;
   }
-*/
 
-  drawbox(50+bx, 50+by, 100+cx, 100+cy, 1);
+
+  drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
   //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);

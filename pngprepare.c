@@ -18,6 +18,8 @@
 #define PNG_DEBUG 3
 #include <png.h>
 
+#include "hitboxes.h"
+
 /* ============================================================= */
 
 int x, y;
@@ -250,6 +252,25 @@ int writeImage(char* filename, int width, int height, png_bytep *new_row_pointer
    if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
 
    return code;
+}
+
+int find_hitbox()
+{
+  int k = 0;
+  // use orig_fname
+  do
+  {
+    if (strcmp(lstHitBoxes[k].name, orig_fname) == 0)
+    {
+      printf("found hit on '%s'... press enter...\n", orig_fname);
+      //scanf("d");
+      break;
+    }
+
+    k++;
+  } while (lstHitBoxes[k].name[0] != '\0');
+
+  return k;
 }
 
 void process_file(int mode, char *outputfilename)
@@ -732,6 +753,20 @@ void process_file(int mode, char *outputfilename)
 
     seggedbmp.num_segments = seg_cnt;
     seggedbmp.num_repairs = repair_cnt;
+
+    // write the extra hitbox info to the main graphic data file
+    // if hitbox isn't defined yet inside "hitboxes.h", then just
+    // leave entries blank
+    int hidx = find_hitbox();
+    for (int box = 0; box < 4; box++)
+    {
+      fwrite(&lstHitBoxes[hidx].boxes[box][0], sizeof(unsigned short), 4, outfile);
+
+      unsigned short* ptr;
+      ptr = (unsigned short*)(&lstHitBoxes[hidx].boxes[box][0]);
+      printf("{ %d, %d, %d, %d }\n", *ptr, *(ptr+1), *(ptr+2), *(ptr+3));
+      //scanf
+    }
 
     // write the extra repair info to the main graphic data file
     for (int k = 0; k < seggedbmp.num_repairs; k++)

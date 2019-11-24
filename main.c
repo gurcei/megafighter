@@ -47,7 +47,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -784,6 +784,120 @@ unsigned char post_draw_processing(unsigned char sprite)
   return 0;
 }
 
+void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned char white)
+{
+  unsigned int len = x2 - x1;
+  unsigned char offs = x1 & 0x07;
+  unsigned char offs2, offsy;
+
+	rel_loc = vicbase+0x2000;
+  gtmpw = rel_loc;
+  gtmpw3 = rel_loc;
+
+  // take offset to the start of which character block the first pixel resides in
+  rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
+  // now take offset to the start of the row within the char-block
+  rel_loc += (y1 & 0x07);
+
+  a = 0xff >> offs;
+  b = a ^ 0xff;
+  if (white)
+    Poke(rel_loc, Peek(rel_loc) & b);
+  else
+    Poke(rel_loc, Peek(rel_loc) | a);
+  // back up this location for later
+  gtmpw2 = rel_loc;
+
+  // do the same for the lower line
+  gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
+  gtmpw += (y2 & 0x07);
+
+  if (white)
+    Poke(gtmpw, Peek(gtmpw) & b);
+  else
+    Poke(gtmpw, Peek(gtmpw) | a);
+
+  // draw the rest of the horizontal line, in 8-bit chunks
+  offs2 = x2 & 0x07;
+  len -= offs2;
+  rel_loc += 8;
+  gtmpw += 8;
+  while (len > 8)
+  {
+    if (white)
+    {
+      Poke(rel_loc, 0x00);
+      Poke(gtmpw, 0x00);
+    }
+    else
+    {
+      Poke(rel_loc, 0xff);
+      Poke(gtmpw, 0xff);
+    }
+    len -=8;
+    rel_loc += 8;
+    gtmpw += 8;
+  }
+
+  // draw any trailing end
+  a = 0xff << (7 - offs2);
+  b = a ^ 0xff;
+  if (white)
+  {
+    Poke(rel_loc, Peek(rel_loc) & b);
+    Poke(gtmpw, Peek(gtmpw) & b);
+  }
+  else
+  {
+    Poke(rel_loc, Peek(rel_loc) | a);
+    Poke(gtmpw, Peek(gtmpw) | a);
+  }
+
+  // draw the vertical lines...
+  offsy = y1 & 0x07;
+  gtmpw3 += (y1 >> 3) * 320 + (x2 & 0xfff8);
+  gtmpw3 += (y1 & 0x07);
+  len = y2-y1;
+
+  a = 1 << (7-offs);
+  b = a ^ 0xff;
+
+  gk = 1 << (7-offs2);
+  gtmp = gk ^ 0xff;
+
+  while (len > 1)
+  {
+    len--;
+    offsy++;
+    if (offsy == 8)
+    {
+      gtmpw2 += 320;
+      gtmpw2 &= 0xfff8;
+      gtmpw3 += 320;
+      gtmpw3 &= 0xfff8;
+      offsy=0;
+    }
+    else
+    {
+      gtmpw2++;
+      gtmpw3++;
+    }
+
+    if (white)
+    {
+      Poke(gtmpw2, Peek(gtmpw2) & b);
+      Poke(gtmpw3, Peek(gtmpw3) & gtmp);
+    }
+    else
+    {
+      Poke(gtmpw2, Peek(gtmpw2) | a);
+      Poke(gtmpw3, Peek(gtmpw3) | gk );
+    }
+  }
+
+}
+
+
 unsigned char num;
 reu_row_segment* seg;
 unsigned int len;
@@ -932,16 +1046,16 @@ skip:
 
   // draw repairs
   num_repairs = segbmps[frame].num_repairs;
-  if (num_repairs > 0 && option_background == BKGND_ANIM_REPAIR)
+  //if (num_repairs > 0 && option_background == BKGND_ANIM_REPAIR)
   {
     if (posy < 0)
     {
       yoff = -posy;
     }
 
-    // copy across repair data to temp memory
+    // copy across hitbox + repair data to temp memory
 		c64loc = 0x4000;
-		length = num_repairs*18;
+		length = (4*4*2) + num_repairs*18;
     reu_simple_copy();
 
     c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
@@ -950,7 +1064,7 @@ skip:
     startx = (signed int)(vicbase+0x2000) + posy*40*8;
     nextx = startx + 320;
 
-    repair = (reu_repair_obj*)0x4000;
+    repair = (reu_repair_obj*)(0x4000 + (4*4*2));
     for (gk = 0; gk < num_repairs; gk++)
     {
       c64loc += repair->reloffset;
@@ -991,6 +1105,13 @@ skip2:
       repair++;
     } // end for
   } // end if
+
+  // draw hitboxes
+  for (gk = 0; gk < 4; gk++)
+  {
+    // TODO: replicate the logic in draw_bitmap, if I ever need it here...
+    drawbox();
+  }
 }
 #endif
 
@@ -1084,16 +1205,16 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
 
   // draw repairs
   num_repairs = segbmps[frame].num_repairs;
-  if (num_repairs > 0)
-  {
-    // copy across repair data to temp memory
+  //if (num_repairs > 0)
+  //{
+    // copy across hitbox + repair data to temp memory
 		c64loc = 0x4000;
-		length = num_repairs*18;
+		length = (4*4*2) + num_repairs*18;
     reu_simple_copy();
 
     c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
 
-    repair = (reu_repair_obj*)0x4000;
+    repair = (reu_repair_obj*)(0x4000 + (4*4*2));
     for (gk = 0; gk < num_repairs; gk++)
     {
       c64loc += repair->reloffset;
@@ -1113,7 +1234,33 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       repair++;
       c64loc -= 8;
     } // end for
-  } // end if
+  //} // end if
+
+  // draw hitboxes
+  if (*((unsigned short*)0x4000) != 0)
+  {
+    posx <<= 3;
+    posy <<= 3;
+    drawbox(posx+*((unsigned int*)0x4000),
+            posy+*((unsigned int*)0x4002),
+            posx+*((unsigned int*)0x4004),
+            posy+*((unsigned int*)0x4006), 0);
+    if (*((unsigned int*)0x4008) != 0)
+      drawbox(posx+*((unsigned int*)0x4008),
+              posy+*((unsigned int*)0x400a),
+              posx+*((unsigned int*)0x400c),
+              posy+*((unsigned int*)0x400e), 0);
+    if (*((unsigned int*)0x4010) != 0)
+      drawbox(posx+*((unsigned int*)0x4010),
+              posy+*((unsigned int*)0x4012),
+              posx+*((unsigned int*)0x4014),
+              posy+*((unsigned int*)0x4016), 0);
+    if (*((unsigned int*)0x4018) != 0)
+      drawbox(posx+*((unsigned int*)0x4018),
+              posy+*((unsigned int*)0x401a),
+              posx+*((unsigned int*)0x401c),
+              posy+*((unsigned int*)0x401e), 0);
+  }
 #endif
 }
 
@@ -1529,119 +1676,6 @@ void game_title(void)
 }
 //#endif
 
-void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, unsigned char white)
-{
-  unsigned int len = x2 - x1;
-  unsigned char offs = x1 & 0x07;
-  unsigned char offs2, offsy;
-
-	rel_loc = vicbase+0x2000;
-  gtmpw = rel_loc;
-  gtmpw3 = rel_loc;
-
-  // take offset to the start of which character block the first pixel resides in
-  rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
-  // now take offset to the start of the row within the char-block
-  rel_loc += (y1 & 0x07);
-
-  a = 0xff >> offs;
-  b = a ^ 0xff;
-  if (white)
-    Poke(rel_loc, Peek(rel_loc) & b);
-  else
-    Poke(rel_loc, Peek(rel_loc) | a);
-  // back up this location for later
-  gtmpw2 = rel_loc;
-
-  // do the same for the lower line
-  gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
-  gtmpw += (y2 & 0x07);
-
-  if (white)
-    Poke(gtmpw, Peek(gtmpw) & b);
-  else
-    Poke(gtmpw, Peek(gtmpw) | a);
-
-  // draw the rest of the horizontal line, in 8-bit chunks
-  offs2 = x2 & 0x07;
-  len -= offs2;
-  rel_loc += 8;
-  gtmpw += 8;
-  while (len > 8)
-  {
-    if (white)
-    {
-      Poke(rel_loc, 0x00);
-      Poke(gtmpw, 0x00);
-    }
-    else
-    {
-      Poke(rel_loc, 0xff);
-      Poke(gtmpw, 0xff);
-    }
-    len -=8;
-    rel_loc += 8;
-    gtmpw += 8;
-  }
-
-  // draw any trailing end
-  a = 0xff << (7 - offs2);
-  b = a ^ 0xff;
-  if (white)
-  {
-    Poke(rel_loc, Peek(rel_loc) & b);
-    Poke(gtmpw, Peek(gtmpw) & b);
-  }
-  else
-  {
-    Poke(rel_loc, Peek(rel_loc) | a);
-    Poke(gtmpw, Peek(gtmpw) | a);
-  }
-
-  // draw the vertical lines...
-  offsy = y1 & 0x07;
-  gtmpw3 += (y1 >> 3) * 320 + (x2 & 0xfff8);
-  gtmpw3 += (y1 & 0x07);
-  len = y2-y1;
-
-  a = 1 << (7-offs);
-  b = a ^ 0xff;
-
-  gk = 1 << (7-offs2);
-  gtmp = gk ^ 0xff;
-
-  while (len > 1)
-  {
-    len--;
-    offsy++;
-    if (offsy == 8)
-    {
-      gtmpw2 += 320;
-      gtmpw2 &= 0xfff8;
-      gtmpw3 += 320;
-      gtmpw3 &= 0xfff8;
-      offsy=0;
-    }
-    else
-    {
-      gtmpw2++;
-      gtmpw3++;
-    }
-
-    if (white)
-    {
-      Poke(gtmpw2, Peek(gtmpw2) & b);
-      Poke(gtmpw3, Peek(gtmpw3) & gtmp);
-    }
-    else
-    {
-      Poke(gtmpw2, Peek(gtmpw2) | a);
-      Poke(gtmpw3, Peek(gtmpw3) | gk );
-    }
-  }
-
-}
-
 //#ifndef SAVEMEM
 void game_main(void)
 {
@@ -1795,6 +1829,7 @@ void main(void)
       }
       seg_idx += segbmps[i].num_segments; // get this ready for the next segged bmp
     }
+    loc += (4 * 4 * 2); // four hitboxes consisting of {x0, y0, x1, y1} (unsigned shorts)
     loc += segbmps[i].num_repairs * 18; // 18 = sizeof(reu_repair_obj)
   }
 

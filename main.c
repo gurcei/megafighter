@@ -1547,7 +1547,7 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
 
   // draw the rest of the horizontal line, in 8-bit chunks
   offs2 = x2 & 0x07;
-  len -= (8 - offs2);
+  len -= offs2;
   rel_loc += 8;
   gtmpw += 8;
   while (len > 8)

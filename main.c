@@ -47,7 +47,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -481,6 +481,7 @@ void get_keyboard_input(void)
 {
   check_real_keyboard();
 
+#ifdef GAME_OPTIONS
 	// check for escape key
 	if (keycode == 0x77)
 	{
@@ -494,18 +495,21 @@ void get_keyboard_input(void)
 	{
 		escdown = 0;
 	}
+#endif
 
   //draw_sprintf(0, 0, "key=0x%02X", keycode);
 
-  if (keycode == 0x21/*'A'*/) bx--;
-  if (keycode == 0x22/*'D'*/) bx++;
-  if (keycode == 0x11/*'W'*/) by--;
-  if (keycode == 0x07/*'S'*/) by++;
+/*
+  if (keycode == 0x21) bx--; // A
+  if (keycode == 0x22) bx++; // D
+  if (keycode == 0x11) by--; // W
+  if (keycode == 0x07) by++; // S
 
-  if (keycode == 0x24/*J*/) cx--;
-  if (keycode == 0x25/*L*/) cx++;
-  if (keycode == 0x14/*I*/) cy--;
-  if (keycode == 0x54/*K*/) cy++;
+  if (keycode == 0x24) cx--; // J
+  if (keycode == 0x25) cx++; // L
+  if (keycode == 0x14) cy--; // I
+  if (keycode == 0x54) cy++; // K
+*/
 
 	for (pi = 0; pi < 2; pi++)
 	{
@@ -1704,7 +1708,7 @@ void game_main(void)
   }
 
 
-  drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
+  //drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
   //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);

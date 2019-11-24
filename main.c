@@ -8,14 +8,16 @@
 #include "bitmap_ids.h"
 
 //#define SAVEMEM
+//#define SHOW_OPTIONS
 
 // ================================
 // GLOBALS
 // ================================
-unsigned int screen_loc, rel_loc, gtmpw;
+unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char* ptr;
 int sky_idx = 0;
+int bx, by, cx, cy;
 
 unsigned char screen_flag = 0;
 
@@ -487,6 +489,18 @@ void get_keyboard_input(void)
 	{
 		escdown = 0;
 	}
+
+  //draw_sprintf(0, 0, "key=0x%02X", keycode);
+
+  if (keycode == 0x21/*'A'*/) bx--;
+  if (keycode == 0x22/*'D'*/) bx++;
+  if (keycode == 0x11/*'W'*/) by--;
+  if (keycode == 0x07/*'S'*/) by++;
+
+  if (keycode == 0x24/*J*/) cx--;
+  if (keycode == 0x25/*L*/) cx++;
+  if (keycode == 0x14/*I*/) cy--;
+  if (keycode == 0x54/*K*/) cy++;
 
 	for (pi = 0; pi < 2; pi++)
 	{
@@ -1161,7 +1175,7 @@ char* strSelected = "(*)";
 char* strUnselected = "( )";
 #define TOTAL_MENU_ITEMS	5
 
-#ifndef SAVEMEM
+#ifdef SHOW_OPTIONS
 void draw_options(void)
 {
 	draw_text(option_background == BKGND_STATIC ? strSelected : strUnselected, 6, 7, 0);
@@ -1178,7 +1192,7 @@ void draw_options(void)
 }
 #endif
 
-#ifndef SAVEMEM
+#ifdef SHOW_OPTIONS
 void game_options(void)
 {
 	unsigned char k;
@@ -1512,15 +1526,19 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
 {
   unsigned int len = x2 - x1;
   unsigned char offs = x1 & 0x07;
+  unsigned char offs2, offsy;
 
 	rel_loc = vicbase+0x2000;
   gtmpw = rel_loc;
+  gtmpw3 = rel_loc;
 
   // take offset to the start of which character block the first pixel resides in
   rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
   // now take offset to the start of the row within the char-block
   rel_loc += (y1 & 0x07);
   Poke(rel_loc, 0xff >> offs);
+  // back up this location for later
+  gtmpw2 = rel_loc;
 
   // do the same for the lower line
   gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
@@ -1528,7 +1546,8 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
   Poke(gtmpw, 0xff >> offs);
 
   // draw the rest of the horizontal line, in 8-bit chunks
-  len -= (8 - offs);
+  offs2 = x2 & 0x07;
+  len -= (8 - offs2);
   rel_loc += 8;
   gtmpw += 8;
   while (len > 8)
@@ -1540,13 +1559,37 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2)
     gtmpw += 8;
   }
 
-  // draw the vertical lines...
-  // TODO
-
   // draw any trailing end
-  offs = x2 & 0x07;
-  Poke(rel_loc, 0xff << (8 - offs));
-  Poke(gtmpw, 0xff << (8 - offs));
+  Poke(rel_loc, 0xff << (7 - offs2));
+  Poke(gtmpw, 0xff << (7 - offs2));
+
+  // draw the vertical lines...
+  offsy = y1 & 0x07;
+  gtmpw3 += (y1 >> 3) * 320 + (x2 & 0xfff8);
+  gtmpw3 += (y1 & 0x07);
+  len = y2-y1;
+  while (len > 1)
+  {
+    len--;
+    offsy++;
+    if (offsy == 8)
+    {
+      gtmpw2 += 320;
+      gtmpw2 &= 0xfff8;
+      gtmpw3 += 320;
+      gtmpw3 &= 0xfff8;
+      offsy=0;
+    }
+    else
+    {
+      gtmpw2++;
+      gtmpw3++;
+    }
+
+    Poke(gtmpw2, (1 << (7-offs)) );
+    Poke(gtmpw3, (1 << (7-offs2)) );
+  }
+
 }
 
 //#ifndef SAVEMEM
@@ -1557,13 +1600,14 @@ void game_main(void)
   get_keyboard_input();
 
   // draw scenery first
- /* 
+
+
 	// use static background?
 	if (option_background == BKGND_STATIC)
 	{
     draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
 	}
-	
+/* 	
 	// use animated background?
 	else
 	{
@@ -1610,7 +1654,7 @@ void game_main(void)
   }
 */
 
-  drawbox(50, 50, 100, 100);
+  drawbox(50+bx, 50+by, 100+cx, 100+cy);
 
   //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
   //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
@@ -1721,7 +1765,7 @@ void main(void)
         break;
 
 			case GAME_OPTIONS:
-#ifndef SAVEMEM
+#ifdef SHOW_OPTIONS
 				game_options();
 #endif
 				break;

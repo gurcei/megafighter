@@ -9,6 +9,7 @@
 
 //#define SAVEMEM
 //#define SHOW_OPTIONS
+//#define DEBUG
 
 // ================================
 // GLOBALS
@@ -38,7 +39,9 @@ int temple_idx=0;
 
 enum { GAME_INTRO, GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
+#ifdef DEBUG
 void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
+#endif
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 
@@ -1115,6 +1118,7 @@ void calc_absolute_addresses(void)
 #define OPTIONS_Y 2
 #define OPTIONS_H 5
 
+#ifdef DEBUG
 char dstr[40];
 void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
 {
@@ -1123,6 +1127,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
   vsprintf(dstr, str, args);
   draw_text(dstr, posx, posy, 0);
 }
+#endif
 
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
 {
@@ -1536,20 +1541,24 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2,
   rel_loc += (y1 >> 3) * 320 + (x1 & 0xfff8);
   // now take offset to the start of the row within the char-block
   rel_loc += (y1 & 0x07);
+
+  a = 0xff >> offs;
+  b = a ^ 0xff;
   if (white)
-    Poke(rel_loc, (0xff >> offs) ^ 0xff);
+    Poke(rel_loc, Peek(rel_loc) & b);
   else
-    Poke(rel_loc, 0xff >> offs);
+    Poke(rel_loc, Peek(rel_loc) | a);
   // back up this location for later
   gtmpw2 = rel_loc;
 
   // do the same for the lower line
   gtmpw += (y2 >> 3) * 320 + (x1 & 0xfff8);
   gtmpw += (y2 & 0x07);
+
   if (white)
-    Poke(gtmpw, (0xff >> offs) ^ 0xff);
+    Poke(gtmpw, Peek(gtmpw) & b);
   else
-    Poke(gtmpw, 0xff >> offs);
+    Poke(gtmpw, Peek(gtmpw) | a);
 
   // draw the rest of the horizontal line, in 8-bit chunks
   offs2 = x2 & 0x07;
@@ -1574,15 +1583,17 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2,
   }
 
   // draw any trailing end
+  a = 0xff << (7 - offs2);
+  b = a ^ 0xff;
   if (white)
   {
-    Poke(rel_loc, (0xff << (7 - offs2)) ^ 0xff);
-    Poke(gtmpw, (0xff << (7 - offs2)) ^ 0xff);
+    Poke(rel_loc, Peek(rel_loc) & b);
+    Poke(gtmpw, Peek(gtmpw) & b);
   }
   else
   {
-    Poke(rel_loc, 0xff << (7 - offs2));
-    Poke(gtmpw, 0xff << (7 - offs2));
+    Poke(rel_loc, Peek(rel_loc) | a);
+    Poke(gtmpw, Peek(gtmpw) | a);
   }
 
   // draw the vertical lines...
@@ -1590,6 +1601,13 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2,
   gtmpw3 += (y1 >> 3) * 320 + (x2 & 0xfff8);
   gtmpw3 += (y1 & 0x07);
   len = y2-y1;
+
+  a = 1 << (7-offs);
+  b = a ^ 0xff;
+
+  gk = 1 << (7-offs2);
+  gtmp = gk ^ 0xff;
+
   while (len > 1)
   {
     len--;
@@ -1610,13 +1628,13 @@ void drawbox(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2,
 
     if (white)
     {
-      Poke(gtmpw2, (1 << (7-offs)) ^ 0xff );
-      Poke(gtmpw3, (1 << (7-offs2)) ^ 0xff );
+      Poke(gtmpw2, Peek(gtmpw2) & b);
+      Poke(gtmpw3, Peek(gtmpw3) & gtmp);
     }
     else
     {
-      Poke(gtmpw2, (1 << (7-offs)) );
-      Poke(gtmpw3, (1 << (7-offs2)) );
+      Poke(gtmpw2, Peek(gtmpw2) | a);
+      Poke(gtmpw3, Peek(gtmpw3) | gk );
     }
   }
 

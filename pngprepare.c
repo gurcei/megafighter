@@ -763,6 +763,24 @@ void process_file(int mode, char *outputfilename)
       fwrite(&lstHitBoxes[hidx].boxes[box][0], sizeof(unsigned short), 4, outfile);
 
       unsigned short* ptr;
+
+      if (mode == 5 && lstHitBoxes[hidx].boxes[box][0] != 0)  // if this is a mirrored png, then invert the x-values
+      {
+        unsigned short tmp1, tmp2;
+        lstHitBoxes[hidx].boxes[box][0] = width - lstHitBoxes[hidx].boxes[box][0];
+        lstHitBoxes[hidx].boxes[box][2] = width - lstHitBoxes[hidx].boxes[box][2];
+
+        tmp1 = lstHitBoxes[hidx].boxes[box][0]; 
+
+        lstHitBoxes[hidx].boxes[box][0] = lstHitBoxes[hidx].boxes[box][2];
+        lstHitBoxes[hidx].boxes[box][2] = tmp1;
+
+      ptr = (unsigned short*)(&lstHitBoxes[hidx].boxes[box][0]);
+      printf("{ %d, %d, %d, %d }\n", *ptr, *(ptr+1), *(ptr+2), *(ptr+3));
+        //scanf("d");
+        continue;
+      }
+
       ptr = (unsigned short*)(&lstHitBoxes[hidx].boxes[box][0]);
       printf("{ %d, %d, %d, %d }\n", *ptr, *(ptr+1), *(ptr+2), *(ptr+3));
       //scanf
@@ -858,6 +876,8 @@ void process_file(int mode, char *outputfilename)
  
 /* ============================================================= */
 
+int mode=-1;
+
 int main(int argc, char **argv)
 {
   if (argc < 4) {
@@ -865,7 +885,6 @@ int main(int argc, char **argv)
     exit(-1);
   }
 
-  int mode=-1;
 
   if (!strcasecmp("logo",argv[1])) mode=0;
   if (!strcasecmp("charrom",argv[1])) mode=1;

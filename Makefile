@@ -143,7 +143,7 @@ ascii8x8.bin: ascii00-7f.png pngprepare
 %.bin: %.png pngprepare
 	./pngprepare gihires2 $< $@
 
-pngprepare: pngprepare.c
+pngprepare: pngprepare.c hitboxes.h
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
 # --------------------------------------------------
 

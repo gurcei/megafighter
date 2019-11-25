@@ -18,7 +18,7 @@
 // ================================
 unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3;
 unsigned char a, b, gk, gtmp, num_repairs;
-unsigned char* ptr;
+unsigned char* ptr, *ptr2;
 int sky_idx = 0;
 int bx, by, cx, cy;
 
@@ -276,6 +276,7 @@ typedef struct
   unsigned char visible;
   anim_movement *anim_movement;
 	unsigned char jumping;
+  unsigned int boxes[4][4];
 } sprite_detail;
 
 #define SPR_MAX 4
@@ -579,7 +580,7 @@ void get_keyboard_input(void)
         }
         else
         {
-          sprites[pi].anim = punch_style;
+          sprites[pi].anim = RYU_MHPUNCH; // punch_style;
           punch_style++;
         }
 				sprites[pi].anim_idx = 0;
@@ -1241,25 +1242,54 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
   {
     posx <<= 3;
     posy <<= 3;
-    drawbox(posx+*((unsigned int*)0x4000),
-            posy+*((unsigned int*)0x4002),
-            posx+*((unsigned int*)0x4004),
-            posy+*((unsigned int*)0x4006), 0);
+    *((unsigned int*)0x4000) += posx;
+    *((unsigned int*)0x4002) += posy;
+    *((unsigned int*)0x4004) += posx;
+    *((unsigned int*)0x4006) += posy;
+
+    drawbox(*((unsigned int*)0x4000),
+            *((unsigned int*)0x4002),
+            *((unsigned int*)0x4004),
+            *((unsigned int*)0x4006), 0);
+
     if (*((unsigned int*)0x4008) != 0)
-      drawbox(posx+*((unsigned int*)0x4008),
-              posy+*((unsigned int*)0x400a),
-              posx+*((unsigned int*)0x400c),
-              posy+*((unsigned int*)0x400e), 0);
+    {
+      *((unsigned int*)0x4008) += posx;
+      *((unsigned int*)0x400a) += posy;
+      *((unsigned int*)0x400c) += posx;
+      *((unsigned int*)0x400e) += posy;
+
+      drawbox(*((unsigned int*)0x4008),
+              *((unsigned int*)0x400a),
+              *((unsigned int*)0x400c),
+              *((unsigned int*)0x400e), 0);
+    }
+
     if (*((unsigned int*)0x4010) != 0)
-      drawbox(posx+*((unsigned int*)0x4010),
-              posy+*((unsigned int*)0x4012),
-              posx+*((unsigned int*)0x4014),
-              posy+*((unsigned int*)0x4016), 0);
+    {
+      *((unsigned int*)0x4010) += posx;
+      *((unsigned int*)0x4012) += posy;
+      *((unsigned int*)0x4014) += posx;
+      *((unsigned int*)0x4016) += posy;
+
+      drawbox(*((unsigned int*)0x4010),
+              *((unsigned int*)0x4012),
+              *((unsigned int*)0x4014),
+              *((unsigned int*)0x4016), 0);
+    }
+
     if (*((unsigned int*)0x4018) != 0)
-      drawbox(posx+*((unsigned int*)0x4018),
-              posy+*((unsigned int*)0x401a),
-              posx+*((unsigned int*)0x401c),
-              posy+*((unsigned int*)0x401e), 0);
+    {
+        *((unsigned int*)0x4018) += posx;
+        *((unsigned int*)0x401a) += posy;
+        *((unsigned int*)0x401c) += posx;
+        *((unsigned int*)0x401e) += posy;
+
+        drawbox(*((unsigned int*)0x4018),
+                *((unsigned int*)0x401a),
+                *((unsigned int*)0x401c),
+                *((unsigned int*)0x401e), 0);
+    }
   }
 #endif
 }
@@ -1676,6 +1706,12 @@ void game_title(void)
 }
 //#endif
 
+#define INTERSECT(b1, b2) \
+  !(b2[0] > b1[2] \
+  || b2[2] < b1[0] \
+  || b2[1] > b1[3] \
+  || b2[3] < b1[1])
+
 //#ifndef SAVEMEM
 void game_main(void)
 {
@@ -1733,6 +1769,20 @@ void game_main(void)
 				gtmpw += TITLE_REV;
 			draw_bitmap(gtmpw, cur_spr->posx, cur_spr->posy - anims[cur_spr->anim].rows);
 
+      // preserve hitboxes?
+      //if (*((unsigned short*)0x4000) != 0)
+      {
+        ptr = (unsigned char*)&cur_spr->boxes;
+        ptr2 = (unsigned char*)0x4000;
+
+        for (a=0; a<32; a++)
+        {
+          *ptr = *ptr2;
+          ptr++;
+          ptr2++;
+        }
+      }
+
       if (post_draw_processing(i) == 0)
       {
         animate_sprite(&(sprites[i]));
@@ -1741,6 +1791,44 @@ void game_main(void)
 		cur_spr++;
   }
 
+  // test if player1 hits player2
+  for (gk = 0; gk < 2; gk++) // player1-to-2 or player2-to-1
+  {
+    if (gk == 0)
+    {
+      a = 0;
+      b = 1;
+    }
+    else
+    {
+      a = 1;
+      b = 0;
+    }
+    if (sprites[a].boxes[3][0] != 0)
+    {
+      // hit head?
+      if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[0]))
+      {
+        sprites[1].anim = RYU_FACEHIT;
+        sprites[1].anim_idx = 0;
+        sprites[1].anim_dir = 1;
+        punching[1]=1;
+        //Poke(0xd020, 2);
+      }
+      // hit torso?
+      else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[1]))
+      {
+        sprites[1].anim = RYU_HIT;
+        Poke(0xd020, 3);
+      }
+      // hit feet?
+      else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[2]))
+      {
+        sprites[1].anim = RYU_KNOCKDOWN;
+        Poke(0xd020, 4);
+      }
+    }
+  }
 
   //drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
 

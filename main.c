@@ -11,8 +11,8 @@
 //#define SHOW_OPTIONS
 //#define DEBUG
 //#define ANIMBKGND
-#define BLANKSCREEN
-#define HITBOXES
+//#define BLANKSCREEN
+//#define HITBOXES
 
 // ================================
 // GLOBALS
@@ -791,16 +791,16 @@ unsigned char post_draw_processing(unsigned char sprite)
         sprites[sprite].anim=RYU_HADPROJ_END;
         sprites[sprite].anim_idx=0;
         if (sprites[sprite].dir)
-          sprites[sprite].posx -= 3;
+          sprites[sprite].posx -= 6;
         else
-          sprites[sprite].posx += 3;
+          sprites[sprite].posx += 6;
       }
       else
       {
         if (sprites[sprite].dir)
-          sprites[sprite].posx -= 3;
+          sprites[sprite].posx -= 6;
         else
-          sprites[sprite].posx += 3;
+          sprites[sprite].posx += 6;
       }
     }
     else if (sprites[sprite].anim == RYU_HADPROJ_END && sprites[sprite].anim_idx == 3)

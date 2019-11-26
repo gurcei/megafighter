@@ -27,7 +27,7 @@ unsigned char screen_flag = 0;
 
 unsigned char firedown[2]= { 0 };
 unsigned char walkingright[2]= { 0 };
-unsigned char walkingback[2]= { 0 };
+unsigned char walkingleft[2]= { 0 };
 unsigned char crouching[2]= { 0 };
 unsigned char punching[2]= { 0 };
 unsigned char floor_idx=12;
@@ -54,7 +54,7 @@ enum anim_ids
 {
   RYU_IDLE,
   RYU_WALK, RYU_WALKB,
-  RYU_JUMP, RYU_FJUMP,
+  RYU_JUMP, RYU_FJUMP, RYU_BJUMP,
   RYU_CROUCHBLOCK,
   RYU_LPUNCH, RYU_MHPUNCH,
   RYU_FLPUNCH, RYU_FMPUNCH, RYU_FHPUNCH,
@@ -86,6 +86,7 @@ unsigned int anim_ryu_walk[] = { RYU_WALK1, RYU_WALK2, RYU_WALK3, RYU_WALK4, RYU
 unsigned int anim_ryu_walkb[] = { RYU_WALK8, RYU_WALK7, RYU_WALK6, RYU_WALK5, RYU_WALK4, RYU_WALK3, RYU_WALK2, RYU_WALK1 };
 unsigned int anim_ryu_jump[] = { RYU_JUMP2, RYU_JUMP3, RYU_JUMP4 };
 unsigned int anim_ryu_fjump[] = { RYU_FJUMP2, RYU_FJUMP3, RYU_FJUMP4, RYU_FJUMP5, RYU_FJUMP6, RYU_FJUMP7 };
+unsigned int anim_ryu_bjump[] = { RYU_FJUMP7, RYU_FJUMP6, RYU_FJUMP5, RYU_FJUMP4, RYU_FJUMP3, RYU_FJUMP2 };
 unsigned int anim_ryu_crouchblock[] = { RYU_CROUCH1, RYU_CROUCH2, RYU_BLOCK1, RYU_BLOCK2 };
 unsigned int anim_ryu_lpunch[] = { RYU_LPUNCH1, RYU_LPUNCH2, RYU_LPUNCH1 };
 unsigned int anim_ryu_mhpunch[] = { RYU_MHPUNCH1, RYU_MHPUNCH2, RYU_MHPUNCH3 };
@@ -164,7 +165,7 @@ char ryu_fjump_relx[]  = {  1,  1,  1,  1,  1,  1, 1, 1, 1, 1 };
 char ryu_fjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
 char ryu_fjump_frame[] = {  0,  1,  1,  2,  2,  3, 3, 4, 5, 6 };
 
-anim_movement ryu_anim_fjump =
+anim_movement ryu_anim_rightjump =
 {
   10,
   ryu_fjump_relx,
@@ -174,9 +175,9 @@ anim_movement ryu_anim_fjump =
 
 char ryu_bjump_relx[]  = {  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1 };
 char ryu_bjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
-char ryu_bjump_frame[] = {  6,  5,  4,  3,  3,  2, 2, 1, 1, 0 };
+char ryu_bjump_frame[] = { 0, 1, 1, 2, 2, 3, 3, 4, 5, 6 };
 
-anim_movement ryu_anim_bjump =
+anim_movement ryu_anim_leftjump =
 {
   10,
   ryu_bjump_relx,
@@ -225,6 +226,7 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_walkb,  8, 0, 9,  13 }, // RYU_WALKB
   { anim_ryu_jump,  3, 1, 6,  13 }, // RYU_JUMP
   { anim_ryu_fjump,  7, 0, 10, 13 }, // RYU_FJUMP
+  { anim_ryu_bjump,  7, 0, 10, 13 }, // RYU_BJUMP
   { anim_ryu_crouchblock,  4, 0, 6, 13 },  // RYU_CROUCHBLOCK
   { anim_ryu_lpunch,  3, 0, 8, 14 },  // RYU_LPUNCH
   { anim_ryu_mhpunch,  3, 1, 10, 14 }, // RYU_MHPUNCH
@@ -597,21 +599,21 @@ void get_keyboard_input(void)
 			{
 				sprites[pi].jumping = 1;
 				walkingright[pi] = 0; // TODO: consider how far we've walked in deciding where to jump
-				walkingback[pi] = 0;
+				walkingleft[pi] = 0;
 				if (key & 8) // are we walking right too?
 				{
-					sprites[pi].anim = RYU_FJUMP;
+					sprites[pi].anim = sprites[pi].dir ? RYU_BJUMP : RYU_FJUMP;
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
-					sprites[pi].anim_movement = &ryu_anim_fjump;
+					sprites[pi].anim_movement = &ryu_anim_rightjump;
 					sprites[pi].anim_tmr = 0;
 				}
 				else if (key & 4) // left jump?
 				{
-					sprites[pi].anim = RYU_FJUMP;
+					sprites[pi].anim = sprites[pi].dir ? RYU_FJUMP : RYU_BJUMP;
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
-					sprites[pi].anim_movement = &ryu_anim_bjump;
+					sprites[pi].anim_movement = &ryu_anim_leftjump;
 					sprites[pi].anim_tmr = 0;
 				}
 				else
@@ -624,17 +626,20 @@ void get_keyboard_input(void)
 				}
 				//vely=-6 << 5;
 			}
-			else if (key & 2 && !sprites[pi].jumping && !walkingback[pi] && !walkingright[pi])
+      // DOWN KEY
+			else if (key & 2 && !sprites[pi].jumping && !walkingleft[pi] && !walkingright[pi])
 			{
 				crouching[pi] = 1;
 				sprites[pi].anim = RYU_CROUCHBLOCK;
 				sprites[pi].anim_idx = 1;
 				sprites[pi].anim_dir = 2;
 			}
-			else if (key & 4 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // left
+      // LEFT KEY
+			else if (key & 4 && !walkingleft[pi] && !walkingright[pi] && !sprites[pi].jumping) // left
 			{
-				walkingback[pi] = 1;
-				sprites[pi].posx -= 3;
+				walkingleft[pi] = 1;
+        if (sprites[pi].dir == 0)
+          sprites[pi].posx -= 3;
 				sprites[pi].anim = sprites[pi].dir ? RYU_WALK : RYU_WALKB;
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
@@ -644,9 +649,12 @@ void get_keyboard_input(void)
 				//  frame = (frame+1) % 2; // & 0x01; // % 2;
 				//if (girlx < 25) girlx = 25;
 			}
-			else if (key & 8 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // right
+      // RIGHT KEY
+			else if (key & 8 && !walkingleft[pi] && !walkingright[pi] && !sprites[pi].jumping) // right
 			{
 				walkingright[pi] = 1;
+        if (sprites[pi].dir == 1)
+          sprites[pi].posx += 3;
 				sprites[pi].anim = sprites[pi].dir ? RYU_WALKB : RYU_WALK;
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
@@ -680,7 +688,7 @@ void get_keyboard_input(void)
 	} // end for
 
   //Poke(8192L, walkingright);
-  //Poke(8193L, walkingback);
+  //Poke(8193L, walkingleft);
   //Poke(8194L, jumping);
 }
 
@@ -694,15 +702,18 @@ unsigned char post_draw_processing(unsigned char sprite)
     if (walkingright[sprite] && sprites[sprite].anim_idx==7)
     {
       walkingright[sprite]=0;
-      sprites[sprite].posx += 3;
+      if (sprites[sprite].dir == 0)
+        sprites[sprite].posx += 3;
       sprites[sprite].anim = RYU_IDLE;
       sprites[sprite].anim_idx = 0;
       sprites[sprite].anim_dir = 1;
     }
 
-    if (walkingback[sprite] && sprites[sprite].anim_idx==7)
+    if (walkingleft[sprite] && sprites[sprite].anim_idx==7)
     {
-      walkingback[sprite]=0;
+      walkingleft[sprite]=0;
+      if (sprites[sprite].dir == 1)
+        sprites[sprite].posx -= 3;
       sprites[sprite].anim = RYU_IDLE;
       sprites[sprite].anim_idx = 0;
       sprites[sprite].anim_dir = 1;

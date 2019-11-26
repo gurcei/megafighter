@@ -165,7 +165,7 @@ char ryu_fjump_relx[]  = {  1,  1,  1,  1,  1,  1, 1, 1, 1, 1 };
 char ryu_fjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
 char ryu_fjump_frame[] = {  0,  1,  1,  2,  2,  3, 3, 4, 5, 6 };
 
-anim_movement ryu_anim_rightjump =
+anim_movement ryu_anim_fjump =
 {
   10,
   ryu_fjump_relx,
@@ -174,19 +174,28 @@ anim_movement ryu_anim_rightjump =
 };
 
 char ryu_bjump_relx[]  = {  -1,  -1,  -1,  -1,  -1,  -1, -1, -1, -1, -1 };
-char ryu_bjump_rely[]  = { -3, -3, -2, -1, -1,  1, 1, 2, 3, 3 };
-char ryu_bjump_frame[] = { 0, 1, 1, 2, 2, 3, 3, 4, 5, 6 };
 
-anim_movement ryu_anim_leftjump =
+anim_movement ryu_anim_bjump =
 {
   10,
   ryu_bjump_relx,
-  ryu_bjump_rely,
-  ryu_bjump_frame
+  ryu_fjump_rely,
+  ryu_fjump_frame
+};
+
+char ryu_tatsu_relx[] =  { 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0 };
+char ryu_tatsu_rely[] =  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+char ryu_tatsu_frame[] = { 0, 1, 2, 3, 4, 5, 2, 3, 4, 5, 2, 3, 4, 5, 6, 7, 8 };
+
+anim_movement ryu_anim_tatsu =
+{
+  17,
+  ryu_tatsu_relx,
+  ryu_tatsu_rely,
+  ryu_tatsu_frame
 };
 
 char ryu_shouryuken_relx[]  = {  0,  0,  1,  1,  1,  1,  0,  0,  0, 0, 0, 0, 0 };
-char ryu_shouryuken_relx_opp[]  = {  0,  0,  -1,  -1,  -1,  -1,  0,  0,  0, 0, 0, 0, 0 };
 char ryu_shouryuken_rely[]  = {  0,  0,  0,  0, -1, -2, -1, -1,  1, 1, 2, 1, 0 };
 char ryu_shouryuken_frame[] = {  0,  1,  2,  3,  3,  4,  4,  5,  5, 6, 6, 6, 7 };
 
@@ -194,14 +203,6 @@ anim_movement ryu_anim_shouryuken =
 {
   13,
   ryu_shouryuken_relx,
-  ryu_shouryuken_rely,
-  ryu_shouryuken_frame
-};
-
-anim_movement ryu_anim_shouryuken_opp =
-{
-  13,
-  ryu_shouryuken_relx_opp,
   ryu_shouryuken_rely,
   ryu_shouryuken_frame
 };
@@ -419,7 +420,10 @@ void animate_sprite(sprite_detail* spr)
   if (spr->anim_movement)
   {
     gk = spr->anim_tmr;
-    spr->posx += spr->anim_movement->relx[gk];
+    if (spr->dir)
+      spr->posx -= spr->anim_movement->relx[gk];
+    else
+      spr->posx += spr->anim_movement->relx[gk];
     spr->posy += spr->anim_movement->rely[gk];
     spr->anim_idx = spr->anim_movement->frame[gk];
     spr->anim_tmr++;
@@ -554,11 +558,18 @@ void get_keyboard_input(void)
           if (sprites[pi].dir ? (key &  4) : (key & 8)) // right
           {
             sprites[pi].anim = RYU_SHOURYUKEN;
-            sprites[pi].anim_movement = sprites[pi].dir ? &ryu_anim_shouryuken_opp : &ryu_anim_shouryuken;
+            sprites[pi].anim_movement = &ryu_anim_shouryuken;
             sprites[pi].anim_tmr = 0;
           }
           else if (sprites[pi].dir ? (key & 8) : (key & 4)) // left
+          {
             sprites[pi].anim = RYU_TATSUMAKI;
+            //sprites[pi].anim = sprites[pi].dir ? RYU_FJUMP : RYU_BJUMP;
+            sprites[pi].anim_idx = 0;
+            sprites[pi].anim_dir = 1;
+            sprites[pi].anim_movement = &ryu_anim_tatsu;
+            sprites[pi].anim_tmr = 0;
+          }
           else // purely up
             sprites[pi].anim = RYU_HKICK;
 
@@ -605,7 +616,7 @@ void get_keyboard_input(void)
 					sprites[pi].anim = sprites[pi].dir ? RYU_BJUMP : RYU_FJUMP;
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
-					sprites[pi].anim_movement = &ryu_anim_rightjump;
+					sprites[pi].anim_movement = sprites[pi].dir ? &ryu_anim_bjump : &ryu_anim_fjump;
 					sprites[pi].anim_tmr = 0;
 				}
 				else if (key & 4) // left jump?
@@ -613,7 +624,7 @@ void get_keyboard_input(void)
 					sprites[pi].anim = sprites[pi].dir ? RYU_FJUMP : RYU_BJUMP;
 					sprites[pi].anim_idx = 0;
 					sprites[pi].anim_dir = 1;
-					sprites[pi].anim_movement = &ryu_anim_leftjump;
+					sprites[pi].anim_movement = sprites[pi].dir ? &ryu_anim_fjump : &ryu_anim_bjump;
 					sprites[pi].anim_tmr = 0;
 				}
 				else

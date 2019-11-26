@@ -1540,8 +1540,7 @@ void prep_song(unsigned char idx)
   reuloc = 0x20000 + idx * 0x0a00;
   length = 0x0a00;
   reu_simple_copy();
-  prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0);
-}
+  prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0); }
 
 void game_intro(void)
 {
@@ -1770,8 +1769,17 @@ void game_main(void)
     {
 			gtmpw = anims[cur_spr->anim].frames[cur_spr->anim_idx];
 			if (cur_spr->dir) // mirror to other direction?
+      {
 				gtmpw += TITLE_REV;
-			draw_bitmap(gtmpw, cur_spr->posx, cur_spr->posy - anims[cur_spr->anim].rows);
+        gtmpw2 = cur_spr->posx - anims[cur_spr->anim].cols;
+        gtmpw3 = cur_spr->posy - anims[cur_spr->anim].rows;
+      }
+      else
+      {
+        gtmpw2 = cur_spr->posx;
+        gtmpw3 = cur_spr->posy - anims[cur_spr->anim].rows;
+      }
+      draw_bitmap(gtmpw, gtmpw2, gtmpw3);
 
       // preserve hitboxes?
       //if (*((unsigned short*)0x4000) != 0)
@@ -1813,23 +1821,27 @@ void game_main(void)
       // hit head?
       if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[0]))
       {
-        sprites[1].anim = RYU_FACEHIT;
-        sprites[1].anim_idx = 0;
-        sprites[1].anim_dir = 1;
-        punching[1]=1;
+        sprites[b].anim = RYU_FACEHIT;
+        sprites[b].anim_idx = 0;
+        sprites[b].anim_dir = 1;
+        punching[b]=1;
         //Poke(0xd020, 2);
       }
       // hit torso?
       else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[1]))
       {
-        sprites[1].anim = RYU_HIT;
-        Poke(0xd020, 3);
+        sprites[b].anim = RYU_HIT;
+        sprites[b].anim_idx = 0;
+        sprites[b].anim_dir = 1;
+        punching[b]=1;
       }
       // hit feet?
       else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[2]))
       {
-        sprites[1].anim = RYU_KNOCKDOWN;
-        Poke(0xd020, 4);
+        sprites[b].anim = RYU_KNOCKDOWN;
+        sprites[b].anim_idx = 0;
+        sprites[b].anim_dir = 1;
+        punching[b]=1;
       }
     }
   }

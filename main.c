@@ -76,7 +76,7 @@ enum anim_ids
   RYU_MAX
 };
 
-#define FIRST_ATTACK   RYU_HADOUKEN // RYU_JUMP_LMHPUNCH
+#define FIRST_ATTACK   RYU_LPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -536,7 +536,11 @@ void get_keyboard_input(void)
 
 		if (key != 0)
 		{
-			if (key & 16 && !firedown[pi]) // fire button
+      if (punching[pi])
+      {
+        // ignore keyboard input while punching flag is on
+      }
+			else if (key & 16 && !firedown[pi]) // fire button
 			{
 				firedown[pi]=1;
 				punching[pi]=1;
@@ -580,7 +584,7 @@ void get_keyboard_input(void)
         }
         else
         {
-          sprites[pi].anim = RYU_MHPUNCH; // punch_style;
+          sprites[pi].anim = punch_style;
           punch_style++;
         }
 				sprites[pi].anim_idx = 0;
@@ -588,7 +592,7 @@ void get_keyboard_input(void)
 				if (punch_style == RYU_MAX)
 					punch_style = RYU_LPUNCH;
 			}
-			if (key & 1 && !sprites[pi].jumping && sprites[pi].anim == RYU_IDLE) // up
+			else if (key & 1 && !sprites[pi].jumping && sprites[pi].anim == RYU_IDLE) // up
 			{
 				sprites[pi].jumping = 1;
 				walkingright[pi] = 0; // TODO: consider how far we've walked in deciding where to jump
@@ -619,12 +623,38 @@ void get_keyboard_input(void)
 				}
 				//vely=-6 << 5;
 			}
-			if (key & 2 && !sprites[pi].jumping && !walkingback[pi] && !walkingright[pi])
+			else if (key & 2 && !sprites[pi].jumping && !walkingback[pi] && !walkingright[pi])
 			{
 				crouching[pi] = 1;
 				sprites[pi].anim = RYU_CROUCHBLOCK;
 				sprites[pi].anim_idx = 1;
 				sprites[pi].anim_dir = 2;
+			}
+			else if (key & 4 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // left
+			{
+				walkingback[pi] = 1;
+				sprites[pi].posx -= 3;
+				sprites[pi].anim = sprites[pi].dir ? RYU_WALK : RYU_WALKB;
+				sprites[pi].anim_idx = 0;
+				sprites[pi].anim_dir = 1;
+				//dir = 1;
+				//girlx -= 2;
+				//if (!(i % 6)) // modulo operation seems to be time consuming !(i % 6))
+				//  frame = (frame+1) % 2; // & 0x01; // % 2;
+				//if (girlx < 25) girlx = 25;
+			}
+			else if (key & 8 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // right
+			{
+				walkingright[pi] = 1;
+				sprites[pi].anim = sprites[pi].dir ? RYU_WALKB : RYU_WALK;
+				sprites[pi].anim_idx = 0;
+				sprites[pi].anim_dir = 1;
+				//dir = 0;
+				//girlx += 2;
+
+				//if (!(i & 0x03)) // don't use modulo operation !(i % 6))
+				//  frame = (frame+1) % 2; //& 0x01; // % 2;
+				//if (girlx > 323) girlx = 323;
 			}
 			// floor animate
 			if (key & 4) // floor-left animate
@@ -644,32 +674,6 @@ void get_keyboard_input(void)
 
 				if (floor_idx > 0)
 					floor_idx--;
-			}
-			if (key & 4 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // left
-			{
-				walkingback[pi] = 1;
-				sprites[pi].posx -= 3;
-				sprites[pi].anim = sprites[pi].dir ? RYU_WALK : RYU_WALKB;
-				sprites[pi].anim_idx = 0;
-				sprites[pi].anim_dir = 1;
-				//dir = 1;
-				//girlx -= 2;
-				//if (!(i % 6)) // modulo operation seems to be time consuming !(i % 6))
-				//  frame = (frame+1) % 2; // & 0x01; // % 2;
-				//if (girlx < 25) girlx = 25;
-			}
-			if (key & 8 && !walkingback[pi] && !walkingright[pi] && !sprites[pi].jumping) // right
-			{
-				walkingright[pi] = 1;
-				sprites[pi].anim = sprites[pi].dir ? RYU_WALKB : RYU_WALK;
-				sprites[pi].anim_idx = 0;
-				sprites[pi].anim_dir = 1;
-				//dir = 0;
-				//girlx += 2;
-
-				//if (!(i & 0x03)) // don't use modulo operation !(i % 6))
-				//  frame = (frame+1) % 2; //& 0x01; // % 2;
-				//if (girlx > 323) girlx = 323;
 			}
 		} // end if
 	} // end for

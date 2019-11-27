@@ -12,8 +12,8 @@
 //#define DEBUG
 //#define ANIMBKGND
 #define DRAWSPRITES
-#define BLANKSCREEN
-#define HITBOXES
+//#define BLANKSCREEN
+//#define HITBOXES
 
 // ================================
 // GLOBALS
@@ -741,7 +741,7 @@ unsigned char post_draw_processing(unsigned char sprite)
       sprites[sprite+2].dir = sprites[sprite].dir;
       if (sprites[sprite].dir)
       {
-        sprites[sprite+2].posx = sprites[sprite].posx - 5;
+        sprites[sprite+2].posx = sprites[sprite].posx - 8;
         sprites[sprite+2].posy = sprites[sprite].posy - 3;
       }
       else

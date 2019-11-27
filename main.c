@@ -12,8 +12,8 @@
 //#define DEBUG
 //#define ANIMBKGND
 #define DRAWSPRITES
-//#define BLANKSCREEN
-//#define HITBOXES
+#define BLANKSCREEN
+#define HITBOXES
 
 // ================================
 // GLOBALS

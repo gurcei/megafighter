@@ -20,6 +20,7 @@
 // ================================
 unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3;
 unsigned char a, b, gk, gtmp, num_repairs;
+unsigned char hit, hithead, hittorso, hitfeet;
 unsigned char* ptr, *ptr2;
 int sky_idx = 0;
 int bx, by, cx, cy;
@@ -1856,29 +1857,31 @@ void game_main(void)
       a = 1;
       b = 0;
     }
-    if (sprites[a].boxes[3][0] != 0)
+
+    for (gtmp = 0; gtmp < 3; gtmp++)
     {
-      // hit head?
-      if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[0]))
+      hit = 0;
+      // player hit opponent's head?
+      if (sprites[a].boxes[3][0] != 0 && INTERSECT(sprites[a].boxes[3], sprites[b].boxes[gtmp]))
+        hit = 1;
+      
+      // player's hadouken projectile hit head?
+      if (sprites[a+2].boxes[3][0] != 0 && INTERSECT(sprites[a+2].boxes[3], sprites[b].boxes[gtmp])) // hadproj hit?
       {
-        sprites[b].anim = RYU_FACEHIT;
-        sprites[b].anim_idx = 0;
-        sprites[b].anim_dir = 1;
-        punching[b]=1;
-        //Poke(0xd020, 2);
+        hit = 1;
+        sprites[a+2].anim=RYU_HADPROJ_END;
+        sprites[a+2].anim_idx=0;
+        if (sprites[a+2].dir)
+          sprites[a+2].posx = sprites[a+2].boxes[3][2] >> 3;
+        else
+          sprites[a+2].posx = sprites[a+2].boxes[3][0] >> 3;
       }
-      // hit torso?
-      else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[1]))
+
+      if (hit)
       {
-        sprites[b].anim = RYU_HIT;
-        sprites[b].anim_idx = 0;
-        sprites[b].anim_dir = 1;
-        punching[b]=1;
-      }
-      // hit feet?
-      else if (INTERSECT(sprites[a].boxes[3], sprites[b].boxes[2]))
-      {
-        sprites[b].anim = RYU_KNOCKDOWN;
+        if (gtmp == 0) sprites[b].anim = RYU_FACEHIT;
+        if (gtmp == 1) sprites[b].anim = RYU_HIT;
+        if (gtmp == 2) sprites[b].anim = RYU_KNOCKDOWN;
         sprites[b].anim_idx = 0;
         sprites[b].anim_dir = 1;
         punching[b]=1;

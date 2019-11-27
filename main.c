@@ -11,8 +11,9 @@
 //#define SHOW_OPTIONS
 //#define DEBUG
 //#define ANIMBKGND
-//#define BLANKSCREEN
-//#define HITBOXES
+#define DRAWSPRITES
+#define BLANKSCREEN
+#define HITBOXES
 
 // ================================
 // GLOBALS
@@ -254,7 +255,7 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_tatsumaki,  9, 0, 12, 18 }, // RYU_TATSUMAKI
   { anim_ryu_hadouken,  5, 0, 12, 12 }, // RYU_HADOUKEN
   { anim_ryu_hadproj_start,  2, 0, 6,  8  }, // RYU_HADPROJ_START
-  { anim_ryu_hadproj,  12, 0, 9, 8  }, // RYU_HADPROJ
+  { anim_ryu_hadproj,  12, 0, 11, 8  }, // RYU_HADPROJ
   { anim_ryu_hadproj_end,  4, 0, 6,  8  }, // RYU_HADPROJ_END
   { anim_ryu_shouldertoss,  5, 0, 9,  13 }, // RYU_SHOULDERTOSS
   { anim_ryu_backroll,  7, 0, 10, 12 }, // RYU_BACKROLL
@@ -1209,6 +1210,7 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
 		c64loc = (signed int)(vicbase+0x2000) + posx*8 + posy*40*8;
 		reuloc = segbmps[frame].reu_ptr; // reu bank 1 contains bitmap data
 
+#ifdef DRAWSPRITES
     for (gk = 0; gk < num; gk++)
     {
       length = seg->length << 3;
@@ -1227,6 +1229,7 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       c64loc += length;
       seg++;
     } // end for k
+#endif
   }
   else // num_segments == 0
   {
@@ -1244,6 +1247,7 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
 
     c64loc = vicbase+0x2000 + posx*8 + posy*40*8;
 
+#ifdef DRAWSPRITES
     repair = (reu_repair_obj*)(0x4000 + (4*4*2));
     for (gk = 0; gk < num_repairs; gk++)
     {
@@ -1264,13 +1268,15 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       repair++;
       c64loc -= 8;
     } // end for
+#endif
   //} // end if
+
+  posx <<= 3;
+  posy <<= 3;
 
   // draw hitboxes
   if (*((unsigned short*)0x4000) != 0)
   {
-    posx <<= 3;
-    posy <<= 3;
     *((unsigned int*)0x4000) += posx;
     *((unsigned int*)0x4002) += posy;
     *((unsigned int*)0x4004) += posx;
@@ -1282,51 +1288,51 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
             *((unsigned int*)0x4004),
             *((unsigned int*)0x4006), 0);
 #endif
+  }
 
-    if (*((unsigned int*)0x4008) != 0)
-    {
-      *((unsigned int*)0x4008) += posx;
-      *((unsigned int*)0x400a) += posy;
-      *((unsigned int*)0x400c) += posx;
-      *((unsigned int*)0x400e) += posy;
-
-#ifdef HITBOXES
-      drawbox(*((unsigned int*)0x4008),
-              *((unsigned int*)0x400a),
-              *((unsigned int*)0x400c),
-              *((unsigned int*)0x400e), 0);
-#endif
-    }
-
-    if (*((unsigned int*)0x4010) != 0)
-    {
-      *((unsigned int*)0x4010) += posx;
-      *((unsigned int*)0x4012) += posy;
-      *((unsigned int*)0x4014) += posx;
-      *((unsigned int*)0x4016) += posy;
+  if (*((unsigned int*)0x4008) != 0)
+  {
+    *((unsigned int*)0x4008) += posx;
+    *((unsigned int*)0x400a) += posy;
+    *((unsigned int*)0x400c) += posx;
+    *((unsigned int*)0x400e) += posy;
 
 #ifdef HITBOXES
-      drawbox(*((unsigned int*)0x4010),
-              *((unsigned int*)0x4012),
-              *((unsigned int*)0x4014),
-              *((unsigned int*)0x4016), 0);
+    drawbox(*((unsigned int*)0x4008),
+            *((unsigned int*)0x400a),
+            *((unsigned int*)0x400c),
+            *((unsigned int*)0x400e), 0);
 #endif
-    }
+  }
 
-    if (*((unsigned int*)0x4018) != 0)
-    {
-        *((unsigned int*)0x4018) += posx;
-        *((unsigned int*)0x401a) += posy;
-        *((unsigned int*)0x401c) += posx;
-        *((unsigned int*)0x401e) += posy;
+  if (*((unsigned int*)0x4010) != 0)
+  {
+    *((unsigned int*)0x4010) += posx;
+    *((unsigned int*)0x4012) += posy;
+    *((unsigned int*)0x4014) += posx;
+    *((unsigned int*)0x4016) += posy;
 
 #ifdef HITBOXES
-        drawbox(*((unsigned int*)0x4018),
-                *((unsigned int*)0x401a),
-                *((unsigned int*)0x401c),
-                *((unsigned int*)0x401e), 0);
+    drawbox(*((unsigned int*)0x4010),
+            *((unsigned int*)0x4012),
+            *((unsigned int*)0x4014),
+            *((unsigned int*)0x4016), 0);
 #endif
-    }
+  }
+
+  if (*((unsigned int*)0x4018) != 0)
+  {
+      *((unsigned int*)0x4018) += posx;
+      *((unsigned int*)0x401a) += posy;
+      *((unsigned int*)0x401c) += posx;
+      *((unsigned int*)0x401e) += posy;
+
+#ifdef HITBOXES
+      drawbox(*((unsigned int*)0x4018),
+              *((unsigned int*)0x401a),
+              *((unsigned int*)0x401c),
+              *((unsigned int*)0x401e), 0);
+#endif
   }
 #endif
 }
@@ -1573,7 +1579,8 @@ void prep_song(unsigned char idx)
   reuloc = 0x20000 + idx * 0x0a00;
   length = 0x0a00;
   reu_simple_copy();
-  prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0); }
+  prepare_song(lstVoiceOffsets[idx].v1, lstVoiceOffsets[idx].v2, lstVoiceOffsets[idx].v3, 32, 3, 0);
+}
 
 void game_intro(void)
 {
@@ -1761,9 +1768,9 @@ void game_main(void)
 	if (option_background == BKGND_STATIC)
 	{
 #ifdef BLANKSCREEN
-    draw_bitmap(BLANK, 0, 0);
+  draw_fullwidth_bitmap(BLANK, 0, 0);
 #else
-    draw_bitmap(RYU_STAGE_CROPPED, 0, 0);
+    draw_fullwidth_bitmap(RYU_STAGE_CROPPED, 0, 0);
 #endif
 	}
 #ifdef ANIMBKGND

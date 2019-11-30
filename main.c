@@ -1993,7 +1993,7 @@ void main(void)
   Poke(0xea32, 0x7e);
   Poke(0xea33, 0xea);
 
-  loc = 0x00040000;
+  loc = 0x00050000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {

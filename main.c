@@ -22,6 +22,7 @@ unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char hit, hithead, hittorso, hitfeet;
 unsigned char* ptr, *ptr2;
+unsigned char snd_trigger = 0, snd_idx = 0, snd_delay = 0;
 int sky_idx = 0;
 int bx, by, cx, cy;
 
@@ -50,6 +51,48 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 void play_sound(unsigned char idx);
 
+enum sound_ids
+{
+  SND_PUNCH1,
+  SND_PUNCH2,
+  SND_PUNCH3,
+  SND_PUNCH4,
+  SND_KICK1,
+  SND_KICK2,
+  SND_KICK3,
+  SND_KICK4,
+  SND_KICK5,
+  SND_KICK6,
+  SND_FALL,
+  SND_SWOOSH,
+  SND_OOH,
+  SND_DIE1,
+  SND_DIE2,
+  SND_FLIGHT1,
+  SND_FLIGHT2,
+  SND_FLIGHT3,
+  SND_SHOURYUKEN1,
+  SND_SHOURYUKEN2,
+  SND_TATSUMAKI1,
+  SND_TATSUMAKI2,
+  SND_HADOUKEN1,
+  SND_HADOUKEN2,
+  SND_YOU,
+  SND_WIN,
+  SND_LOSE,
+  SND_PERFECT,
+  SND_FIGHT,
+  SND_ROUND,
+  SND_ONE,
+  SND_TWO,
+  SND_THREE,
+  SND_DING1,
+  SND_DING2,
+  SND_DING3A,
+  SND_DING3B,
+  SND_DING4,
+  SND_DING5
+};
 
 unsigned char gamestate = GAME_TITLE;
 
@@ -560,12 +603,20 @@ void get_keyboard_input(void)
         {
           if (sprites[pi].dir ? (key &  4) : (key & 8)) // right
           {
+            snd_trigger = 2;
+            snd_delay = 1;
+            snd_idx = SND_SHOURYUKEN1;
+
             sprites[pi].anim = RYU_SHOURYUKEN;
             sprites[pi].anim_movement = &ryu_anim_shouryuken;
             sprites[pi].anim_tmr = 0;
           }
           else if (sprites[pi].dir ? (key & 8) : (key & 4)) // left
           {
+            snd_trigger = 2;
+            snd_delay = 1;
+            snd_idx = SND_TATSUMAKI1;
+
             sprites[pi].anim = RYU_TATSUMAKI;
             //sprites[pi].anim = sprites[pi].dir ? RYU_FJUMP : RYU_BJUMP;
             sprites[pi].anim_idx = 0;
@@ -734,21 +785,29 @@ unsigned char post_draw_processing(unsigned char sprite)
     }
 
     // start hadouken projectile?
-    if (sprites[sprite].anim == RYU_HADOUKEN && sprites[sprite].anim_idx == 4)
+    if (sprites[sprite].anim == RYU_HADOUKEN)
     {
-      sprites[sprite+2].anim=RYU_HADPROJ_START;
-      sprites[sprite+2].anim_idx=0;
-      sprites[sprite+2].visible=1;
-      sprites[sprite+2].dir = sprites[sprite].dir;
-      if (sprites[sprite].dir)
+      if (sprites[sprite].anim_idx == 2)
       {
-        sprites[sprite+2].posx = sprites[sprite].posx - 8;
-        sprites[sprite+2].posy = sprites[sprite].posy - 3;
+        snd_trigger = 2;
+        snd_idx = SND_HADOUKEN1;
       }
-      else
+      else if (sprites[sprite].anim_idx == 4)
       {
-        sprites[sprite+2].posx = sprites[sprite].posx + 9;
-        sprites[sprite+2].posy = sprites[sprite].posy - 3;
+        sprites[sprite+2].anim=RYU_HADPROJ_START;
+        sprites[sprite+2].anim_idx=0;
+        sprites[sprite+2].visible=1;
+        sprites[sprite+2].dir = sprites[sprite].dir;
+        if (sprites[sprite].dir)
+        {
+          sprites[sprite+2].posx = sprites[sprite].posx - 8;
+          sprites[sprite+2].posy = sprites[sprite].posy - 3;
+        }
+        else
+        {
+          sprites[sprite+2].posx = sprites[sprite].posx + 9;
+          sprites[sprite+2].posy = sprites[sprite].posy - 3;
+        }
       }
     }
 
@@ -1644,7 +1703,7 @@ void game_intro(void)
 
   scr_idx = 4;
   draw_screen(scr_idx);
-  play_sound(0);
+  play_sound(SND_PUNCH1);
 
   while(1)
   {
@@ -1687,7 +1746,10 @@ void game_intro(void)
 void play_sound(unsigned char idx)
 {
   // copy sound into unused draw-buffer
-  c64loc = (vicbase+0x2000);
+  if (gamestate == GAME_MAIN)
+    c64loc = ( (vicbase) +0x2000);
+  else
+    c64loc = ( (vicbase^0x4000) +0x2000);
   reuloc = 0x30000 + 0x2000L * idx;
   length = 0x2000;
   reu_simple_copy();
@@ -1753,7 +1815,7 @@ void game_title(void)
         escdown = 1;
         play_sound(a);
         a++;
-        if (a >= 40)
+        if (a >= 39)
           a = 0;
       }
     }
@@ -1770,7 +1832,13 @@ void game_title(void)
 			if (!firedown[0])
 			{
 				firedown[0] = 1;
-				clear_screen();
+
+        play_sound(SND_FLIGHT1);
+        play_sound(SND_FLIGHT2);
+        play_sound(SND_FLIGHT3);
+
+        draw_fullwidth_bitmap(BLANK, 0, 0);
+				//clear_screen();
 
 				vicbase=0x4000;
 				draw_page = 1;
@@ -1961,6 +2029,20 @@ void game_main(void)
     draw_page = 0;
   }
 
+  // sounds
+  if (snd_trigger)
+  {
+    if (snd_delay)
+    {
+      snd_delay--;
+    }
+    else
+    {
+      play_sound(snd_idx);
+      snd_trigger--;
+      snd_idx++;
+    }
+  }
   //if (anims[sprites[i].anim].frames[sprites[i].anim_idx]== RYU_IDLE2)
   //  exit(0);
 

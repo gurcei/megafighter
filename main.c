@@ -12,8 +12,8 @@
 //#define DEBUG
 //#define ANIMBKGND
 #define DRAWSPRITES
-#define BLANKSCREEN
-#define HITBOXES
+//#define BLANKSCREEN
+//#define HITBOXES
 
 // ================================
 // GLOBALS
@@ -48,9 +48,10 @@ enum { GAME_INTRO, GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 #endif
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
+void play_sound(unsigned char idx);
 
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -1352,9 +1353,7 @@ void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
   vsprintf(dstr, str, args);
   draw_text(dstr, posx, posy, 0);
 }
-#endif
 
-#ifdef SHOW_OPTIONS
 void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
 {
 	screen_loc = (vicbase+0x2000) + posx*8 + posy*40*8;
@@ -1398,6 +1397,9 @@ void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char 
 		a++;
 	}
 }
+#endif
+
+#ifdef SHOW_OPTIONS
 
 unsigned char menu_highlight = 0;
 unsigned char up_pressed = 0;
@@ -1642,6 +1644,7 @@ void game_intro(void)
 
   scr_idx = 4;
   draw_screen(scr_idx);
+  play_sound(0);
 
   while(1)
   {
@@ -1681,6 +1684,34 @@ void game_intro(void)
   }
 }
 
+void play_sound(unsigned char idx)
+{
+  // copy sound into unused draw-buffer
+  c64loc = (vicbase+0x2000);
+  reuloc = 0x30000 + 0x2000 * idx;
+  length = 0x2000;
+  reu_simple_copy();
+
+  // grab the number of samples in the wave file
+  gtmpw = *((unsigned int*)c64loc);
+  c64loc += 2;
+  gtmpw2 = c64loc + gtmpw;
+  gtmpw3 = c64loc;
+
+  // now jiggle the main volume up and down according to each 4-bit sample :)
+  while (gtmpw)
+  {
+    Poke(54296, *(unsigned char*)gtmpw3);
+    //Poke(0xd020, *(unsigned char*)gtmpw3);
+    gtmpw3++;
+    gtmpw--;
+  }
+
+  //draw_sprintf(0, 0, "0x%04X", gtmpw3);
+  // back to full volume
+  Poke(54296, 0x0f);
+}
+
 //#ifndef SAVEMEM
 void game_title(void)
 {
@@ -1711,6 +1742,22 @@ void game_title(void)
 
   while(1)
   {
+    check_real_keyboard();
+
+    // check for escape key
+    if (keycode == 0x77)
+    {
+      if (!escdown)
+      {
+        escdown = 1;
+        play_sound(0);
+      }
+    }
+    else
+    {
+      escdown = 0;
+    }
+
     // wait for fire-button
     key  = (~Peek(56320U)) & 31; //cgetc();
 
@@ -1946,7 +1993,7 @@ void main(void)
   Poke(0xea32, 0x7e);
   Poke(0xea33, 0xea);
 
-  loc = 0x00030000;
+  loc = 0x00040000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {

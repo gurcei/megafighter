@@ -121,8 +121,11 @@ data.reu: $(DATAFILES)
 	cat music_game.bin >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=196607
 
+	# reu bank 3 and beyond will hold digi-sound wave samples
+	cat punch1.w64 >> data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=262143
 
-	# reu bank 3 and onwards is bitmap data
+	# reu bank 4 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu

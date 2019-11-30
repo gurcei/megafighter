@@ -1753,7 +1753,7 @@ void game_title(void)
         escdown = 1;
         play_sound(a);
         a++;
-        if (a >= 16)
+        if (a >= 40)
           a = 0;
       }
     }
@@ -1997,7 +1997,7 @@ void main(void)
   Poke(0xea32, 0x7e);
   Poke(0xea33, 0xea);
 
-  loc = 0x00050000;
+  loc = 0x00080000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {

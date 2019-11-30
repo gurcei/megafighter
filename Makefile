@@ -18,6 +18,53 @@ ASSFILES = main.s \
 #						charset.s
 
 # DATAFILES=  ascii8x8.bin dad.bin mum.bin tram.bin
+
+W64FILES= \
+	punch1.w64 \
+	punch2.w64 \
+	punch3.w64 \
+	punch4.w64 \
+	kick1.w64 \
+	kick2.w64 \
+	kick3.w64 \
+	kick4.w64 \
+	\
+	kick5.w64 \
+	kick6.w64 \
+	fall.w64 \
+	swoosh.w64 \
+	ooh.w64 \
+	die1.w64 \
+	die2.w64 \
+	flight1.w64 \
+  \
+	flight2.w64 \
+	flight3.w64 \
+	shouryuken1.w64 \
+	shouryuken2.w64 \
+	tatsumaki1.w64 \
+	tatsumaki2.w64 \
+	hadouken1.w64 \
+	hadouken2.w64 \
+	\
+	you.w64 \
+	win.w64 \
+	lose.w64 \
+	perfect.w64 \
+	fight.w64 \
+	round.w64 \
+	one.w64 \
+	two.w64 \
+	\
+	three.w64 \
+	ding1.w64 \
+	ding2.w64 \
+	ding3a.w64 \
+	ding3b.w64 \
+	ding4.w64 \
+	ding5.w64
+	
+
 DATAFILES= \
 	title.bin \
 	blank.bin \
@@ -88,10 +135,10 @@ run:
 	#/Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64 &
 	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
-%.s: %.c $(DATAFILES) gidemo.cfg ascii8x8.bin
+%.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
-data.reu: $(DATAFILES)
+data.reu: $(DATAFILES) $(W64FILES)
 	rm -f data.reu
 	rm -f segs_meta.reu
 	rm -f bmp_meta.bin
@@ -122,10 +169,12 @@ data.reu: $(DATAFILES)
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=196607
 
 	# reu bank 3 and beyond will hold digi-sound wave samples
-	cat punch1.w64 >> data.reu
-	dd if=/dev/zero of=data.reu bs=1 count=1 seek=327679
+	cat $(W64FILES) >> data.reu
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=524287
 
-	# reu bank 5 and onwards is bitmap data
+	# skipping bank 4, seems like the reu-copy corrupts a little bit in here?
+
+	# reu bank 8 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu
@@ -148,6 +197,12 @@ ascii8x8.bin: ascii00-7f.png pngprepare
 
 pngprepare: pngprepare.c hitboxes.h
 	$(CC) -I/usr/local/include -L/usr/local/lib -g -O0 -o pngprepare pngprepare.c -lpng
+# --------------------------------------------------
+%.w64: %.wav wav64
+	./wav64 $< $@
+
+wav64: wav64.c
+	$(CC) wav64.c -o wav64
 # --------------------------------------------------
 
 gidemo.prg gidemo.lbl: data.reu $(ASSFILES) gidemo.cfg

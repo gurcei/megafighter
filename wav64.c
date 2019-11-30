@@ -78,21 +78,37 @@ int main(int argc, char **argv)
   printf("outlength = %d\n", len);
   fwrite(&len, 2, 1, outfile);
 
-  unsigned short sample;
+  short sample;
+  int filter;
+  unsigned int fsize = 2;
   for (int k = 0; k < datasize; k += bytespersample)
   {
     fread(&sample, 2, 1, infile);
+    filter = sample;
+    fread(&sample, 2, 1, infile);
+    filter += sample;
+    fread(&sample, 2, 1, infile);
+    filter += sample;
+    fread(&sample, 2, 1, infile);
+    filter += sample;
+    sample = filter / 4;
+
     sample >>= 12; // convert sample to 4-bits :)
     sample += 8;
     sample &= 0x0F;
     fputc(sample, outfile);
+    fsize++;
 
-    fread(&sample, 2, 1, infile);
     k += bytespersample; // skip in fours to quarter the sample rate from 44100Hz to 11025Hz
-    fread(&sample, 2, 1, infile);
     k += bytespersample;
-    fread(&sample, 2, 1, infile);
     k += bytespersample;
+  }
+
+  // pad out file so that it is exactly 0x2000 (8192 bytes) in size
+  while (fsize < 8192)
+  {
+    fputc(0, outfile);
+    fsize++;
   }
   
   fclose(outfile);

@@ -51,7 +51,7 @@ void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char 
 void play_sound(unsigned char idx);
 
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -1688,7 +1688,7 @@ void play_sound(unsigned char idx)
 {
   // copy sound into unused draw-buffer
   c64loc = (vicbase+0x2000);
-  reuloc = 0x30000 + 0x2000 * idx;
+  reuloc = 0x30000 + 0x2000L * idx;
   length = 0x2000;
   reu_simple_copy();
 
@@ -1740,6 +1740,7 @@ void game_title(void)
 	
   draw_bitmap(TITLE, 0, 0);
 
+  a=0;
   while(1)
   {
     check_real_keyboard();
@@ -1750,7 +1751,10 @@ void game_title(void)
       if (!escdown)
       {
         escdown = 1;
-        play_sound(0);
+        play_sound(a);
+        a++;
+        if (a >= 16)
+          a = 0;
       }
     }
     else

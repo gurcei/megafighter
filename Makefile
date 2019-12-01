@@ -68,6 +68,7 @@ W64FILES= \
 DATAFILES= \
 	title.bin \
 	blank.bin \
+	player_select.bin \
 	options_border_top.bin options_border_mid.bin options_border_bottom.bin \
 	ryu_stage_cropped.bin \
 	stage_ryu_floor00.bin stage_ryu_floor01.bin stage_ryu_floor02.bin stage_ryu_floor03.bin stage_ryu_floor04.bin stage_ryu_floor05.bin stage_ryu_floor06.bin stage_ryu_floor07.bin  stage_ryu_floor08.bin  stage_ryu_floor09.bin stage_ryu_floor10.bin stage_ryu_floor11.bin stage_ryu_floor12.bin stage_ryu_floor13.bin stage_ryu_floor14.bin stage_ryu_floor15.bin stage_ryu_floor16.bin stage_ryu_floor17.bin stage_ryu_floor18.bin   stage_ryu_floor19.bin stage_ryu_floor20.bin stage_ryu_floor21.bin stage_ryu_floor22.bin stage_ryu_floor23.bin stage_ryu_floor24.bin \

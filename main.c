@@ -1833,6 +1833,7 @@ void game_title(void)
 			{
 				firedown[0] = 1;
 
+        draw_bitmap(PLAYER_SELECT, 0, 0);
         play_sound(SND_FLIGHT1);
         play_sound(SND_FLIGHT2);
         play_sound(SND_FLIGHT3);

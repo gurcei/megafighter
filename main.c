@@ -1614,12 +1614,12 @@ void draw_screen(unsigned char idx)
 {
   // copy screen 0 chars
   c64loc = 0x400;
-  reuloc = 0x10000 + idx*2000;
+  reuloc = 0x10000 + idx*2000L;
   length = 1000;
   reu_simple_copy();
 
   c64loc = 0xd800;
-  reuloc = 0x10000 + 1000 + idx*2000;
+  reuloc = 0x10000 + 1000L + idx*2000L;
   length = 1000;
   reu_simple_copy();
 }
@@ -1712,8 +1712,8 @@ void game_intro(void)
     {
       cnt = 0;
       scr_idx++;
-      if (scr_idx >= 35)
-        scr_idx = 34;
+      if (scr_idx >= 28)
+        scr_idx = 27;
       draw_screen(scr_idx);
     }
 

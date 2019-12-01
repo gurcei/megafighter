@@ -138,7 +138,7 @@ run:
 %.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
-data.reu: $(DATAFILES) $(W64FILES)
+data.reu: $(DATAFILES) $(W64FILES) intro.bin
 	rm -f data.reu
 	rm -f segs_meta.reu
 	rm -f bmp_meta.bin

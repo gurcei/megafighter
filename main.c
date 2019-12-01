@@ -94,7 +94,7 @@ enum sound_ids
   SND_DING5
 };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -1693,7 +1693,7 @@ void game_intro(void)
       break;
     }
     cnt++;
-    if (cnt == 800)
+    if (cnt == 1000)
     {
       cnt = 0;
       scr_idx = (scr_idx + 1) % 4;
@@ -1708,12 +1708,12 @@ void game_intro(void)
   while(1)
   {
     cnt++;
-    if (cnt == 800)
+    if (cnt == 1000)
     {
       cnt = 0;
       scr_idx++;
-      if (scr_idx >= 24)
-        scr_idx = 23;
+      if (scr_idx >= 35)
+        scr_idx = 34;
       draw_screen(scr_idx);
     }
 

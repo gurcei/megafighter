@@ -18,14 +18,16 @@
 // ================================
 // GLOBALS
 // ================================
-unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3;
+unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3, gtmpw4;
 unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char hit, hithead, hittorso, hitfeet;
 unsigned char* ptr, *ptr2;
 unsigned char snd_trigger = 0, snd_idx = 0, snd_delay = 0;
 int sky_idx = 0;
 int bx, by, cx, cy;
-
+unsigned char energies_buffered = 0;
+unsigned char energies[2] = { 0 };
+unsigned char last_energies[2] = { 0 };
 unsigned char screen_flag = 0;
 
 unsigned char firedown[2]= { 0 };
@@ -94,7 +96,7 @@ enum sound_ids
   SND_DING5
 };
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -119,7 +121,7 @@ enum anim_ids
   RYU_HIT, RYU_FACEHIT, RYU_CROUCHHIT,
   RYU_KNOCKDOWN, RYU_STUNNED, RYU_KO,
   RYU_VICTORY, RYU_VICTORYALT,
-  RYU_MUGSHOT,
+  //RYU_MUGSHOT,
   RYU_MAX
 };
 
@@ -171,7 +173,7 @@ unsigned int anim_ryu_stunned[] = { RYU_STUNNED1, RYU_STUNNED2, RYU_STUNNED3 };
 unsigned int anim_ryu_ko[] = { RYU_KO1, RYU_KO2, RYU_KO3, RYU_KO4, RYU_KO5 };
 unsigned int anim_ryu_victory[] = { RYU_VICTORY1, RYU_VICTORY2, RYU_VICTORY3 };
 unsigned int anim_ryu_victoryalt[] = { RYU_VICTORYALT1, RYU_VICTORYALT2, RYU_VICTORYALT3, RYU_VICTORYALT4, RYU_VICTORYALT5, RYU_VICTORYALT6, RYU_VICTORYALT7 };
-unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
+//unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
 
 typedef struct
 {
@@ -312,7 +314,7 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_ko,  5, 0, 10, 15 }, // RYU_KO
   { anim_ryu_victory,  3, 0, 7,  16 }, // RYU_VICTORY
   { anim_ryu_victoryalt,  7, 1, 7,  16 }, // RYU_VICTORYALT
-  { anim_ryu_mugshot,  3, 0, 11, 15 }, // RYU_MUGSHOT
+  //{ anim_ryu_mugshot,  3, 0, 11, 15 }, // RYU_MUGSHOT
 };
 
 typedef struct
@@ -388,6 +390,7 @@ reu_repair_obj *repair;
 
 int c64loc;
 unsigned long reuloc;
+unsigned char reudir=0; // 0=reu-to-c64, 1=c64-to-reu
 int length;
 
 void reu_simple_copy(void)
@@ -400,10 +403,19 @@ void reu_simple_copy(void)
   Poke(REC_REU_ADDR_BANK, (reuloc >> 16) & 0xff);
   Poke(REC_TXFR_LEN_LO, length & 0xff);
   Poke(REC_TXFR_LEN_HI, length >> 8);
-  // REU to c64 with immediate execution
-  Poke(REC_COMMAND, 0x91); // %10010001
+  // c64 to REU with immediate execution
+  if (reudir)
+  {
+    Poke(REC_COMMAND, 0x90); // %10010001
+  }
+  else
+  {
+    // REU to c64 with immediate execution
+    Poke(REC_COMMAND, 0x91); // %10010001
+  }
 }
 
+/*
 void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
 {
   unsigned char y;
@@ -423,6 +435,7 @@ void reu_copy(int c64loc, unsigned long reuloc, int rowsize, unsigned char rows)
     reuloc += rowsize;
   }
 }
+*/
  
 int vicbase = 0x0000;
 unsigned int draw_page = 1;
@@ -625,8 +638,9 @@ void get_keyboard_input(void)
             sprites[pi].anim_tmr = 0;
           }
           else // purely up
+          {
             sprites[pi].anim = RYU_HKICK;
-
+          }
           key &= ~(1+4+8);  // remove up flag
         }
         else if (key & 2) // down
@@ -655,6 +669,23 @@ void get_keyboard_input(void)
           sprites[pi].anim = punch_style;
           punch_style++;
         }
+
+        switch(sprites[pi].anim)
+        {
+          case RYU_HKICK:
+          case RYU_MHPUNCH:
+          case RYU_CROUCH_HPUNCH:
+            snd_trigger = 1;
+            snd_delay = 2;
+            snd_idx = SND_FALL;
+            break;
+          case RYU_LMKICK:
+            snd_trigger = 1;
+            snd_delay = 1;
+            snd_idx = SND_PUNCH2;
+            break;
+        }
+
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
 				if (punch_style == RYU_MAX)
@@ -1855,6 +1886,7 @@ void game_title(void)
         reset_irq();
         __asm__ ( "jsr " FUNC_PREPARE_SID);
         //prepare_game_song();
+        energies_buffered = 0;
         prep_song(SONG_GAME);
         __asm__ ( "jsr " FUNC_MUSIC_LOOP_PREPARATION);
         set_irq(intro_irq, (void *)0xca00, 200);
@@ -1869,6 +1901,69 @@ void game_title(void)
   }
 }
 //#endif
+
+// the caller should set reudir to decide the direction of copying
+void prepare_energy_bar(void)
+{
+  if (reudir && !energies_buffered) // c64-to-buffered-reu
+  {
+    // draw it on-screen, then we will buffer it
+    reudir = 0;
+    draw_bitmap(ENERGY_BARS, 3, 2); //25, 20);
+    reudir = 1;
+  }
+
+  // 272x16
+  c64loc = (signed int)(vicbase+0x2000) + 3*8 + 2*40*8;
+  reuloc = 0x2fd00;
+  length = 0x110;
+  reu_simple_copy();
+
+  c64loc += 40*8;
+  reuloc += 40*8;
+  reu_simple_copy();
+
+  reudir=0; // reset reudir to default
+}
+
+void draw_energy_bars(void)
+{
+  if (energies_buffered)
+  {
+    reudir = 0; // buffered-reu-to-c64
+  }
+  else
+  {
+    reudir = 1; // c64-to-buffered-reu
+  }
+  prepare_energy_bar();
+  energies_buffered = 1;
+
+  for (a = 0; a < 2; a++)
+  {
+    // check if energy level has changed
+    if (last_energies[a] != energies[a])
+    {
+      last_energies[a]++;
+      //draw_sprintf(0, 0, "last=%d, energ=%d", last_energies[0], energies[0]);
+      gtmpw = vicbase+0x2000 + 3*8 + 2*40*8;
+      gtmpw2 = 2 + last_energies[a];  // my x-pos
+      gtmpw3 = 4; // my y-pos
+
+      for (gtmpw3 = 4; gtmpw3 < 13; gtmpw3++)
+      {
+        if (((gtmpw3 & 0x01) && (gtmpw2 & 0x01)) ||
+            (!(gtmpw3 & 0x01) && ((gtmpw2+1) & 0x01)))
+        {
+          gtmpw4 = gtmpw + (gtmpw3>>3)*40*8 + (gtmpw2>>3)*8 + (gtmpw3 & 0x07);
+          Poke(gtmpw4, Peek(gtmpw4) | (1 << (7- (gtmpw2 & 0x07))));
+        }
+      }
+      reudir=1;
+      prepare_energy_bar();
+    }
+  }
+}
 
 #define INTERSECT(b1, b2) \
   !(b2[0] > b1[2] \
@@ -1964,6 +2059,8 @@ void game_main(void)
 		cur_spr++;
   }
 
+  draw_energy_bars();
+
   // test if player1 hits player2
   for (gk = 0; gk < 2; gk++) // player1-to-2 or player2-to-1
   {
@@ -1999,6 +2096,8 @@ void game_main(void)
 
       if (hit)
       {
+        energies[b] = last_energies[b] + 8;
+        Poke(0xd020, energies[0]);
         if (gtmp == 0) sprites[b].anim = RYU_FACEHIT;
         if (gtmp == 1) sprites[b].anim = RYU_HIT;
         if (gtmp == 2) sprites[b].anim = RYU_KNOCKDOWN;

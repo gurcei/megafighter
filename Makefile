@@ -69,6 +69,7 @@ DATAFILES= \
 	title.bin \
 	blank.bin \
 	player_select.bin \
+	energy_bars.bin \
 	options_border_top.bin options_border_mid.bin options_border_bottom.bin \
 	ryu_stage_cropped.bin \
 	stage_ryu_floor00.bin stage_ryu_floor01.bin stage_ryu_floor02.bin stage_ryu_floor03.bin stage_ryu_floor04.bin stage_ryu_floor05.bin stage_ryu_floor06.bin stage_ryu_floor07.bin  stage_ryu_floor08.bin  stage_ryu_floor09.bin stage_ryu_floor10.bin stage_ryu_floor11.bin stage_ryu_floor12.bin stage_ryu_floor13.bin stage_ryu_floor14.bin stage_ryu_floor15.bin stage_ryu_floor16.bin stage_ryu_floor17.bin stage_ryu_floor18.bin   stage_ryu_floor19.bin stage_ryu_floor20.bin stage_ryu_floor21.bin stage_ryu_floor22.bin stage_ryu_floor23.bin stage_ryu_floor24.bin \
@@ -117,8 +118,8 @@ DATAFILES= \
 	ryu_stunned1.bin ryu_stunned2.bin ryu_stunned3.bin \
 	ryu_ko1.bin ryu_ko2.bin ryu_ko3.bin ryu_ko4.bin ryu_ko5.bin \
 	ryu_victory1.bin ryu_victory2.bin ryu_victory3.bin \
-	ryu_victoryalt1.bin ryu_victoryalt2.bin ryu_victoryalt3.bin ryu_victoryalt4.bin ryu_victoryalt5.bin ryu_victoryalt6.bin ryu_victoryalt7.bin \
-	ryu_mugshot1.bin ryu_mugshot2.bin ryu_mugshot3.bin
+	ryu_victoryalt1.bin ryu_victoryalt2.bin ryu_victoryalt3.bin ryu_victoryalt4.bin ryu_victoryalt5.bin ryu_victoryalt6.bin ryu_victoryalt7.bin
+#	ryu_mugshot1.bin ryu_mugshot2.bin ryu_mugshot3.bin
 
 BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
 SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)

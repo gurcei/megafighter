@@ -1947,10 +1947,13 @@ void draw_energy_bars(void)
       last_energies[a]++;
       //draw_sprintf(0, 0, "last=%d, energ=%d", last_energies[0], energies[0]);
       gtmpw = vicbase+0x2000 + 3*8 + 2*40*8;
-      gtmpw2 = 2 + last_energies[a];  // my x-pos
+      if (a == 0)
+        gtmpw2 = 1 + last_energies[a];  // my x-pos
+      else
+        gtmpw2 = 270 - last_energies[a];  // my x-pos
       gtmpw3 = 4; // my y-pos
 
-      for (gtmpw3 = 4; gtmpw3 < 13; gtmpw3++)
+      for (gtmpw3 = 3; gtmpw3 < 14; gtmpw3++)
       {
         if (((gtmpw3 & 0x01) && (gtmpw2 & 0x01)) ||
             (!(gtmpw3 & 0x01) && ((gtmpw2+1) & 0x01)))

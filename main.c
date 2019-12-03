@@ -1944,6 +1944,8 @@ void draw_energy_bars(void)
     // check if energy level has changed
     if (last_energies[a] != energies[a])
     {
+      if (last_energies[a] >= 120)
+        continue;
       last_energies[a]++;
       //draw_sprintf(0, 0, "last=%d, energ=%d", last_energies[0], energies[0]);
       gtmpw = vicbase+0x2000 + 3*8 + 2*40*8;

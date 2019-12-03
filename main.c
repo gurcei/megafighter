@@ -96,7 +96,7 @@ enum sound_ids
   SND_DING5
 };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -2102,7 +2102,7 @@ void game_main(void)
       if (hit)
       {
         energies[b] = last_energies[b] + 8;
-        Poke(0xd020, energies[0]);
+        //Poke(0xd020, energies[0]);
         if (gtmp == 0) sprites[b].anim = RYU_FACEHIT;
         if (gtmp == 1) sprites[b].anim = RYU_HIT;
         if (gtmp == 2) sprites[b].anim = RYU_KNOCKDOWN;

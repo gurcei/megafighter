@@ -96,7 +96,7 @@ enum sound_ids
   SND_DING5
 };
 
-unsigned char gamestate = GAME_INTRO;
+unsigned char gamestate = GAME_TITLE;
 
 enum anim_ids
 {
@@ -2109,6 +2109,7 @@ void game_main(void)
         sprites[b].anim_idx = 0;
         sprites[b].anim_dir = 1;
         punching[b]=1;
+        break;
       }
     }
   }

@@ -781,6 +781,31 @@ void get_keyboard_input(void)
 					floor_idx--;
 			}
 		} // end if
+    // - - - - no key is pressed? still some checks to do.. - - - -
+    else
+    {
+      // have we stopped walking left
+      if (key != 4 && walkingleft[pi])
+      {
+        if (sprites[pi].dir == 0)
+          sprites[pi].posx += 3 - sprites[pi].anim_idx / 3;
+        else
+          sprites[pi].posx -= sprites[pi].anim_idx / 3;
+        sprites[pi].anim = RYU_IDLE;
+        sprites[pi].anim_idx = 0;
+        walkingleft[pi] = 0;
+      }
+      else if (key != 8 && walkingright[pi])
+      {
+        if (sprites[pi].dir == 1)
+          sprites[pi].posx -= (3 - sprites[pi].anim_idx / 3);
+        else
+          sprites[pi].posx += (sprites[pi].anim_idx / 3);
+        sprites[pi].anim = RYU_IDLE;
+        sprites[pi].anim_idx = 0;
+        walkingright[pi] = 0;
+      }
+    }
 	} // end for
 
   //Poke(8192L, walkingright);

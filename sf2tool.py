@@ -19,6 +19,8 @@ class MyFrame(wx.Frame):
 
     self.create_menu()
 
+    png = wx.Image("/Users/tramvo/Documents/gurce.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
+    wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth(), png.GetHeight()))
     self.Show()
 
   def create_menu(self):

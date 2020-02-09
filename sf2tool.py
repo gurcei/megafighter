@@ -10,8 +10,17 @@ class MyFrame(wx.Frame):
     panel = wx.Panel(self)
     self.text_ctrl = wx.TextCtrl(panel, pos=(5, 5))
     my_btn = wx.Button(panel, label='Press Me', pos=(5, 55))
+    my_btn.Bind(wx.EVT_BUTTON, self.on_press)
 
     self.Show()
+
+  def on_press(self, event):
+    value = self.text_ctrl.GetValue()
+    if not value:
+      print("You didn't enter anything!")
+    else:
+      print('You typed: "{}"'.format(value))
+
 
 if __name__ == '__main__':
   app = wx.App()

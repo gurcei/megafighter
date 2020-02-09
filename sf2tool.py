@@ -6,6 +6,11 @@ class MyFrame(wx.Frame):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
     super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool')
+
+    panel = wx.Panel(self)
+    self.text_ctrl = wx.TextCtrl(panel, pos=(5, 5))
+    my_btn = wx.Button(panel, label='Press Me', pos=(5, 55))
+
     self.Show()
 
 if __name__ == '__main__':

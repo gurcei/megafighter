@@ -12,6 +12,11 @@ class MyFrame(wx.Frame):
     my_btn = wx.Button(panel, label='Press Me', pos=(5, 55))
     my_btn.Bind(wx.EVT_BUTTON, self.on_press)
 
+    self.list_ctrl = wx.ListCtrl(panel, pos=(5, 105), size=(-1, 100), style=wx.LC_REPORT | wx.BORDER_SUNKEN)
+    self.list_ctrl.InsertColumn(0, 'Artist', width=100);
+    self.list_ctrl.InsertColumn(1, 'Album', width=50);
+    self.list_ctrl.InsertColumn(2, 'Title', width=50);
+
     self.Show()
 
   def on_press(self, event):

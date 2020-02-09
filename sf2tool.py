@@ -21,7 +21,14 @@ class MyFrame(wx.Frame):
 
     png = wx.Image("/Users/tramvo/Documents/gurce.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
     wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth(), png.GetHeight()))
+
+    # mouse-related events
+    panel.Bind(wx.EVT_MOTION, self.on_move)
     self.Show()
+
+  def on_move(self, event):
+    pos = event.GetPosition()
+    print(pos)
 
   def create_menu(self):
     menu_bar = wx.MenuBar()

@@ -9,11 +9,17 @@
 
 //#define SAVEMEM
 //#define SHOW_OPTIONS
-//#define DEBUG
+#define CROPPEDBMP
 //#define ANIMBKGND
 #define DRAWSPRITES
 //#define BLANKSCREEN
 //#define HITBOXES
+
+// ================================
+// EXTERNS
+// ================================
+extern void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
+extern void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 
 // ================================
 // GLOBALS
@@ -47,10 +53,6 @@ int temple_idx=0;
 
 enum { GAME_INTRO, GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
-#ifdef DEBUG
-void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
-#endif
-void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
 void play_sound(unsigned char idx);
 
 enum sound_ids
@@ -96,7 +98,7 @@ enum sound_ids
   SND_DING5
 };
 
-unsigned char gamestate = GAME_TITLE;
+unsigned char gamestate = GAME_INTRO;
 
 enum anim_ids
 {
@@ -1097,7 +1099,7 @@ unsigned int diffx = 0;
 			Poke(c64loc, gtmp); \
 			c64loc++;
 
-#ifdef ANIMBKGND
+#ifdef CROPPEDBMP
 void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
 {
   xoff = 0;
@@ -1135,7 +1137,7 @@ void draw_cropped_bitmap(unsigned int frame, int posx, int posy)
       c64loc += seg->reloffset;
       
       // check for left-side cropping
-      if (c64loc < startx)
+      if (c64loc < startx+1)
       {
         diffx = startx - c64loc;
         if (length > diffx)
@@ -1458,61 +1460,6 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
 #define OPTIONS_X	4
 #define OPTIONS_Y 2
 #define OPTIONS_H 5
-
-#ifdef DEBUG
-char dstr[40];
-void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...)
-{
-  va_list args;
-  va_start (args, str);
-  vsprintf(dstr, str, args);
-  draw_text(dstr, posx, posy, 0);
-}
-
-void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert)
-{
-	screen_loc = (vicbase+0x2000) + posx*8 + posy*40*8;
-
-	a = 0;
-	while (str[a] != 0)
-	{
-		c64loc = 0x5c00 + ( (str[a] & 0x3f) << 3); // base of my character data
-
-		if (invert)
-		{
-#define INV_CHAR_LINE \
-		Poke(screen_loc, ~Peek(c64loc)); \
-		screen_loc++; \
-		c64loc++;
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-			INV_CHAR_LINE
-		}
-		else
-		{
-#define CHAR_LINE \
-		Poke(screen_loc, Peek(c64loc)); \
-		screen_loc++; \
-		c64loc++;
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-			CHAR_LINE
-		}
-
-		a++;
-	}
-}
-#endif
 
 #ifdef SHOW_OPTIONS
 
@@ -2065,7 +2012,7 @@ void game_main(void)
         gtmpw2 = cur_spr->posx;
         gtmpw3 = cur_spr->posy - anims[cur_spr->anim].rows;
       }
-      draw_bitmap(gtmpw, gtmpw2, gtmpw3);
+      draw_cropped_bitmap(gtmpw, gtmpw2, gtmpw3);
 
       // preserve hitboxes?
       //if (*((unsigned short*)0x4000) != 0)
@@ -2141,8 +2088,8 @@ void game_main(void)
 
   //drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
 
-  //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
-  //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
+  draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
+  draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
 
   // perform page flip
   if (draw_page == 0)

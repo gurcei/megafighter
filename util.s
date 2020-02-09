@@ -12,13 +12,16 @@
 .EXPORT func_decode_note, func_music_loop_iteration, func_update_decoded_music
 .EXPORT func_music_loop_preparation, func_prepare_waveform_control_registers
 .EXPORT func_prepare_song, func_calculate_note_frequency
-.EXPORT _prepare_song
+.EXPORT _prepare_song, _draw_sprintf, _dstr, _draw_text
 
 ; .EXPORT _fq, _dr, _oc, _nt, _pnm, _delay_cnt, _use_bug, _k, _v1, _v2, _v3
 
 ; ----------------------------------
 ; variables
 ; ----------------------------------
+
+_dstr:
+	.res	40,$00
 
 ; define frequency table
 _fq:
@@ -2341,4 +2344,650 @@ func_prepare_sid:
                         ; l=select low-pass filter, v = volume)
   rts
 
+.proc	_draw_sprintf: near
 
+;
+; {
+;
+	jsr     enter
+;
+; va_start (args, str);
+;
+	jsr     decsp2
+	ldy     #$02
+	lda     (sp),y
+	jsr     leaa0sp
+	sec
+	sbc     #$01
+	bcs     L0A0F
+	dex
+L0A0F:	jsr     stax0sp
+;
+; vsprintf(dstr, str, args);
+;
+	jsr     decsp4
+	lda     #<(_dstr)
+	ldy     #$02
+	sta     (sp),y
+	iny
+	lda     #>(_dstr)
+	sta     (sp),y
+	ldy     #$06
+	lda     (sp),y
+	jsr     leaa0sp
+	clc
+	adc     #$03
+	bcc     L0A13
+	inx
+L0A13:	sta     ptr1
+	stx     ptr1+1
+	ldy     #$01
+	lda     (ptr1),y
+	tax
+	dey
+	lda     (ptr1),y
+	sta     (sp),y
+	iny
+	txa
+	sta     (sp),y
+	ldy     #$05
+	lda     (sp),y
+	tax
+	dey
+	lda     (sp),y
+	jsr     _vsprintf
+;
+; draw_text(dstr, posx, posy, 0);
+;
+	jsr     decsp4
+	lda     #<(_dstr)
+	ldy     #$02
+	sta     (sp),y
+	iny
+	lda     #>(_dstr)
+	sta     (sp),y
+	ldy     #$06
+	lda     (sp),y
+	jsr     leaa0sp
+	sta     ptr1
+	stx     ptr1+1
+	lda     (ptr1),y
+	ldy     #$01
+	sta     (sp),y
+	ldy     #$06
+	lda     (sp),y
+	jsr     leaa0sp
+	dey
+	sta     ptr1
+	stx     ptr1+1
+	lda     (ptr1),y
+	ldy     #$00
+	sta     (sp),y
+	tya
+	jsr     _draw_text
+;
+; }
+;
+	ldy     #$02
+	jmp     leavey
+
+.endproc
+
+; ---------------------------------------------------------------
+; void __near__ draw_text (__near__ unsigned char *, unsigned char, unsigned char, unsigned char)
+; ---------------------------------------------------------------
+
+.proc	_draw_text: near
+
+;
+; {
+;
+	jsr     pusha
+;
+; screen_loc = (vicbase+0x2000) + posx*8 + posy*40*8;
+;
+	lda     _vicbase
+	sta     ptr1
+	lda     _vicbase+1
+	clc
+	adc     #$20
+	sta     ptr1+1
+	ldx     #$00
+	ldy     #$02
+	lda     (sp),y
+	jsr     shlax3
+	clc
+	adc     ptr1
+	pha
+	txa
+	adc     ptr1+1
+	tax
+	pla
+	jsr     pushax
+	ldy     #$03
+	lda     (sp),y
+	jsr     pusha0
+	lda     #$28
+	jsr     tosumula0
+	jsr     shlax3
+	jsr     tosaddax
+	sta     _screen_loc
+	stx     _screen_loc+1
+;
+; a = 0;
+;
+	lda     #$00
+	sta     _a
+;
+; while (str[a] != 0)
+;
+	jmp     L0A11
+;
+; c64loc = 0x5c00 + ( (str[a] & 0x3f) << 3); // base of my character data
+;
+L0A0F:	ldy     #$04
+	lda     (sp),y
+	tax
+	dey
+	lda     (sp),y
+	ldy     _a
+	sta     ptr1
+	stx     ptr1+1
+	lda     (ptr1),y
+	ldx     #$00
+	and     #$3F
+	jsr     shlax3
+	sta     _c64loc
+	txa
+	clc
+	adc     #$5C
+	sta     _c64loc+1
+;
+; if (invert)
+;
+	ldy     #$00
+	lda     (sp),y
+	jeq     L0A19
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A23
+	inx
+L0A23:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A25
+	inx
+L0A25:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A2E
+	inx
+L0A2E:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A30
+	inx
+L0A30:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A39
+	inx
+L0A39:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A3B
+	inx
+L0A3B:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A44
+	inx
+L0A44:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A46
+	inx
+L0A46:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A4F
+	inx
+L0A4F:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A51
+	inx
+L0A51:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A5A
+	inx
+L0A5A:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A5C
+	inx
+L0A5C:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A65
+	inx
+L0A65:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A67
+	inx
+L0A67:	sta     _c64loc
+	stx     _c64loc+1
+;
+; INV_CHAR_LINE
+;
+	lda     _screen_loc
+	sta     sreg
+	lda     _screen_loc+1
+	sta     sreg+1
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	lda     (ptr1),y
+	eor     #$FF
+	sta     (sreg),y
+;
+; else
+;
+	jmp     L0E81
+;
+; CHAR_LINE
+;
+L0A19:	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A7C
+	inx
+L0A7C:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A7E
+	inx
+L0A7E:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A87
+	inx
+L0A87:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A89
+	inx
+L0A89:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A92
+	inx
+L0A92:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A94
+	inx
+L0A94:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0A9D
+	inx
+L0A9D:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0A9F
+	inx
+L0A9F:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0AA8
+	inx
+L0AA8:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0AAA
+	inx
+L0AAA:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0AB3
+	inx
+L0AB3:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0AB5
+	inx
+L0AB5:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0ABE
+	inx
+L0ABE:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0AC0
+	inx
+L0AC0:	sta     _c64loc
+	stx     _c64loc+1
+;
+; CHAR_LINE
+;
+	lda     _screen_loc
+	ldx     _screen_loc+1
+	jsr     pushax
+	lda     _c64loc
+	sta     ptr1
+	lda     _c64loc+1
+	sta     ptr1+1
+	ldy     #$00
+	lda     (ptr1),y
+	jsr     staspidx
+L0E81:	lda     _screen_loc
+	ldx     _screen_loc+1
+	clc
+	adc     #$01
+	bcc     L0AC9
+	inx
+L0AC9:	sta     _screen_loc
+	stx     _screen_loc+1
+	lda     _c64loc
+	ldx     _c64loc+1
+	clc
+	adc     #$01
+	bcc     L0ACB
+	inx
+L0ACB:	sta     _c64loc
+	stx     _c64loc+1
+;
+; a++;
+;
+	inc     _a
+;
+; while (str[a] != 0)
+;
+L0A11:	ldy     #$04
+	lda     (sp),y
+	tax
+	dey
+	lda     (sp),y
+	ldy     _a
+	sta     ptr1
+	stx     ptr1+1
+	lda     (ptr1),y
+	jne     L0A0F
+;
+; }
+;
+	jmp     incsp5
+
+.endproc

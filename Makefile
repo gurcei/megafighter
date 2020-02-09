@@ -17,8 +17,6 @@ ASSFILES = main.s \
 #						sprites.s
 #						charset.s
 
-# DATAFILES=  ascii8x8.bin dad.bin mum.bin tram.bin
-
 W64FILES= \
 	punch1.w64 \
 	punch2.w64 \
@@ -134,8 +132,8 @@ all: gidemo.d64 data.reu util.h
 
 run:
 	#open -a /Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64
-	#/Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64 &
-	cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
+	/Applications/Vice/x64.app/Contents/MacOS/x64 -reu -reusize 16384 -reuimage data.reu gidemo.d64 &
+	#cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
 %.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin
 	$(CC65) $(COPTS) --add-source -o $@ $<
@@ -147,8 +145,8 @@ data.reu: $(DATAFILES) $(W64FILES) intro.bin
 	rm -f bitmap_ids.h
 	# create a 'bitmap_ids.h' file to list ids for all bitmaps
 	echo "enum BMP_IDS {" > bitmap_ids.h
-	echo $(ID_NAMES) | sed "s/ /\n/g" >> bitmap_ids.h
-	echo $(ID_NAMES_REV) | sed "s/ /\n/g" >> bitmap_ids.h
+	echo $(ID_NAMES) | sed 's/ /&~/; y/~/\n/;' >> bitmap_ids.h
+	echo $(ID_NAMES_REV) | sed 's/ /&~/; y/~/\n/;' >> bitmap_ids.h
 	echo "BMP_MAX" >> bitmap_ids.h
 	echo "};" >> bitmap_ids.h
 
@@ -186,8 +184,10 @@ data.reu: $(DATAFILES) $(W64FILES) intro.bin
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215
 
 util.h: gidemo.lbl
-	cat gidemo.lbl | grep \.func_ | sed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \L\"$$\2\"/" > util.h
-	cat gidemo.lbl | grep \.var_ | sed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \L\"$$\2\"/" >> util.h
+	cat gidemo.lbl | grep \.func_ | gsed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \"$$\2\"/" > util.h
+	cat gidemo.lbl | grep \.var_ | gsed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \"$$\2\"/" >> util.h
+	# For Mac OSX, might need to replace sed call with: awk '{print "#define " toupper(substr($3,2)) " \"$" $2 "\""}'
+	# Alternatively, do "brew install gsed"
 
 # 'pngprepare' and 'asciih' tools borrowed from mega65-ide project
 # --------------------------------------------------

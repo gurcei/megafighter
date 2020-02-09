@@ -20,16 +20,16 @@
 // ================================
 extern void draw_sprintf(unsigned char posx, unsigned char posy, char* str, ...);
 extern void draw_text(char* str, unsigned char posx, unsigned char posy, unsigned char invert);
+extern unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3, gtmpw4;
+extern unsigned char a, b, gk, gtmp, num_repairs;
+extern unsigned char snd_trigger, snd_idx, snd_delay;
+extern int sky_idx;
 
 // ================================
 // GLOBALS
 // ================================
-unsigned int screen_loc, rel_loc, gtmpw, gtmpw2, gtmpw3, gtmpw4;
-unsigned char a, b, gk, gtmp, num_repairs;
 unsigned char hit, hithead, hittorso, hitfeet;
 unsigned char* ptr, *ptr2;
-unsigned char snd_trigger = 0, snd_idx = 0, snd_delay = 0;
-int sky_idx = 0;
 int bx, by, cx, cy;
 unsigned char energies_buffered = 0;
 unsigned char energies[2] = { 0 };

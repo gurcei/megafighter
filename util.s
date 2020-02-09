@@ -13,6 +13,18 @@
 .EXPORT func_music_loop_preparation, func_prepare_waveform_control_registers
 .EXPORT func_prepare_song, func_calculate_note_frequency
 .EXPORT _prepare_song, _draw_sprintf, _dstr, _draw_text
+.export		_screen_loc
+.export		_rel_loc
+.export		_gtmpw
+.export		_gtmpw2
+.export		_gtmpw3
+.export		_gtmpw4
+.export		_a
+.export		_b
+.export		_gk
+.export		_gtmp
+.export		_num_repairs
+.export   _snd_trigger, _snd_idx, _snd_delay, _sky_idx
 
 ; .EXPORT _fq, _dr, _oc, _nt, _pnm, _delay_cnt, _use_bug, _k, _v1, _v2, _v3
 
@@ -20,8 +32,39 @@
 ; variables
 ; ----------------------------------
 
+_screen_loc:
+	.res	2,$00
+_rel_loc:
+	.res	2,$00
+_gtmpw:
+	.res	2,$00
+_gtmpw2:
+	.res	2,$00
+_gtmpw3:
+	.res	2,$00
+_gtmpw4:
+	.res	2,$00
+_a:
+	.res	1,$00
+_b:
+	.res	1,$00
+_gk:
+	.res	1,$00
+_gtmp:
+	.res	1,$00
+_num_repairs:
+	.res	1,$00
 _dstr:
 	.res	40,$00
+
+_snd_trigger:
+	.byte	$00
+_snd_idx:
+	.byte	$00
+_snd_delay:
+	.byte	$00
+_sky_idx:
+	.word	$0000
 
 ; define frequency table
 _fq:

@@ -19,11 +19,17 @@ class MyFrame(wx.Frame):
 
     self.create_menu()
 
-    png = wx.Image("/Users/tramvo/Documents/gurce.png", wx.BITMAP_TYPE_ANY).ConvertToBitmap()
-    wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth(), png.GetHeight()))
+    img = wx.Image("/Users/tramvo/c64/Projects/sf2/ryu_idle2.png", wx.BITMAP_TYPE_ANY)
+    scale = 4
+    width = img.GetWidth()*scale
+    height = img.GetHeight()*scale
+    img = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+
+    png = img.ConvertToBitmap()
+    bmp = wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth()*scale, png.GetHeight()*scale))
 
     # mouse-related events
-    panel.Bind(wx.EVT_MOTION, self.on_move)
+    bmp.Bind(wx.EVT_MOTION, self.on_move)
     self.Show()
 
   def on_move(self, event):

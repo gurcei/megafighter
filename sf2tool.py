@@ -1,6 +1,36 @@
 #!/usr/local/bin/python
 import wx
 
+# - - - - - - - - - - - - -
+# My settings-related classes
+
+class Settings:
+  projpath = ""
+  groups = []
+
+class Group:
+  name = ""
+  PNGs = []
+
+class PNG:
+  name=""
+  hitboxes= { 'head': {0,0,0,0}, 'torso': {0,0,0,0}, 'feet': {0,0,0,0}, 'attack': {0,0,0,0} }
+
+class Anims:
+  name=""
+  relx=[]
+  rely=[]
+  frame=[]
+  animlength=0
+  pngs=[]
+  pingpong=0
+  cols=0
+  rows=0
+
+
+
+# - - - - - - - - - -
+
 class MyFrame(wx.Frame):
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)

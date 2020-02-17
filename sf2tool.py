@@ -28,7 +28,6 @@ class Anims:
   rows=0
 
 
-
 # - - - - - - - - - -
 
 class MyFrame(wx.Frame):
@@ -36,26 +35,32 @@ class MyFrame(wx.Frame):
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
-    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool')
+    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(800,500))
 
     panel = wx.Panel(self)
 
-    self.create_text_ctrl(panel)
+    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=['hello', 'world'])
+    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(105,0), size=(100,400), choices=['aaa', 'bbb'])
+    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(205,0), size=(100,400), choices=['111', '222'])
+    self.lstPngs = self.create_labeled_list_box(panel, label='HITBOXES', pos=(305,0), size=(100,400), choices=['111', '222'])
+    self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
 
-    self.create_list_ctrl(panel)
+    # self.create_text_ctrl(panel)
+
+    # self.create_list_ctrl(panel)
 
     self.create_menu()
 
-    # bmp = self.create_image(panel)
-
-    # mouse-related events
-    # bmp.Bind(wx.EVT_MOTION, self.on_move)
+    # self.create_image(panel)
 
     self.Show()
 
-  def on_move(self, event):
-    pos = event.GetPosition()
-    print(pos)
+  # - - - - - - - - - - - - - - - - - - -
+
+  def create_labeled_list_box(self, panel, label, pos, size, choices):
+    wx.StaticText(panel, pos=pos, label=label)
+    pos = (pos[0], pos[1] + 18)
+    return wx.ListBox(panel, pos=pos, size=size, choices=choices, style=0)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -110,7 +115,13 @@ class MyFrame(wx.Frame):
 
     png = img.ConvertToBitmap()
     bmp = wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth()*scale, png.GetHeight()*scale))
-    return bmp
+
+    # mouse-related events
+    bmp.Bind(wx.EVT_MOTION, self.on_move)
+
+  def on_move(self, event):
+    pos = event.GetPosition()
+    print(pos)
 
   # - - - - - - - - - - - - - - - - - - -
 

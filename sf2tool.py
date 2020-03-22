@@ -5,8 +5,10 @@ import wx
 # My settings-related classes
 
 class Settings:
-  projpath = ""
-  groups = []
+  def __init__(self, projpath=''):
+    self.projpath = projpath
+    self.groups = []
+
 
 class Group:
   name = ""
@@ -103,6 +105,7 @@ class MyFrame(wx.Frame):
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
       print(dlg.GetPath())
+      settings = Settings(dlg.GetPath())
 
   # - - - - - - - - - - - - - - - - - - -
 

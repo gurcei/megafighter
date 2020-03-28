@@ -18,7 +18,7 @@ class PNG:
   name=""
   hitboxes= { 'head': {0,0,0,0}, 'torso': {0,0,0,0}, 'feet': {0,0,0,0}, 'attack': {0,0,0,0} }
 
-class Anims:
+class Anim:
   name=""
   relx=[]
   rely=[]
@@ -34,10 +34,13 @@ class Anims:
 
 class MyFrame(wx.Frame):
 
+  projectNotSaved = False
+
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
     super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(800,500))
+    self.Bind(wx.EVT_CLOSE, self.OnClose)
 
     panel = wx.Panel(self)
 
@@ -56,6 +59,19 @@ class MyFrame(wx.Frame):
     # self.create_image(panel)
 
     self.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnClose(self, event):
+    print(self.projectNotSaved)
+    if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and self.projectNotSaved:
+      if wx.MessageBox("The project has not been saved... Continue closing?",
+          "Please confirm",
+          wx.ICON_QUESTION | wx.YES_NO) != wx.YES:
+        if type(event) == wx.CloseEvent:
+          event.Veto()
+        return
+    self.Destroy()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -98,6 +114,9 @@ class MyFrame(wx.Frame):
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder', 'Open a folder with MP3s')
     menu_bar.Append(file_menu, '&File')
     self.Bind(event=wx.EVT_MENU, handler=self.on_open_folder, source=open_folder_menu_item)
+    apple_menu = menu_bar.OSXGetAppleMenu()
+    quit_menu_item = apple_menu.FindItemByPosition(apple_menu.GetMenuItemCount()-1)
+    self.Bind(wx.EVT_MENU, self.OnClose, quit_menu_item)
     self.SetMenuBar(menu_bar)
 
   def on_open_folder(self, event):
@@ -106,6 +125,7 @@ class MyFrame(wx.Frame):
     if dlg.ShowModal() == wx.ID_OK:
       print(dlg.GetPath())
       settings = Settings(dlg.GetPath())
+      self.projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 import wx
+import pickle
+import os.path
 
 # - - - - - - - - - - - - -
 # My settings-related classes
@@ -29,6 +31,8 @@ class Anim:
   cols=0
   rows=0
 
+
+settings = None
 
 # - - - - - - - - - -
 
@@ -63,14 +67,18 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnClose(self, event):
-    print(self.projectNotSaved)
+    import pdb; pdb.set_trace()
     if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and self.projectNotSaved:
       if wx.MessageBox("The project has not been saved... Continue closing?",
           "Please confirm",
           wx.ICON_QUESTION | wx.YES_NO) != wx.YES:
         if type(event) == wx.CloseEvent:
           event.Veto()
+          return
+        SaveSettings()
         return
+
+    SaveSettings()
     self.Destroy()
 
   # - - - - - - - - - - - - - - - - - - -
@@ -123,7 +131,7 @@ class MyFrame(wx.Frame):
     title = "Choose a directory:"
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
-      print(dlg.GetPath())
+      global settings
       settings = Settings(dlg.GetPath())
       self.projectNotSaved = True
 
@@ -148,7 +156,22 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+def SaveSettings():
+  global settings
+  if settings != None:
+    pickle_out = open("settings.pickle", "wb")
+    pickle.dump(settings, pickle_out)
+    pickle_out.close()
+
+def LoadSettings():
+  global settings
+  if os.path.isfile("settings.pickle"):
+    print("found settings.pickle")
+    pickle_in = open("settings.pickle", "rb")
+    settings = pickle.load(pickle_in)
+
 if __name__ == '__main__':
   app = wx.App()
   frame = MyFrame()
+  LoadSettings()
   app.MainLoop()

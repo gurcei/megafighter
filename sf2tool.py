@@ -3,22 +3,28 @@ import wx
 import pickle
 import os.path
 
-# - - - - - - - - - - - - -
-# My settings-related classes
+# -----------------------------------------
+# MY SETTINGS-RELATED CLASSES
+# -----------------------------------------
 
 class Settings:
   def __init__(self, projpath=''):
     self.projpath = projpath
     self.groups = []
 
+# - - - - - - - - - - - - - - - - - - -
 
 class Group:
   name = ""
   PNGs = []
 
+# - - - - - - - - - - - - - - - - - - -
+
 class PNG:
   name=""
   hitboxes= { 'head': {0,0,0,0}, 'torso': {0,0,0,0}, 'feet': {0,0,0,0}, 'attack': {0,0,0,0} }
+
+# - - - - - - - - - - - - - - - - - - -
 
 class Anim:
   name=""
@@ -32,13 +38,11 @@ class Anim:
   rows=0
 
 
-settings = None
-
-# - - - - - - - - - -
+# -----------------------------------------
+# MYFRAME GUI CLASS
+# -----------------------------------------
 
 class MyFrame(wx.Frame):
-
-  projectNotSaved = False
 
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
@@ -48,11 +52,12 @@ class MyFrame(wx.Frame):
 
     panel = wx.Panel(self)
 
-    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=['hello', 'world'])
-    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(105,0), size=(100,400), choices=['aaa', 'bbb'])
-    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(205,0), size=(100,400), choices=['111', '222'])
-    self.lstPngs = self.create_labeled_list_box(panel, label='HITBOXES', pos=(305,0), size=(100,400), choices=['111', '222'])
-    self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
+    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
+    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(100,400), choices=['111', '222'])
+    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(205,0), size=(100,400), choices=['aaa', 'bbb'])
+    # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
+    # self.lstPngs = self.create_labeled_list_box(panel, label='HITBOXES', pos=(205,0), size=(100,400), choices=['111', '222'])
+    # self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
 
     # self.create_text_ctrl(panel)
 
@@ -66,9 +71,14 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def AddGroup(self, name):
+    self.lstGroups.InsertItems([str(name)],self.lstGroups.GetCount())
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def OnClose(self, event):
-    import pdb; pdb.set_trace()
-    if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and self.projectNotSaved:
+    global projectNotSaved
+    if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and projectNotSaved:
       if wx.MessageBox("The project has not been saved... Continue closing?",
           "Please confirm",
           wx.ICON_QUESTION | wx.YES_NO) != wx.YES:
@@ -119,8 +129,8 @@ class MyFrame(wx.Frame):
   def create_menu(self):
     menu_bar = wx.MenuBar()
     file_menu = wx.Menu()
-    open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder', 'Open a folder with MP3s')
-    menu_bar.Append(file_menu, '&File')
+    open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
+    menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.on_open_folder, source=open_folder_menu_item)
     apple_menu = menu_bar.OSXGetAppleMenu()
     quit_menu_item = apple_menu.FindItemByPosition(apple_menu.GetMenuItemCount()-1)
@@ -131,9 +141,7 @@ class MyFrame(wx.Frame):
     title = "Choose a directory:"
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
-      global settings
-      settings = Settings(dlg.GetPath())
-      self.projectNotSaved = True
+      SetGraphicsDirectory(dlg.GetPath())
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -154,7 +162,31 @@ class MyFrame(wx.Frame):
     pos = event.GetPosition()
     print(pos)
 
-  # - - - - - - - - - - - - - - - - - - -
+
+# -----------------------------------------
+# GLOBAL VARIABLES
+# -----------------------------------------
+
+settings = None
+projectNotSaved = False
+frame = None
+
+
+# -----------------------------------------
+# MAIN APP HELPER METHODS
+# -----------------------------------------
+
+def SetGraphicsDirectory(path):
+      global settings, projectNotSaved, frame
+      settings = Settings(path)
+      projectNotSaved = True
+
+      # search for sub-folders within here (each one will be a 'group')
+      root, dirs, _ = os.walk(path)
+      for dir in root[1]:
+        settings.groups.append(dir.upper())
+        frame.AddGroup(dir.upper())
+
 
 def SaveSettings():
   global settings
@@ -170,6 +202,13 @@ def LoadSettings():
     pickle_in = open("settings.pickle", "rb")
     settings = pickle.load(pickle_in)
 
+    # update gui too
+    for group in settings.groups:
+      frame.AddGroup(group)
+
+# -----------------------------------------
+# MAIN
+# -----------------------------------------
 if __name__ == '__main__':
   app = wx.App()
   frame = MyFrame()

@@ -187,6 +187,7 @@ def SetGraphicsDirectory(path):
 
       # search for sub-folders within here (each one will be a 'group')
       root, dirs, _ = os.walk(path)
+      frame.lstGroups.Clear()
       for dir in root[1]:
         settings.groups.append(dir.upper())
         frame.AddGroup(dir.upper())

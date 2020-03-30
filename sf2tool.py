@@ -2,6 +2,7 @@
 import wx
 import pickle
 import os.path
+import glob
 
 # -----------------------------------------
 # MY SETTINGS-RELATED CLASSES
@@ -53,8 +54,9 @@ class MyFrame(wx.Frame):
     panel = wx.Panel(self)
 
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
-    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(100,400), choices=['111', '222'])
-    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(205,0), size=(100,400), choices=['aaa', 'bbb'])
+    self.lstGroups.Bind(wx.EVT_LISTBOX, self.GroupSelectionChanged)
+    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
+    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     # self.lstPngs = self.create_labeled_list_box(panel, label='HITBOXES', pos=(205,0), size=(100,400), choices=['111', '222'])
     # self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
@@ -68,6 +70,16 @@ class MyFrame(wx.Frame):
     # self.create_image(panel)
 
     self.Show()
+
+  def GroupSelectionChanged(self, event):
+    selectedGroup = self.lstGroups.GetString(event.GetSelection())
+    # show pngs within this sub-folder
+    groupPath = os.path.join(settings.projpath, selectedGroup)
+    files = glob.glob(groupPath + "/*.png")
+    short_files = [f[len(groupPath)+1:-4] for f in files]
+    self.lstPngs.Clear()
+    if len(short_files) != 0:
+      self.lstPngs.InsertItems(short_files, 0)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -189,8 +201,8 @@ def SetGraphicsDirectory(path):
       root, dirs, _ = os.walk(path)
       frame.lstGroups.Clear()
       for dir in root[1]:
-        settings.groups.append(dir.upper())
-        frame.AddGroup(dir.upper())
+        settings.groups.append(dir)
+        frame.AddGroup(dir)
 
 
 def SaveSettings():

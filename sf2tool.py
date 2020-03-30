@@ -132,9 +132,13 @@ class MyFrame(wx.Frame):
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.on_open_folder, source=open_folder_menu_item)
+
+	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
-    quit_menu_item = apple_menu.FindItemByPosition(apple_menu.GetMenuItemCount()-1)
-    self.Bind(wx.EVT_MENU, self.OnClose, quit_menu_item)
+    if apple_menu:
+        quit_menu_item = apple_menu.FindItemByPosition(apple_menu.GetMenuItemCount()-1)
+        self.Bind(wx.EVT_MENU, self.OnClose, quit_menu_item)
+
     self.SetMenuBar(menu_bar)
 
   def on_open_folder(self, event):

@@ -56,9 +56,10 @@ class MyFrame(wx.Frame):
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.GroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
+    self.lstPngs.Bind(wx.EVT_LISTBOX, self.PngSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
-    # self.lstPngs = self.create_labeled_list_box(panel, label='HITBOXES', pos=(205,0), size=(100,400), choices=['111', '222'])
+    # self.lstHitboxes = self.create_labeled_list_box(panel, label='HITBOXES', pos=(205,0), size=(100,400), choices=['111', '222'])
     # self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
 
     # self.create_text_ctrl(panel)
@@ -67,19 +68,31 @@ class MyFrame(wx.Frame):
 
     self.create_menu()
 
+    self.scale = 4
+    self.bmp = self.create_bitmap_area(panel, pos=(355,0), size=(200,200))
+    # self.draw_image("/Users/tramvo/c64/Projects/sf2/Graphics/Ryu/ryu_idle2.png")
     # self.create_image(panel)
 
     self.Show()
 
+  # - - - - - - - - - - - - - - - - - - -
+
   def GroupSelectionChanged(self, event):
-    selectedGroup = self.lstGroups.GetString(event.GetSelection())
+    self.selectedGroup = self.lstGroups.GetString(event.GetSelection())
     # show pngs within this sub-folder
-    groupPath = os.path.join(settings.projpath, selectedGroup)
+    groupPath = os.path.join(settings.projpath, self.selectedGroup)
     files = glob.glob(groupPath + "/*.png")
     short_files = [f[len(groupPath)+1:-4] for f in files]
     self.lstPngs.Clear()
     if len(short_files) != 0:
       self.lstPngs.InsertItems(short_files, 0)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def PngSelectionChanged(self, event):
+    self.selectedPng = self.lstPngs.GetString(event.GetSelection()) + ".png"
+    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng)
+    self.draw_image(pngPath)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -161,18 +174,23 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def create_image(self, panel):
-    img = wx.Image("/Users/tramvo/c64/Projects/sf2/ryu_idle2.png", wx.BITMAP_TYPE_ANY)
-    scale = 4
-    width = img.GetWidth()*scale
-    height = img.GetHeight()*scale
-    img = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
-
-    png = img.ConvertToBitmap()
-    bmp = wx.StaticBitmap(panel, -1, png, (10, 5), (png.GetWidth()*scale, png.GetHeight()*scale))
+  def create_bitmap_area(self, panel, pos, size):
+    bmp = wx.StaticBitmap(parent=panel, pos=pos, size=size)
 
     # mouse-related events
     bmp.Bind(wx.EVT_MOTION, self.on_move)
+    return bmp
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def draw_image(self, imgpath):
+    self.img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
+    width = self.img.GetWidth() * self.scale
+    height = self.img.GetHeight() * self.scale
+    simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+
+    png = simg.ConvertToBitmap()
+    self.bmp.SetBitmap(png)
 
   def on_move(self, event):
     pos = event.GetPosition()

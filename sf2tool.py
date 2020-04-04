@@ -3,6 +3,7 @@ import wx
 import pickle
 import os.path
 import glob
+import enum
 
 # -----------------------------------------
 # MY SETTINGS-RELATED CLASSES
@@ -48,7 +49,7 @@ class MyFrame(wx.Frame):
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
-    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(800,500))
+    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(1100,800))
     self.Bind(wx.EVT_CLOSE, self.OnClose)
 
     panel = wx.Panel(self)
@@ -59,7 +60,7 @@ class MyFrame(wx.Frame):
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.PngSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
-    # self.lstHitboxes = self.create_labeled_list_box(panel, label='HITBOXES', pos=(205,0), size=(100,400), choices=['111', '222'])
+    self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(180,400))
     # self.lstAnimDets = self.create_labeled_list_box(panel, label='ANIMDETAILS', pos=(405,0), size=(100,400), choices=['111', '222'])
 
     # self.create_text_ctrl(panel)
@@ -69,11 +70,55 @@ class MyFrame(wx.Frame):
     self.create_menu()
 
     self.scale = 4
-    self.bmp = self.create_bitmap_area(panel, pos=(355,0), size=(200,200))
+    self.bmp = self.create_bitmap_area(panel, pos=(555,0), size=(200,200))
     # self.draw_image("/Users/tramvo/c64/Projects/sf2/Graphics/Ryu/ryu_idle2.png")
     # self.create_image(panel)
 
     self.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  class Hitbox(enum.Enum):
+    Head = 0
+    Torso = 1
+    Feet = 2
+    Attack = 3
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def create_hitboxes_panel(self, panel, pos, size):
+    hbpanel = wx.Panel(panel, pos=pos, size=size)
+    itempos=list(pos)
+    itempos[0] = 5
+    itempos[1] = 20
+    self.hbname = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
+
+    initialvalue="0,0,0,0"
+    self.hboxes = []
+
+    for hb in self.Hitbox:
+      itempos[1] += 30
+      self.hboxes.append(self.create_text_field(hbpanel, tuple(itempos), hb.name + ":", initialvalue))
+
+    return hbpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def create_static_field(self, panel, pos, name, value):
+    relpos = list(pos)
+    wx.StaticText(panel, pos=tuple(relpos), label=name)
+    relpos[0] += 50
+    field = wx.StaticText(panel, pos=tuple(relpos), label=value)
+    return field
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def create_text_field(self, panel, pos, name, value):
+    relpos = list(pos)
+    wx.StaticText(panel, pos=tuple(relpos), label=name)
+    relpos[0] += 50
+    field = wx.TextCtrl(panel, pos=tuple(relpos), size=(100,25), value=value)
+    return field
 
   # - - - - - - - - - - - - - - - - - - -
 

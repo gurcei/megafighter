@@ -57,11 +57,15 @@ class MyFrame(wx.Frame):
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.GroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
-    self.lstPngs.Bind(wx.EVT_LISTBOX, self.PngSelectionChanged)
+    self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnPngSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
+    self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnAnimSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(180,300))
-    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,300), size=(180,300))
+    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(180,300))
+
+    self.pnlHitboxes.Hide()
+    self.pnlAnimDetails.Hide()
 
     self.scale = 4
     self.bmp = self.create_bitmap_area(panel, pos=(555,0), size=(200,200))
@@ -114,6 +118,7 @@ class MyFrame(wx.Frame):
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "cols:", "<implied>")
     itempos[1] += 30
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "rows:", "<implied>")
+    return adpanel
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -147,10 +152,21 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def PngSelectionChanged(self, event):
+  def OnPngSelectionChanged(self, event):
     self.selectedPng = self.lstPngs.GetString(event.GetSelection()) + ".png"
     pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng)
+    self.pnlHitboxes.Show()
+    self.pnlAnimDetails.Hide()
+    self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.draw_image(pngPath)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnAnimSelectionChanged(self, event):
+    self.selectedAnim = self.lstAnims.GetString(event.GetSelection())
+    self.pnlHitboxes.Hide()
+    self.lstPngs.SetSelection(wx.NOT_FOUND)
+    self.pnlAnimDetails.Show()
 
   # - - - - - - - - - - - - - - - - - - -
 

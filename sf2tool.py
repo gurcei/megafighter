@@ -61,7 +61,7 @@ class MyFrame(wx.Frame):
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(180,300))
-    #self.pnlAnimDetails = self.create_animdetails_panel(panel, pos(355,300), size=(180,300))
+    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,300), size=(180,300))
 
     self.scale = 4
     self.bmp = self.create_bitmap_area(panel, pos=(555,0), size=(200,200))
@@ -82,26 +82,45 @@ class MyFrame(wx.Frame):
 
   def create_hitboxes_panel(self, panel, pos, size):
     hbpanel = wx.Panel(panel, pos=pos, size=size)
-    itempos=list(pos)
-    itempos[0] = 5
-    itempos[1] = 20
-    self.hbname = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
+    itempos=[5, 20]
+    self.lblHbName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
     initialvalue="0,0,0,0"
-    self.hboxes = []
+    self.lstTxtHboxes = []
 
     for hb in self.Hitbox:
       itempos[1] += 30
-      self.hboxes.append(self.create_text_field(hbpanel, tuple(itempos), hb.name + ":", initialvalue))
+      self.lstTxtHboxes.append(self.create_text_field(hbpanel, tuple(itempos), hb.name + ":", initialvalue))
 
     return hbpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def create_animdetails_panel(self, panel, pos, size):
+    adpanel = wx.Panel(panel, pos=pos, size=size)
+    itempos=[5,20]
+    self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "0, 0, 0, 0")
+    itempos[1] += 30
+    self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "0, 0, 0, 0")
+    itempos[1] += 30
+    self.txtFrame = self.create_text_field(adpanel, tuple(itempos), "frame[]:", "0, 0, 0, 0")
+    itempos[1] += 30
+    self.lblAnimlen = self.create_static_field(adpanel, tuple(itempos), "anim_len:", "<implied>")
+    itempos[1] += 30
+    self.lblFrames = self.create_static_field(adpanel, tuple(itempos), "frames[]:", "<implied>")
+    itempos[1] += 30
+    self.txtPingPong = self.create_text_field(adpanel, tuple(itempos), "pingpong:", "0")
+    itempos[1] += 30
+    self.lblCols = self.create_static_field(adpanel, tuple(itempos), "cols:", "<implied>")
+    itempos[1] += 30
+    self.lblCols = self.create_static_field(adpanel, tuple(itempos), "rows:", "<implied>")
 
   # - - - - - - - - - - - - - - - - - - -
 
   def create_static_field(self, panel, pos, name, value):
     relpos = list(pos)
     wx.StaticText(panel, pos=tuple(relpos), label=name)
-    relpos[0] += 50
+    relpos[0] += 70
     field = wx.StaticText(panel, pos=tuple(relpos), label=value)
     return field
 
@@ -110,7 +129,7 @@ class MyFrame(wx.Frame):
   def create_text_field(self, panel, pos, name, value):
     relpos = list(pos)
     wx.StaticText(panel, pos=tuple(relpos), label=name)
-    relpos[0] += 50
+    relpos[0] += 70
     field = wx.TextCtrl(panel, pos=tuple(relpos), size=(100,25), value=value)
     return field
 

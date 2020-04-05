@@ -179,7 +179,9 @@ class MyFrame(wx.Frame):
     files = self.selectedGroupObj.PNGs
     self.lstPngs.Clear()
     if len(files) != 0:
-      self.lstPngs.InsertItems(files.keys(), 0)
+      items=files.keys()
+      items.sort()
+      self.lstPngs.InsertItems(items, 0)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -231,7 +233,6 @@ class MyFrame(wx.Frame):
 
   def OnFrameClose(self, event):
     global projectNotSaved
-    import pdb; pdb.set_trace()
     if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and projectNotSaved:
       if wx.MessageBox("The project has not been saved... Continue to save and close?",
           "Please confirm",

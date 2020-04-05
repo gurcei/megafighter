@@ -89,14 +89,21 @@ class MyFrame(wx.Frame):
     itempos=[5, 20]
     self.lblHbName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
-    initialvalue="0,0,0,0"
+    initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
 
     for hb in self.Hitbox:
       itempos[1] += 30
-      self.lstTxtHboxes.append(self.create_text_field(hbpanel, tuple(itempos), hb.name + ":", initialvalue))
+      self.lstTxtHboxes.append(self.create_text_field(hbpanel, tuple(itempos), hb.name + ":",
+        initialvalue, self.OnTxtHboxEnter))
 
     return hbpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtHboxEnter(self, event):
+    print(event.GetEventObject())
+    self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -131,11 +138,15 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def create_text_field(self, panel, pos, name, value):
+  def create_text_field(self, panel, pos, name, value, on_enter=None):
     relpos = list(pos)
     wx.StaticText(panel, pos=tuple(relpos), label=name)
     relpos[0] += 70
-    field = wx.TextCtrl(panel, pos=tuple(relpos), size=(100,25), value=value)
+
+    style = wx.TE_PROCESS_ENTER if on_enter != None else wx.TE_LEFT
+    field = wx.TextCtrl(panel, style=style, pos=tuple(relpos), size=(100,25), value=value)
+    if on_enter != None:
+      field.Bind(event=wx.EVT_TEXT_ENTER, handler=on_enter, source=field)
     return field
 
   # - - - - - - - - - - - - - - - - - - -

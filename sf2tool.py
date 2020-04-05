@@ -75,7 +75,7 @@ class MyFrame(wx.Frame):
     panel = wx.Panel(self)
 
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
-    self.lstGroups.Bind(wx.EVT_LISTBOX, self.GroupSelectionChanged)
+    self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnGroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
@@ -171,11 +171,12 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def GroupSelectionChanged(self, event):
+  def OnGroupSelectionChanged(self, event):
     self.selectedGroup = self.lstGroups.GetString(event.GetSelection())
+    self.selectedGroupObj = settings.groups[self.selectedGroup]
     # show pngs within this sub-folder
     groupPath = os.path.join(settings.projpath, self.selectedGroup)
-    files = settings.groups[self.selectedGroup].PNGs
+    files = self.selectedGroupObj.PNGs
     self.lstPngs.Clear()
     if len(files) != 0:
       self.lstPngs.InsertItems(files.keys(), 0)
@@ -183,12 +184,35 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnLstPngsSelectionChanged(self, event):
-    self.selectedPng = self.lstPngs.GetString(event.GetSelection()) + ".png"
-    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng)
+    self.selectedPng = self.lstPngs.GetString(event.GetSelection())
+    self.selectedPngObj = self.selectedGroupObj.PNGs[self.selectedPng]
+    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
     self.pnlHitboxes.Show()
     self.pnlAnimDetails.Hide()
+    self.CopyHitboxesFromSettingsToGui()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(pngPath)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def CopyHitboxesFromSettingsToGui(self):
+    hbidx = 0
+    hbnames = [e.name for e in self.Hitbox]
+    for txtHb in self.lstTxtHboxes:
+      svals = [str(i) for i in self.selectedPngObj.hitboxes[hbnames[hbidx]]]
+      ss = ', '.join(svals)
+      txtHb.SetValue(ss)
+      hbidx += 1
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def CopyHitboxesFromGuiToSettings(self):
+    hbidx = 0
+    hbnames = [e.name for e in self.Hitbox]
+    for txtHb in self.lstTxtHboxes:
+      vals = [int(i) for i in  txtHb.GetValue().split(',')]
+      self.selectedPngObj.hitboxes[hbnames[hbidx]] = vals
+      hbidx += 1
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -207,8 +231,9 @@ class MyFrame(wx.Frame):
 
   def OnFrameClose(self, event):
     global projectNotSaved
+    import pdb; pdb.set_trace()
     if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and projectNotSaved:
-      if wx.MessageBox("The project has not been saved... Continue closing?",
+      if wx.MessageBox("The project has not been saved... Continue to save and close?",
           "Please confirm",
           wx.ICON_QUESTION | wx.YES_NO) != wx.YES:
         if type(event) == wx.CloseEvent:
@@ -243,6 +268,8 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnFrameClose, quit_menu_item)
 
     self.SetMenuBar(menu_bar)
+
+  # - - - - - - - - - - - - - - - - - - -
 
   def OnFileMenuOpenFolder(self, event):
     title = "Choose a directory:"
@@ -308,8 +335,11 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
   def update_hb_and_image(self):
+    global projectNotSaved
     self.update_hb_coords()
     self.update_image()
+    self.CopyHitboxesFromGuiToSettings()
+    projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

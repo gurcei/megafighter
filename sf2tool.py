@@ -226,6 +226,7 @@ class MyFrame(wx.Frame):
     bmp = wx.StaticBitmap(parent=panel, pos=pos, size=size)
 
     # mouse-related events
+    bmp.Bind(wx.EVT_MOUSE_EVENTS, self.OnBmpMouseEvents)
     bmp.Bind(wx.EVT_MOTION, self.OnBmpMouseMove)
     return bmp
 
@@ -242,10 +243,44 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  pt1 = (0,0)
+  pt2 = (0,0)
+
   def OnBmpMouseMove(self, event):
     pos = event.GetPosition()
+    if event.LeftIsDown():
+      print("LeftIsDown")
     print(pos)
 
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnBmpMouseEvents(self, event):
+    if event.LeftDown():
+      print("LeftDown")
+      realbmp = self.bmp.GetBitmap()
+      dc=wx.MemoryDC(realbmp)
+      dc.SetPen(wx.Pen(wx.RED, self.scale))
+      pos = event.GetPosition()
+      dc.DrawLine(pos, pos)
+      # dc.SelectObject(wx.NullBitmap)
+      self.bmp.SetBitmap(realbmp)
+      self.pt1 = pos
+    if event.LeftUp():
+      self.pt2 = event.GetPosition()
+      self.draw_hb_rectangle()
+      print("LeftUp")
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def draw_hb_rectangle(self):
+      realbmp = self.bmp.GetBitmap()
+      dc=wx.MemoryDC(realbmp)
+      dc.SetPen(wx.Pen(wx.RED, self.scale))
+      dc.SetBrush(wx.Brush("blue", wx.TRANSPARENT))
+      sz = wx.Size(self.pt2[0]-self.pt1[0], self.pt2[1]-self.pt1[1])
+      dc.DrawRectangle(self.pt1, sz)
+      # dc.SelectObject(wx.NullBitmap)
+      self.bmp.SetBitmap(realbmp)
 
 # -----------------------------------------
 # GLOBAL VARIABLES

@@ -12,21 +12,41 @@ import enum
 class Settings:
   def __init__(self, projpath=''):
     self.projpath = projpath
-    self.groups = []
+    self.groups = {}
 
-# - - - - - - - - - - - - - - - - - - -
+    # add in groups
+    root, dirs, _ = os.walk(projpath)
+    for dir in root[1]:
+      self.groups[dir] = Group(projpath, dir)
+
+# -----------------------------------------
 
 class Group:
-  name = ""
-  PNGs = []
+  def __init__(self, projpath, name):
+    self.name = name
+    groupPath = os.path.join(projpath, name)
+    self.PNGs = self._find_pngs(groupPath)
 
 # - - - - - - - - - - - - - - - - - - -
+
+  def _find_pngs(self, path):
+    pngs = {}
+    files = glob.glob(path + "/*.png")
+    short_files = [f[len(path)+1:-4] for f in files]
+
+    for f in short_files:
+      pngs[f] = PNG(f)
+
+    return pngs
+
+# -----------------------------------------
 
 class PNG:
-  name=""
-  hitboxes= { 'head': {0,0,0,0}, 'torso': {0,0,0,0}, 'feet': {0,0,0,0}, 'attack': {0,0,0,0} }
+  def __init__(self, name):
+    self.name=name
+    self.hitboxes= { 'Head': [0,0,0,0], 'Torso': [0,0,0,0], 'Feet': [0,0,0,0], 'Attack': [0,0,0,0] }
 
-# - - - - - - - - - - - - - - - - - - -
+# -----------------------------------------
 
 class Anim:
   name=""
@@ -155,11 +175,10 @@ class MyFrame(wx.Frame):
     self.selectedGroup = self.lstGroups.GetString(event.GetSelection())
     # show pngs within this sub-folder
     groupPath = os.path.join(settings.projpath, self.selectedGroup)
-    files = glob.glob(groupPath + "/*.png")
-    short_files = [f[len(groupPath)+1:-4] for f in files]
+    files = settings.groups[self.selectedGroup].PNGs
     self.lstPngs.Clear()
-    if len(short_files) != 0:
-      self.lstPngs.InsertItems(short_files, 0)
+    if len(files) != 0:
+      self.lstPngs.InsertItems(files.keys(), 0)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -338,10 +357,8 @@ def SetGraphicsDirectory(path):
       projectNotSaved = True
 
       # search for sub-folders within here (each one will be a 'group')
-      root, dirs, _ = os.walk(path)
       frame.lstGroups.Clear()
-      for dir in root[1]:
-        settings.groups.append(dir)
+      for dir in settings.groups:
         frame.AddGroup(dir)
 
   # - - - - - - - - - - - - - - - - - - -

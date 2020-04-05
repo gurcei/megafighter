@@ -50,16 +50,16 @@ class MyFrame(wx.Frame):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
     super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(1100,700))
-    self.Bind(wx.EVT_CLOSE, self.OnClose)
+    self.Bind(wx.EVT_CLOSE, self.OnFrameClose)
 
     panel = wx.Panel(self)
 
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.GroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
-    self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnPngSelectionChanged)
+    self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
-    self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnAnimSelectionChanged)
+    self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(180,300))
     self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(180,300))
@@ -152,7 +152,7 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnPngSelectionChanged(self, event):
+  def OnLstPngsSelectionChanged(self, event):
     self.selectedPng = self.lstPngs.GetString(event.GetSelection()) + ".png"
     pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng)
     self.pnlHitboxes.Show()
@@ -162,7 +162,7 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnAnimSelectionChanged(self, event):
+  def OnLstAnimsSelectionChanged(self, event):
     self.selectedAnim = self.lstAnims.GetString(event.GetSelection())
     self.pnlHitboxes.Hide()
     self.lstPngs.SetSelection(wx.NOT_FOUND)
@@ -175,7 +175,7 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnClose(self, event):
+  def OnFrameClose(self, event):
     global projectNotSaved
     if (type(event) == wx.CommandEvent or (type(event) == wx.CloseEvent and event.CanVeto())) and projectNotSaved:
       if wx.MessageBox("The project has not been saved... Continue closing?",
@@ -210,7 +210,7 @@ class MyFrame(wx.Frame):
     apple_menu = menu_bar.OSXGetAppleMenu()
     if apple_menu:
         quit_menu_item = apple_menu.FindItemByPosition(apple_menu.GetMenuItemCount()-1)
-        self.Bind(wx.EVT_MENU, self.OnClose, quit_menu_item)
+        self.Bind(wx.EVT_MENU, self.OnFrameClose, quit_menu_item)
 
     self.SetMenuBar(menu_bar)
 
@@ -226,7 +226,7 @@ class MyFrame(wx.Frame):
     bmp = wx.StaticBitmap(parent=panel, pos=pos, size=size)
 
     # mouse-related events
-    bmp.Bind(wx.EVT_MOTION, self.on_move)
+    bmp.Bind(wx.EVT_MOTION, self.OnBmpMouseMove)
     return bmp
 
   # - - - - - - - - - - - - - - - - - - -
@@ -240,7 +240,9 @@ class MyFrame(wx.Frame):
     png = simg.ConvertToBitmap()
     self.bmp.SetBitmap(png)
 
-  def on_move(self, event):
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnBmpMouseMove(self, event):
     pos = event.GetPosition()
     print(pos)
 
@@ -270,6 +272,7 @@ def SetGraphicsDirectory(path):
         settings.groups.append(dir)
         frame.AddGroup(dir)
 
+  # - - - - - - - - - - - - - - - - - - -
 
 def SaveSettings():
   global settings
@@ -277,6 +280,8 @@ def SaveSettings():
     pickle_out = open("settings.pickle", "wb")
     pickle.dump(settings, pickle_out)
     pickle_out.close()
+
+  # - - - - - - - - - - - - - - - - - - -
 
 def LoadSettings():
   global settings

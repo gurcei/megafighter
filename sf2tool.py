@@ -49,7 +49,7 @@ class MyFrame(wx.Frame):
   def __init__(self):
     # Had to pass in these weird arguments for super() in python2.7 (not needed in python3?)
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
-    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', size=(1100,700))
+    super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', pos=(100,50), size=(1100,700))
     self.Bind(wx.EVT_CLOSE, self.OnFrameClose)
 
     panel = wx.Panel(self)
@@ -158,7 +158,7 @@ class MyFrame(wx.Frame):
     self.pnlHitboxes.Show()
     self.pnlAnimDetails.Hide()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
-    self.draw_image(pngPath)
+    self.load_image(pngPath)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -204,7 +204,7 @@ class MyFrame(wx.Frame):
     file_menu = wx.Menu()
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
     menu_bar.Append(file_menu, 'File')
-    self.Bind(event=wx.EVT_MENU, handler=self.on_open_folder, source=open_folder_menu_item)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuOpenFolder, source=open_folder_menu_item)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -214,7 +214,7 @@ class MyFrame(wx.Frame):
 
     self.SetMenuBar(menu_bar)
 
-  def on_open_folder(self, event):
+  def OnFileMenuOpenFolder(self, event):
     title = "Choose a directory:"
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
@@ -232,14 +232,44 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def draw_image(self, imgpath):
-    self.img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
-    width = self.img.GetWidth() * self.scale
-    height = self.img.GetHeight() * self.scale
-    simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+  def draw_hitboxes(self):
+    realbmp = self.bmp.GetBitmap()
+    dc=wx.MemoryDC(realbmp)
+    dc.SetPen(wx.Pen(wx.RED, 1))
+    dc.SetBrush(wx.Brush(wx.RED))
+    for txtHb in self.lstTxtHboxes:
+      coord = [int(i)*self.scale for i in txtHb.GetValue().split(',')]
+      # draw thickened rectangle
+      dc.DrawRectangle(coord[0], coord[1], coord[2]-coord[0]+self.scale, self.scale)
+      dc.DrawRectangle(coord[0], coord[3], coord[2]-coord[0]+self.scale, self.scale)
+      dc.DrawRectangle(coord[0], coord[1], self.scale, coord[3]-coord[1])
+      dc.DrawRectangle(coord[2], coord[1], self.scale, coord[3]-coord[1])
 
-    png = simg.ConvertToBitmap()
-    self.bmp.SetBitmap(png)
+    # dc.SelectObject(wx.NullBitmap)
+    self.bmp.SetBitmap(realbmp)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def update_image(self):
+    self.bmp.SetBitmap(self.png)
+    self.draw_hitboxes()
+
+    # scale up
+    # unfortunately, looks like I need to scale while it is still an image
+    # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)
+    # So I need to scale the image first and then apply the hitboxes (not the other way around)
+
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def load_image(self, imgpath):
+    img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
+    width = img.GetWidth() * self.scale
+    height = img.GetHeight() * self.scale
+    simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+    self.png = simg.ConvertToBitmap()
+
+    self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -248,8 +278,6 @@ class MyFrame(wx.Frame):
 
   def OnBmpMouseMove(self, event):
     pos = event.GetPosition()
-    if event.LeftIsDown():
-      print("LeftIsDown")
     print(pos)
 
   # - - - - - - - - - - - - - - - - - - -
@@ -269,6 +297,7 @@ class MyFrame(wx.Frame):
       self.pt2 = event.GetPosition()
       self.draw_hb_rectangle()
       print("LeftUp")
+      self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 

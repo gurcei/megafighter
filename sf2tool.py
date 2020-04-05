@@ -284,32 +284,21 @@ class MyFrame(wx.Frame):
 
   def OnBmpMouseEvents(self, event):
     if event.LeftDown():
-      print("LeftDown")
-      realbmp = self.bmp.GetBitmap()
-      dc=wx.MemoryDC(realbmp)
-      dc.SetPen(wx.Pen(wx.RED, self.scale))
-      pos = event.GetPosition()
-      dc.DrawLine(pos, pos)
-      # dc.SelectObject(wx.NullBitmap)
-      self.bmp.SetBitmap(realbmp)
-      self.pt1 = pos
+      self.pt1 = event.GetPosition()
     if event.LeftUp():
       self.pt2 = event.GetPosition()
-      self.draw_hb_rectangle()
-      print("LeftUp")
+      self.update_hb_coords()
       self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def draw_hb_rectangle(self):
-      realbmp = self.bmp.GetBitmap()
-      dc=wx.MemoryDC(realbmp)
-      dc.SetPen(wx.Pen(wx.RED, self.scale))
-      dc.SetBrush(wx.Brush("blue", wx.TRANSPARENT))
-      sz = wx.Size(self.pt2[0]-self.pt1[0], self.pt2[1]-self.pt1[1])
-      dc.DrawRectangle(self.pt1, sz)
-      # dc.SelectObject(wx.NullBitmap)
-      self.bmp.SetBitmap(realbmp)
+  def update_hb_coords(self):
+    s = "{}, {}, {}, {}".format(self.pt1[0]/self.scale, self.pt1[1]/self.scale,
+        self.pt2[0]/self.scale, self.pt2[1]/self.scale)
+    for txtHbox in self.lstTxtHboxes:
+      if txtHbox.HasFocus():
+        txtHbox.SetValue(s)
+        return
 
 # -----------------------------------------
 # GLOBAL VARIABLES

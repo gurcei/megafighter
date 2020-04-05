@@ -287,9 +287,18 @@ class MyFrame(wx.Frame):
   pt1 = (0,0)
   pt2 = (0,0)
 
+  # - - - - - - - - - - - - - - - - - - -
+  def update_hb_and_image(self):
+    self.update_hb_coords()
+    self.update_image()
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def OnBmpMouseMove(self, event):
     pos = event.GetPosition()
-    print(pos)
+    if event.LeftIsDown():
+      self.pt2 = event.GetPosition()
+      self.update_hb_and_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -298,8 +307,7 @@ class MyFrame(wx.Frame):
       self.pt1 = event.GetPosition()
     if event.LeftUp():
       self.pt2 = event.GetPosition()
-      self.update_hb_coords()
-      self.update_image()
+      self.update_hb_and_image()
 
   # - - - - - - - - - - - - - - - - - - -
 

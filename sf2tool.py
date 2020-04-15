@@ -321,10 +321,10 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def IsTransparentPixel(pxl):
+  def IsTransparentPixel(self, pxl):
     return (pxl[0]==112 and pxl[1]==136 and pxl[2]==136) or (pxl[0] == 128 and pxl[1]==128 and pxl[2]==128)
 
-  def Assess8by8Chunk(x, y, width, height, multiplier, pixels):
+  def Assess8by8Chunk(self, x, y, width, height, multiplier, pixels):
     charbytes = [0] * 8
     maskbytes = [0] * 8
     transparent_count = 0
@@ -338,6 +338,8 @@ class MyFrame(wx.Frame):
         pxl = pixels[ptr:ptr+3]
 
         # check if it's a transparent pixel
+        # import pdb; pdb.set_trace()
+        # print('{} : ({},{}) : {}'.format(ptr, x, y, repr(pxl)))
         if (y+yd) >= height or self.IsTransparentPixel(pxl):
           transparent_count += 1
           maskbytes[yd] |= 1 << (7 - xd)
@@ -354,25 +356,30 @@ class MyFrame(wx.Frame):
 
     return charbytes, maskbytes, transparent_count
 
-  def AppendCurSeg(rowsegs, curseg):
+  def AppendCurSeg(self, rowsegs, curseg):
     rowsegs.append(curseg)
-    curseg['reloffset'] = 0
-    curseg['length'] = 0 + 8
+    #import pdb; pdb.set_trace()
+    curseg = {
+        'reloffset': 0,
+        'length': 0
+      }
+    return curseg
 
-  def CheckIfStartOrEndOfSegment(found_start, rowsegs, curseg):
+  def CheckIfStartOrEndOfSegment(self, found_start, rowsegs, curseg):
     if found_start:
       found_start = False
       # if we already started a segment, then a transparent char (or mask-repair char)
       # indicates the end of a segment. So move to next segment
-      self.AppendCurSeg(rowsegs, curseg)
+      curseg = self.AppendCurSeg(rowsegs, curseg)
     else:
       # if we haven't started a segment yet, then increment the upcoming
       # segment's reloffset
       curseg['reloffset'] += 8
+      #import pdb; pdb.set_trace()
 
     return found_start, curseg
 
-  def AppendMaskRepairChar(repairs, currepair, charbytes, maskbytes):
+  def AppendMaskRepairChar(self, repairs, currepair, charbytes, maskbytes):
     # spawn a 'mask' repair character, instead of being part of the segment
     # currepair->reloffset should be already set
     for l in range(0, 8):
@@ -406,18 +413,19 @@ class MyFrame(wx.Frame):
         }
     segdata = [ ] # the raw binary data of all segments
 
-    import pdb; pdb.set_trace()
-    width = self.png.GetWidth()
-    height = self.png.GetHeight()
+    width = self.img.GetWidth()
+    height = self.img.GetHeight()
 
     pixels = self.img.GetData()
 
+    curseg = {
+        'reloffset': 0,
+        'length': 0
+      }
+
+    #import pdb; pdb.set_trace()
     for y in range(0, height, 8):
       for x in range(0, width, 8):
-        curseg = {
-            'reloffset': 0,
-            'length': 0
-          }
 
         charbytes, maskbytes, transparent_count = \
             self.Assess8by8Chunk(x, y, width, height, multiplier, pixels)
@@ -438,12 +446,14 @@ class MyFrame(wx.Frame):
             found_start = True
           # this is a non-transparent character, so let's save this data to the file
           segdata.extend(charbytes)
-          currepair['reloffset'] += 8
+          curseg['length'] += 1
+
+        currepair['reloffset'] += 8
 
       # if we finished this row and we're mid-segment, let's move to next segment
       if found_start:
         found_start = False
-        self.AppendCurSeg(rowsegs, curseg)
+        curseg = self.AppendCurSeg(rowsegs, curseg)
 
       next_row_increment = 40*8 - ((width+7) / 8)
       curseg['reloffset'] += next_row_increment
@@ -477,9 +487,9 @@ class MyFrame(wx.Frame):
 
     def setpxl(pixels, x, y, r, g, b):
       ofs = (width*y + x)*3
-      pixels[offs] = r
-      pixels[offs+1] = g
-      pixels[offs+2] = b
+      pixels[ofs] = r
+      pixels[ofs+1] = g
+      pixels[ofs+2] = b
 
     # draw segments
     idx = 0
@@ -487,6 +497,9 @@ class MyFrame(wx.Frame):
       byteoffset += cursegmeta['reloffset'] # this is a byte-offset
       yloc = byteoffset / (40*8)
       xloc = byteoffset % (40*8) / 8 * 8
+
+      print(idx)
+      import pdb; pdb.set_trace()
 
       for charidx in range(0, cursegmeta['length']):
         for yd in range(0, 8):

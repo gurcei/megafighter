@@ -312,6 +312,7 @@ class MyFrame(wx.Frame):
     self.bmp.SetBitmap(self.png)
     self.draw_hitboxes()
 
+    self.bmp.SetBitmap(self.c64img.ConvertToBitmap())
     # scale up
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)
@@ -320,12 +321,202 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def IsTransparentPixel(pxl):
+    return (pxl[0]==112 and pxl[1]==136 and pxl[2]==136) or (pxl[0] == 128 and pxl[1]==128 and pxl[2]==128)
+
+  def Assess8by8Chunk(x, y, width, height, multiplier, pixels):
+    charbytes = [0] * 8
+    maskbytes = [0] * 8
+    transparent_count = 0
+
+    for yd in range(0, 8):
+      byteval = 0
+      rowptr = (y+yd)*width*multiplier
+
+      for xd in range(0, 8):
+        ptr = rowptr + (x+xd)*multiplier
+        pxl = pixels[ptr:ptr+3]
+
+        # check if it's a transparent pixel
+        if (y+yd) >= height or self.IsTransparentPixel(pxl):
+          transparent_count += 1
+          maskbytes[yd] |= 1 << (7 - xd)
+
+        if (y+yd) < height:
+          # check threshold for black
+          r=(pxl[0] + pxl[1] + pxl[2]) / 3
+          if r < 80 and (x+xd < width):
+            byteval |= 1 << (7 - xd)
+          elif r < 160 and (x+xd < width):
+            if ((xd%2) and (yd%2)) or (not (xd%2) and not (yd%2)):
+              byteval |= 1 << (7-xd)
+      charbytes[yd] = byteval
+
+    return charbytes, maskbytes, transparent_count
+
+  def AppendCurSeg(rowsegs, curseg):
+    rowsegs.append(curseg)
+    curseg['reloffset'] = 0
+    curseg['length'] = 0 + 8
+
+  def CheckIfStartOrEndOfSegment(found_start, rowsegs, curseg):
+    if found_start:
+      found_start = False
+      # if we already started a segment, then a transparent char (or mask-repair char)
+      # indicates the end of a segment. So move to next segment
+      self.AppendCurSeg(rowsegs, curseg)
+    else:
+      # if we haven't started a segment yet, then increment the upcoming
+      # segment's reloffset
+      curseg['reloffset'] += 8
+
+    return found_start, curseg
+
+  def AppendMaskRepairChar(repairs, currepair, charbytes, maskbytes):
+    # spawn a 'mask' repair character, instead of being part of the segment
+    # currepair->reloffset should be already set
+    for l in range(0, 8):
+      currepair['vals'].append(charbytes[l])
+      currepair['vals'].append(maskbytes[l])
+
+    repairs.append(currepair)
+
+    currepair['reloffset'] = 0
+    currepair['vals'] = [ ]
+
+    return currepair
+
+  def _ExtractC64ImgStructs(self):
+    found_start = False
+    out2name = ''
+    MAX_SEGS=1000
+    multiplier = 3 # for RGB (if RGBA, needs to be 4)
+
+    rowsegs = []
+    repairs = []
+    currepair = {
+        'reloffset': 0,
+        'vals': [ ]
+        }
+    seggedbmp = {
+        'num_segments': 0,
+        'start_segment_idx': 0,
+        'num_repairs': 0,
+        'reu_ptr': 0
+        }
+    segdata = [ ] # the raw binary data of all segments
+
+    import pdb; pdb.set_trace()
+    width = self.png.GetWidth()
+    height = self.png.GetHeight()
+
+    pixels = self.img.GetData()
+
+    for y in range(0, height, 8):
+      for x in range(0, width, 8):
+        curseg = {
+            'reloffset': 0,
+            'length': 0
+          }
+
+        charbytes, maskbytes, transparent_count = \
+            self.Assess8by8Chunk(x, y, width, height, multiplier, pixels)
+
+        # if all transparent, skip this char and move onto the next
+        if transparent_count == 64:
+          found_start, curseg = self.CheckIfStartOrEndOfSegment(found_start, rowsegs, curseg)
+
+        # if more than 16 pixels are transparent, spawn a 'mask' repair character
+        elif transparent_count > 16:
+          found_start, curseg = self.CheckIfStartOrEndOfSegment(found_start, rowsegs, curseg)
+
+          currepair = self.AppendMaskRepairChar(repairs, currepair, charbytes, maskbytes)
+
+        # this is a non-transparent char that needs to be added as segmentdata
+        else:
+          if not found_start:
+            found_start = True
+          # this is a non-transparent character, so let's save this data to the file
+          segdata.extend(charbytes)
+          currepair['reloffset'] += 8
+
+      # if we finished this row and we're mid-segment, let's move to next segment
+      if found_start:
+        found_start = False
+        self.AppendCurSeg(rowsegs, curseg)
+
+      next_row_increment = 40*8 - ((width+7) / 8)
+      curseg['reloffset'] += next_row_increment
+      currepair['reloffset'] += next_row_increment
+
+    # The next bit deals with hitboxes, but I'll skip that for now
+    # (as we're not doing png->bin+hitbox data, but just png->bin for preview purposes)
+
+    # no need for me to write out files such as:
+    # - ryu_idle2.bin (the segdata for this frame)
+    # - ryu_idle2.bmp_data (the metadata describing the segments and repairs this frame consists of)
+    # - ryu_idle2.segs_meta (the metadata describing each individual segment)
+
+    # but, again, for preview purposes, it'd be nice to preserve the bare minimum so I can draw it
+    # segdata = contains what 'ryu_idle2.bin' would have contained
+    # repairs = would have been concatended into segdata (after the hitbox data), but we can leave it separate here
+    # segmeta = rowsegs
+
+    return segdata, repairs, rowsegs
+
+  def ConvertToC64Img(self):
+    self.segdata, self.repairs, self.rowsegs = self._ExtractC64ImgStructs()
+
+    # create a new monochrome image based on the returned structures
+    width = self.png.GetWidth()
+    height = self.png.GetHeight()
+    img = wx.Image(width, height)
+
+    pixels = img.GetData()
+    byteoffset = 0
+
+    def setpxl(pixels, x, y, r, g, b):
+      ofs = (width*y + x)*3
+      pixels[offs] = r
+      pixels[offs+1] = g
+      pixels[offs+2] = b
+
+    # draw segments
+    idx = 0
+    for cursegmeta in self.rowsegs:
+      byteoffset += cursegmeta['reloffset'] # this is a byte-offset
+      yloc = byteoffset / (40*8)
+      xloc = byteoffset % (40*8) / 8 * 8
+
+      for charidx in range(0, cursegmeta['length']):
+        for yd in range(0, 8):
+          byteval = self.segdata[idx]
+          idx += 1
+          for xd in range(0, 8):
+            if byteval & 128:
+              setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
+            else:
+              setpxl(pixels, xloc+xd, yloc+yd, 255, 255, 255)
+
+            byteval <<= 1
+
+    # todo: draw repair chars
+
+    img.SetData(pixels)
+    return img
+
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def load_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
+    self.img = img
     width = img.GetWidth() * self.scale
     height = img.GetHeight() * self.scale
     simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
     self.png = simg.ConvertToBitmap()
+
+    self.c64img = self.ConvertToC64Img()
 
     self.update_image()
 

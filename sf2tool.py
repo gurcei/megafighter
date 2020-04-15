@@ -455,7 +455,7 @@ class MyFrame(wx.Frame):
         found_start = False
         curseg = self.AppendCurSeg(rowsegs, curseg)
 
-      next_row_increment = 40*8 - ((width+7) / 8)
+      next_row_increment = 40*8 - ((width+7) / 8)*8
       curseg['reloffset'] += next_row_increment
       currepair['reloffset'] += next_row_increment
 
@@ -478,8 +478,8 @@ class MyFrame(wx.Frame):
     self.segdata, self.repairs, self.rowsegs = self._ExtractC64ImgStructs()
 
     # create a new monochrome image based on the returned structures
-    width = self.png.GetWidth()
-    height = self.png.GetHeight()
+    width = self.img.GetWidth()
+    height = self.img.GetHeight()
     img = wx.Image(width, height)
 
     pixels = img.GetData()
@@ -495,14 +495,16 @@ class MyFrame(wx.Frame):
     idx = 0
     for cursegmeta in self.rowsegs:
       byteoffset += cursegmeta['reloffset'] # this is a byte-offset
-      yloc = byteoffset / (40*8)
-      xloc = byteoffset % (40*8) / 8 * 8
 
-      print(idx)
-      import pdb; pdb.set_trace()
+      # print('{} : {},{}'.format(idx, xloc, yloc))
+      # import pdb; pdb.set_trace()
 
+      # draw current segment
       for charidx in range(0, cursegmeta['length']):
         for yd in range(0, 8):
+          yloc = byteoffset / (40*8) * 8
+          xloc = byteoffset % (40*8) / 8 * 8
+
           byteval = self.segdata[idx]
           idx += 1
           for xd in range(0, 8):
@@ -512,6 +514,11 @@ class MyFrame(wx.Frame):
               setpxl(pixels, xloc+xd, yloc+yd, 255, 255, 255)
 
             byteval <<= 1
+
+          byteoffset += 1
+
+      byteoffset += 8
+
 
     # todo: draw repair chars
 

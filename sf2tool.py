@@ -81,14 +81,16 @@ class MyFrame(wx.Frame):
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
-    self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(180,300))
-    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(180,300))
+    self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(200,300))
+    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,300))
 
     self.pnlHitboxes.Hide()
     self.pnlAnimDetails.Hide()
 
+    self.txtDebug = wx.TextCtrl(panel, pos=(5,410), size=(555, 280))
+
     self.scale = 4
-    self.bmp = self.create_bitmap_area(panel, pos=(555,0), size=(200,200))
+    self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(200,200))
 
     self.create_menu()
 
@@ -107,7 +109,7 @@ class MyFrame(wx.Frame):
   def create_hitboxes_panel(self, panel, pos, size):
     hbpanel = wx.Panel(panel, pos=pos, size=size)
     itempos=[5, 20]
-    self.lblHbName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
+    self.lblPngName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
     initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
@@ -191,9 +193,21 @@ class MyFrame(wx.Frame):
     pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
     self.pnlHitboxes.Show()
     self.pnlAnimDetails.Hide()
+    self.lblPngName.SetLabel(self.selectedPng)
     self.CopyHitboxesFromSettingsToGui()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(pngPath)
+
+    # debug info
+    dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))
+    for rowseg in self.rowsegs:
+      dbg += str(rowseg) + "\n"
+
+    dbg += "\n\nREPAIRS({}) = \n".format(len(self.repairs))
+    for repair in self.repairs:
+      dbg += str(repair) + "\n"
+
+    self.txtDebug.SetValue(dbg)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -312,7 +326,7 @@ class MyFrame(wx.Frame):
     self.bmp.SetBitmap(self.png)
     self.draw_hitboxes()
 
-    self.bmp.SetBitmap(self.c64img.ConvertToBitmap())
+    self.bmp.SetBitmap(self.c64bmp)
     # scale up
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)
@@ -456,6 +470,8 @@ class MyFrame(wx.Frame):
       if found_start:
         found_start = False
         curseg = self.AppendCurSeg(rowsegs, curseg)
+        curseg['reloffset'] -= 8
+
 
       next_row_increment = 40*8 - ((width+7) / 8)*8
       curseg['reloffset'] += next_row_increment
@@ -489,14 +505,11 @@ class MyFrame(wx.Frame):
 
     def setpxl(pixels, x, y, r, g, b):
       ofs = (width*y + x)*3
-      if ofs >= len(pixels):
-        return
-        import pdb; pdb.set_trace()
       pixels[ofs] = r
       pixels[ofs+1] = g
       pixels[ofs+2] = b
 
-    def drawchar(pixels, byteoffset, idx):
+    def drawchar(pixels, byteoffset, idx, r, g, b):
       for yd in range(0, 8):
         yloc = byteoffset / (40*8) * 8
         xloc = byteoffset % (40*8) / 8 * 8
@@ -507,12 +520,22 @@ class MyFrame(wx.Frame):
           if byteval & 128:
             setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
           else:
-            setpxl(pixels, xloc+xd, yloc+yd, 255, 255, 255)
+            setpxl(pixels, xloc+xd, yloc+yd, r, g, b)
 
           byteval <<= 1
 
         byteoffset += 1
       return byteoffset, idx
+
+    # fill with hash pattern
+    for y in range(0, height):
+      for x in range(0, width,2):
+        if (y % 2):
+          setpxl(pixels, x, y, 255, 255, 255)
+          setpxl(pixels, x+1, y, 0, 0, 0)
+        else:
+          setpxl(pixels, x, y, 0, 0, 0)
+          setpxl(pixels, x+1, y, 255, 255, 255)
 
     # draw segments
     idx = 0
@@ -524,7 +547,7 @@ class MyFrame(wx.Frame):
 
       # draw current segment
       for charidx in range(0, cursegmeta['length']):
-        byteoffset, idx = drawchar(pixels, byteoffset, idx)
+        byteoffset, idx = drawchar(pixels, byteoffset, idx, 100,200,200)
 
       byteoffset += 8
 
@@ -539,7 +562,7 @@ class MyFrame(wx.Frame):
       self.segdata.append(repair['vals'][10])
       self.segdata.append(repair['vals'][12])
       self.segdata.append(repair['vals'][14])
-      _, idx = drawchar(pixels, byteoffset, idx)
+      _, idx = drawchar(pixels, byteoffset, idx, 255, 100, 100)
 
     img.SetData(pixels)
     return img
@@ -556,6 +579,7 @@ class MyFrame(wx.Frame):
     self.png = simg.ConvertToBitmap()
 
     self.c64img = self.ConvertToC64Img()
+    self.c64bmp = self.c64img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL).ConvertToBitmap()
 
     self.update_image()
 

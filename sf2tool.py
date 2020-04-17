@@ -388,8 +388,10 @@ class MyFrame(wx.Frame):
 
     repairs.append(currepair)
 
-    currepair['reloffset'] = 0
-    currepair['vals'] = [ ]
+    currepair = {
+        'reloffset': 0,
+        'vals': [ ]
+        }
 
     return currepair
 
@@ -487,9 +489,30 @@ class MyFrame(wx.Frame):
 
     def setpxl(pixels, x, y, r, g, b):
       ofs = (width*y + x)*3
+      if ofs >= len(pixels):
+        return
+        import pdb; pdb.set_trace()
       pixels[ofs] = r
       pixels[ofs+1] = g
       pixels[ofs+2] = b
+
+    def drawchar(pixels, byteoffset, idx):
+      for yd in range(0, 8):
+        yloc = byteoffset / (40*8) * 8
+        xloc = byteoffset % (40*8) / 8 * 8
+
+        byteval = self.segdata[idx]
+        idx += 1
+        for xd in range(0, 8):
+          if byteval & 128:
+            setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
+          else:
+            setpxl(pixels, xloc+xd, yloc+yd, 255, 255, 255)
+
+          byteval <<= 1
+
+        byteoffset += 1
+      return byteoffset, idx
 
     # draw segments
     idx = 0
@@ -501,26 +524,22 @@ class MyFrame(wx.Frame):
 
       # draw current segment
       for charidx in range(0, cursegmeta['length']):
-        for yd in range(0, 8):
-          yloc = byteoffset / (40*8) * 8
-          xloc = byteoffset % (40*8) / 8 * 8
-
-          byteval = self.segdata[idx]
-          idx += 1
-          for xd in range(0, 8):
-            if byteval & 128:
-              setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
-            else:
-              setpxl(pixels, xloc+xd, yloc+yd, 255, 255, 255)
-
-            byteval <<= 1
-
-          byteoffset += 1
+        byteoffset, idx = drawchar(pixels, byteoffset, idx)
 
       byteoffset += 8
 
-
-    # todo: draw repair chars
+    byteoffset = 0
+    for repair in self.repairs:
+      byteoffset += repair['reloffset'] # this is a byte-offset
+      self.segdata.append(repair['vals'][0])
+      self.segdata.append(repair['vals'][2])
+      self.segdata.append(repair['vals'][4])
+      self.segdata.append(repair['vals'][6])
+      self.segdata.append(repair['vals'][8])
+      self.segdata.append(repair['vals'][10])
+      self.segdata.append(repair['vals'][12])
+      self.segdata.append(repair['vals'][14])
+      _, idx = drawchar(pixels, byteoffset, idx)
 
     img.SetData(pixels)
     return img

@@ -273,8 +273,10 @@ class MyFrame(wx.Frame):
     menu_bar = wx.MenuBar()
     file_menu = wx.Menu()
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
+    self.toggle_view = file_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuOpenFolder, source=open_folder_menu_item)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuToggleView, source=self.toggle_view)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -283,6 +285,11 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnFrameClose, quit_menu_item)
 
     self.SetMenuBar(menu_bar)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnFileMenuToggleView(self, event):
+    self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -323,10 +330,12 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def update_image(self):
-    self.bmp.SetBitmap(self.png)
-    self.draw_hitboxes()
+    if self.toggle_view.IsChecked():
+      self.bmp.SetBitmap(self.png)
+    else:
+      self.bmp.SetBitmap(self.c64bmp)
 
-    self.bmp.SetBitmap(self.c64bmp)
+    self.draw_hitboxes()
     # scale up
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)

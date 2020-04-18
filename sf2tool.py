@@ -277,9 +277,12 @@ class MyFrame(wx.Frame):
     file_menu = wx.Menu()
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
     self.toggle_view = file_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
+    self.toggle_colours = file_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
+
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuOpenFolder, source=open_folder_menu_item)
     self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuToggleView, source=self.toggle_view)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuToggleColour, source=self.toggle_colours)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -292,6 +295,10 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnFileMenuToggleView(self, event):
+    self.update_image()
+ 
+  def OnFileMenuToggleColour(self, event):
+    self.ConvertToC64()
     self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
@@ -557,6 +564,7 @@ class MyFrame(wx.Frame):
 
     # draw segments
     idx = 0
+    clr=[100,200,200] if self.toggle_colours.IsChecked() else [255,255,255]
     for cursegmeta in self.rowsegs:
       byteoffset += cursegmeta['reloffset'] # this is a byte-offset
 
@@ -565,11 +573,12 @@ class MyFrame(wx.Frame):
 
       # draw current segment
       for charidx in range(0, cursegmeta['length']):
-        byteoffset, idx = drawchar(pixels, byteoffset, idx, 100,200,200)
+        byteoffset, idx = drawchar(pixels, byteoffset, idx, clr[0],clr[1],clr[2])
 
       byteoffset += 8
 
     byteoffset = 0
+    clr=[255,100,100] if self.toggle_colours.IsChecked() else [255,255,255]
     for repair in self.repairs:
       byteoffset += repair['reloffset'] # this is a byte-offset
       self.segdata.append(repair['vals'][0])
@@ -580,13 +589,20 @@ class MyFrame(wx.Frame):
       self.segdata.append(repair['vals'][10])
       self.segdata.append(repair['vals'][12])
       self.segdata.append(repair['vals'][14])
-      _, idx = drawchar(pixels, byteoffset, idx, 255, 100, 100)
+      _, idx = drawchar(pixels, byteoffset, idx, clr[0], clr[1], clr[2])
 
     img.SetData(pixels)
     return img
 
 
   # - - - - - - - - - - - - - - - - - - -
+
+  def ConvertToC64(self):
+    width = self.img.GetWidth() * self.scale
+    height = self.img.GetHeight() * self.scale
+    self.c64img = self.ConvertToC64Img()
+    self.c64bmp = self.c64img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL).ConvertToBitmap()
+
 
   def load_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
@@ -596,8 +612,7 @@ class MyFrame(wx.Frame):
     simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
     self.png = simg.ConvertToBitmap()
 
-    self.c64img = self.ConvertToC64Img()
-    self.c64bmp = self.c64img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL).ConvertToBitmap()
+    self.ConvertToC64()
 
     self.update_image()
 

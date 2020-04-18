@@ -1,0 +1,5574 @@
+{
+    "groups": {
+        "Ken": {
+            "PNGs": {
+                "ken_idle1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ken_idle1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ken_idle2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ken_idle2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ken_idle3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ken_idle3", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "Ken", 
+            "py/object": "__main__.Group"
+        }, 
+        "Ryu": {
+            "PNGs": {
+                "ryu_backroll1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            14, 
+                            10, 
+                            28, 
+                            22
+                        ], 
+                        "Torso": [
+                            18, 
+                            34, 
+                            41, 
+                            56
+                        ]
+                    }, 
+                    "name": "ryu_backroll1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_backroll7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_backroll7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_block1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_block1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_block2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_block2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hkick4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hkick5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_hpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_hpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_lkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_lkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_lkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_lkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_lpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_lpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_lpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_lpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_mkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_mkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_mkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_mkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_mpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_mpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouch_mpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouch_mpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouchhit1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouchhit1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouchhit2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouchhit2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_crouchhit3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_crouchhit3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_facehit1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_facehit1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_facehit2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_facehit2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_facehit3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_facehit3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_facehit4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_facehit4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fhpunch4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fhpunch4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump_lpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump_lpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump_lpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump_lpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump_mhkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump_mhkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump_mhkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump_mhkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fjump_mhkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fjump_mhkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_flkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_flkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_flkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_flkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_flpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_flpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_flpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_flpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_flpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_flpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_fmpunch4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_fmpunch4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadouken1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadouken1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadouken2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadouken2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadouken3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadouken3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadouken4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadouken4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadouken5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadouken5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj10": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj10", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj11": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj11", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj12": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj12", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj13": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj13", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj14": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj14", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj15": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj15", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj16": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj16", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj17": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj17", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj18": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj18", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj8": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj8", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj9": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj9", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hit1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hit1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hit2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hit2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hit3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hit3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hit4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hit4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hkick4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hkick5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_idle2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_idle2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_idle3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_idle3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_idle4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_idle4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_hkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_hkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_hkick3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_lmhpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_lmhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_lmhpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_lmhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_lmhpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_lmhpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_lmkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_lmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_jump_lmkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_jump_lmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_knockdown8": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_knockdown8", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_ko1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_ko1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_ko2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_ko2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_ko3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_ko3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_ko4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_ko4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_ko5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_ko5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_lmkick1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_lmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_lmkick2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_lmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_lpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_lpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_lpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_lpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mhpunch1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mhpunch2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mhpunch3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mhpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mugshot1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mugshot1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mugshot2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mugshot2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_mugshot3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_mugshot3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouldertoss1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouldertoss1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouldertoss2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouldertoss2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouldertoss3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouldertoss3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouldertoss4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouldertoss4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouldertoss5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouldertoss5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_shouryuken7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_shouryuken7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stage": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stage_cropped": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage_cropped", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stage_full": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage_full", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stunned1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stunned1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stunned2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stunned2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stunned3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stunned3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki8": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki8", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_tatsumaki9": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_tatsumaki9", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victory1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victory1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victory2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victory2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victory3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victory3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_victoryalt7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_victoryalt7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk4": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk5": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk6": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk7": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_walk8": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_walk8", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "Ryu", 
+            "py/object": "__main__.Group"
+        }, 
+        "Zangief": {
+            "PNGs": {
+                "zangief_idle1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_idle1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_idle2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_idle2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_idle3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_idle3", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "Zangief", 
+            "py/object": "__main__.Group"
+        }
+    }, 
+    "projpath": "/Users/tramvo/c64/Projects/sf2/Graphics", 
+    "py/object": "__main__.Settings"
+}

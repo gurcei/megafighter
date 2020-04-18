@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 import wx
-import pickle
+import jsonpickle
 import os.path
 import glob
 import enum
@@ -11,6 +11,9 @@ import enum
 
 class Settings:
   def __init__(self, projpath=''):
+    if projpath=='':
+      return
+
     self.projpath = projpath
     self.groups = {}
 
@@ -684,18 +687,17 @@ def SetGraphicsDirectory(path):
 def SaveSettings():
   global settings
   if settings != None:
-    pickle_out = open("settings.pickle", "wb")
-    pickle.dump(settings, pickle_out)
-    pickle_out.close()
+    with open("settings.json", "w") as f:
+      f.write(jsonpickle.encode(settings,indent=4))
 
   # - - - - - - - - - - - - - - - - - - -
 
 def LoadSettings():
   global settings
-  if os.path.isfile("settings.pickle"):
-    print("found settings.pickle")
-    pickle_in = open("settings.pickle", "rb")
-    settings = pickle.load(pickle_in)
+  if os.path.isfile("settings.json"):
+    print("found settings.json")
+    with open("settings.json", "r") as f:
+      settings = jsonpickle.decode(f.read())
 
     # update gui too
     for group in settings.groups:

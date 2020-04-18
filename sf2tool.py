@@ -15,8 +15,11 @@ class Settings:
     self.groups = {}
 
     # add in groups
-    root, dirs, _ = os.walk(projpath)
-    for dir in root[1]:
+    for dir in os.listdir(projpath):
+      if not os.path.isdir(os.path.join(projpath,dir)):
+        continue
+      if dir[0] == '.':
+        continue
       self.groups[dir] = Group(projpath, dir)
 
 # -----------------------------------------
@@ -345,12 +348,15 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def IsTransparentPixel(self, pxl):
-    return (pxl[0]==112 and pxl[1]==136 and pxl[2]==136) or (pxl[0] == 128 and pxl[1]==128 and pxl[2]==128)
+    return (pxl[0] == self.transparent[0] and pxl[1] == self.transparent[1] and pxl[2] == self.transparent[2])
 
   def Assess8by8Chunk(self, x, y, width, height, multiplier, pixels):
     charbytes = [0] * 8
     maskbytes = [0] * 8
     transparent_count = 0
+
+    #if x == 32 and y == 16:
+    #  import pdb; pdb.set_trace()
 
     for yd in range(0, 8):
       byteval = 0
@@ -360,19 +366,19 @@ class MyFrame(wx.Frame):
         ptr = rowptr + (x+xd)*multiplier
         pxl = pixels[ptr:ptr+3]
 
+        istransparent = self.IsTransparentPixel(pxl)
         # check if it's a transparent pixel
-        # import pdb; pdb.set_trace()
         # print('{} : ({},{}) : {}'.format(ptr, x, y, repr(pxl)))
-        if (y+yd) >= height or self.IsTransparentPixel(pxl):
+        if (y+yd) >= height or istransparent:
           transparent_count += 1
           maskbytes[yd] |= 1 << (7 - xd)
 
         if (y+yd) < height:
           # check threshold for black
           r=(pxl[0] + pxl[1] + pxl[2]) / 3
-          if r < 80 and (x+xd < width):
+          if r < 80 and (x+xd < width) and not istransparent:
             byteval |= 1 << (7 - xd)
-          elif r < 160 and (x+xd < width):
+          elif r < 160 and (x+xd < width) or istransparent:
             if ((xd%2) and (yd%2)) or (not (xd%2) and not (yd%2)):
               byteval |= 1 << (7-xd)
       charbytes[yd] = byteval
@@ -447,6 +453,9 @@ class MyFrame(wx.Frame):
         'reloffset': 0,
         'length': 0
       }
+
+    # for now, let's assume that the top-left pixel is the transparency colour :)
+    self.transparent = (pixels[0], pixels[1], pixels[2])
 
     #import pdb; pdb.set_trace()
     for y in range(0, height, 8):

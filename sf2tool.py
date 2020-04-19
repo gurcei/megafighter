@@ -537,33 +537,38 @@ class MyFrame(wx.Frame):
       pixels[ofs+1] = g
       pixels[ofs+2] = b
 
-    def drawchar(pixels, byteoffset, idx, r, g, b):
+    def drawchar(pixels, byteoffset, idx, r, g, b, masks=None):
       for yd in range(0, 8):
         yloc = byteoffset / (40*8) * 8
         xloc = byteoffset % (40*8) / 8 * 8
 
         byteval = self.segdata[idx]
         idx += 1
+        maskval = masks[yd] if masks != None else 0
         for xd in range(0, 8):
-          if byteval & 128:
-            setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
-          else:
-            setpxl(pixels, xloc+xd, yloc+yd, r, g, b)
+          # ignore masked out pixels
+          if maskval & 128 == 0:
+            if byteval & 128:
+              setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
+            else:
+              setpxl(pixels, xloc+xd, yloc+yd, r, g, b)
 
           byteval <<= 1
+          maskval <<= 1
 
         byteoffset += 1
       return byteoffset, idx
 
     # fill with hash pattern
     for y in range(0, height):
-      for x in range(0, width,2):
-        if (y % 2):
-          setpxl(pixels, x, y, 255, 255, 255)
-          setpxl(pixels, x+1, y, 0, 0, 0)
-        else:
-          setpxl(pixels, x, y, 0, 0, 0)
-          setpxl(pixels, x+1, y, 255, 255, 255)
+      for x in range(0, width):
+        setpxl(pixels, x, y, 100, 100, 100)
+        #if (y % 2):
+        #  setpxl(pixels, x, y, 255, 255, 255)
+        #  setpxl(pixels, x+1, y, 0, 0, 0)
+        #else:
+        #  setpxl(pixels, x, y, 0, 0, 0)
+        #  setpxl(pixels, x+1, y, 255, 255, 255)
 
     # draw segments
     idx = 0
@@ -592,7 +597,8 @@ class MyFrame(wx.Frame):
       self.segdata.append(repair['vals'][10])
       self.segdata.append(repair['vals'][12])
       self.segdata.append(repair['vals'][14])
-      _, idx = drawchar(pixels, byteoffset, idx, clr[0], clr[1], clr[2])
+      masks = repair['vals'][1::2]
+      _, idx = drawchar(pixels, byteoffset, idx, clr[0], clr[1], clr[2], masks)
 
     img.SetData(pixels)
     return img

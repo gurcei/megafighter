@@ -118,6 +118,9 @@ class MyFrame(wx.Frame):
     self.lblPngName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
     itempos[1] += 30
+    self.txtCrop = self.create_text_field(hbpanel, tuple(itempos), "Crop Dim:", "")
+
+    itempos[1] += 30
     self.lblPngSize = self.create_static_field(hbpanel, tuple(itempos), "Size:", "???")
 
     initialvalue="0, 0, 0, 0"
@@ -193,6 +196,13 @@ class MyFrame(wx.Frame):
       items=files.keys()
       items.sort()
       self.lstPngs.InsertItems(items, 0)
+
+    # if there is a .gif within the Graphics/ folder with this group-name,
+    # then let's assume it is the sprite-sheet and we can preview it
+    sprsheet = "{}.gif".format(self.selectedGroup)
+    sprsheet = os.path.join(settings.projpath, sprsheet)
+    if os.path.exists(sprsheet):
+      self.load_plain_image(sprsheet)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -650,6 +660,12 @@ class MyFrame(wx.Frame):
 
     if self.toggle_grid.IsChecked():
       self._DrawGrid(self.c64bmp)
+
+  def load_plain_image(self, imgpath):
+    img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
+    self.img = img
+    self.png = img.ConvertToBitmap()
+    self.bmp.SetBitmap(self.png)
 
   def load_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)

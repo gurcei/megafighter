@@ -117,6 +117,9 @@ class MyFrame(wx.Frame):
     itempos=[5, 20]
     self.lblPngName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
+    itempos[1] += 30
+    self.lblPngSize = self.create_static_field(hbpanel, tuple(itempos), "Size:", "???")
+
     initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
 
@@ -203,6 +206,7 @@ class MyFrame(wx.Frame):
     self.CopyHitboxesFromSettingsToGui()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(pngPath)
+    self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
 
     # debug info
     dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))

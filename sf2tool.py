@@ -278,14 +278,19 @@ class MyFrame(wx.Frame):
   def create_menu(self):
     menu_bar = wx.MenuBar()
     file_menu = wx.Menu()
+    options_menu = wx.Menu()
     open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
-    self.toggle_view = file_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
-    self.toggle_colours = file_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
+    self.toggle_view = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
+    self.toggle_colours = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
+    self.toggle_grid = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Grid\tCTRL-G', 'Toggle grid')
 
     menu_bar.Append(file_menu, 'File')
-    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuOpenFolder, source=open_folder_menu_item)
-    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuToggleView, source=self.toggle_view)
-    self.Bind(event=wx.EVT_MENU, handler=self.OnFileMenuToggleColour, source=self.toggle_colours)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=open_folder_menu_item)
+
+    menu_bar.Append(options_menu, 'Options')
+    self.Bind(event=wx.EVT_MENU, handler=self.OnToggleView, source=self.toggle_view)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnToggleColour, source=self.toggle_colours)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnToggleGrid, source=self.toggle_grid)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -297,16 +302,22 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnFileMenuToggleView(self, event):
-    self.update_image()
- 
-  def OnFileMenuToggleColour(self, event):
+  def OnToggleGrid(self, event):
     self.ConvertToC64()
     self.update_image()
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnFileMenuOpenFolder(self, event):
+  def OnToggleView(self, event):
+    self.update_image()
+ 
+  def OnToggleColour(self, event):
+    self.ConvertToC64()
+    self.update_image()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnOpenFolder(self, event):
     title = "Choose a directory:"
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
@@ -606,12 +617,30 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def _DrawGrid(self, bmp):
+    dc=wx.MemoryDC(bmp)
+    dc.SetPen(wx.Pen(wx.Colour(180,180,180), 1))
+    dc.SetBrush(wx.Brush(wx.RED))
+
+    width = self.img.GetWidth() * self.scale
+    height = self.img.GetHeight() * self.scale
+
+    for y in range(0,height,8*self.scale):
+      dc.DrawLine(0, y, width, y)
+
+    for x in range(0,width,8*self.scale):
+      dc.DrawLine(x, 0, x, height)
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def ConvertToC64(self):
     width = self.img.GetWidth() * self.scale
     height = self.img.GetHeight() * self.scale
     self.c64img = self.ConvertToC64Img()
     self.c64bmp = self.c64img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL).ConvertToBitmap()
 
+    if self.toggle_grid.IsChecked():
+      self._DrawGrid(self.c64bmp)
 
   def load_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)

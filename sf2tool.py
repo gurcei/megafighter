@@ -349,6 +349,7 @@ class MyFrame(wx.Frame):
       self.bmp.SetBitmap(self.c64bmp)
 
     self.draw_hitboxes()
+    self.bmp.Refresh()
     # scale up
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)

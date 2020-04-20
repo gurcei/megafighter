@@ -561,11 +561,15 @@ class MyFrame(wx.Frame):
         byteval = self.segdata[idx]
         idx += 1
         maskval = masks[yd] if masks != None else 0
+        clroff = [0, 0, 0]
+        if masks != None and self.toggle_colours.IsChecked():
+          clroff = [50,0,0]
+
         for xd in range(0, 8):
           # ignore masked out pixels
           if maskval & 128 == 0:
             if byteval & 128:
-              setpxl(pixels, xloc+xd, yloc+yd, 0, 0, 0)
+              setpxl(pixels, xloc+xd, yloc+yd, clroff[0], clroff[1], clroff[2])
             else:
               setpxl(pixels, xloc+xd, yloc+yd, r, g, b)
 

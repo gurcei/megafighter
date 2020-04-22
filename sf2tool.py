@@ -5,6 +5,7 @@ import os.path
 import glob
 import enum
 
+
 # -----------------------------------------
 # MY SETTINGS-RELATED CLASSES
 # -----------------------------------------
@@ -96,7 +97,7 @@ class MyFrame(wx.Frame):
     self.txtDebug = wx.TextCtrl(panel, pos=(5,410), size=(555, 280))
 
     self.scale = 4
-    self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(200,200))
+    self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(480,650))
 
     self.create_menu()
 
@@ -340,7 +341,8 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def create_bitmap_area(self, panel, pos, size):
-    bmp = wx.StaticBitmap(parent=panel, pos=pos, size=size)
+    self.spnl = wx.ScrolledWindow(panel, pos=pos, size=size)
+    bmp = wx.StaticBitmap(parent=self.spnl)
 
     # mouse-related events
     bmp.Bind(wx.EVT_MOUSE_EVENTS, self.OnBmpMouseEvents)
@@ -367,6 +369,14 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def update_scrollbars(self):
+    self.spnl.Scroll(0,0)
+    b = self.bmp.GetBitmap()
+    self.spnl.SetScrollbars(10,10, b.GetWidth()/10, b.GetHeight()/10)
+    self.spnl.SetScrollRate(10,10)
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def update_image(self):
     if self.toggle_view.IsChecked():
       self.bmp.SetBitmap(self.png)
@@ -375,6 +385,9 @@ class MyFrame(wx.Frame):
 
     self.draw_hitboxes()
     self.bmp.Refresh()
+
+    self.update_scrollbars()
+
     # scale up
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)
@@ -667,6 +680,8 @@ class MyFrame(wx.Frame):
     self.png = img.ConvertToBitmap()
     self.bmp.SetBitmap(self.png)
 
+    self.update_scrollbars()
+
   def load_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
     self.img = img
@@ -700,6 +715,13 @@ class MyFrame(wx.Frame):
       self.pt2 = event.GetPosition()
       self.update_hb_and_image()
 
+    print(event.GetPosition())
+
+    # if not self.spnl.HasFocus():
+    #   print("set focus!")
+    #   self.spnl.SetFocusIgnoringChildren()
+
+
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBmpMouseEvents(self, event):
@@ -708,6 +730,10 @@ class MyFrame(wx.Frame):
     if event.LeftUp():
       self.pt2 = event.GetPosition()
       self.update_hb_and_image()
+
+    # I needed to do this, in order for the parent scroll-panel to be able to handle
+    # horizontal+vertical scrolling gestures on my laptop's touchpad.
+    event.Skip()
 
   # - - - - - - - - - - - - - - - - - - -
 

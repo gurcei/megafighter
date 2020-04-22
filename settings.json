@@ -1,5 +1,101 @@
 {
     "groups": {
+        "ChunLi": {
+            "PNGs": {
+                "chunli_idle1": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_idle1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_idle2": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_idle2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_idle3": {
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_idle3", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "ChunLi", 
+            "py/object": "__main__.Group"
+        }, 
         "Ken": {
             "PNGs": {
                 "ken_idle1": {
@@ -113,16 +209,16 @@
                             0
                         ], 
                         "Head": [
-                            14, 
-                            10, 
-                            28, 
-                            22
+                            0, 
+                            0, 
+                            0, 
+                            0
                         ], 
                         "Torso": [
-                            18, 
-                            34, 
-                            41, 
-                            56
+                            0, 
+                            0, 
+                            0, 
+                            0
                         ]
                     }, 
                     "name": "ryu_backroll1", 

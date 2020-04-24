@@ -4,6 +4,7 @@ import jsonpickle
 import os.path
 import glob
 import enum
+from wx.lib.anchors import LayoutAnchors
 
 
 # -----------------------------------------
@@ -79,13 +80,14 @@ class MyFrame(wx.Frame):
     super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', pos=(100,50), size=(1100,700))
     self.Bind(wx.EVT_CLOSE, self.OnFrameClose)
 
-    panel = wx.Panel(self)
-
-    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,400), choices=[])
+    panel = wx.Panel(self, size=(self.GetSize()[0]-10, self.GetSize()[1]-10))
+    panel.SetAutoLayout(True)
+    
+    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,360), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnGroupSelectionChanged)
-    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,400), choices=[])
+    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
-    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,400), choices=['aaa', 'bbb'])
+    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(200,300))
@@ -94,10 +96,11 @@ class MyFrame(wx.Frame):
     self.pnlHitboxes.Hide()
     self.pnlAnimDetails.Hide()
 
-    self.txtDebug = wx.TextCtrl(panel, pos=(5,410), size=(555, 280))
+    self.txtDebug = wx.TextCtrl(panel, pos=(5,385), size=(555, 300))
+    self.txtDebug.SetConstraints(LayoutAnchors(self.txtDebug, left=True, top=True, right=False, bottom=True))
 
     self.scale = 4
-    self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(480,650))
+    self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(510,680))
 
     self.create_menu()
 
@@ -343,6 +346,7 @@ class MyFrame(wx.Frame):
   def create_bitmap_area(self, panel, pos, size):
     self.spnl = wx.ScrolledWindow(panel, pos=pos, size=size)
     bmp = wx.StaticBitmap(parent=self.spnl)
+    self.spnl.SetConstraints(LayoutAnchors(self.spnl, left=True, top=True, right=True, bottom=True))
 
     # mouse-related events
     bmp.Bind(wx.EVT_MOUSE_EVENTS, self.OnBmpMouseEvents)
@@ -715,13 +719,6 @@ class MyFrame(wx.Frame):
       self.pt2 = event.GetPosition()
       self.update_hb_and_image()
 
-    print(event.GetPosition())
-
-    # if not self.spnl.HasFocus():
-    #   print("set focus!")
-    #   self.spnl.SetFocusIgnoringChildren()
-
-
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBmpMouseEvents(self, event):
@@ -795,5 +792,6 @@ def LoadSettings():
 if __name__ == '__main__':
   app = wx.App()
   frame = MyFrame()
+  frame.Show()
   LoadSettings()
   app.MainLoop()

@@ -5,6 +5,7 @@ import os.path
 import glob
 import enum
 from wx.lib.anchors import LayoutAnchors
+from numpy import array
 
 
 # -----------------------------------------
@@ -84,8 +85,8 @@ class MyFrame(wx.Frame):
     panel.SetAutoLayout(True)
     
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,360), choices=[])
-    self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnGroupSelectionChanged)
-    self.lstGroups.Bind(wx.EVT_SET_FOCUS, self.OnGroupSelectionChanged)
+    self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnLstGroupSelectionChanged)
+    self.lstGroups.Bind(wx.EVT_SET_FOCUS, self.OnLstGroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
@@ -106,6 +107,12 @@ class MyFrame(wx.Frame):
     self.create_menu()
 
     self.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  class Mode(enum.Enum):
+    Group = 0
+    Png = 1
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -190,7 +197,9 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnGroupSelectionChanged(self, event):
+  def OnLstGroupSelectionChanged(self, event):
+    self.movingPngFlag = False
+
     if type(event) == wx.FocusEvent:
       sel = self.lstGroups.GetSelection()
       if sel == -1:
@@ -210,8 +219,11 @@ class MyFrame(wx.Frame):
         items.sort()
         self.lstPngs.InsertItems(items, 0)
 
+    self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
     # then let's assume it is the sprite-sheet and we can preview it
+    self.sx = 0
+    self.sy = 0
     self.DrawSpriteSheet()
 
   # - - - - - - - - - - - - - - - - - - -
@@ -233,13 +245,16 @@ class MyFrame(wx.Frame):
       sourcedc = wx.MemoryDC(img.ConvertToBitmap())
       bmp = self.img.ConvertToBitmap()
       dc=wx.MemoryDC(bmp)
-      dc.Blit(0, 0, img.GetWidth(), img.GetHeight(), sourcedc, 0, 0)
+      self.sw = img.GetWidth()
+      self.sh = img.GetHeight()
+      dc.Blit(self.sx, self.sy, self.sw, self.sh, sourcedc, 0, 0)
       self.bmp.SetBitmap(bmp)
       # dc.DrawRectangle(coord[0], coord[1], coord[2]-coord[0]+self.scale, self.scale)
 
   # - - - - - - - - - - - - - - - - - - -
 
   def OnLstPngsSelectionChanged(self, event):
+    self.mode = self.Mode.Png
     self.selectedPng = self.lstPngs.GetString(event.GetSelection())
     self.selectedPngObj = self.selectedGroupObj.PNGs[self.selectedPng]
     pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
@@ -743,24 +758,72 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBmpMouseMove(self, event):
-    pos = event.GetPosition()
-    if event.LeftIsDown():
-      self.pt2 = event.GetPosition()
-      self.update_hb_and_image()
+    if self.mode == self.Mode.Group:
+      self.HandleMouseMoveInGroupMode(event)
+    elif self.mode == self.Mode.Png:
+      self.HandleMouseMoveInPngMode(event)
 
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBmpMouseEvents(self, event):
+    if self.mode == self.Mode.Group:
+      self.HandleMouseEventsInGroupMode(event)
+    elif self.mode == self.Mode.Png:
+      self.HandleMouseEventsInPngMode(event)
+
+    # I needed to do this, in order for the parent scroll-panel to be able to handle
+    # horizontal+vertical scrolling gestures on my laptop's touchpad.
+    event.Skip()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def InPngBounds(self, pos):
+    if self.sx < pos[0] and (self.sx+self.sw) > pos[0] and \
+      self.sy < pos[1] and (self.sy+self.sh) > pos[1]:
+      return True
+    else:
+      return False
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def HandleMouseEventsInGroupMode(self, event):
+    if event.LeftDown() and not self.movingPngFlag:
+      self.pt1 = array(event.GetPosition())
+      self.movingPngFlag = True if self.InPngBounds(self.pt1) else False
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def HandleMouseMoveInGroupMode(self, event):
+    pos = event.GetPosition()
+    if self.movingPngFlag and event.LeftIsDown():
+      self.pt2 = array(event.GetPosition())
+      diff = self.pt2 - self.pt1
+      self.sx += diff[0]
+      self.sy += diff[1]
+
+      print(diff)
+      print('{}, {}'.format(self.sx, self.sy))
+
+      self.DrawSpriteSheet()
+      self.pt1 = self.pt2
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def HandleMouseEventsInPngMode(self, event):
     if event.LeftDown():
       self.pt1 = event.GetPosition()
     if event.LeftUp():
       self.pt2 = event.GetPosition()
       self.update_hb_and_image()
 
-    # I needed to do this, in order for the parent scroll-panel to be able to handle
-    # horizontal+vertical scrolling gestures on my laptop's touchpad.
-    event.Skip()
+  # - - - - - - - - - - - - - - - - - - -
 
+  def HandleMouseMoveInPngMode(self, event):
+    pos = event.GetPosition()
+    if event.LeftIsDown():
+      self.pt2 = event.GetPosition()
+      self.update_hb_and_image()
+    
   # - - - - - - - - - - - - - - - - - - -
 
   def update_hb_coords(self):

@@ -85,6 +85,7 @@ class MyFrame(wx.Frame):
     
     self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,360), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnGroupSelectionChanged)
+    self.lstGroups.Bind(wx.EVT_SET_FOCUS, self.OnGroupSelectionChanged)
     self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
@@ -190,11 +191,21 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnGroupSelectionChanged(self, event):
-    self.selectedGroup = self.lstGroups.GetString(event.GetSelection())
+    if type(event) == wx.FocusEvent:
+      sel = self.lstGroups.GetSelection()
+      if sel == -1:
+        return
+      self.selectedGroup = self.lstGroups.GetString(sel)
+    else:
+      self.selectedGroup = self.lstGroups.GetString(event.GetSelection())
     self.selectedGroupObj = settings.groups[self.selectedGroup]
     # show pngs within this sub-folder
     groupPath = os.path.join(settings.projpath, self.selectedGroup)
     files = self.selectedGroupObj.PNGs
+
+    if type(event) == wx.FocusEvent:
+      return
+
     self.lstPngs.Clear()
     if len(files) != 0:
       items=files.keys()

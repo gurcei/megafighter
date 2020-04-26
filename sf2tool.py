@@ -203,21 +203,39 @@ class MyFrame(wx.Frame):
     groupPath = os.path.join(settings.projpath, self.selectedGroup)
     files = self.selectedGroupObj.PNGs
 
-    if type(event) == wx.FocusEvent:
-      return
-
-    self.lstPngs.Clear()
-    if len(files) != 0:
-      items=files.keys()
-      items.sort()
-      self.lstPngs.InsertItems(items, 0)
+    if type(event) != wx.FocusEvent:
+      self.lstPngs.Clear()
+      if len(files) != 0:
+        items=files.keys()
+        items.sort()
+        self.lstPngs.InsertItems(items, 0)
 
     # if there is a .gif within the Graphics/ folder with this group-name,
     # then let's assume it is the sprite-sheet and we can preview it
+    self.DrawSpriteSheet()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def DrawSpriteSheet(self):
     sprsheet = "{}.gif".format(self.selectedGroup)
     sprsheet = os.path.join(settings.projpath, sprsheet)
     if os.path.exists(sprsheet):
       self.load_plain_image(sprsheet)
+      self.OverlayPng()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OverlayPng(self):
+    sel = self.lstPngs.GetSelection()
+    if sel != -1:
+      pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
+      img = wx.Image(pngPath, wx.BITMAP_TYPE_ANY)
+      sourcedc = wx.MemoryDC(img.ConvertToBitmap())
+      bmp = self.img.ConvertToBitmap()
+      dc=wx.MemoryDC(bmp)
+      dc.Blit(0, 0, img.GetWidth(), img.GetHeight(), sourcedc, 0, 0)
+      self.bmp.SetBitmap(bmp)
+      # dc.DrawRectangle(coord[0], coord[1], coord[2]-coord[0]+self.scale, self.scale)
 
   # - - - - - - - - - - - - - - - - - - -
 

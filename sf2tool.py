@@ -796,6 +796,8 @@ class MyFrame(wx.Frame):
     if event.LeftDown() and not self.movingPngFlag:
       self.pt1 = array(event.GetPosition())
       self.movingPngFlag = True if self.InPngBounds(self.pt1) else False
+    if event.LeftUp():
+      self.movingPngFlag = False
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -806,9 +808,6 @@ class MyFrame(wx.Frame):
       diff = self.pt2 - self.pt1
       self.sx += diff[0]
       self.sy += diff[1]
-
-      print(diff)
-      print('{}, {}'.format(self.sx, self.sy))
 
       self.DrawSpriteSheet()
       self.pt1 = self.pt2

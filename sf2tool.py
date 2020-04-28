@@ -242,14 +242,20 @@ class MyFrame(wx.Frame):
     if sel != -1:
       pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
       img = wx.Image(pngPath, wx.BITMAP_TYPE_ANY)
-      sourcedc = wx.MemoryDC(img.ConvertToBitmap())
+      sbmp = img.ConvertToBitmap()
+      dt = img.GetData()
+      sbmp.SetMaskColour((dt[0], dt[1], dt[2]))
+      sourcedc = wx.MemoryDC(sbmp)
       bmp = self.img.ConvertToBitmap()
       dc=wx.MemoryDC(bmp)
       self.sw = img.GetWidth()
       self.sh = img.GetHeight()
-      dc.Blit(self.sx, self.sy, self.sw, self.sh, sourcedc, 0, 0)
+      dc.Blit(self.sx, self.sy, self.sw, self.sh, sourcedc, 0, 0, wx.COPY, useMask=True)
       self.bmp.SetBitmap(bmp)
-      # dc.DrawRectangle(coord[0], coord[1], coord[2]-coord[0]+self.scale, self.scale)
+
+      dc.SetPen(wx.Pen(wx.RED, 1, wx.PENSTYLE_SHORT_DASH))
+      dc.SetBrush(wx.Brush(wx.RED, wx.BRUSHSTYLE_TRANSPARENT))
+      dc.DrawRectangle(self.sx, self.sy, self.sw, self.sh)
 
   # - - - - - - - - - - - - - - - - - - -
 

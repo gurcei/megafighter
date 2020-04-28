@@ -54,6 +54,7 @@ class PNG:
   def __init__(self, name):
     self.name=name
     self.hitboxes= { 'Head': [0,0,0,0], 'Torso': [0,0,0,0], 'Feet': [0,0,0,0], 'Attack': [0,0,0,0] }
+    self.crop = [ ]
 
 # -----------------------------------------
 
@@ -222,8 +223,13 @@ class MyFrame(wx.Frame):
     self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
     # then let's assume it is the sprite-sheet and we can preview it
-    self.sx = 0
-    self.sy = 0
+    if self.lstPngs.GetSelection() != -1 and hasattr(self.selectedPngObj, 'crop'):
+      c = self.selectedPngObj.crop
+      self.sx = c[0]
+      self.sy = c[1]
+    else:
+      self.sx = 0
+      self.sy = 0
     self.DrawSpriteSheet()
 
   # - - - - - - - - - - - - - - - - - - -
@@ -271,6 +277,14 @@ class MyFrame(wx.Frame):
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(pngPath)
     self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
+    if hasattr(self.selectedPngObj, 'crop'):
+      c = self.selectedPngObj.crop
+      if len(c) > 0:
+        self.txtCrop.SetValue('{}, {}, {}, {}'.format(c[0], c[1], c[2], c[3]))
+      else:
+        self.txtCrop.SetValue('')
+    else:
+      self.txtCrop.SetValue('')
 
     # debug info
     dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))
@@ -793,11 +807,18 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def HandleMouseEventsInGroupMode(self, event):
+    global projectNotSaved
     if event.LeftDown() and not self.movingPngFlag:
       self.pt1 = array(event.GetPosition())
       self.movingPngFlag = True if self.InPngBounds(self.pt1) else False
-    if event.LeftUp():
+    if event.LeftUp() and self.movingPngFlag:
       self.movingPngFlag = False
+      self.sx = int(self.sx)
+      self.sy = int(self.sy)
+      s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
+      self.txtCrop.SetValue(s)
+      self.selectedPngObj.crop = [self.sx, self.sy, self.sw, self.sh]
+      projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

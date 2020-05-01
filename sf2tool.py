@@ -415,7 +415,28 @@ class MyFrame(wx.Frame):
     # mouse-related events
     bmp.Bind(wx.EVT_MOUSE_EVENTS, self.OnBmpMouseEvents)
     bmp.Bind(wx.EVT_MOTION, self.OnBmpMouseMove)
+    self.spnl.Bind(wx.EVT_KEY_DOWN, self.OnSpnlKeyDown)
     return bmp
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnSpnlKeyDown(self, event):
+    if event.ControlDown():
+      c = event.GetKeyCode()
+      if c == wx.WXK_UP:
+        self.sy -= 1
+      elif c == wx.WXK_DOWN:
+        self.sy += 1
+      elif c == wx.WXK_LEFT:
+        self.sx -= 1
+      elif c == wx.WXK_RIGHT:
+        self.sx += 1
+      else:
+        event.Skip()
+        return
+
+      self.DrawSpriteSheet()
+      self.update_cropdim()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -809,16 +830,22 @@ class MyFrame(wx.Frame):
   def HandleMouseEventsInGroupMode(self, event):
     global projectNotSaved
     if event.LeftDown() and not self.movingPngFlag:
+      self.spnl.SetFocus()
       self.pt1 = array(event.GetPosition())
       self.movingPngFlag = True if self.InPngBounds(self.pt1) else False
     if event.LeftUp() and self.movingPngFlag:
       self.movingPngFlag = False
       self.sx = int(self.sx)
       self.sy = int(self.sy)
-      s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
-      self.txtCrop.SetValue(s)
-      self.selectedPngObj.crop = [self.sx, self.sy, self.sw, self.sh]
-      projectNotSaved = True
+      self.update_cropdim()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def update_cropdim(self):
+    s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
+    self.txtCrop.SetValue(s)
+    self.selectedPngObj.crop = [self.sx, self.sy, self.sw, self.sh]
+    projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

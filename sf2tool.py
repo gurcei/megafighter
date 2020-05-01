@@ -416,7 +416,17 @@ class MyFrame(wx.Frame):
     bmp.Bind(wx.EVT_MOUSE_EVENTS, self.OnBmpMouseEvents)
     bmp.Bind(wx.EVT_MOTION, self.OnBmpMouseMove)
     self.spnl.Bind(wx.EVT_KEY_DOWN, self.OnSpnlKeyDown)
+    self.spnl.Bind(wx.EVT_MOUSE_EVENTS, self.OnSpnlMouseEvents)
     return bmp
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnSpnlMouseEvents(self, event):
+    if event.LeftUp() and self.movingPngFlag:
+      self.movingPngFlag = False
+      self.sx = int(self.sx)
+      self.sy = int(self.sy)
+      self.update_cropdim()
 
   # - - - - - - - - - - - - - - - - - - -
 

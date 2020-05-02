@@ -102,6 +102,7 @@ class MyFrame(wx.Frame):
     self.txtDebug = wx.TextCtrl(panel, pos=(5,385), size=(555, 300))
     self.txtDebug.SetConstraints(LayoutAnchors(self.txtDebug, left=True, top=True, right=False, bottom=True))
 
+    self.sheetscale = 1
     self.scale = 4
     self.bmp = self.create_bitmap_area(panel, pos=(575,0), size=(510,680))
 
@@ -238,6 +239,7 @@ class MyFrame(wx.Frame):
     sprsheet = "{}.gif".format(self.selectedGroup)
     sprsheet = os.path.join(settings.projpath, sprsheet)
     if os.path.exists(sprsheet):
+      print("DrawSpriteSheet()")
       self.load_plain_image(sprsheet)
       self.OverlayPng()
 
@@ -257,11 +259,17 @@ class MyFrame(wx.Frame):
       self.sw = img.GetWidth()
       self.sh = img.GetHeight()
       dc.Blit(self.sx, self.sy, self.sw, self.sh, sourcedc, 0, 0, wx.COPY, useMask=True)
-      self.bmp.SetBitmap(bmp)
-
       dc.SetPen(wx.Pen(wx.RED, 1, wx.PENSTYLE_SHORT_DASH))
       dc.SetBrush(wx.Brush(wx.RED, wx.BRUSHSTYLE_TRANSPARENT))
       dc.DrawRectangle(self.sx, self.sy, self.sw, self.sh)
+
+      img = bmp.ConvertToImage()
+      width = img.GetWidth() * self.sheetscale
+      height = img.GetHeight() * self.sheetscale
+      simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+
+      self.bmp.SetBitmap(simg.ConvertToBitmap())
+
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -365,6 +373,8 @@ class MyFrame(wx.Frame):
     self.toggle_view = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
     self.toggle_colours = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
     self.toggle_grid = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Grid\tCTRL-G', 'Toggle grid')
+    self.zoom_in = options_menu.Append(wx.ID_ANY, 'Zoom in\tCtrl-.', 'Zoom in')
+    self.zoom_out = options_menu.Append(wx.ID_ANY, 'Zoom out\tCtrl-,', 'Zoom out')
 
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=open_folder_menu_item)
@@ -373,6 +383,8 @@ class MyFrame(wx.Frame):
     self.Bind(event=wx.EVT_MENU, handler=self.OnToggleView, source=self.toggle_view)
     self.Bind(event=wx.EVT_MENU, handler=self.OnToggleColour, source=self.toggle_colours)
     self.Bind(event=wx.EVT_MENU, handler=self.OnToggleGrid, source=self.toggle_grid)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnZoomIn, source=self.zoom_in)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnZoomOut, source=self.zoom_out)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -381,6 +393,28 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnFrameClose, quit_menu_item)
 
     self.SetMenuBar(menu_bar)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnZoomIn(self, event):
+    if self.mode == self.Mode.Png:
+      self.scale += 1
+      self.load_image()
+    elif self.mode == self.Mode.Group:
+      self.sheetscale += 1
+      self.DrawSpriteSheet()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnZoomOut(self, event):
+    if self.mode == self.Mode.Png:
+      if self.scale > 1:
+        self.scale -= 1
+        self.load_image()
+    elif self.mode == self.Mode.Group:
+      if self.sheetscale > 1:
+        self.sheetscale -= 1
+        self.DrawSpriteSheet()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -427,6 +461,7 @@ class MyFrame(wx.Frame):
       self.sx = int(self.sx)
       self.sy = int(self.sy)
       self.update_cropdim()
+    event.Skip()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -471,7 +506,7 @@ class MyFrame(wx.Frame):
   def update_scrollbars(self):
     self.spnl.Scroll(0,0)
     b = self.bmp.GetBitmap()
-    self.spnl.SetScrollbars(10,10, b.GetWidth()/10, b.GetHeight()/10)
+    self.spnl.SetScrollbars(10,10, b.GetWidth()/10+1, b.GetHeight()/10+1)
     self.spnl.SetScrollRate(10,10)
 
   # - - - - - - - - - - - - - - - - - - -
@@ -776,17 +811,23 @@ class MyFrame(wx.Frame):
   def load_plain_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
     self.img = img
-    self.png = img.ConvertToBitmap()
+
+    width = self.img.GetWidth() * self.sheetscale
+    height = self.img.GetHeight() * self.sheetscale
+    simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+
+    self.png = simg.ConvertToBitmap()
     self.bmp.SetBitmap(self.png)
 
     self.update_scrollbars()
 
-  def load_image(self, imgpath):
-    img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
-    self.img = img
-    width = img.GetWidth() * self.scale
-    height = img.GetHeight() * self.scale
-    simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+  def load_image(self, imgpath=None):
+    if imgpath != None:
+      img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
+      self.img = img
+    width = self.img.GetWidth() * self.scale
+    height = self.img.GetHeight() * self.scale
+    simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
     self.png = simg.ConvertToBitmap()
 
     self.ConvertToC64()
@@ -838,7 +879,6 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def HandleMouseEventsInGroupMode(self, event):
-    global projectNotSaved
     if event.LeftDown() and not self.movingPngFlag:
       self.spnl.SetFocus()
       self.pt1 = array(event.GetPosition())
@@ -852,6 +892,7 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def update_cropdim(self):
+    global projectNotSaved
     s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
     self.txtCrop.SetValue(s)
     self.selectedPngObj.crop = [self.sx, self.sy, self.sw, self.sh]

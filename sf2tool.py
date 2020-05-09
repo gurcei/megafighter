@@ -239,13 +239,13 @@ class MyFrame(wx.Frame):
     sprsheet = "{}.gif".format(self.selectedGroup)
     sprsheet = os.path.join(settings.projpath, sprsheet)
     if os.path.exists(sprsheet):
-      print("DrawSpriteSheet()")
       self.load_plain_image(sprsheet)
       self.OverlayPng()
 
   # - - - - - - - - - - - - - - - - - - -
 
   def OverlayPng(self):
+    bmp = self.img.ConvertToBitmap()
     sel = self.lstPngs.GetSelection()
     if sel != -1:
       pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
@@ -254,7 +254,6 @@ class MyFrame(wx.Frame):
       dt = img.GetData()
       sbmp.SetMaskColour((dt[0], dt[1], dt[2]))
       sourcedc = wx.MemoryDC(sbmp)
-      bmp = self.img.ConvertToBitmap()
       dc=wx.MemoryDC(bmp)
       self.sw = img.GetWidth()
       self.sh = img.GetHeight()
@@ -263,13 +262,13 @@ class MyFrame(wx.Frame):
       dc.SetBrush(wx.Brush(wx.RED, wx.BRUSHSTYLE_TRANSPARENT))
       dc.DrawRectangle(self.sx, self.sy, self.sw, self.sh)
 
-      img = bmp.ConvertToImage()
-      width = img.GetWidth() * self.sheetscale
-      height = img.GetHeight() * self.sheetscale
-      simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
+    img = bmp.ConvertToImage()
+    width = img.GetWidth() * self.sheetscale
+    height = img.GetHeight() * self.sheetscale
+    simg = img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
 
-      self.bmp.SetBitmap(simg.ConvertToBitmap())
-
+    self.bmp.SetBitmap(simg.ConvertToBitmap())
+    self.update_scrollbars()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -811,15 +810,6 @@ class MyFrame(wx.Frame):
   def load_plain_image(self, imgpath):
     img = wx.Image(imgpath, wx.BITMAP_TYPE_ANY)
     self.img = img
-
-    width = self.img.GetWidth() * self.sheetscale
-    height = self.img.GetHeight() * self.sheetscale
-    simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
-
-    self.png = simg.ConvertToBitmap()
-    self.bmp.SetBitmap(self.png)
-
-    self.update_scrollbars()
 
   def load_image(self, imgpath=None):
     if imgpath != None:

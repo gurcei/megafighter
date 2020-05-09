@@ -214,8 +214,8 @@
             "PNGs": {
                 "ryu_backroll1": {
                     "crop": [
-                        44, 
-                        39, 
+                        1129, 
+                        627, 
                         72, 
                         96
                     ], 
@@ -249,6 +249,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll2": {
+                    "crop": [
+                        1178, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -279,6 +285,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll3": {
+                    "crop": [
+                        1234, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -309,6 +321,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll4": {
+                    "crop": [
+                        1297, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -339,6 +357,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll5": {
+                    "crop": [
+                        1366, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -369,6 +393,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll6": {
+                    "crop": [
+                        1425, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -399,6 +429,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_backroll7": {
+                    "crop": [
+                        1480, 
+                        627, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -429,6 +465,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_block1": {
+                    "crop": [
+                        1208, 
+                        0, 
+                        48, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -459,6 +501,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_block2": {
+                    "crop": [
+                        1257, 
+                        0, 
+                        48, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -490,8 +538,8 @@
                 }, 
                 "ryu_crouch1": {
                     "crop": [
-                        30, 
-                        58, 
+                        1109, 
+                        0, 
                         48, 
                         104
                     ], 
@@ -526,8 +574,8 @@
                 }, 
                 "ryu_crouch2": {
                     "crop": [
-                        17, 
-                        17, 
+                        1156, 
+                        0, 
                         48, 
                         104
                     ], 
@@ -561,6 +609,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hkick1": {
+                    "crop": [
+                        1047, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -591,6 +645,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hkick2": {
+                    "crop": [
+                        1101, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -621,6 +681,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hkick3": {
+                    "crop": [
+                        1176, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -651,6 +717,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hkick4": {
+                    "crop": [
+                        1230, 
+                        349, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 

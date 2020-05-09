@@ -503,10 +503,13 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def update_scrollbars(self):
+    posx = self.spnl.GetScrollPos(wx.HORIZONTAL)
+    posy = self.spnl.GetScrollPos(wx.VERTICAL)
     self.spnl.Scroll(0,0)
     b = self.bmp.GetBitmap()
     self.spnl.SetScrollbars(10,10, b.GetWidth()/10+1, b.GetHeight()/10+1)
     self.spnl.SetScrollRate(10,10)
+    self.spnl.Scroll(posx, posy)
 
   # - - - - - - - - - - - - - - - - - - -
 

@@ -860,8 +860,8 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def InPngBounds(self, pos):
-    if self.sx < pos[0] and (self.sx+self.sw) > pos[0] and \
-      self.sy < pos[1] and (self.sy+self.sh) > pos[1]:
+    if self.sx < pos[0]/self.sheetscale and (self.sx+self.sw) > pos[0]/self.sheetscale and \
+      self.sy < pos[1]/self.sheetscale and (self.sy+self.sh) > pos[1]/self.sheetscale:
       return True
     else:
       return False
@@ -895,8 +895,8 @@ class MyFrame(wx.Frame):
     if self.movingPngFlag and event.LeftIsDown():
       self.pt2 = array(event.GetPosition())
       diff = self.pt2 - self.pt1
-      self.sx += diff[0]
-      self.sy += diff[1]
+      self.sx += diff[0]/self.sheetscale
+      self.sy += diff[1]/self.sheetscale
 
       self.DrawSpriteSheet()
       self.pt1 = self.pt2

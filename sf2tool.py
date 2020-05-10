@@ -271,27 +271,39 @@ class MyFrame(wx.Frame):
     self.update_scrollbars()
 
   # - - - - - - - - - - - - - - - - - - -
-
-  def OnLstPngsSelectionChanged(self, event):
-    self.mode = self.Mode.Png
-    self.selectedPng = self.lstPngs.GetString(event.GetSelection())
-    self.selectedPngObj = self.selectedGroupObj.PNGs[self.selectedPng]
-    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
-    self.pnlHitboxes.Show()
-    self.pnlAnimDetails.Hide()
+  
+  def _UpdatePngDetails(self):
+    # import pdb; pdb.set_trace()
+    self.selectedPng = self.lstPngs.GetString(self.lstPngs.GetSelection())
     self.lblPngName.SetLabel(self.selectedPng)
+    self.selectedPngObj = self.selectedGroupObj.PNGs[self.selectedPng]
     self.CopyHitboxesFromSettingsToGui()
-    self.lstAnims.SetSelection(wx.NOT_FOUND)
-    self.load_image(pngPath)
-    self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
+
     if hasattr(self.selectedPngObj, 'crop'):
       c = self.selectedPngObj.crop
+      self.sx = c[0]
+      self.sy = c[1]
+      self.sw = c[2]
+      self.sh = c[3]
+
       if len(c) > 0:
         self.txtCrop.SetValue('{}, {}, {}, {}'.format(c[0], c[1], c[2], c[3]))
       else:
         self.txtCrop.SetValue('')
     else:
       self.txtCrop.SetValue('')
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnLstPngsSelectionChanged(self, event):
+    self.mode = self.Mode.Png
+    self._UpdatePngDetails()
+    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
+    self.pnlHitboxes.Show()
+    self.pnlAnimDetails.Hide()
+    self.lstAnims.SetSelection(wx.NOT_FOUND)
+    self.load_image(pngPath)
+    self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
 
     # debug info
     dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))
@@ -467,7 +479,26 @@ class MyFrame(wx.Frame):
   def OnSpnlKeyDown(self, event):
     if event.ControlDown():
       c = event.GetKeyCode()
-      if c == wx.WXK_UP:
+      # go to next png?
+      if event.ShiftDown():
+        idx = self.lstPngs.GetSelection()
+        if c == wx.WXK_UP:
+          if idx > 0:
+            idx -= 1
+            self.lstPngs.SetSelection(idx)
+          else:
+            return
+        elif c == wx.WXK_DOWN:
+          if idx < self.lstPngs.GetCount()-1:
+            idx += 1
+            self.lstPngs.SetSelection(idx)
+          else:
+            return
+        else:
+          return
+        self._UpdatePngDetails()
+      # move the overlay?
+      elif c == wx.WXK_UP:
         self.sy -= 1
       elif c == wx.WXK_DOWN:
         self.sy += 1
@@ -478,9 +509,12 @@ class MyFrame(wx.Frame):
       else:
         event.Skip()
         return
+    else:
+      return
 
-      self.DrawSpriteSheet()
-      self.update_cropdim()
+    # import pdb; pdb.set_trace()
+    self.DrawSpriteSheet()
+    self.update_cropdim()
 
   # - - - - - - - - - - - - - - - - - - -
 

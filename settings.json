@@ -718,8 +718,8 @@
                 }, 
                 "ryu_crouch_hkick4": {
                     "crop": [
-                        1230, 
-                        349, 
+                        1232, 
+                        351, 
                         80, 
                         128
                     ], 
@@ -753,6 +753,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hkick5": {
+                    "crop": [
+                        1284, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -783,6 +789,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hpunch1": {
+                    "crop": [
+                        399, 
+                        351, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -813,6 +825,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hpunch2": {
+                    "crop": [
+                        448, 
+                        351, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -843,6 +861,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_hpunch3": {
+                    "crop": [
+                        502, 
+                        351, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -873,6 +897,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_lkick1": {
+                    "crop": [
+                        658, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -903,6 +933,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_lkick2": {
+                    "crop": [
+                        712, 
+                        351, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -933,6 +969,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_lpunch1": {
+                    "crop": [
+                        5, 
+                        351, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -963,6 +1005,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_lpunch2": {
+                    "crop": [
+                        57, 
+                        351, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -993,6 +1041,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_mkick1": {
+                    "crop": [
+                        844, 
+                        351, 
+                        96, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1023,6 +1077,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_mkick2": {
+                    "crop": [
+                        898, 
+                        351, 
+                        96, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1053,6 +1113,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_mpunch1": {
+                    "crop": [
+                        178, 
+                        351, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1083,6 +1149,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouch_mpunch2": {
+                    "crop": [
+                        229, 
+                        351, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1113,6 +1185,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouchhit1": {
+                    "crop": [
+                        1147, 
+                        -16, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1143,6 +1221,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouchhit2": {
+                    "crop": [
+                        440, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1173,6 +1257,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_crouchhit3": {
+                    "crop": [
+                        1147, 
+                        -16, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1203,6 +1293,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_facehit1": {
+                    "crop": [
+                        205, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1233,6 +1329,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_facehit2": {
+                    "crop": [
+                        262, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1263,6 +1365,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_facehit3": {
+                    "crop": [
+                        325, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1293,6 +1401,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_facehit4": {
+                    "crop": [
+                        373, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1323,6 +1437,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhkick1": {
+                    "crop": [
+                        966, 
+                        223, 
+                        88, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1353,6 +1473,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhkick2": {
+                    "crop": [
+                        1020, 
+                        223, 
+                        88, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1383,6 +1509,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhkick3": {
+                    "crop": [
+                        1104, 
+                        223, 
+                        88, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1413,6 +1545,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhpunch1": {
+                    "crop": [
+                        0, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1443,6 +1581,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhpunch2": {
+                    "crop": [
+                        1009, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1473,6 +1617,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhpunch3": {
+                    "crop": [
+                        1057, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1503,6 +1653,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fhpunch4": {
+                    "crop": [
+                        1122, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1533,6 +1689,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump1": {
+                    "crop": [
+                        741, 
+                        0, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1563,6 +1725,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump2": {
+                    "crop": [
+                        786, 
+                        0, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1593,6 +1761,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump3": {
+                    "crop": [
+                        835, 
+                        10, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1623,6 +1797,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump4": {
+                    "crop": [
+                        894, 
+                        10, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1653,6 +1833,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump5": {
+                    "crop": [
+                        940, 
+                        10, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1683,6 +1869,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump6": {
+                    "crop": [
+                        1020, 
+                        0, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1713,6 +1905,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump7": {
+                    "crop": [
+                        1067, 
+                        0, 
+                        80, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1743,6 +1941,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump_lpunch1": {
+                    "crop": [
+                        380, 
+                        525, 
+                        48, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1773,6 +1977,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump_lpunch2": {
+                    "crop": [
+                        419, 
+                        525, 
+                        48, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1803,6 +2013,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump_mhkick1": {
+                    "crop": [
+                        464, 
+                        525, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1833,6 +2049,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump_mhkick2": {
+                    "crop": [
+                        507, 
+                        526, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1863,6 +2085,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fjump_mhkick3": {
+                    "crop": [
+                        573, 
+                        525, 
+                        72, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1893,6 +2121,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_flkick1": {
+                    "crop": [
+                        495, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1923,6 +2157,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_flkick2": {
+                    "crop": [
+                        548, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1953,6 +2193,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_flpunch1": {
+                    "crop": [
+                        461, 
+                        108, 
+                        56, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -1983,6 +2229,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_flpunch2": {
+                    "crop": [
+                        509, 
+                        108, 
+                        56, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2013,6 +2265,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_flpunch3": {
+                    "crop": [
+                        562, 
+                        108, 
+                        56, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2043,6 +2301,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmkick1": {
+                    "crop": [
+                        679, 
+                        223, 
+                        64, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2073,6 +2337,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmkick2": {
+                    "crop": [
+                        734, 
+                        223, 
+                        64, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2103,6 +2373,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmkick3": {
+                    "crop": [
+                        789, 
+                        223, 
+                        64, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2133,6 +2409,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmpunch1": {
+                    "crop": [
+                        613, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2163,6 +2445,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmpunch2": {
+                    "crop": [
+                        663, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2193,6 +2481,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmpunch3": {
+                    "crop": [
+                        716, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2223,6 +2517,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_fmpunch4": {
+                    "crop": [
+                        783, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2253,6 +2553,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadouken1": {
+                    "crop": [
+                        1, 
+                        627, 
+                        96, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2283,6 +2589,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadouken2": {
+                    "crop": [
+                        58, 
+                        627, 
+                        96, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2313,6 +2625,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadouken3": {
+                    "crop": [
+                        129, 
+                        627, 
+                        96, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2343,6 +2661,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadouken4": {
+                    "crop": [
+                        200, 
+                        627, 
+                        96, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2373,6 +2697,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadouken5": {
+                    "crop": [
+                        297, 
+                        627, 
+                        96, 
+                        96
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2403,6 +2733,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj1": {
+                    "crop": [
+                        374, 
+                        636, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2433,6 +2769,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj10": {
+                    "crop": [
+                        565, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2463,6 +2805,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj11": {
+                    "crop": [
+                        588, 
+                        627, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2493,6 +2841,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj12": {
+                    "crop": [
+                        580, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2523,6 +2877,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj13": {
+                    "crop": [
+                        615, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2553,6 +2913,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj14": {
+                    "crop": [
+                        611, 
+                        628, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2583,6 +2949,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj15": {
+                    "crop": [
+                        695, 
+                        635, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2613,6 +2985,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj16": {
+                    "crop": [
+                        726, 
+                        635, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2643,6 +3021,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj17": {
+                    "crop": [
+                        757, 
+                        635, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2673,6 +3057,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj18": {
+                    "crop": [
+                        801, 
+                        636, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2703,6 +3093,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj2": {
+                    "crop": [
+                        417, 
+                        636, 
+                        48, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2733,6 +3129,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj3": {
+                    "crop": [
+                        460, 
+                        627, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2763,6 +3165,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj4": {
+                    "crop": [
+                        478, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2793,6 +3201,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj5": {
+                    "crop": [
+                        496, 
+                        627, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2823,6 +3237,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj6": {
+                    "crop": [
+                        506, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2853,6 +3273,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj7": {
+                    "crop": [
+                        532, 
+                        628, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2883,6 +3309,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj8": {
+                    "crop": [
+                        535, 
+                        664, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2913,6 +3345,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj9": {
+                    "crop": [
+                        556, 
+                        627, 
+                        88, 
+                        64
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2943,6 +3381,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hit1": {
+                    "crop": [
+                        -1, 
+                        722, 
+                        56, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -2973,6 +3417,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hit2": {
+                    "crop": [
+                        51, 
+                        722, 
+                        56, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3003,6 +3453,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hit3": {
+                    "crop": [
+                        106, 
+                        722, 
+                        56, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3033,6 +3489,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hit4": {
+                    "crop": [
+                        157, 
+                        722, 
+                        56, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3063,6 +3525,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hkick1": {
+                    "crop": [
+                        188, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3093,6 +3561,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hkick2": {
+                    "crop": [
+                        242, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3123,6 +3597,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hkick3": {
+                    "crop": [
+                        301, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3153,6 +3633,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hkick4": {
+                    "crop": [
+                        375, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3183,6 +3669,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hkick5": {
+                    "crop": [
+                        441, 
+                        223, 
+                        80, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3321,6 +3813,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump2": {
+                    "crop": [
+                        493, 
+                        0, 
+                        48, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3351,6 +3849,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump3": {
+                    "crop": [
+                        533, 
+                        3, 
+                        48, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3381,6 +3885,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump4": {
+                    "crop": [
+                        569, 
+                        6, 
+                        48, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3411,6 +3921,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_hkick1": {
+                    "crop": [
+                        240, 
+                        481, 
+                        64, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3441,6 +3957,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_hkick2": {
+                    "crop": [
+                        280, 
+                        481, 
+                        64, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3471,6 +3993,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_hkick3": {
+                    "crop": [
+                        338, 
+                        481, 
+                        64, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3501,6 +4029,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_lmhpunch1": {
+                    "crop": [
+                        0, 
+                        481, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3531,6 +4065,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_lmhpunch2": {
+                    "crop": [
+                        49, 
+                        481, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3561,6 +4101,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_lmhpunch3": {
+                    "crop": [
+                        97, 
+                        481, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3591,6 +4137,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_lmkick1": {
+                    "crop": [
+                        145, 
+                        481, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3621,6 +4173,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_jump_lmkick2": {
+                    "crop": [
+                        192, 
+                        481, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3651,6 +4209,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown1": {
+                    "crop": [
+                        506, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3681,6 +4245,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown2": {
+                    "crop": [
+                        560, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3711,6 +4281,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown3": {
+                    "crop": [
+                        615, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3741,6 +4317,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown4": {
+                    "crop": [
+                        694, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3771,6 +4353,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown5": {
+                    "crop": [
+                        766, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3801,6 +4389,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown6": {
+                    "crop": [
+                        823, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3831,6 +4425,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown7": {
+                    "crop": [
+                        884, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3861,6 +4461,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_knockdown8": {
+                    "crop": [
+                        931, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3891,6 +4497,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_ko1": {
+                    "crop": [
+                        1158, 
+                        728, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3921,6 +4533,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_ko2": {
+                    "crop": [
+                        1213, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3951,6 +4569,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_ko3": {
+                    "crop": [
+                        1292, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -3981,6 +4605,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_ko4": {
+                    "crop": [
+                        1371, 
+                        723, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4011,6 +4641,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_ko5": {
+                    "crop": [
+                        1447, 
+                        721, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4041,6 +4677,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_lmkick1": {
+                    "crop": [
+                        -8, 
+                        223, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4071,6 +4713,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_lmkick2": {
+                    "crop": [
+                        59, 
+                        223, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4101,6 +4749,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_lpunch1": {
+                    "crop": [
+                        0, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4131,6 +4785,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_lpunch2": {
+                    "crop": [
+                        49, 
+                        108, 
+                        64, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4161,6 +4821,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mhpunch1": {
+                    "crop": [
+                        167, 
+                        108, 
+                        80, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4191,6 +4857,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mhpunch2": {
+                    "crop": [
+                        215, 
+                        108, 
+                        80, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4221,6 +4893,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mhpunch3": {
+                    "crop": [
+                        271, 
+                        108, 
+                        80, 
+                        112
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4251,6 +4929,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mugshot1": {
+                    "crop": [
+                        885, 
+                        847, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4281,6 +4965,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mugshot2": {
+                    "crop": [
+                        965, 
+                        848, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4311,6 +5001,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_mugshot3": {
+                    "crop": [
+                        1046, 
+                        848, 
+                        80, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4341,6 +5037,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouldertoss1": {
+                    "crop": [
+                        847, 
+                        619, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4371,6 +5073,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouldertoss2": {
+                    "crop": [
+                        902, 
+                        619, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4401,6 +5109,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouldertoss3": {
+                    "crop": [
+                        950, 
+                        619, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4431,6 +5145,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouldertoss4": {
+                    "crop": [
+                        999, 
+                        619, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4461,6 +5181,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouldertoss5": {
+                    "crop": [
+                        1056, 
+                        619, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4491,6 +5217,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken1": {
+                    "crop": [
+                        619, 
+                        475, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4521,6 +5253,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken2": {
+                    "crop": [
+                        668, 
+                        475, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4551,6 +5289,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken3": {
+                    "crop": [
+                        719, 
+                        475, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4581,6 +5325,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken4": {
+                    "crop": [
+                        771, 
+                        487, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4611,6 +5361,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken5": {
+                    "crop": [
+                        811, 
+                        504, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4641,6 +5397,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken6": {
+                    "crop": [
+                        847, 
+                        490, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4671,6 +5433,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_shouryuken7": {
+                    "crop": [
+                        893, 
+                        475, 
+                        56, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4791,6 +5559,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_stunned1": {
+                    "crop": [
+                        997, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4821,6 +5595,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_stunned2": {
+                    "crop": [
+                        1054, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4851,6 +5631,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_stunned3": {
+                    "crop": [
+                        1104, 
+                        721, 
+                        64, 
+                        120
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4881,6 +5667,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki1": {
+                    "crop": [
+                        943, 
+                        477, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4911,6 +5703,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki2": {
+                    "crop": [
+                        986, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4941,6 +5739,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki3": {
+                    "crop": [
+                        1028, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -4971,6 +5775,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki4": {
+                    "crop": [
+                        1089, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5001,6 +5811,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki5": {
+                    "crop": [
+                        1147, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5031,6 +5847,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki6": {
+                    "crop": [
+                        1194, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5061,6 +5883,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki7": {
+                    "crop": [
+                        1278, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5091,6 +5919,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki8": {
+                    "crop": [
+                        1330, 
+                        477, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5121,6 +5955,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_tatsumaki9": {
+                    "crop": [
+                        1368, 
+                        475, 
+                        96, 
+                        144
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5151,6 +5991,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victory1": {
+                    "crop": [
+                        0, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5181,6 +6027,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victory2": {
+                    "crop": [
+                        51, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5211,6 +6063,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victory3": {
+                    "crop": [
+                        102, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5241,6 +6099,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt1": {
+                    "crop": [
+                        158, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5271,6 +6135,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt2": {
+                    "crop": [
+                        205, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5301,6 +6171,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt3": {
+                    "crop": [
+                        252, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5331,6 +6207,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt4": {
+                    "crop": [
+                        301, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5361,6 +6243,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt5": {
+                    "crop": [
+                        348, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5391,6 +6279,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt6": {
+                    "crop": [
+                        397, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5421,6 +6315,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_victoryalt7": {
+                    "crop": [
+                        444, 
+                        839, 
+                        56, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5559,6 +6459,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_walk4": {
+                    "crop": [
+                        339, 
+                        0, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5589,6 +6495,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_walk5": {
+                    "crop": [
+                        386, 
+                        0, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5619,6 +6531,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_walk6": {
+                    "crop": [
+                        333, 
+                        0, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5649,6 +6567,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_walk7": {
+                    "crop": [
+                        280, 
+                        0, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -5679,6 +6603,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_walk8": {
+                    "crop": [
+                        228, 
+                        0, 
+                        72, 
+                        104
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 

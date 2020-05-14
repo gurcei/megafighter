@@ -224,7 +224,7 @@ class MyFrame(wx.Frame):
     self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
     # then let's assume it is the sprite-sheet and we can preview it
-    if self.lstPngs.GetSelection() != -1 and hasattr(self.selectedPngObj, 'crop'):
+    if self.lstPngs.GetSelection() != -1 and hasattr(self.selectedPngObj, 'crop') and len(self.selectedPngObj.crop) > 0:
       c = self.selectedPngObj.crop
       self.sx = c[0]
       self.sy = c[1]
@@ -279,7 +279,7 @@ class MyFrame(wx.Frame):
     self.selectedPngObj = self.selectedGroupObj.PNGs[self.selectedPng]
     self.CopyHitboxesFromSettingsToGui()
 
-    if hasattr(self.selectedPngObj, 'crop'):
+    if hasattr(self.selectedPngObj, 'crop') and len(self.selectedPngObj.crop) > 0:
       c = self.selectedPngObj.crop
       self.sx = c[0]
       self.sy = c[1]

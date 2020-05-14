@@ -3,6 +3,12 @@
         "ChunLi": {
             "PNGs": {
                 "chunli_idle1": {
+                    "crop": [
+                        1, 
+                        30, 
+                        56, 
+                        88
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -33,6 +39,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "chunli_idle2": {
+                    "crop": [
+                        53, 
+                        29, 
+                        56, 
+                        88
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -63,6 +75,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "chunli_idle3": {
+                    "crop": [
+                        105, 
+                        27, 
+                        56, 
+                        88
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -6552,9 +6570,114 @@
             "name": "Ryu", 
             "py/object": "__main__.Group"
         }, 
+        "StageRyu": {
+            "PNGs": {
+                "ryu_stage": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stage_cropped": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage_cropped", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_stage_full": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_stage_full", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "StageRyu", 
+            "py/object": "__main__.Group"
+        }, 
         "Zangief": {
             "PNGs": {
                 "zangief_idle1": {
+                    "crop": [
+                        1, 
+                        1, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -6585,6 +6708,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "zangief_idle2": {
+                    "crop": [
+                        67, 
+                        1, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 
@@ -6615,6 +6744,12 @@
                     "py/object": "__main__.PNG"
                 }, 
                 "zangief_idle3": {
+                    "crop": [
+                        141, 
+                        1, 
+                        72, 
+                        128
+                    ], 
                     "hitboxes": {
                         "Attack": [
                             0, 

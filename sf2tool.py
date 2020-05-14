@@ -93,7 +93,7 @@ class MyFrame(wx.Frame):
     self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
-    self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(200,300))
+    self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(215,300))
     self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,300))
 
     self.pnlHitboxes.Hide()
@@ -134,6 +134,9 @@ class MyFrame(wx.Frame):
     itempos[1] += 30
     self.txtCrop = self.create_text_field(hbpanel, tuple(itempos), "Crop Dim:", "")
 
+    self.btnCut = wx.Button(hbpanel, label='Cut', pos=(itempos[0]+170,itempos[1]), size=(40,25))
+    self.btnCut.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnCutClicked)
+
     itempos[1] += 30
     self.lblPngSize = self.create_static_field(hbpanel, tuple(itempos), "Size:", "???")
 
@@ -146,6 +149,27 @@ class MyFrame(wx.Frame):
         initialvalue, self.OnTxtHboxEnter))
 
     return hbpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnBtnCutClicked(self, event):
+    print('clicked')
+    # cut the image from the sprite-sheet at the coords specified by crop-dim field
+    cropvals = [int(i) for i in self.txtCrop.GetValue().split(',')]
+    [self.sx, self.sy, self.sw, self.sh] = cropvals
+    self.update_cropdim()
+    dbmp = wx.Bitmap(self.sw, self.sh, depth=16)
+
+    sheetbmp = self.sprsheet.ConvertToBitmap()
+    sourcedc = wx.MemoryDC(sheetbmp)
+    destdc=wx.MemoryDC(dbmp)
+    destdc.Blit(0, 0, self.sw, self.sh, sourcedc, self.sx, self.sy, wx.COPY)
+
+    # save out the new bitmap
+    dbmp.SaveFile(self.pngPath, wx.BITMAP_TYPE_PNG)
+
+    # redraw png
+    self.OnLstPngsSelectionChanged(None)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -240,7 +264,10 @@ class MyFrame(wx.Frame):
     sprsheet = os.path.join(settings.projpath, sprsheet)
     if os.path.exists(sprsheet):
       self.load_plain_image(sprsheet)
+      self.sprsheet = self.img
       self.OverlayPng()
+    else:
+      self.sprsheet = None
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -298,11 +325,11 @@ class MyFrame(wx.Frame):
   def OnLstPngsSelectionChanged(self, event):
     self.mode = self.Mode.Png
     self._UpdatePngDetails()
-    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
+    self.pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
     self.pnlHitboxes.Show()
     self.pnlAnimDetails.Hide()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
-    self.load_image(pngPath)
+    self.load_image(self.pngPath)
     self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
 
     # debug info

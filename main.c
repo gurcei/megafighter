@@ -6,10 +6,11 @@
 #include "music.h"
 
 #include "bitmap_ids.h"
+#include "sound_ids.h"
 
 //#define SAVEMEM
 //#define SHOW_OPTIONS
-#define CROPPEDBMP
+//#define CROPPEDBMP
 //#define ANIMBKGND
 #define DRAWSPRITES
 //#define BLANKSCREEN
@@ -54,49 +55,6 @@ int temple_idx=0;
 enum { GAME_INTRO, GAME_TITLE, GAME_MAIN, GAME_OPTIONS };
 
 void play_sound(unsigned char idx);
-
-enum sound_ids
-{
-  SND_PUNCH1,
-  SND_PUNCH2,
-  SND_PUNCH3,
-  SND_PUNCH4,
-  SND_KICK1,
-  SND_KICK2,
-  SND_KICK3,
-  SND_KICK4,
-  SND_KICK5,
-  SND_KICK6,
-  SND_FALL,
-  SND_SWOOSH,
-  SND_OOH,
-  SND_DIE1,
-  SND_DIE2,
-  SND_FLIGHT1,
-  SND_FLIGHT2,
-  SND_FLIGHT3,
-  SND_SHOURYUKEN1,
-  SND_SHOURYUKEN2,
-  SND_TATSUMAKI1,
-  SND_TATSUMAKI2,
-  SND_HADOUKEN1,
-  SND_HADOUKEN2,
-  SND_YOU,
-  SND_WIN,
-  SND_LOSE,
-  SND_PERFECT,
-  SND_FIGHT,
-  SND_ROUND,
-  SND_ONE,
-  SND_TWO,
-  SND_THREE,
-  SND_DING1,
-  SND_DING2,
-  SND_DING3A,
-  SND_DING3B,
-  SND_DING4,
-  SND_DING5
-};
 
 unsigned char gamestate = GAME_INTRO;
 
@@ -2012,7 +1970,7 @@ void game_main(void)
         gtmpw2 = cur_spr->posx;
         gtmpw3 = cur_spr->posy - anims[cur_spr->anim].rows;
       }
-      draw_cropped_bitmap(gtmpw, gtmpw2, gtmpw3);
+      draw_bitmap(gtmpw, gtmpw2, gtmpw3);
 
       // preserve hitboxes?
       //if (*((unsigned short*)0x4000) != 0)

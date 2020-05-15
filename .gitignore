@@ -14,6 +14,7 @@ tags
 *.bin.bmp_meta
 *.bin.segs_meta
 bitmap_ids.h
+sound_ids.h
 *.w64
 wav64
 pngprepare

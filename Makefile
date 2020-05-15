@@ -18,6 +18,8 @@ ASSFILES = main.s \
 #						charset.s
 
 SNDFILES= $(wildcard Sound/*.wav)
+SHORTSNDFILES=$(foreach file,$(SNDFILES),$(shell echo SND_`basename ${file}`))
+SND_ID_NAMES=`echo $(SHORTSNDFILES:.wav=,) | tr \[a-z\] \[A-Z\]`
 
 W64FILES = $(patsubst %.wav,%.w64,$(SNDFILES))
 # W64FILES= \
@@ -157,6 +159,11 @@ data.reu: $(DATAFILES) $(W64FILES) Petscii/intro.bin
 	echo $(ID_NAMES_REV) | sed 's/ /&~/; y/~/\n/;' >> bitmap_ids.h
 	echo "BMP_MAX" >> bitmap_ids.h
 	echo "};" >> bitmap_ids.h
+
+	rm -f sound_ids.h
+	echo "enum sound_ids {" > sound_ids.h
+	echo $(SND_ID_NAMES) >> sound_ids.h
+	echo "};" >> sound_ids.h
 
 	# bulk bitmap_meta.bin file will reside in c64 memory, at 0x1000
 	cat $(BMP_META_FILES) > bmp_meta.bin

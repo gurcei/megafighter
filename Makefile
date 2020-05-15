@@ -17,7 +17,10 @@ ASSFILES = main.s \
 #						sprites.s
 #						charset.s
 
-W64FILES= \
+SNDFILES= $(wildcard Sound/*.wav)
+
+W64FILES = $(patsubst %.wav,%.w64,$(SNDFILES))
+# W64FILES= \
 	punch1.w64 \
 	punch2.w64 \
 	punch3.w64 \
@@ -62,8 +65,11 @@ W64FILES= \
 	ding4.w64 \
 	ding5.w64
 	
+GRAPHIC_DIRS=__Misc__ 
 
-DATAFILES= \
+DATAFILES = $(patsubst %.png,%.bin,$(wildcard Graphics/__Misc__/*.png))
+
+# DATAFILES= \
 	title.bin \
 	blank.bin \
 	player_select.bin \
@@ -121,7 +127,7 @@ DATAFILES= \
 
 BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
 SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)
-ID_NAMES=`echo $(DATAFILES:.bin=,) | tr \[a-z\] \[A-Z\]`
+ID_NAMES=$(foreach file,`echo $(DATAFILES:.bin=,) | tr \[a-z\] \[A-Z\]`,`basename(${file})`)
 
 DATAFILES_REV=$(DATAFILES:.bin=_rev.bin)
 BMP_META_FILES_REV=$(DATAFILES_REV:bin=bin.bmp_meta)
@@ -138,7 +144,7 @@ run:
 %.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin
 	$(CC65) $(COPTS) --add-source -o $@ $<
 
-data.reu: $(DATAFILES) $(W64FILES) intro.bin
+data.reu: $(DATAFILES) $(W64FILES) Petscii/intro.bin
 	rm -f data.reu
 	rm -f segs_meta.reu
 	rm -f bmp_meta.bin
@@ -160,12 +166,12 @@ data.reu: $(DATAFILES) $(W64FILES) intro.bin
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=65535
 
 	# reu bank 1 is petscii screen data
-	cat intro.bin >> data.reu
+	cat Petscii/intro.bin >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=131071
 
 	# reu bank 2 is music data
-	cat music_intro.bin >> data.reu
-	cat music_game.bin >> data.reu
+	cat Music/music_intro.bin >> data.reu
+	cat Music/music_game.bin >> data.reu
 	dd if=/dev/zero of=data.reu bs=1 count=1 seek=196607
 
 	# reu bank 3 and beyond will hold digi-sound wave samples

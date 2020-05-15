@@ -65,9 +65,9 @@ W64FILES = $(patsubst %.wav,%.w64,$(SNDFILES))
 	ding4.w64 \
 	ding5.w64
 	
-GRAPHIC_DIRS=__Misc__ 
+GRAPHIC_DIRS=__Misc__ Ryu StageRyu
 
-DATAFILES = $(patsubst %.png,%.bin,$(wildcard Graphics/__Misc__/*.png))
+DATAFILES = $(foreach dir,$(GRAPHIC_DIRS),$(patsubst %.png,%.bin,$(wildcard Graphics/${dir}/*.png)))
 
 # DATAFILES= \
 	title.bin \
@@ -127,12 +127,14 @@ DATAFILES = $(patsubst %.png,%.bin,$(wildcard Graphics/__Misc__/*.png))
 
 BMP_META_FILES=$(DATAFILES:bin=bin.bmp_meta)
 SEGS_META_FILES=$(DATAFILES:bin=bin.segs_meta)
-ID_NAMES=$(foreach file,`echo $(DATAFILES:.bin=,) | tr \[a-z\] \[A-Z\]`,`basename(${file})`)
+SHORTDATAFILES=$(foreach file,$(DATAFILES),$(shell basename ${file}))
+ID_NAMES=`echo $(SHORTDATAFILES:.bin=,) | tr \[a-z\] \[A-Z\]`
 
 DATAFILES_REV=$(DATAFILES:.bin=_rev.bin)
 BMP_META_FILES_REV=$(DATAFILES_REV:bin=bin.bmp_meta)
 SEGS_META_FILES_REV=$(DATAFILES_REV:bin=bin.segs_meta)
-ID_NAMES_REV=`echo $(DATAFILES_REV:.bin=,) | tr \[a-z\] \[A-Z\]`
+SHORTDATAFILES_REV=$(foreach file,$(DATAFILES_REV),$(shell basename ${file}))
+ID_NAMES_REV=`echo $(SHORTDATAFILES_REV:.bin=,) | tr \[a-z\] \[A-Z\]`
 
 all: gidemo.d64 data.reu util.h
 

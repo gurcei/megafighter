@@ -1293,6 +1293,10 @@ void draw_bitmap(unsigned int frame, int posx, int posy)
       length = seg->length << 3;
       c64loc += seg->reloffset;
 
+      // draw_sprintf(0, 0, "gk=%d   ", length);
+      // draw_sprintf(0, 1, "length=%d   ", length);
+      // draw_sprintf(0, 2, "c64loc=%04X", c64loc);
+      // draw_sprintf(0, 3, "reuloc=%08X", reuloc);
       reu_simple_copy();
 
     //printf("%d - %d - %lu\n", seg->reloffset, screen_loc, bmp_data_loc);
@@ -1961,7 +1965,7 @@ void game_main(void)
 			gtmpw = anims[cur_spr->anim].frames[cur_spr->anim_idx];
 			if (cur_spr->dir) // mirror to other direction?
       {
-				gtmpw += TITLE_REV;
+				gtmpw += BLANK_REV;
         gtmpw2 = cur_spr->posx - anims[cur_spr->anim].cols;
         gtmpw3 = cur_spr->posy - anims[cur_spr->anim].rows;
       }
@@ -2046,8 +2050,8 @@ void game_main(void)
 
   //drawbox(50+bx, 50+by, 100+cx, 100+cy, 0);
 
-  draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
-  draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
+  //draw_sprintf(0, 0, "anim_idx=%d", sprites[0].anim_idx);
+  //draw_sprintf(0, 1, "frame=%d", anims[sprites[0].anim].frames[sprites[0].anim_idx]);
 
   // perform page flip
   if (draw_page == 0)

@@ -142,7 +142,7 @@ all: gidemo.d64 data.reu util.h
 
 run:
 	#open -a /Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64
-	/Applications/Vice/x64.app/Contents/MacOS/x64 -reu -reusize 16384 -reuimage data.reu gidemo.d64 &
+	/Applications/Vice/x64.app/Contents/MacOS/x64 -reu -reusize 16384 -reuimage data.reu -moncommands commands.txt gidemo.d64 &
 	#cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
 %.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin

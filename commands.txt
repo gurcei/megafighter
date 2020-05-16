@@ -1,0 +1,1 @@
+ll "/Users/tramvo/c64/Projects/sf2/gidemo.lbl"

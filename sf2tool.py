@@ -176,6 +176,8 @@ class MyFrame(wx.Frame):
   def OnTxtHboxEnter(self, event):
     print(event.GetEventObject())
     self.update_image()
+    self.CopyHitboxesFromGuiToSettings()
+    projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

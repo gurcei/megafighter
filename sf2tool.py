@@ -409,7 +409,8 @@ class MyFrame(wx.Frame):
     menu_bar = wx.MenuBar()
     file_menu = wx.Menu()
     options_menu = wx.Menu()
-    open_folder_menu_item = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
+    mnuitmFileOpenFolder = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
+    mnuitmFileSaveHitboxes = file_menu.Append(wx.ID_ANY, 'Save Hitboxes\tCTRL-S', "Save hitboxes to 'hitboxes.h'")
     self.toggle_view = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
     self.toggle_colours = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
     self.toggle_grid = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Grid\tCTRL-G', 'Toggle grid')
@@ -417,7 +418,8 @@ class MyFrame(wx.Frame):
     self.zoom_out = options_menu.Append(wx.ID_ANY, 'Zoom out\tCtrl-,', 'Zoom out')
 
     menu_bar.Append(file_menu, 'File')
-    self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=open_folder_menu_item)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=mnuitmFileOpenFolder)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnSaveHitboxes, source=mnuitmFileSaveHitboxes)
 
     menu_bar.Append(options_menu, 'Options')
     self.Bind(event=wx.EVT_MENU, handler=self.OnToggleView, source=self.toggle_view)
@@ -478,6 +480,42 @@ class MyFrame(wx.Frame):
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
       SetGraphicsDirectory(dlg.GetPath())
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnSaveHitboxes(self, event):
+    global settings
+    # read out all hitbox values for each group, and write them to a file
+    outfile = open('hitboxes.h', 'wt')
+    outfile.write("""typedef struct
+{
+  char name[64];
+  unsigned short boxes[4][4];
+} type_hitbox;
+
+type_hitbox lstHitBoxes[] =
+{\n""")
+    for group in settings.groups:
+      for png in settings.groups[group].PNGs:
+        validflag = False
+        hbs = settings.groups[group].PNGs[png].hitboxes
+        for hb in hbs.values():
+          if hb != [0, 0, 0, 0]:
+            validflag = True
+        if validflag:
+          # write this one to file
+          outfile.write("  {\n")
+          outfile.write('    \"Graphics/{}/{}.png\",\n'.format(group, png))
+          outfile.write('    ' + str(hbs['Head'])[1:-1] + ',\n')
+          outfile.write('    ' + str(hbs['Torso'])[1:-1] + ',\n')
+          outfile.write('    ' + str(hbs['Feet'])[1:-1] + ',\n')
+          outfile.write('    ' + str(hbs['Attack'])[1:-1] + '\n')
+          outfile.write('  },\n')
+
+      print group
+
+    outfile.write("""  { 0 }
+    };""")
 
   # - - - - - - - - - - - - - - - - - - -
 

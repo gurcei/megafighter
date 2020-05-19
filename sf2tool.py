@@ -85,12 +85,14 @@ class MyFrame(wx.Frame):
     panel = wx.Panel(self, size=(self.GetSize()[0]-10, self.GetSize()[1]-10))
     panel.SetAutoLayout(True)
     
-    self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,360), choices=[])
+    _, self.lstGroups = self.create_labeled_list_box(panel, label='GROUPS', pos=(5,0), size=(100,360), choices=[])
     self.lstGroups.Bind(wx.EVT_LISTBOX, self.OnLstGroupSelectionChanged)
     self.lstGroups.Bind(wx.EVT_SET_FOCUS, self.OnLstGroupSelectionChanged)
-    self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
+
+    self.lblPngs, self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
-    self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
+
+    _, self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(215,300))
@@ -242,10 +244,12 @@ class MyFrame(wx.Frame):
 
     if type(event) != wx.FocusEvent:
       self.lstPngs.Clear()
+      self.lblPngs.SetLabel('PNGs')
       if len(files) != 0:
         items=files.keys()
         items.sort()
         self.lstPngs.InsertItems(items, 0)
+        self.lblPngs.SetLabel('PNGs ({})'.format(len(items)))
 
     self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
@@ -399,9 +403,9 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def create_labeled_list_box(self, panel, label, pos, size, choices):
-    wx.StaticText(panel, pos=pos, label=label)
+    lbl = wx.StaticText(panel, pos=pos, label=label)
     pos = (pos[0], pos[1] + 18)
-    return wx.ListBox(panel, pos=pos, size=size, choices=choices, style=0)
+    return lbl, wx.ListBox(panel, pos=pos, size=size, choices=choices, style=0)
 
   # - - - - - - - - - - - - - - - - - - -
 

@@ -4,6 +4,7 @@ import jsonpickle
 import os.path
 import glob
 import enum
+import sys
 from wx.lib.anchors import LayoutAnchors
 from numpy import array
 
@@ -49,7 +50,7 @@ class Group:
 
   def update(self, projpath):
     groupPath = os.path.join(projpath, self.name)
-    self._find_pngs(groupPath)
+    self._find_pngs(groupPath, refresh=True)
 
 # - - - - - - - - - - - - - - - - - - -
 
@@ -102,6 +103,8 @@ class MyFrame(wx.Frame):
     # https://stackoverflow.com/questions/38963018/typeerror-super-takes-at-least-1-argument-0-given-error-is-specific-to-any
     super(MyFrame, self).__init__(parent=None, title='SF2 Animation Tool', pos=(100,50), size=(1100,700))
     self.Bind(wx.EVT_CLOSE, self.OnFrameClose)
+
+    self.mode = None
 
     panel = wx.Panel(self, size=(self.GetSize()[0]-10, self.GetSize()[1]-10))
     panel.SetAutoLayout(True)
@@ -181,18 +184,24 @@ class MyFrame(wx.Frame):
     cropvals = [int(i) for i in self.txtCrop.GetValue().split(',')]
     [self.sx, self.sy, self.sw, self.sh] = cropvals
     self.update_cropdim()
-    dbmp = wx.Bitmap(self.sw, self.sh, depth=16)
+
+    self.SaveOutCrop(self.sx, self.sy, self.sw, self.sh, self.pngPath)
+
+    # redraw png
+    self.OnLstPngsSelectionChanged(None)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def SaveOutCrop(self, x, y, w, h, path):
+    dbmp = wx.Bitmap(w, h, depth=16)
 
     sheetbmp = self.sprsheet.ConvertToBitmap()
     sourcedc = wx.MemoryDC(sheetbmp)
     destdc=wx.MemoryDC(dbmp)
-    destdc.Blit(0, 0, self.sw, self.sh, sourcedc, self.sx, self.sy, wx.COPY)
+    destdc.Blit(0, 0, w, h, sourcedc, x, y, wx.COPY)
 
     # save out the new bitmap
-    dbmp.SaveFile(self.pngPath, wx.BITMAP_TYPE_PNG)
-
-    # redraw png
-    self.OnLstPngsSelectionChanged(None)
+    dbmp.SaveFile(path, wx.BITMAP_TYPE_PNG)
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -261,16 +270,9 @@ class MyFrame(wx.Frame):
     self.selectedGroupObj = settings.groups[self.selectedGroup]
     # show pngs within this sub-folder
     groupPath = os.path.join(settings.projpath, self.selectedGroup)
-    files = self.selectedGroupObj.PNGs
 
     if type(event) != wx.FocusEvent:
-      self.lstPngs.Clear()
-      self.lblPngs.SetLabel('PNGs')
-      if len(files) != 0:
-        items=files.keys()
-        items.sort()
-        self.lstPngs.InsertItems(items, 0)
-        self.lblPngs.SetLabel('PNGs ({})'.format(len(items)))
+      self.ShowPngList()
 
     self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
@@ -283,6 +285,18 @@ class MyFrame(wx.Frame):
       self.sx = 0
       self.sy = 0
     self.DrawSpriteSheet()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def ShowPngList(self):
+    files = self.selectedGroupObj.PNGs
+    self.lstPngs.Clear()
+    self.lblPngs.SetLabel('PNGs')
+    if len(files) != 0:
+      items=files.keys()
+      items.sort()
+      self.lstPngs.InsertItems(items, 0)
+      self.lblPngs.SetLabel('PNGs ({})'.format(len(items)))
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -300,7 +314,11 @@ class MyFrame(wx.Frame):
 
   def OverlayPng(self):
     bmp = self.img.ConvertToBitmap()
+    dc=wx.MemoryDC(bmp)
+    dc.SetPen(wx.Pen(wx.RED, 1, wx.PENSTYLE_SHORT_DASH))
+    dc.SetBrush(wx.Brush(wx.RED, wx.BRUSHSTYLE_TRANSPARENT))
     sel = self.lstPngs.GetSelection()
+
     if sel != -1:
       pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
       img = wx.Image(pngPath, wx.BITMAP_TYPE_ANY)
@@ -308,13 +326,13 @@ class MyFrame(wx.Frame):
       dt = img.GetData()
       sbmp.SetMaskColour((dt[0], dt[1], dt[2]))
       sourcedc = wx.MemoryDC(sbmp)
-      dc=wx.MemoryDC(bmp)
       self.sw = img.GetWidth()
       self.sh = img.GetHeight()
       dc.Blit(self.sx, self.sy, self.sw, self.sh, sourcedc, 0, 0, wx.COPY, useMask=True)
-      dc.SetPen(wx.Pen(wx.RED, 1, wx.PENSTYLE_SHORT_DASH))
-      dc.SetBrush(wx.Brush(wx.RED, wx.BRUSHSTYLE_TRANSPARENT))
       dc.DrawRectangle(self.sx, self.sy, self.sw, self.sh)
+
+    if hasattr(self, 'selNewPngFlag') and self.selNewPngFlag:
+      dc.DrawRectangle(self.pt1[0], self.pt1[1], self.pt2[0] - self.pt1[0], self.pt2[1] - self.pt1[1])
 
     img = bmp.ConvertToImage()
     width = img.GetWidth() * self.sheetscale
@@ -959,7 +977,10 @@ type_hitbox lstHitBoxes[] =
     simg = self.img.Scale(width, height, wx.IMAGE_QUALITY_NORMAL)
     self.png = simg.ConvertToBitmap()
 
-    self.ConvertToC64()
+    try:
+      self.ConvertToC64()
+    except:
+      print("EXCEPTION in ConvertToC64()\n", sys.exc_info()[0])
 
     self.update_image()
 
@@ -999,24 +1020,53 @@ type_hitbox lstHitBoxes[] =
   # - - - - - - - - - - - - - - - - - - -
 
   def InPngBounds(self, pos):
-    if self.sx < pos[0]/self.sheetscale and (self.sx+self.sw) > pos[0]/self.sheetscale and \
-      self.sy < pos[1]/self.sheetscale and (self.sy+self.sh) > pos[1]/self.sheetscale:
-      return True
+    if hasattr(self, 'sw') and hasattr(self, 'sh'):
+      if self.sx < pos[0]/self.sheetscale and (self.sx+self.sw) > pos[0]/self.sheetscale and \
+        self.sy < pos[1]/self.sheetscale and (self.sy+self.sh) > pos[1]/self.sheetscale:
+        return True
+      else:
+        return False
     else:
       return False
 
   # - - - - - - - - - - - - - - - - - - -
 
   def HandleMouseEventsInGroupMode(self, event):
+    global projectNotSaved
     if event.LeftDown() and not self.movingPngFlag:
       self.spnl.SetFocus()
       self.pt1 = array(event.GetPosition())
-      self.movingPngFlag = True if self.InPngBounds(self.pt1) else False
-    if event.LeftUp() and self.movingPngFlag:
       self.movingPngFlag = False
-      self.sx = int(self.sx)
-      self.sy = int(self.sy)
-      self.update_cropdim()
+      self.selNewPngFlag = False
+      if self.InPngBounds(self.pt1):
+        self.movingPngFlag = True
+      else:
+        self.selNewPngFlag = True
+
+    if event.LeftUp():
+      if self.movingPngFlag:
+        self.movingPngFlag = False
+        self.sx = int(self.sx)
+        self.sy = int(self.sy)
+        self.update_cropdim()
+      elif self.selNewPngFlag:
+        self.selNewPngFlag = False
+        # Ask user to provide a name for the new png frame
+        dlg = wx.TextEntryDialog(self, 'Name of new PNG frame:', value='')
+        dlg.ShowModal()
+        rslt = dlg.GetValue()
+        if len(rslt) > 0:
+          # if given, then cut it and save it to a new png file within the current group
+          print(rslt)
+          groupPath = os.path.join(settings.projpath, self.selectedGroup)
+          fullpath = os.path.join(groupPath, rslt) + '.png'
+          print(fullpath)
+          self.SaveOutCrop(self.pt1[0], self.pt1[1], self.pt2[0]-self.pt1[0], self.pt2[1]-self.pt1[1], fullpath)
+          self.selectedGroupObj.update(settings.projpath)
+          selPngObj = self.selectedGroupObj.PNGs[rslt]
+          selPngObj.crop = [ self.pt1[0], self.pt1[1], self.pt2[0], self.pt2[1] ]
+          projectNotSaved = True
+          self.ShowPngList()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -1031,14 +1081,19 @@ type_hitbox lstHitBoxes[] =
 
   def HandleMouseMoveInGroupMode(self, event):
     pos = event.GetPosition()
-    if self.movingPngFlag and event.LeftIsDown():
-      self.pt2 = array(event.GetPosition())
-      diff = self.pt2 - self.pt1
-      self.sx += diff[0]/self.sheetscale
-      self.sy += diff[1]/self.sheetscale
+    if event.LeftIsDown():
+      if self.movingPngFlag:
+        self.pt2 = array(event.GetPosition())
+        diff = self.pt2 - self.pt1
+        self.sx += diff[0]/self.sheetscale
+        self.sy += diff[1]/self.sheetscale
 
-      self.DrawSpriteSheet()
-      self.pt1 = self.pt2
+        self.DrawSpriteSheet()
+        self.pt1 = self.pt2
+      elif self.selNewPngFlag:
+        # Draw a red box around the selection
+        self.pt2 = array(event.GetPosition())
+        self.OverlayPng()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -1094,7 +1149,9 @@ def UpdateLists():
   frame.lstGroups.Clear()
   frame.lblPngs.SetLabel('PNGs')
   frame.lstPngs.Clear()
-  for dir in settings.groups:
+  keys = settings.groups.keys()
+  keys.sort()
+  for dir in keys:
     frame.AddGroup(dir)
 
   # - - - - - - - - - - - - - - - - - - -
@@ -1115,8 +1172,7 @@ def LoadSettings():
       settings = jsonpickle.decode(f.read())
 
     # update gui too
-    for group in settings.groups:
-      frame.AddGroup(group)
+    UpdateLists()
 
 # -----------------------------------------
 # MAIN

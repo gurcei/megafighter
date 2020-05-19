@@ -6782,6 +6782,229 @@
             }, 
             "name": "Zangief", 
             "py/object": "__main__.Group"
+        }, 
+        "__Misc__": {
+            "PNGs": {
+                "blank": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "blank", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "energy_bars": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "energy_bars", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "options_border_bottom": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "options_border_bottom", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "options_border_mid": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "options_border_mid", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "options_border_top": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "options_border_top", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "player_select": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "player_select", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "title": {
+                    "crop": [], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "title", 
+                    "py/object": "__main__.PNG"
+                }
+            }, 
+            "name": "__Misc__", 
+            "py/object": "__main__.Group"
         }
     }, 
     "projpath": "/Users/tramvo/c64/Projects/sf2/Graphics", 

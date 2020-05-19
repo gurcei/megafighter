@@ -21,30 +21,51 @@ class Settings:
     self.groups = {}
 
     # add in groups
-    for dir in os.listdir(projpath):
-      if not os.path.isdir(os.path.join(projpath,dir)):
+    for dir in os.listdir(self.projpath):
+      if not os.path.isdir(os.path.join(self.projpath,dir)):
         continue
       if dir[0] == '.':
         continue
-      self.groups[dir] = Group(projpath, dir)
+      self.groups[dir] = Group(self.projpath, dir)
+
+  def update(self):
+    for dir in os.listdir(self.projpath):
+      if not os.path.isdir(os.path.join(self.projpath, dir)):
+        continue
+      if dir[0] == '.':
+        continue
+      if dir in self.groups:
+        self.groups[dir].update(self.projpath)
+      else:
+        self.groups[dir] = Group(self.projpath, dir)
 
 # -----------------------------------------
 
 class Group:
   def __init__(self, projpath, name):
     self.name = name
-    groupPath = os.path.join(projpath, name)
+    groupPath = os.path.join(projpath, self.name)
     self.PNGs = self._find_pngs(groupPath)
+
+  def update(self, projpath):
+    groupPath = os.path.join(projpath, self.name)
+    self._find_pngs(groupPath)
 
 # - - - - - - - - - - - - - - - - - - -
 
-  def _find_pngs(self, path):
+  def _find_pngs(self, path, refresh=False):
     pngs = {}
     files = glob.glob(path + "/*.png")
     short_files = [f[len(path)+1:-4] for f in files]
 
     for f in short_files:
-      pngs[f] = PNG(f)
+      # are we just refreshing existing list?
+      if refresh:
+        if not f in self.PNGs:
+          self.PNGs[f] = PNG(f)
+      # nope, we're creating a completely new list
+      else:
+        pngs[f] = PNG(f)
 
     return pngs
 
@@ -414,6 +435,7 @@ class MyFrame(wx.Frame):
     file_menu = wx.Menu()
     options_menu = wx.Menu()
     mnuitmFileOpenFolder = file_menu.Append(wx.ID_ANY, 'Open Folder\tCTRL-O', 'Open a folder with MP3s')
+    mnuitmFileScanForNewItems = file_menu.Append(wx.ID_ANY, 'Scan for New Items\tF5')
     mnuitmFileSaveHitboxes = file_menu.Append(wx.ID_ANY, 'Save Hitboxes\tCTRL-S', "Save hitboxes to 'hitboxes.h'")
     self.toggle_view = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle View\tCTRL-t', 'Toggle between png and c64 view')
     self.toggle_colours = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Colours\tCTRL-R', 'Toggle colours on/off')
@@ -423,6 +445,7 @@ class MyFrame(wx.Frame):
 
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=mnuitmFileOpenFolder)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnScanForNewItems, source=mnuitmFileScanForNewItems)
     self.Bind(event=wx.EVT_MENU, handler=self.OnSaveHitboxes, source=mnuitmFileSaveHitboxes)
 
     menu_bar.Append(options_menu, 'Options')
@@ -484,6 +507,14 @@ class MyFrame(wx.Frame):
     dlg = wx.DirDialog(self, title, style=wx.DD_DEFAULT_STYLE)
     if dlg.ShowModal() == wx.ID_OK:
       SetGraphicsDirectory(dlg.GetPath())
+
+  # - - - - - - - - - - - - - - - - - - -
+  def OnScanForNewItems(self, event):
+    global settings, projectNotSaved
+    settings.update()
+    projectNotSaved = True
+
+    UpdateLists()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -1050,14 +1081,21 @@ frame = None
 # -----------------------------------------
 
 def SetGraphicsDirectory(path):
-      global settings, projectNotSaved, frame
-      settings = Settings(path)
-      projectNotSaved = True
+  global settings, projectNotSaved, frame
+  settings = Settings(path)
+  projectNotSaved = True
 
-      # search for sub-folders within here (each one will be a 'group')
-      frame.lstGroups.Clear()
-      for dir in settings.groups:
-        frame.AddGroup(dir)
+  UpdateLists()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+def UpdateLists():
+  # search for sub-folders within here (each one will be a 'group')
+  frame.lstGroups.Clear()
+  frame.lblPngs.SetLabel('PNGs')
+  frame.lstPngs.Clear()
+  for dir in settings.groups:
+    frame.AddGroup(dir)
 
   # - - - - - - - - - - - - - - - - - - -
 

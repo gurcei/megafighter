@@ -1089,7 +1089,7 @@ type_hitbox lstHitBoxes[] =
           self.SaveOutCrop(x, y, width, height, fullpath)
           self.selectedGroupObj.update(settings.projpath)
           selPngObj = self.selectedGroupObj.PNGs[rslt]
-          selPngObj.crop = [ int(self.pt1[0]), int(self.pt1[1]), int(self.pt2[0]), int(self.pt2[1]) ]
+          selPngObj.crop = [ int(x), int(y), int(width), int(height) ]
           selPngObj.adjust = [ 0, 0, int(((width+7)/8)*8), int(((height+7)/8)*8) ]
           projectNotSaved = True
           self.ShowPngList()

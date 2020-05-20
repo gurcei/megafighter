@@ -159,7 +159,7 @@ class MyFrame(wx.Frame):
     self.lblPngName = self.create_static_field(hbpanel, tuple(itempos), "Name:", "???")
 
     itempos[1] += 30
-    self.txtCrop = self.create_text_field(hbpanel, tuple(itempos), "Crop Dim:", "")
+    self.txtCrop = self.create_text_field(hbpanel, tuple(itempos), "Crop Dim:", "", self.OnBtnCutClicked)
 
     self.btnCut = wx.Button(hbpanel, label='Cut', pos=(itempos[0]+170,itempos[1]), size=(40,25))
     self.btnCut.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnCutClicked)
@@ -168,7 +168,7 @@ class MyFrame(wx.Frame):
     self.lblPngSize = self.create_static_field(hbpanel, tuple(itempos), "Size:", "???")
 
     itempos[1] += 30
-    self.txtAdjust = self.create_text_field(hbpanel, tuple(itempos), "Adjust:", "")
+    self.txtAdjust = self.create_text_field(hbpanel, tuple(itempos), "Adjust:", "", self.OnBtnCutClicked)
 
     initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
@@ -347,7 +347,10 @@ class MyFrame(wx.Frame):
       dc.DrawRectangle(self.sx, self.sy, self.sw, self.sh)
 
     if hasattr(self, 'selNewPngFlag') and self.selNewPngFlag:
-      dc.DrawRectangle(self.pt1[0], self.pt1[1], self.pt2[0] - self.pt1[0], self.pt2[1] - self.pt1[1])
+
+      dc.DrawRectangle(self.pt1[0] / self.sheetscale, self.pt1[1] / self.sheetscale,
+          (self.pt2[0] - self.pt1[0]) / self.sheetscale,
+          (self.pt2[1] - self.pt1[1]) / self.sheetscale)
 
     img = bmp.ConvertToImage()
     width = img.GetWidth() * self.sheetscale
@@ -1079,9 +1082,11 @@ type_hitbox lstHitBoxes[] =
           groupPath = os.path.join(settings.projpath, self.selectedGroup)
           fullpath = os.path.join(groupPath, rslt) + '.png'
           print(fullpath)
-          width = self.pt2[0]-self.pt1[0]
-          height = self.pt2[1]-self.pt1[1]
-          self.SaveOutCrop(self.pt1[0], self.pt1[1], width, height, fullpath)
+          x = self.pt1[0] / self.sheetscale
+          y = self.pt1[1] / self.sheetscale
+          width = (self.pt2[0]-self.pt1[0]) / self.sheetscale
+          height = (self.pt2[1]-self.pt1[1]) / self.sheetscale
+          self.SaveOutCrop(x, y, width, height, fullpath)
           self.selectedGroupObj.update(settings.projpath)
           selPngObj = self.selectedGroupObj.PNGs[rslt]
           selPngObj.crop = [ int(self.pt1[0]), int(self.pt1[1]), int(self.pt2[0]), int(self.pt2[1]) ]

@@ -77,6 +77,7 @@ class PNG:
     self.name=name
     self.hitboxes= { 'Head': [0,0,0,0], 'Torso': [0,0,0,0], 'Feet': [0,0,0,0], 'Attack': [0,0,0,0] }
     self.crop = [ ]
+    self.adjust = [ ]
 
 # -----------------------------------------
 
@@ -166,6 +167,9 @@ class MyFrame(wx.Frame):
     itempos[1] += 30
     self.lblPngSize = self.create_static_field(hbpanel, tuple(itempos), "Size:", "???")
 
+    itempos[1] += 30
+    self.txtAdjust = self.create_text_field(hbpanel, tuple(itempos), "Adjust:", "")
+
     initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
 
@@ -182,23 +186,34 @@ class MyFrame(wx.Frame):
     print('clicked')
     # cut the image from the sprite-sheet at the coords specified by crop-dim field
     cropvals = [int(i) for i in self.txtCrop.GetValue().split(',')]
+    adjustvals = None
+    if len(self.txtAdjust.GetValue()) > 0:
+      adjustvals = [int(i) for i in self.txtAdjust.GetValue().split(',')]
     [self.sx, self.sy, self.sw, self.sh] = cropvals
-    self.update_cropdim()
+    self.update_cropdim(adjustvals)
 
-    self.SaveOutCrop(self.sx, self.sy, self.sw, self.sh, self.pngPath)
+    self.SaveOutCrop(self.sx, self.sy, self.sw, self.sh, self.pngPath, adjustvals)
 
     # redraw png
     self.OnLstPngsSelectionChanged(None)
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def SaveOutCrop(self, x, y, w, h, path):
-    dbmp = wx.Bitmap(w, h, depth=16)
+  def SaveOutCrop(self, x, y, w, h, path, adjust=None):
+    if not adjust:
+      adjust = [ 0, 0, ((w+7)/8)*8, ((h+7)/8)*8 ]
+
+    dbmp = wx.Bitmap(adjust[2], adjust[3], depth=16)
 
     sheetbmp = self.sprsheet.ConvertToBitmap()
     sourcedc = wx.MemoryDC(sheetbmp)
+    pixels = self.sprsheet.GetData()
+    transparent = (pixels[0], pixels[1], pixels[2])
     destdc=wx.MemoryDC(dbmp)
-    destdc.Blit(0, 0, w, h, sourcedc, x, y, wx.COPY)
+    destdc.SetBrush(wx.Brush(transparent))
+    destdc.SetPen(wx.Pen(transparent, 1))
+    destdc.DrawRectangle(0, 0, adjust[2], adjust[3])
+    destdc.Blit(adjust[0], adjust[1], w, h, sourcedc, x, y, wx.COPY)
 
     # save out the new bitmap
     dbmp.SaveFile(path, wx.BITMAP_TYPE_PNG)
@@ -376,6 +391,9 @@ class MyFrame(wx.Frame):
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(self.pngPath)
     self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
+    if hasattr(self.selectedPngObj, 'adjust'):
+      a = self.selectedPngObj.adjust
+      self.txtAdjust.SetValue("{}, {}, {}, {}".format(a[0], a[1], a[2], a[3]))
 
     # debug info
     dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))
@@ -1061,20 +1079,29 @@ type_hitbox lstHitBoxes[] =
           groupPath = os.path.join(settings.projpath, self.selectedGroup)
           fullpath = os.path.join(groupPath, rslt) + '.png'
           print(fullpath)
-          self.SaveOutCrop(self.pt1[0], self.pt1[1], self.pt2[0]-self.pt1[0], self.pt2[1]-self.pt1[1], fullpath)
+          width = self.pt2[0]-self.pt1[0]
+          height = self.pt2[1]-self.pt1[1]
+          self.SaveOutCrop(self.pt1[0], self.pt1[1], width, height, fullpath)
           self.selectedGroupObj.update(settings.projpath)
           selPngObj = self.selectedGroupObj.PNGs[rslt]
-          selPngObj.crop = [ self.pt1[0], self.pt1[1], self.pt2[0], self.pt2[1] ]
+          selPngObj.crop = [ int(self.pt1[0]), int(self.pt1[1]), int(self.pt2[0]), int(self.pt2[1]) ]
+          selPngObj.adjust = [ 0, 0, int(((width+7)/8)*8), int(((height+7)/8)*8) ]
           projectNotSaved = True
           self.ShowPngList()
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def update_cropdim(self):
+  def update_cropdim(self, adjustvals=None):
     global projectNotSaved
     s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
     self.txtCrop.SetValue(s)
     self.selectedPngObj.crop = [self.sx, self.sy, self.sw, self.sh]
+
+    if adjustvals:
+      s = "{}, {}, {}, {}".format(adjustvals[0], adjustvals[1], adjustvals[2], adjustvals[3])
+      self.txtAdjust.SetValue(s)
+      self.selectedPngObj.adjust = adjustvals
+
     projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -

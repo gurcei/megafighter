@@ -1925,7 +1925,7 @@ void game_main(void)
 #ifdef BLANKSCREEN
   draw_fullwidth_bitmap(BLANK, 0, 0);
 #else
-    draw_fullwidth_bitmap(RYU_STAGE_CROPPED, 0, 0);
+    draw_fullwidth_bitmap(STAGE_CHUNLI_CROPPED, 0, 0);
 #endif
 	}
 #ifdef ANIMBKGND

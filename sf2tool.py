@@ -160,6 +160,7 @@ class MyFrame(wx.Frame):
 
     itempos[1] += 30
     self.txtCrop = self.create_text_field(hbpanel, tuple(itempos), "Crop Dim:", "", self.OnBtnCutClicked)
+    self.txtCrop.Bind(wx.EVT_KEY_DOWN, self.OnTxtCropKeyDown)
 
     self.btnCut = wx.Button(hbpanel, label='Cut', pos=(itempos[0]+170,itempos[1]), size=(40,25))
     self.btnCut.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnCutClicked)
@@ -169,6 +170,7 @@ class MyFrame(wx.Frame):
 
     itempos[1] += 30
     self.txtAdjust = self.create_text_field(hbpanel, tuple(itempos), "Adjust:", "", self.OnBtnCutClicked)
+    self.txtAdjust.Bind(wx.EVT_KEY_DOWN, self.OnTxtAdjustKeyDown)
 
     initialvalue="0, 0, 0, 0"
     self.lstTxtHboxes = []
@@ -179,6 +181,88 @@ class MyFrame(wx.Frame):
         initialvalue, self.OnTxtHboxEnter))
 
     return hbpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtCropKeyDown(self, event):
+    if event.ControlDown():
+      [self.sx, self.sy, self.sw, self.sh] = [int(i) for i in self.txtCrop.GetValue().split(',')]
+      c = event.GetKeyCode()
+      # go to next png?
+      if event.ShiftDown():
+        self.MovePngSelectionOnKeyPress(c)
+        self.OnLstPngsSelectionChanged(None)
+        return
+      # move the overlay?
+      elif c == wx.WXK_UP:
+        self.sy -= 1
+      elif c == wx.WXK_DOWN:
+        self.sy += 1
+      elif c == wx.WXK_LEFT:
+        self.sx -= 1
+      elif c == wx.WXK_RIGHT:
+        self.sx += 1
+      else:
+        event.Skip()
+        return
+    else:
+      event.Skip()
+      return
+
+    s = "{}, {}, {}, {}".format(self.sx, self.sy, self.sw, self.sh)
+    self.txtCrop.SetValue(s)
+    self.OnBtnCutClicked(None)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtAdjustKeyDown(self, event):
+    if event.ControlDown():
+      c = event.GetKeyCode()
+      # go to next png?
+      if event.ShiftDown():
+        self.MovePngSelectionOnKeyPress(c)
+        self.OnLstPngsSelectionChanged(None)
+        return
+      # move the adjustment?
+      else:
+        try:
+          [self.sx, self.sy, self.sw, self.sh] = [int(i) for i in self.txtCrop.GetValue().split(',')]
+          [x, y, w, h] = [int(i) for i in self.txtAdjust.GetValue().split(',')]
+          if event.AltDown():
+            if c == wx.WXK_UP:
+              h -= 8
+            elif c == wx.WXK_DOWN:
+              h += 8
+            elif c == wx.WXK_LEFT:
+              w -= 8
+            elif c == wx.WXK_RIGHT:
+              w += 8
+            else:
+              event.Skip()
+              return
+          else:
+            if c == wx.WXK_UP:
+              y -= 1
+            elif c == wx.WXK_DOWN:
+              y += 1
+            elif c == wx.WXK_LEFT:
+              x -= 1
+            elif c == wx.WXK_RIGHT:
+              x += 1
+            else:
+              event.Skip()
+              return
+        except:
+          event.Skip()
+          return
+    else:
+      event.Skip()
+      return
+
+    s = "{}, {}, {}, {}".format(x, y, w, h)
+    self.txtAdjust.SetValue(s)
+    self.OnBtnCutClicked(None)
+
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -383,9 +467,20 @@ class MyFrame(wx.Frame):
     else:
       self.txtCrop.SetValue('')
 
+    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
+    img = wx.Image(pngPath, wx.BITMAP_TYPE_ANY)
+    self.lblPngSize.SetLabel("{}x{}".format(img.GetWidth(), img.GetHeight()))
+
+    if hasattr(self.selectedPngObj, 'adjust'):
+      a = self.selectedPngObj.adjust
+      self.txtAdjust.SetValue("{}, {}, {}, {}".format(a[0], a[1], a[2], a[3]))
+    else:
+      self.txtAdjust.SetValue("")
+
   # - - - - - - - - - - - - - - - - - - -
 
   def OnLstPngsSelectionChanged(self, event):
+    print('selchange')
     self.mode = self.Mode.Png
     self._UpdatePngDetails()
     self.pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
@@ -393,10 +488,6 @@ class MyFrame(wx.Frame):
     self.pnlAnimDetails.Hide()
     self.lstAnims.SetSelection(wx.NOT_FOUND)
     self.load_image(self.pngPath)
-    self.lblPngSize.SetLabel("{}x{}".format(self.img.GetWidth(), self.img.GetHeight()))
-    if hasattr(self.selectedPngObj, 'adjust'):
-      a = self.selectedPngObj.adjust
-      self.txtAdjust.SetValue("{}, {}, {}, {}".format(a[0], a[1], a[2], a[3]))
 
     # debug info
     dbg="ROWSEGS({}) = \n".format(len(self.rowsegs))
@@ -617,27 +708,32 @@ type_hitbox lstHitBoxes[] =
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def MovePngSelectionOnKeyPress(self, c):
+      idx = self.lstPngs.GetSelection()
+      if c == wx.WXK_UP:
+        if idx > 0:
+          idx -= 1
+          self.lstPngs.SetSelection(idx)
+        else:
+          return
+      elif c == wx.WXK_DOWN:
+        if idx < self.lstPngs.GetCount()-1:
+          idx += 1
+          self.lstPngs.SetSelection(idx)
+        else:
+          return
+      else:
+        return
+      self._UpdatePngDetails()
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def OnSpnlKeyDown(self, event):
     if event.ControlDown():
       c = event.GetKeyCode()
       # go to next png?
       if event.ShiftDown():
-        idx = self.lstPngs.GetSelection()
-        if c == wx.WXK_UP:
-          if idx > 0:
-            idx -= 1
-            self.lstPngs.SetSelection(idx)
-          else:
-            return
-        elif c == wx.WXK_DOWN:
-          if idx < self.lstPngs.GetCount()-1:
-            idx += 1
-            self.lstPngs.SetSelection(idx)
-          else:
-            return
-        else:
-          return
-        self._UpdatePngDetails()
+        self.MovePngSelectionOnKeyPress(c)
       # move the overlay?
       elif c == wx.WXK_UP:
         self.sy -= 1

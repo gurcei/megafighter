@@ -2,6 +2,888 @@
     "groups": {
         "ChunLi": {
             "PNGs": {
+                "chunli_birdkick01": {
+                    "adjust": [
+                        29, 
+                        2, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        2, 
+                        710, 
+                        48, 
+                        124
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick01", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick02": {
+                    "adjust": [
+                        27, 
+                        3, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        51, 
+                        711, 
+                        50, 
+                        123
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick02", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick03": {
+                    "adjust": [
+                        21, 
+                        4, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        102, 
+                        712, 
+                        58, 
+                        122
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick03", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick04": {
+                    "adjust": [
+                        3, 
+                        5, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        161, 
+                        713, 
+                        74, 
+                        120
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick04", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick05": {
+                    "adjust": [
+                        28, 
+                        0, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        236, 
+                        708, 
+                        45, 
+                        126
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick05", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick06": {
+                    "adjust": [
+                        29, 
+                        0, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        282, 
+                        708, 
+                        47, 
+                        126
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick06", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick07": {
+                    "adjust": [
+                        28, 
+                        1, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        330, 
+                        709, 
+                        44, 
+                        124
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick07", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick08": {
+                    "adjust": [
+                        28, 
+                        2, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        377, 
+                        710, 
+                        46, 
+                        124
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick08", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick09": {
+                    "adjust": [
+                        6, 
+                        3, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        424, 
+                        711, 
+                        90, 
+                        123
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick09", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick10": {
+                    "adjust": [
+                        27, 
+                        4, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        515, 
+                        712, 
+                        47, 
+                        122
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick10", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick11": {
+                    "adjust": [
+                        4, 
+                        5, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        563, 
+                        713, 
+                        90, 
+                        120
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick11", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick12": {
+                    "adjust": [
+                        30, 
+                        -1, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        657, 
+                        707, 
+                        43, 
+                        127
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick12", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick13": {
+                    "adjust": [
+                        27, 
+                        0, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        701, 
+                        708, 
+                        46, 
+                        126
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick13", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick14": {
+                    "adjust": [
+                        28, 
+                        1, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        748, 
+                        709, 
+                        73, 
+                        125
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick14", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick15": {
+                    "adjust": [
+                        26, 
+                        2, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        822, 
+                        710, 
+                        56, 
+                        124
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick15", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_birdkick16": {
+                    "adjust": [
+                        27, 
+                        3, 
+                        104, 
+                        128
+                    ], 
+                    "crop": [
+                        879, 
+                        711, 
+                        50, 
+                        123
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_birdkick16", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_block1": {
+                    "adjust": [
+                        0, 
+                        4, 
+                        56, 
+                        88
+                    ], 
+                    "crop": [
+                        1009, 
+                        145, 
+                        54, 
+                        82
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_block1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_block2": {
+                    "adjust": [
+                        2, 
+                        5, 
+                        56, 
+                        88
+                    ], 
+                    "crop": [
+                        1065, 
+                        146, 
+                        51, 
+                        81
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_block2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_bodytoss1": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        80, 
+                        96
+                    ], 
+                    "crop": [
+                        938, 
+                        744, 
+                        52, 
+                        92
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_bodytoss1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_bodytoss2": {
+                    "adjust": [
+                        4, 
+                        5, 
+                        80, 
+                        96
+                    ], 
+                    "crop": [
+                        991, 
+                        745, 
+                        66, 
+                        89
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_bodytoss2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_bodytoss3": {
+                    "adjust": [
+                        3, 
+                        6, 
+                        80, 
+                        96
+                    ], 
+                    "crop": [
+                        1059, 
+                        746, 
+                        75, 
+                        88
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_bodytoss3", 
+                    "py/object": "__main__.PNG"
+                }, 
                 "chunli_crouch1": {
                     "adjust": [
                         1, 
@@ -84,6 +966,846 @@
                         ]
                     }, 
                     "name": "chunli_crouch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_hkick1": {
+                    "adjust": [
+                        4, 
+                        5, 
+                        96, 
+                        72
+                    ], 
+                    "crop": [
+                        591, 
+                        383, 
+                        58, 
+                        65
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_hkick2": {
+                    "adjust": [
+                        4, 
+                        6, 
+                        96, 
+                        72
+                    ], 
+                    "crop": [
+                        650, 
+                        384, 
+                        91, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_lkick1": {
+                    "adjust": [
+                        4, 
+                        2, 
+                        80, 
+                        64
+                    ], 
+                    "crop": [
+                        217, 
+                        388, 
+                        49, 
+                        59
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_lkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_lkick2": {
+                    "adjust": [
+                        4, 
+                        3, 
+                        80, 
+                        64
+                    ], 
+                    "crop": [
+                        267, 
+                        389, 
+                        74, 
+                        59
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_lkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_lmhpunch1": {
+                    "adjust": [
+                        4, 
+                        0, 
+                        96, 
+                        72
+                    ], 
+                    "crop": [
+                        3, 
+                        378, 
+                        58, 
+                        72
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_lmhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_lmhpunch2": {
+                    "adjust": [
+                        2, 
+                        1, 
+                        96, 
+                        72
+                    ], 
+                    "crop": [
+                        62, 
+                        379, 
+                        90, 
+                        68
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_lmhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_mkick1": {
+                    "adjust": [
+                        2, 
+                        -3, 
+                        88, 
+                        64
+                    ], 
+                    "crop": [
+                        396, 
+                        383, 
+                        52, 
+                        63
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_mkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_mkick2": {
+                    "adjust": [
+                        3, 
+                        -2, 
+                        88, 
+                        64
+                    ], 
+                    "crop": [
+                        449, 
+                        384, 
+                        79, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_mkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouch_mkick3": {
+                    "adjust": [
+                        4, 
+                        -2, 
+                        88, 
+                        64
+                    ], 
+                    "crop": [
+                        530, 
+                        384, 
+                        57, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouch_mkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_crouchhit": {
+                    "adjust": [
+                        5, 
+                        0, 
+                        64, 
+                        64
+                    ], 
+                    "crop": [
+                        252, 
+                        876, 
+                        57, 
+                        62
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_crouchhit", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_facehit1": {
+                    "adjust": [
+                        11, 
+                        -1, 
+                        64, 
+                        88
+                    ], 
+                    "crop": [
+                        134, 
+                        851, 
+                        52, 
+                        87
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_facehit1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_facehit2": {
+                    "adjust": [
+                        -1, 
+                        0, 
+                        64, 
+                        88
+                    ], 
+                    "crop": [
+                        186, 
+                        852, 
+                        62, 
+                        86
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_facehit2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick1": {
+                    "adjust": [
+                        1, 
+                        -1, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1147, 
+                        579, 
+                        51, 
+                        111
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick2": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1199, 
+                        580, 
+                        49, 
+                        110
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick3": {
+                    "adjust": [
+                        -1, 
+                        1, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1249, 
+                        581, 
+                        51, 
+                        108
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick4": {
+                    "adjust": [
+                        -2, 
+                        2, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1300, 
+                        582, 
+                        52, 
+                        107
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick5": {
+                    "adjust": [
+                        -1, 
+                        3, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1353, 
+                        583, 
+                        51, 
+                        107
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhkick6": {
+                    "adjust": [
+                        2, 
+                        4, 
+                        56, 
+                        112
+                    ], 
+                    "crop": [
+                        1405, 
+                        584, 
+                        47, 
+                        106
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhkick6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhpunch1": {
+                    "adjust": [
+                        4, 
+                        -2, 
+                        72, 
+                        88
+                    ], 
+                    "crop": [
+                        821, 
+                        139, 
+                        56, 
+                        88
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fhpunch2": {
+                    "adjust": [
+                        3, 
+                        -1, 
+                        72, 
+                        88
+                    ], 
+                    "crop": [
+                        878, 
+                        140, 
+                        66, 
+                        85
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fhpunch2", 
                     "py/object": "__main__.PNG"
                 }, 
                 "chunli_fjump1": {
@@ -422,6 +2144,1392 @@
                     "name": "chunli_fjump8", 
                     "py/object": "__main__.PNG"
                 }, 
+                "chunli_fjump_hkick1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        755, 
+                        469, 
+                        39, 
+                        94
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_hkick2": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        795, 
+                        470, 
+                        54, 
+                        93
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_hkick3": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        849, 
+                        471, 
+                        41, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_hkick4": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        891, 
+                        472, 
+                        55, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_hkick5": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        947, 
+                        473, 
+                        41, 
+                        90
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_hkick6": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        990, 
+                        474, 
+                        54, 
+                        89
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_hkick6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_lmhpunch1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        80
+                    ], 
+                    "crop": [
+                        1061, 
+                        372, 
+                        38, 
+                        75
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_lmhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_lmhpunch2": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        56, 
+                        80
+                    ], 
+                    "crop": [
+                        1100, 
+                        372, 
+                        55, 
+                        75
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_lmhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_lmkick1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        72, 
+                        64
+                    ], 
+                    "crop": [
+                        582, 
+                        487, 
+                        48, 
+                        62
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_lmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fjump_lmkick2": {
+                    "adjust": [
+                        0, 
+                        1, 
+                        72, 
+                        64
+                    ], 
+                    "crop": [
+                        631, 
+                        488, 
+                        71, 
+                        61
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fjump_lmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_flpunch1": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        657, 
+                        137, 
+                        49, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_flpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_flpunch2": {
+                    "adjust": [
+                        3, 
+                        6, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        707, 
+                        139, 
+                        55, 
+                        87
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_flpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick1": {
+                    "adjust": [
+                        5, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        667, 
+                        250, 
+                        51, 
+                        94
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick2": {
+                    "adjust": [
+                        5, 
+                        1, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        720, 
+                        251, 
+                        84, 
+                        93
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick3": {
+                    "adjust": [
+                        12, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        345, 
+                        465, 
+                        70, 
+                        73
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick4": {
+                    "adjust": [
+                        26, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        416, 
+                        466, 
+                        34, 
+                        95
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick5": {
+                    "adjust": [
+                        3, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        451, 
+                        467, 
+                        68, 
+                        92
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_fmkick6": {
+                    "adjust": [
+                        9, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        520, 
+                        468, 
+                        56, 
+                        95
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_fmkick6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hit1": {
+                    "adjust": [
+                        13, 
+                        3, 
+                        72, 
+                        80
+                    ], 
+                    "crop": [
+                        4, 
+                        863, 
+                        56, 
+                        74
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hit1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hit2": {
+                    "adjust": [
+                        1, 
+                        4, 
+                        72, 
+                        80
+                    ], 
+                    "crop": [
+                        61, 
+                        864, 
+                        68, 
+                        74
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hit2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hkick1": {
+                    "adjust": [
+                        3, 
+                        0, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        399, 
+                        250, 
+                        59, 
+                        94
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hkick2": {
+                    "adjust": [
+                        4, 
+                        -2, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        460, 
+                        248, 
+                        79, 
+                        96
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hkick3": {
+                    "adjust": [
+                        2, 
+                        8, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        541, 
+                        258, 
+                        69, 
+                        86
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hkick4": {
+                    "adjust": [
+                        3, 
+                        9, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        611, 
+                        259, 
+                        51, 
+                        85
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hpunch1": {
+                    "adjust": [
+                        5, 
+                        3, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        435, 
+                        144, 
+                        65, 
+                        83
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hpunch2": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        501, 
+                        145, 
+                        83, 
+                        82
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku1": {
+                    "adjust": [
+                        3, 
+                        0, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        530, 
+                        588, 
+                        79, 
+                        102
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku2": {
+                    "adjust": [
+                        2, 
+                        1, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        609, 
+                        589, 
+                        88, 
+                        101
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku3": {
+                    "adjust": [
+                        4, 
+                        2, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        698, 
+                        590, 
+                        84, 
+                        100
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku4": {
+                    "adjust": [
+                        0, 
+                        3, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        784, 
+                        591, 
+                        97, 
+                        99
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku5": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        882, 
+                        592, 
+                        86, 
+                        98
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku6": {
+                    "adjust": [
+                        4, 
+                        5, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        969, 
+                        593, 
+                        94, 
+                        97
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_hyaku7": {
+                    "adjust": [
+                        3, 
+                        6, 
+                        96, 
+                        104
+                    ], 
+                    "crop": [
+                        1064, 
+                        594, 
+                        77, 
+                        96
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_hyaku7", 
+                    "py/object": "__main__.PNG"
+                }, 
                 "chunli_idle1": {
                     "adjust": [
                         0, 
@@ -710,6 +3818,1644 @@
                     "name": "chunli_jump4", 
                     "py/object": "__main__.PNG"
                 }, 
+                "chunli_jump_hkick1": {
+                    "adjust": [
+                        6, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        240, 
+                        461, 
+                        47, 
+                        101
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_hkick2": {
+                    "adjust": [
+                        8, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        288, 
+                        462, 
+                        56, 
+                        101
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_hkick3": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        345, 
+                        463, 
+                        69, 
+                        99
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_hkick4": {
+                    "adjust": [
+                        14, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        415, 
+                        464, 
+                        36, 
+                        98
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_hkick5": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        451, 
+                        463, 
+                        68, 
+                        97
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_hkick6": {
+                    "adjust": [
+                        6, 
+                        0, 
+                        72, 
+                        104
+                    ], 
+                    "crop": [
+                        520, 
+                        464, 
+                        57, 
+                        98
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_hkick6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmhpunch1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        64, 
+                        88
+                    ], 
+                    "crop": [
+                        803, 
+                        361, 
+                        39, 
+                        86
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmhpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmhpunch2": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        64, 
+                        88
+                    ], 
+                    "crop": [
+                        843, 
+                        362, 
+                        57, 
+                        85
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmhpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmhpunch3": {
+                    "adjust": [
+                        0, 
+                        3, 
+                        64, 
+                        88
+                    ], 
+                    "crop": [
+                        900, 
+                        363, 
+                        59, 
+                        85
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmhpunch3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmkick1": {
+                    "adjust": [
+                        2, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        2, 
+                        470, 
+                        39, 
+                        93
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmkick2": {
+                    "adjust": [
+                        2, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        43, 
+                        471, 
+                        53, 
+                        92
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_jump_lmkick3": {
+                    "adjust": [
+                        2, 
+                        0, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        97, 
+                        472, 
+                        40, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_jump_lmkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikouken1": {
+                    "adjust": [
+                        18, 
+                        -2, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        7, 
+                        578, 
+                        47, 
+                        112
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikouken1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikouken2": {
+                    "adjust": [
+                        2, 
+                        -1, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        55, 
+                        579, 
+                        64, 
+                        111
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikouken2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikouken3": {
+                    "adjust": [
+                        16, 
+                        0, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        120, 
+                        580, 
+                        50, 
+                        110
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikouken3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikouken4": {
+                    "adjust": [
+                        12, 
+                        1, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        171, 
+                        581, 
+                        67, 
+                        109
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikouken4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj1": {
+                    "adjust": [
+                        -2, 
+                        -1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        244, 
+                        604, 
+                        39, 
+                        36
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj10": {
+                    "adjust": [
+                        8, 
+                        1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        397, 
+                        651, 
+                        26, 
+                        32
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj10", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj2": {
+                    "adjust": [
+                        -1, 
+                        -1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        284, 
+                        605, 
+                        38, 
+                        34
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj3": {
+                    "adjust": [
+                        -1, 
+                        0, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        323, 
+                        606, 
+                        38, 
+                        34
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj4": {
+                    "adjust": [
+                        3, 
+                        1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        362, 
+                        607, 
+                        34, 
+                        33
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj5": {
+                    "adjust": [
+                        0, 
+                        1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        397, 
+                        607, 
+                        40, 
+                        32
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj6": {
+                    "adjust": [
+                        1, 
+                        1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        440, 
+                        607, 
+                        39, 
+                        32
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj7": {
+                    "adjust": [
+                        -1, 
+                        2, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        480, 
+                        608, 
+                        41, 
+                        29
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj7", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj8": {
+                    "adjust": [
+                        -1, 
+                        -1, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        333, 
+                        649, 
+                        40, 
+                        35
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj8", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_kikproj9": {
+                    "adjust": [
+                        14, 
+                        0, 
+                        40, 
+                        32
+                    ], 
+                    "crop": [
+                        374, 
+                        650, 
+                        21, 
+                        33
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_kikproj9", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown1": {
+                    "adjust": [
+                        14, 
+                        -1, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        313, 
+                        859, 
+                        54, 
+                        78
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown2": {
+                    "adjust": [
+                        -2, 
+                        -3, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        368, 
+                        860, 
+                        62, 
+                        76
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown3": {
+                    "adjust": [
+                        5, 
+                        0, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        432, 
+                        861, 
+                        59, 
+                        76
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown4": {
+                    "adjust": [
+                        1, 
+                        5, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        492, 
+                        862, 
+                        85, 
+                        78
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown5": {
+                    "adjust": [
+                        9, 
+                        7, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        578, 
+                        863, 
+                        66, 
+                        76
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown5", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_knockdown6": {
+                    "adjust": [
+                        12, 
+                        7, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        645, 
+                        864, 
+                        50, 
+                        72
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_knockdown6", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_ko1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        808, 
+                        857, 
+                        75, 
+                        80
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_ko1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_ko2": {
+                    "adjust": [
+                        0, 
+                        1, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        883, 
+                        858, 
+                        63, 
+                        78
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_ko2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_ko3": {
+                    "adjust": [
+                        1, 
+                        0, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        946, 
+                        859, 
+                        75, 
+                        77
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_ko3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_ko4": {
+                    "adjust": [
+                        1, 
+                        3, 
+                        88, 
+                        88
+                    ], 
+                    "crop": [
+                        1022, 
+                        860, 
+                        84, 
+                        80
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_ko4", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_lkick1": {
+                    "adjust": [
+                        5, 
+                        2, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        1, 
+                        252, 
+                        50, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_lkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_lkick2": {
+                    "adjust": [
+                        4, 
+                        1, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        53, 
+                        251, 
+                        59, 
+                        95
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_lkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_lkick3": {
+                    "adjust": [
+                        5, 
+                        -2, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        114, 
+                        248, 
+                        84, 
+                        96
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_lkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
                 "chunli_lpunch1": {
                     "adjust": [
                         3, 
@@ -792,6 +5538,846 @@
                         ]
                     }, 
                     "name": "chunli_lpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_mkick1": {
+                    "adjust": [
+                        5, 
+                        2, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        1, 
+                        252, 
+                        50, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_mkick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_mkick2": {
+                    "adjust": [
+                        4, 
+                        1, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        53, 
+                        251, 
+                        59, 
+                        95
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_mkick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_mkick3": {
+                    "adjust": [
+                        5, 
+                        1, 
+                        88, 
+                        96
+                    ], 
+                    "crop": [
+                        204, 
+                        251, 
+                        73, 
+                        93
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_mkick3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_mpunch1": {
+                    "adjust": [
+                        3, 
+                        3, 
+                        96, 
+                        88
+                    ], 
+                    "crop": [
+                        198, 
+                        144, 
+                        70, 
+                        83
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_mpunch1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_mpunch2": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        96, 
+                        88
+                    ], 
+                    "crop": [
+                        269, 
+                        145, 
+                        89, 
+                        81
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_mpunch2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_stomp_kick1": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        48, 
+                        96
+                    ], 
+                    "crop": [
+                        1050, 
+                        471, 
+                        39, 
+                        92
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_stomp_kick1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_stomp_kick2": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        48, 
+                        96
+                    ], 
+                    "crop": [
+                        1090, 
+                        472, 
+                        42, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_stomp_kick2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_stunned1": {
+                    "adjust": [
+                        4, 
+                        1, 
+                        56, 
+                        88
+                    ], 
+                    "crop": [
+                        701, 
+                        853, 
+                        50, 
+                        84
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_stunned1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_stunned2": {
+                    "adjust": [
+                        2, 
+                        2, 
+                        56, 
+                        88
+                    ], 
+                    "crop": [
+                        752, 
+                        854, 
+                        51, 
+                        84
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_stunned2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_timeover": {
+                    "adjust": [
+                        6, 
+                        4, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        1112, 
+                        848, 
+                        47, 
+                        90
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_timeover", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victory1": {
+                    "adjust": [
+                        3, 
+                        1, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        6, 
+                        1006, 
+                        49, 
+                        93
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victory1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victory2": {
+                    "adjust": [
+                        4, 
+                        2, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        57, 
+                        1007, 
+                        50, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victory2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victory3": {
+                    "adjust": [
+                        5, 
+                        3, 
+                        56, 
+                        96
+                    ], 
+                    "crop": [
+                        109, 
+                        1008, 
+                        47, 
+                        91
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victory3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt01": {
+                    "adjust": [
+                        5, 
+                        4, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        163, 
+                        953, 
+                        48, 
+                        146
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt01", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt02": {
+                    "adjust": [
+                        5, 
+                        5, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        212, 
+                        954, 
+                        48, 
+                        145
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt02", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt03": {
+                    "adjust": [
+                        3, 
+                        6, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        260, 
+                        955, 
+                        52, 
+                        143
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt03", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt04": {
+                    "adjust": [
+                        2, 
+                        7, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        313, 
+                        956, 
+                        54, 
+                        143
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt04", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt05": {
+                    "adjust": [
+                        2, 
+                        7, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        696, 
+                        956, 
+                        52, 
+                        143
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt05", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt06": {
+                    "adjust": [
+                        1, 
+                        8, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        795, 
+                        957, 
+                        53, 
+                        142
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt06", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_victoryalt07": {
+                    "adjust": [
+                        -1, 
+                        9, 
+                        56, 
+                        152
+                    ], 
+                    "crop": [
+                        1046, 
+                        957, 
+                        55, 
+                        141
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_victoryalt07", 
                     "py/object": "__main__.PNG"
                 }, 
                 "chunli_walk1": {
@@ -1128,6 +6714,48 @@
                         ]
                     }, 
                     "name": "chunli_walk8", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "chunli_walljump": {
+                    "adjust": [
+                        0, 
+                        0, 
+                        40, 
+                        72
+                    ], 
+                    "crop": [
+                        1131, 
+                        143, 
+                        38, 
+                        65
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "chunli_walljump", 
                     "py/object": "__main__.PNG"
                 }
             }, 
@@ -7712,10 +13340,10 @@
                             0
                         ], 
                         "Head": [
-                            31, 
-                            24, 
-                            44, 
-                            42
+                            29, 
+                            5, 
+                            45, 
+                            23
                         ], 
                         "Torso": [
                             0, 
@@ -7797,6 +13425,174 @@
                         ]
                     }, 
                     "name": "zangief_idle3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_walk1": {
+                    "adjust": [
+                        2, 
+                        4, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        222, 
+                        17, 
+                        63, 
+                        104
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_walk1", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_walk2": {
+                    "adjust": [
+                        4, 
+                        4, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        292, 
+                        17, 
+                        68, 
+                        103
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_walk2", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_walk3": {
+                    "adjust": [
+                        2, 
+                        7, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        361, 
+                        20, 
+                        78, 
+                        102
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_walk3", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "zangief_walk4": {
+                    "adjust": [
+                        6, 
+                        6, 
+                        80, 
+                        112
+                    ], 
+                    "crop": [
+                        444, 
+                        19, 
+                        68, 
+                        102
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "zangief_walk4", 
                     "py/object": "__main__.PNG"
                 }
             }, 

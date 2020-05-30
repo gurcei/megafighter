@@ -119,9 +119,10 @@ class MyFrame(wx.Frame):
     self.lblPngs, self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
 
-    _, self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=[])
+    self.lblAnims, self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=[])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
     self.lstAnims.Bind(wx.EVT_CONTEXT_MENU, self.OnLstAnimsContextMenu)
+
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(215,300))
     self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,300))
@@ -376,6 +377,7 @@ class MyFrame(wx.Frame):
 
     if type(event) != wx.FocusEvent:
       self.ShowPngList()
+      self.ShowAnimsList()
 
     self.mode = self.Mode.Group
     # if there is a .gif within the Graphics/ folder with this group-name,
@@ -391,10 +393,22 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def ShowAnimsList(self):
+    frame.lblAnims.SetLabel('ANIMS')
+    frame.lstAnims.Clear()
+    anims = self.selectedGroupObj.anims
+    if len(anims) != 0:
+      items=anims.keys()
+      items.sort()
+      self.lstAnims.InsertItems(items, 0)
+      self.lblAnims.SetLabel('ANIMS ({})'.format(len(items)))
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def ShowPngList(self):
-    files = self.selectedGroupObj.PNGs
     self.lstPngs.Clear()
     self.lblPngs.SetLabel('PNGs')
+    files = self.selectedGroupObj.PNGs
     if len(files) != 0:
       items=files.keys()
       items.sort()
@@ -528,7 +542,13 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnLstAnimsSelectionChanged(self, event):
-    self.selectedAnim = self.lstAnims.GetString(event.GetSelection())
+    print('OnLstAnimsSelectionChanged')
+    self.SetAnimSelection(event.GetSelection())
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def SetAnimSelection(self, idx):
+    self.selectedAnim = self.lstAnims.GetString(idx)
     self.pnlHitboxes.Hide()
     self.lstPngs.SetSelection(wx.NOT_FOUND)
     self.pnlAnimDetails.Show()
@@ -541,11 +561,15 @@ class MyFrame(wx.Frame):
       mnuitmAddAnim = self.popupAnims.Append(wx.ID_ANY, 'Add anim', 'Add anim')
       self.Bind(event=wx.EVT_MENU, handler=self.OnAddAnim, source=mnuitmAddAnim)
 
+    if not hasattr(self, 'selectedGroupObj'):
+      return
+
     self.PopupMenu(self.popupAnims)
 
   # - - - - - - - - - - - - - - - - - - -
 
   def OnAddAnim(self, event):
+    global projectNotSaved
     print('OnAddAnim')
     
     # ask user what to call the anim
@@ -565,6 +589,8 @@ class MyFrame(wx.Frame):
     # add it as an item in the lstAnims gui object
     idx = self.lstAnims.Append(rslt)
     self.lstAnims.SetSelection(idx)
+    self.SetAnimSelection(idx)
+    projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -1314,6 +1340,8 @@ def UpdateLists():
   frame.lstGroups.Clear()
   frame.lblPngs.SetLabel('PNGs')
   frame.lstPngs.Clear()
+  frame.lblAnims.SetLabel('ANIMS')
+  frame.lstAnims.Clear()
   keys = settings.groups.keys()
   keys.sort()
   for dir in keys:

@@ -47,6 +47,7 @@ class Group:
     self.name = name
     groupPath = os.path.join(projpath, self.name)
     self.PNGs = self._find_pngs(groupPath)
+    self.anims = { }
 
   def update(self, projpath):
     groupPath = os.path.join(projpath, self.name)
@@ -82,15 +83,16 @@ class PNG:
 # -----------------------------------------
 
 class Anim:
-  name=""
-  relx=[]
-  rely=[]
-  frame=[]
-  animlength=0
-  pngs=[]
-  pingpong=0
-  cols=0
-  rows=0
+  def __init__(self, name):
+    self.name=""
+    self.relx=[]
+    self.rely=[]
+    self.frame=[]
+    self.animlength=0
+    self.pngs=[]
+    self.pingpong=0
+    self.cols=0
+    self.rows=0
 
 
 # -----------------------------------------
@@ -117,8 +119,9 @@ class MyFrame(wx.Frame):
     self.lblPngs, self.lstPngs = self.create_labeled_list_box(panel, label='PNGS', pos=(105,0), size=(150,360), choices=[])
     self.lstPngs.Bind(wx.EVT_LISTBOX, self.OnLstPngsSelectionChanged)
 
-    _, self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=['aaa', 'bbb'])
+    _, self.lstAnims = self.create_labeled_list_box(panel, label='ANIMS', pos=(255,0), size=(100,360), choices=[])
     self.lstAnims.Bind(wx.EVT_LISTBOX, self.OnLstAnimsSelectionChanged)
+    self.lstAnims.Bind(wx.EVT_CONTEXT_MENU, self.OnLstAnimsContextMenu)
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(215,300))
     self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,300))
@@ -529,6 +532,39 @@ class MyFrame(wx.Frame):
     self.pnlHitboxes.Hide()
     self.lstPngs.SetSelection(wx.NOT_FOUND)
     self.pnlAnimDetails.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnLstAnimsContextMenu(self, event):
+    if not hasattr(self, 'popupAnims'):
+      self.popupAnims = wx.Menu()
+      mnuitmAddAnim = self.popupAnims.Append(wx.ID_ANY, 'Add anim', 'Add anim')
+      self.Bind(event=wx.EVT_MENU, handler=self.OnAddAnim, source=mnuitmAddAnim)
+
+    self.PopupMenu(self.popupAnims)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnAddAnim(self, event):
+    print('OnAddAnim')
+    
+    # ask user what to call the anim
+    dlg = wx.TextEntryDialog(self, 'Name of new anim:', value='')
+    dlg.ShowModal()
+    rslt = dlg.GetValue()
+    if not (len(rslt) > 0):
+      return
+
+    # add to self.selectedGroupObj.anims dict
+    if not hasattr(self.selectedGroupObj, 'anims'):
+      self.selectedGroupObj.anims = { }
+    anim = Anim(rslt)
+    self.selectedGroupObj.anims[rslt] = anim
+    self.selectedAnimObj = anim
+
+    # add it as an item in the lstAnims gui object
+    idx = self.lstAnims.Append(rslt)
+    self.lstAnims.SetSelection(idx)
 
   # - - - - - - - - - - - - - - - - - - -
 

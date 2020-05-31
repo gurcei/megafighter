@@ -7,6 +7,7 @@ import enum
 import sys
 from wx.lib.anchors import LayoutAnchors
 from numpy import array
+from sf2tool import dlgAnimFrames
 
 
 # -----------------------------------------
@@ -320,15 +321,16 @@ class MyFrame(wx.Frame):
   def create_animdetails_panel(self, panel, pos, size):
     adpanel = wx.Panel(panel, pos=pos, size=size)
     itempos=[5,20]
-    self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "0, 0, 0, 0")
+    self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "")
     itempos[1] += 30
-    self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "0, 0, 0, 0")
+    self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "")
     itempos[1] += 30
-    self.txtFrame = self.create_text_field(adpanel, tuple(itempos), "frame[]:", "0, 0, 0, 0")
+    self.txtFrame = self.create_text_field(adpanel, tuple(itempos), "frame[]:", "")
     itempos[1] += 30
     self.lblAnimlen = self.create_static_field(adpanel, tuple(itempos), "anim_len:", "<implied>")
     itempos[1] += 30
     self.lblFrames = self.create_static_field(adpanel, tuple(itempos), "frames[]:", "<implied>")
+    self.lblFrames.Bind(wx.EVT_LEFT_DOWN, self.OnLblFramesClicked)
     itempos[1] += 30
     self.txtPingPong = self.create_text_field(adpanel, tuple(itempos), "pingpong:", "0")
     itempos[1] += 30
@@ -336,6 +338,12 @@ class MyFrame(wx.Frame):
     itempos[1] += 30
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "rows:", "<implied>")
     return adpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnLblFramesClicked(self, event):
+    print('clicked')
+    dlgAnimFrames.ShowDialog()
 
   # - - - - - - - - - - - - - - - - - - -
 

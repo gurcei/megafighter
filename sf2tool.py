@@ -349,6 +349,7 @@ class MyFrame(wx.Frame):
     if rslt == wx.ID_OK:
       print('results are ' + str(dlgAnimFrames.GetSelection()))
       self.selectedAnimObj.pngs = dlgAnimFrames.GetSelection()
+      self.UpdateLblAnimPngs()
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -562,9 +563,24 @@ class MyFrame(wx.Frame):
 
   def SetAnimSelection(self, idx):
     self.selectedAnim = self.lstAnims.GetString(idx)
+    if self.selectedAnim in self.selectedGroupObj.anims:
+      self.selectedAnimObj = self.selectedGroupObj.anims[self.selectedAnim]
+    else:
+      self.selectedAnimObj = None
+    
+    self.UpdateLblAnimPngs()
+
     self.pnlHitboxes.Hide()
     self.lstPngs.SetSelection(wx.NOT_FOUND)
     self.pnlAnimDetails.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def UpdateLblAnimPngs(self):
+    if self.selectedAnimObj == None or len(self.selectedAnimObj.pngs) == 0:
+      self.lblAnimPngs.SetLabel("<none selected>")
+    else:
+      self.lblAnimPngs.SetLabel(str(self.selectedAnimObj.pngs))
 
   # - - - - - - - - - - - - - - - - - - -
 

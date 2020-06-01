@@ -329,8 +329,8 @@ class MyFrame(wx.Frame):
     itempos[1] += 30
     self.lblAnimlen = self.create_static_field(adpanel, tuple(itempos), "anim_len:", "<implied>")
     itempos[1] += 30
-    self.lblFrames = self.create_static_field(adpanel, tuple(itempos), "frames[]:", "<implied>")
-    self.lblFrames.Bind(wx.EVT_LEFT_DOWN, self.OnLblFramesClicked)
+    self.lblAnimPngs = self.create_static_field(adpanel, tuple(itempos), "pngs[]:", "<not set>")
+    self.lblAnimPngs.Bind(wx.EVT_LEFT_DOWN, self.OnLblAnimPngsClicked)
     itempos[1] += 30
     self.txtPingPong = self.create_text_field(adpanel, tuple(itempos), "pingpong:", "0")
     itempos[1] += 30
@@ -341,9 +341,14 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def OnLblFramesClicked(self, event):
+  def OnLblAnimPngsClicked(self, event):
     print('clicked')
-    dlgAnimFrames.ShowDialog()
+    files = self.selectedGroupObj.PNGs
+    rslt = dlgAnimFrames.ShowDialog(self.selectedGroupObj.PNGs.keys())
+
+    if rslt == wx.ID_OK:
+      print('results are ' + str(dlgAnimFrames.GetSelection()))
+      self.selectedAnimObj.pngs = dlgAnimFrames.GetSelection()
 
   # - - - - - - - - - - - - - - - - - - -
 

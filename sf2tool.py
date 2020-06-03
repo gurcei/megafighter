@@ -344,7 +344,7 @@ class MyFrame(wx.Frame):
   def OnLblAnimPngsClicked(self, event):
     print('clicked')
     files = self.selectedGroupObj.PNGs
-    rslt = dlgAnimFrames.ShowDialog(self.selectedGroupObj.PNGs.keys())
+    rslt = dlgAnimFrames.ShowDialog(self.selectedGroupObj.PNGs.keys(), self.selectedAnimObj.pngs)
 
     if rslt == wx.ID_OK:
       print('results are ' + str(dlgAnimFrames.GetSelection()))

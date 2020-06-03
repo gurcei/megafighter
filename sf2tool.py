@@ -337,7 +337,26 @@ class MyFrame(wx.Frame):
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "cols:", "<implied>")
     itempos[1] += 30
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "rows:", "<implied>")
+    
+    # media controls
+    itempos[1] += 30
+    self.btnPlay = wx.Button(adpanel, label='>', pos=tuple(itempos), size=(25,25))
+    self.btnPlay.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnPlayClicked)
+    itempos[0] += 30
+    self.btnStop = wx.Button(adpanel, label='o', pos=tuple(itempos), size=(25,25))
+    self.btnStop.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnStopClicked)
+
     return adpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnBtnPlayClicked(self, event):
+    print('play')
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnBtnStopClicked(self, event):
+    print('stop')
 
   # - - - - - - - - - - - - - - - - - - -
 

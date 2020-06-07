@@ -140,7 +140,19 @@ class MyFrame(wx.Frame):
 
     self.create_menu()
 
+    self.timer = wx.Timer(self)
+    self.Bind(wx.EVT_TIMER, self.OnTimerUpdate, self.timer)
+    self.timer.Start(500)
+
+    self.animateFlag = False
+
     self.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTimerUpdate(self, event):
+    if self.animateFlag:
+      print('timer')
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -351,11 +363,13 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBtnPlayClicked(self, event):
+    self.animateFlag = True
     print('play')
 
   # - - - - - - - - - - - - - - - - - - -
 
   def OnBtnStopClicked(self, event):
+    self.animateFlag = False
     print('stop')
 
   # - - - - - - - - - - - - - - - - - - -

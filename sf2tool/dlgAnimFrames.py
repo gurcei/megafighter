@@ -28,7 +28,9 @@ def ShowDialog(Pngs, selection):
   if rslt == wx.ID_OK:
     selectedItems = [dlg.lstPngs.GetString(i) for i in dlg.lstPngs.GetSelections()]
 
+  dlg.Destroy()
   return rslt
 
 def GetSelection():
   return selectedItems
+

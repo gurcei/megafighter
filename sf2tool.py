@@ -142,9 +142,10 @@ class MyFrame(wx.Frame):
 
     self.timer = wx.Timer(self)
     self.Bind(wx.EVT_TIMER, self.OnTimerUpdate, self.timer)
-    self.timer.Start(500)
+    self.timer.Start(100)
 
     self.animateFlag = False
+    self.animidx = 0
 
     self.Show()
 
@@ -152,7 +153,16 @@ class MyFrame(wx.Frame):
 
   def OnTimerUpdate(self, event):
     if self.animateFlag:
-      print('timer')
+      # load the index image and draw it
+      png = self.selectedAnimObj.pngs[self.animidx]
+
+      print(png)
+      pngPath = os.path.join(settings.projpath, self.selectedGroup, png + ".png")
+      self.load_image(pngPath)
+
+      self.animidx += 1
+      if self.animidx >= len(self.selectedAnimObj.pngs):
+          self.animidx = 0
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -364,6 +374,8 @@ class MyFrame(wx.Frame):
 
   def OnBtnPlayClicked(self, event):
     self.animateFlag = True
+    self.animidx = 0
+    self.selectedAnimObj.pngs
     print('play')
 
   # - - - - - - - - - - - - - - - - - - -
@@ -924,7 +936,6 @@ type_hitbox lstHitBoxes[] =
     # unfortunately, looks like I need to scale while it is still an image
     # as wx.Bitmap doesn't have a scale method (well, not wxpython versions below 4.1)
     # So I need to scale the image first and then apply the hitboxes (not the other way around)
-
 
   # - - - - - - - - - - - - - - - - - - -
 

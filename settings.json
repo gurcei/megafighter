@@ -6759,6 +6759,115 @@
                     "py/object": "__main__.PNG"
                 }
             }, 
+            "anims": {
+                "chunli_bodytoss": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "chunli_bodytoss1", 
+                        "chunli_bodytoss2", 
+                        "chunli_bodytoss3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "chunli_fhkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "chunli_fhkick1", 
+                        "chunli_fhkick2", 
+                        "chunli_fhkick3", 
+                        "chunli_fhkick4", 
+                        "chunli_fhkick5", 
+                        "chunli_fhkick6"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "chunli_fjump": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "chunli_fjump1", 
+                        "chunli_fjump2", 
+                        "chunli_fjump3", 
+                        "chunli_fjump4", 
+                        "chunli_fjump5", 
+                        "chunli_fjump6", 
+                        "chunli_fjump7", 
+                        "chunli_fjump8"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "chunli_hyaku": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "chunli_hyaku1", 
+                        "chunli_hyaku2", 
+                        "chunli_hyaku3", 
+                        "chunli_hyaku4", 
+                        "chunli_hyaku5", 
+                        "chunli_hyaku6", 
+                        "chunli_hyaku7"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "chunli_idle": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "chunli_idle1", 
+                        "chunli_idle2", 
+                        "chunli_idle3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "chunli_stunned": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "chunli_stunned1", 
+                        "chunli_stunned2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }
+            }, 
             "name": "ChunLi", 
             "py/object": "__main__.Group"
         }, 
@@ -13215,6 +13324,81 @@
                     "py/object": "__main__.PNG"
                 }
             }, 
+            "anims": {
+                "ryu_backroll": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_backroll1", 
+                        "ryu_backroll2", 
+                        "ryu_backroll3", 
+                        "ryu_backroll4", 
+                        "ryu_backroll5", 
+                        "ryu_backroll6", 
+                        "ryu_backroll7"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_hkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_crouch_hkick1", 
+                        "ryu_crouch_hkick2", 
+                        "ryu_crouch_hkick3", 
+                        "ryu_crouch_hkick4", 
+                        "ryu_crouch_hkick5"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_hpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouch_hpunch1", 
+                        "ryu_crouch_hpunch2", 
+                        "ryu_crouch_hpunch3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_victoryalt": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_victoryalt2", 
+                        "ryu_victoryalt3", 
+                        "ryu_victoryalt4", 
+                        "ryu_victoryalt5", 
+                        "ryu_victoryalt6", 
+                        "ryu_victoryalt7"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }
+            }, 
             "name": "Ryu", 
             "py/object": "__main__.Group"
         }, 
@@ -13594,6 +13778,24 @@
                     }, 
                     "name": "zangief_walk4", 
                     "py/object": "__main__.PNG"
+                }
+            }, 
+            "anims": {
+                "zangief_idle": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "zangief_idle1", 
+                        "zangief_idle2", 
+                        "zangief_idle3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
                 }
             }, 
             "name": "Zangief", 

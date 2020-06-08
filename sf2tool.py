@@ -145,6 +145,7 @@ class MyFrame(wx.Frame):
     self.timer.Start(100)
 
     self.animateFlag = False
+    self.animateDir = True
     self.animidx = 0
 
     self.Show()
@@ -160,9 +161,21 @@ class MyFrame(wx.Frame):
       pngPath = os.path.join(settings.projpath, self.selectedGroup, png + ".png")
       self.load_image(pngPath)
 
-      self.animidx += 1
-      if self.animidx >= len(self.selectedAnimObj.pngs):
-          self.animidx = 0
+      if self.selectedAnimObj.pingpong:
+        if self.animateDir:
+          self.animidx += 1
+          if self.animidx >= len(self.selectedAnimObj.pngs):
+              self.animidx = len(self.selectedAnimObj.pngs)-2
+              self.animateDir = False
+        else:
+          self.animidx -= 1
+          if self.animidx == 0:
+              self.animateDir = True
+
+      else:
+        self.animidx += 1
+        if self.animidx >= len(self.selectedAnimObj.pngs):
+            self.animidx = 0
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -353,8 +366,10 @@ class MyFrame(wx.Frame):
     itempos[1] += 30
     self.lblAnimPngs = self.create_static_field(adpanel, tuple(itempos), "pngs[]:", "<not set>")
     self.lblAnimPngs.Bind(wx.EVT_LEFT_DOWN, self.OnLblAnimPngsClicked)
+
     itempos[1] += 30
-    self.txtPingPong = self.create_text_field(adpanel, tuple(itempos), "pingpong:", "0")
+    self.txtPingPong = self.create_text_field(adpanel, tuple(itempos), "pingpong:", "0", self.OnTxtPingPongEnter)
+
     itempos[1] += 30
     self.lblCols = self.create_static_field(adpanel, tuple(itempos), "cols:", "<implied>")
     itempos[1] += 30
@@ -372,8 +387,17 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def OnTxtPingPongEnter(self, event):
+    global projectNotSaved
+    print('OnTxtPingPongEnter')
+    self.selectedAnimObj.pingpong = int(self.txtPingPong.GetValue())
+    projectNotSaved = True
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def OnBtnPlayClicked(self, event):
     self.animateFlag = True
+    self.animateDir = True
     self.animidx = 0
     self.selectedAnimObj.pngs
     print('play')
@@ -609,6 +633,7 @@ class MyFrame(wx.Frame):
       txtHbox.SetValue('0, 0, 0, 0')
         
     self.animidx = 0
+    self.animateDir = True
     self.SetAnimSelection(event.GetSelection())
 
   # - - - - - - - - - - - - - - - - - - -

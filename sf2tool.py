@@ -422,6 +422,7 @@ class MyFrame(wx.Frame):
 
   def OnLstGroupSelectionChanged(self, event):
     self.movingPngFlag = False
+    self.animateFlag = False
 
     if type(event) == wx.FocusEvent:
       sel = self.lstGroups.GetSelection()
@@ -558,6 +559,7 @@ class MyFrame(wx.Frame):
 
   def OnLstPngsSelectionChanged(self, event):
     print('selchange')
+    self.animateFlag = False
     self.mode = self.Mode.Png
     self._UpdatePngDetails()
     self.pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedPng + ".png")
@@ -602,6 +604,11 @@ class MyFrame(wx.Frame):
 
   def OnLstAnimsSelectionChanged(self, event):
     print('OnLstAnimsSelectionChanged')
+
+    for txtHbox in self.lstTxtHboxes:
+      txtHbox.SetValue('0, 0, 0, 0')
+        
+    self.animidx = 0
     self.SetAnimSelection(event.GetSelection())
 
   # - - - - - - - - - - - - - - - - - - -
@@ -613,7 +620,7 @@ class MyFrame(wx.Frame):
     else:
       self.selectedAnimObj = None
     
-    self.UpdateLblAnimPngs()
+    self.UpdatePnlAnimDetails()
 
     self.pnlHitboxes.Hide()
     self.lstPngs.SetSelection(wx.NOT_FOUND)
@@ -621,8 +628,23 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def UpdatePnlAnimDetails(self):
+    if self.selectedAnimObj == None:
+      self.lblAnimPngs.SetLabel("<none selected>")
+      return
+    
+    self.txtPingPong.SetValue(str(self.selectedAnimObj.pingpong))
+    self.txtRelx.SetValue(', '.join(map(str, self.selectedAnimObj.relx)))
+    self.txtRely.SetValue(', '.join(map(str, self.selectedAnimObj.rely)))
+    self.txtFrame.SetValue(', '.join(map(str, self.selectedAnimObj.frame)))
+
+    self.UpdateLblAnimPngs()
+
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def UpdateLblAnimPngs(self):
-    if self.selectedAnimObj == None or len(self.selectedAnimObj.pngs) == 0:
+    if len(self.selectedAnimObj.pngs) == 0:
       self.lblAnimPngs.SetLabel("<none selected>")
     else:
       self.lblAnimPngs.SetLabel(str(self.selectedAnimObj.pngs))

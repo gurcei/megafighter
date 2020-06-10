@@ -126,7 +126,7 @@ class MyFrame(wx.Frame):
 
     # I think these two should be panes that I turn on/off based on whether a PNGS or ANIMS item is selected
     self.pnlHitboxes = self.create_hitboxes_panel(panel, pos=(355,0), size=(215,300))
-    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,300))
+    self.pnlAnimDetails = self.create_animdetails_panel(panel, pos=(355,0), size=(200,320))
 
     self.pnlHitboxes.Hide()
     self.pnlAnimDetails.Hide()
@@ -154,6 +154,7 @@ class MyFrame(wx.Frame):
 
   def OnTimerUpdate(self, event):
     if self.animateFlag:
+      print(str(self.animidx) + ", " + str(self.animateDir))
       # load the index image and draw it
       png = self.selectedAnimObj.pngs[self.animidx]
 
@@ -165,17 +166,19 @@ class MyFrame(wx.Frame):
         if self.animateDir:
           self.animidx += 1
           if self.animidx >= len(self.selectedAnimObj.pngs):
-              self.animidx = len(self.selectedAnimObj.pngs)-2
-              self.animateDir = False
+            self.animidx = len(self.selectedAnimObj.pngs)-2
+            self.animateDir = False
         else:
-          self.animidx -= 1
           if self.animidx == 0:
-              self.animateDir = True
+            self.animateDir = True
+            self.animidx += 1
+          else:
+            self.animidx -= 1
 
       else:
         self.animidx += 1
         if self.animidx >= len(self.selectedAnimObj.pngs):
-            self.animidx = 0
+          self.animidx = 0
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -356,6 +359,8 @@ class MyFrame(wx.Frame):
   def create_animdetails_panel(self, panel, pos, size):
     adpanel = wx.Panel(panel, pos=pos, size=size)
     itempos=[5,20]
+    self.lblAnimName = self.create_static_field(adpanel, tuple(itempos), "Name:", "???")
+    itempos[1] += 30
     self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "")
     itempos[1] += 30
     self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "")
@@ -655,9 +660,11 @@ class MyFrame(wx.Frame):
 
   def UpdatePnlAnimDetails(self):
     if self.selectedAnimObj == None:
+      self.lblAnimName.SetLabel("<none>")
       self.lblAnimPngs.SetLabel("<none selected>")
       return
     
+    self.lblAnimName.SetLabel(self.selectedAnim)
     self.txtPingPong.SetValue(str(self.selectedAnimObj.pingpong))
     self.txtRelx.SetValue(', '.join(map(str, self.selectedAnimObj.relx)))
     self.txtRely.SetValue(', '.join(map(str, self.selectedAnimObj.rely)))

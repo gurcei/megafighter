@@ -6982,6 +6982,24 @@
                     "py/object": "__main__.PNG"
                 }
             }, 
+            "anims": {
+                "ken_idle": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ken_idle1", 
+                        "ken_idle2", 
+                        "ken_idle3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }
+            }, 
             "name": "Ken", 
             "py/object": "__main__.Group"
         }, 
@@ -13373,6 +13391,168 @@
                         "ryu_crouch_hpunch1", 
                         "ryu_crouch_hpunch2", 
                         "ryu_crouch_hpunch3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_lkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouch_lkick1", 
+                        "ryu_crouch_lkick2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_lpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouch_lpunch1", 
+                        "ryu_crouch_lpunch2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_mkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouch_mkick1", 
+                        "ryu_crouch_mkick2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouch_mpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouch_mpunch1", 
+                        "ryu_crouch_mpunch2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_crouchhit": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_crouchhit1", 
+                        "ryu_crouchhit2", 
+                        "ryu_crouchhit3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_facehit": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_facehit1", 
+                        "ryu_facehit2", 
+                        "ryu_facehit3", 
+                        "ryu_facehit4"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_fhkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_fhkick1", 
+                        "ryu_fhkick2", 
+                        "ryu_fhkick3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_fhpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_fhpunch1", 
+                        "ryu_fhpunch2", 
+                        "ryu_fhpunch3", 
+                        "ryu_fhpunch4"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_fjump": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_fjump1", 
+                        "ryu_fjump2", 
+                        "ryu_fjump3", 
+                        "ryu_fjump4", 
+                        "ryu_fjump5", 
+                        "ryu_fjump6", 
+                        "ryu_fjump7"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_idle": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_idle2", 
+                        "ryu_idle3", 
+                        "ryu_idle4"
                     ], 
                     "py/object": "__main__.Anim", 
                     "relx": [], 

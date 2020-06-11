@@ -361,11 +361,11 @@ class MyFrame(wx.Frame):
     itempos=[5,20]
     self.lblAnimName = self.create_static_field(adpanel, tuple(itempos), "Name:", "???")
     itempos[1] += 30
-    self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "")
+    self.txtRelx = self.create_text_field(adpanel, tuple(itempos), "relx[]:", "", self.OnTxtRelxEnter)
     itempos[1] += 30
-    self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "")
+    self.txtRely = self.create_text_field(adpanel, tuple(itempos), "rely[]:", "", self.OnTxtRelyEnter)
     itempos[1] += 30
-    self.txtFrame = self.create_text_field(adpanel, tuple(itempos), "frame[]:", "")
+    self.txtFrame = self.create_text_field(adpanel, tuple(itempos), "frame[]:", "", self.OnTxtFrameEnter)
     itempos[1] += 30
     self.lblAnimlen = self.create_static_field(adpanel, tuple(itempos), "anim_len:", "<implied>")
     itempos[1] += 30
@@ -389,6 +389,30 @@ class MyFrame(wx.Frame):
     self.btnStop.Bind(event=wx.EVT_BUTTON, handler=self.OnBtnStopClicked)
 
     return adpanel
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtRelxEnter(self, event):
+    global projectNotSaved
+    vals = [int(i) for i in  self.txtRely.GetValue().split(',')]
+    self.selectedAnimObj.relx = vals
+    projectNotSaved = True
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtRelyEnter(self, event):
+    global projectNotSaved
+    vals = [int(i) for i in  self.txtRelx.GetValue().split(',')]
+    self.selectedAnimObj.rely = vals
+    projectNotSaved = True
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnTxtFrameEnter(self, event):
+    global projectNotSaved
+    vals = [int(i) for i in  self.txtFrame.GetValue().split(',')]
+    self.selectedAnimObj.frame = vals
+    projectNotSaved = True
 
   # - - - - - - - - - - - - - - - - - - -
 

@@ -13526,7 +13526,21 @@
                 "ryu_fjump": {
                     "animlength": 0, 
                     "cols": 0, 
-                    "frame": [], 
+                    "frame": [
+                        0, 
+                        1, 
+                        2, 
+                        3, 
+                        4, 
+                        5, 
+                        6, 
+                        5, 
+                        4, 
+                        3, 
+                        4, 
+                        5, 
+                        6
+                    ], 
                     "name": "", 
                     "pingpong": 0, 
                     "pngs": [

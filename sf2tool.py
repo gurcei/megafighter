@@ -156,29 +156,41 @@ class MyFrame(wx.Frame):
     if self.animateFlag:
       print(str(self.animidx) + ", " + str(self.animateDir))
       # load the index image and draw it
-      png = self.selectedAnimObj.pngs[self.animidx]
+      if self.selectedAnimObj.frame:
+        pngidx = self.selectedAnimObj.frame[self.animidx]
+        png = self.selectedAnimObj.pngs[pngidx]
+      else:
+        png = self.selectedAnimObj.pngs[self.animidx]
 
       print(png)
       pngPath = os.path.join(settings.projpath, self.selectedGroup, png + ".png")
       self.load_image(pngPath)
 
-      if self.selectedAnimObj.pingpong:
-        if self.animateDir:
-          self.animidx += 1
-          if self.animidx >= len(self.selectedAnimObj.pngs):
-            self.animidx = len(self.selectedAnimObj.pngs)-2
-            self.animateDir = False
-        else:
-          if self.animidx == 0:
-            self.animateDir = True
-            self.animidx += 1
-          else:
-            self.animidx -= 1
-
+      if self.selectedAnimObj.frame:
+        self.UpdateAnimIdx(len(self.selectedAnimObj.frame))
       else:
+        self.UpdateAnimIdx(len(self.selectedAnimObj.pngs))
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def UpdateAnimIdx(self, framecnt):
+    if self.selectedAnimObj.pingpong:
+      if self.animateDir:
         self.animidx += 1
-        if self.animidx >= len(self.selectedAnimObj.pngs):
-          self.animidx = 0
+        if self.animidx >= framecnt:
+          self.animidx = framecnt-2
+          self.animateDir = False
+      else:
+        if self.animidx == 0:
+          self.animateDir = True
+          self.animidx += 1
+        else:
+          self.animidx -= 1
+
+    else:
+      self.animidx += 1
+      if self.animidx >= framecnt:
+        self.animidx = 0
 
   # - - - - - - - - - - - - - - - - - - -
 

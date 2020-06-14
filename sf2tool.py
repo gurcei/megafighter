@@ -169,15 +169,17 @@ class MyFrame(wx.Frame):
     self.maxcol = width / 8
     self.maxrow = height / 8
 
+    self.relx = 0
+
     for relx in self.selectedAnimObj.relx:
-      if relx > 0:
-        self.maxcol += relx
+      self.maxcol += abs(relx)
+      if relx < 0:
+        self.relx -= relx
 
     for rely in self.selectedAnimObj.rely:
       if rely < 0:
         self.maxrow -= rely
 
-    self.relx = 0
     self.rely = self.maxrow - height / 8
     print("mc={},mr={},rx={},ry={}".format(self.maxcol,self.maxrow,self.relx,self.rely))
 

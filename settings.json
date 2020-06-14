@@ -13363,6 +13363,58 @@
                     "rely": [], 
                     "rows": 0
                 }, 
+                "ryu_bjump": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [
+                        5, 
+                        4, 
+                        4, 
+                        3, 
+                        3, 
+                        2, 
+                        2, 
+                        1, 
+                        0, 
+                        0
+                    ], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_fjump2", 
+                        "ryu_fjump3", 
+                        "ryu_fjump4", 
+                        "ryu_fjump5", 
+                        "ryu_fjump6", 
+                        "ryu_fjump7"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1, 
+                        -1
+                    ], 
+                    "rely": [
+                        -3, 
+                        -3, 
+                        -2, 
+                        -1, 
+                        -1, 
+                        1, 
+                        1, 
+                        2, 
+                        3, 
+                        3
+                    ], 
+                    "rows": 0
+                }, 
                 "ryu_crouch_hkick": {
                     "animlength": 0, 
                     "cols": 0, 
@@ -13530,19 +13582,17 @@
                         0, 
                         1, 
                         1, 
-                        1, 
                         2, 
                         2, 
                         3, 
                         3, 
                         4, 
                         5, 
-                        6
+                        5
                     ], 
                     "name": "", 
                     "pingpong": 0, 
                     "pngs": [
-                        "ryu_fjump1", 
                         "ryu_fjump2", 
                         "ryu_fjump3", 
                         "ryu_fjump4", 
@@ -13552,7 +13602,6 @@
                     ], 
                     "py/object": "__main__.Anim", 
                     "relx": [
-                        0, 
                         1, 
                         1, 
                         1, 
@@ -13565,7 +13614,6 @@
                         1
                     ], 
                     "rely": [
-                        0, 
                         -3, 
                         -3, 
                         -2, 

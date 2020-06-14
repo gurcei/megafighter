@@ -142,13 +142,44 @@ class MyFrame(wx.Frame):
 
     self.timer = wx.Timer(self)
     self.Bind(wx.EVT_TIMER, self.OnTimerUpdate, self.timer)
-    self.timer.Start(100)
+    self.speed = 200
+    self.timer.Start(self.speed)
 
     self.animateFlag = False
     self.animateDir = True
     self.animidx = 0
 
     self.Show()
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def UpdateRelxRely(self):
+    if self.selectedAnimObj.relx:
+      self.relx += self.selectedAnimObj.relx[self.animidx]
+    if self.selectedAnimObj.rely:
+      self.rely += self.selectedAnimObj.rely[self.animidx]
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def CalculateMaxColRow(self):
+    pngPath = os.path.join(settings.projpath, self.selectedGroup, self.selectedAnimObj.pngs[0] + ".png")
+    img = wx.Image(pngPath, wx.BITMAP_TYPE_ANY)
+    width = img.GetWidth()
+    height = img.GetHeight()
+    self.maxcol = width / 8
+    self.maxrow = height / 8
+
+    for relx in self.selectedAnimObj.relx:
+      if relx > 0:
+        self.maxcol += relx
+
+    for rely in self.selectedAnimObj.rely:
+      if rely < 0:
+        self.maxrow -= rely
+
+    self.relx = 0
+    self.rely = self.maxrow - height / 8
+    print("mc={},mr={},rx={},ry={}".format(self.maxcol,self.maxrow,self.relx,self.rely))
 
   # - - - - - - - - - - - - - - - - - - -
 
@@ -162,9 +193,14 @@ class MyFrame(wx.Frame):
       else:
         png = self.selectedAnimObj.pngs[self.animidx]
 
+      if self.animidx == 0:
+        self.CalculateMaxColRow()
+
       print(png)
       pngPath = os.path.join(settings.projpath, self.selectedGroup, png + ".png")
       self.load_image(pngPath)
+
+      self.UpdateRelxRely()
 
       if self.selectedAnimObj.frame:
         self.UpdateAnimIdx(len(self.selectedAnimObj.frame))
@@ -406,7 +442,7 @@ class MyFrame(wx.Frame):
 
   def OnTxtRelxEnter(self, event):
     global projectNotSaved
-    vals = [int(i) for i in  self.txtRely.GetValue().split(',')]
+    vals = [int(i) for i in  self.txtRelx.GetValue().split(',')]
     self.selectedAnimObj.relx = vals
     projectNotSaved = True
 
@@ -414,7 +450,7 @@ class MyFrame(wx.Frame):
 
   def OnTxtRelyEnter(self, event):
     global projectNotSaved
-    vals = [int(i) for i in  self.txtRelx.GetValue().split(',')]
+    vals = [int(i) for i in  self.txtRely.GetValue().split(',')]
     self.selectedAnimObj.rely = vals
     projectNotSaved = True
 
@@ -799,6 +835,8 @@ class MyFrame(wx.Frame):
     self.toggle_grid = options_menu.AppendCheckItem(wx.ID_ANY, 'Toggle Grid\tCTRL-G', 'Toggle grid')
     self.zoom_in = options_menu.Append(wx.ID_ANY, 'Zoom in\tCtrl-.', 'Zoom in')
     self.zoom_out = options_menu.Append(wx.ID_ANY, 'Zoom out\tCtrl-,', 'Zoom out')
+    self.faster = options_menu.Append(wx.ID_ANY, 'Anim faster\tCtrl-=', 'Anim faster')
+    self.slower = options_menu.Append(wx.ID_ANY, 'Anim slower\tCtrl--', 'Anim slower')
 
     menu_bar.Append(file_menu, 'File')
     self.Bind(event=wx.EVT_MENU, handler=self.OnOpenFolder, source=mnuitmFileOpenFolder)
@@ -811,6 +849,8 @@ class MyFrame(wx.Frame):
     self.Bind(event=wx.EVT_MENU, handler=self.OnToggleGrid, source=self.toggle_grid)
     self.Bind(event=wx.EVT_MENU, handler=self.OnZoomIn, source=self.zoom_in)
     self.Bind(event=wx.EVT_MENU, handler=self.OnZoomOut, source=self.zoom_out)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnFaster, source=self.faster)
+    self.Bind(event=wx.EVT_MENU, handler=self.OnSlower, source=self.slower)
 
 	# Check for unique mac-osx 'apple menu'
     apple_menu = menu_bar.OSXGetAppleMenu()
@@ -822,8 +862,24 @@ class MyFrame(wx.Frame):
 
   # - - - - - - - - - - - - - - - - - - -
 
+  def OnFaster(self, event):
+    if self.speed > 100:
+      self.speed -= 100
+
+    self.timer.Start(self.speed)
+
+  # - - - - - - - - - - - - - - - - - - -
+
+  def OnSlower(self, event):
+    if self.speed < 500:
+      self.speed += 100
+
+    self.timer.Start(self.speed)
+
+  # - - - - - - - - - - - - - - - - - - -
+
   def OnZoomIn(self, event):
-    if self.mode == self.Mode.Png:
+    if self.mode == self.Mode.Png or self.animateFlag:
       self.scale += 1
       self.load_image()
     elif self.mode == self.Mode.Group:
@@ -833,7 +889,7 @@ class MyFrame(wx.Frame):
   # - - - - - - - - - - - - - - - - - - -
 
   def OnZoomOut(self, event):
-    if self.mode == self.Mode.Png:
+    if self.mode == self.Mode.Png or self.animateFlag:
       if self.scale > 1:
         self.scale -= 1
         self.load_image()
@@ -1011,13 +1067,33 @@ type_hitbox lstHitBoxes[] =
 
   # - - - - - - - - - - - - - - - - - - -
 
-  def update_image(self):
+  def DrawAnimFrame(self):
+    dest_bmp = wx.Bitmap(self.maxcol*8*self.scale, self.maxrow*8*self.scale, depth=16)
+    dest_dc=wx.MemoryDC(dest_bmp)
     if self.toggle_view.IsChecked():
-      self.bmp.SetBitmap(self.png)
+      source_bmp = self.png
     else:
-      self.bmp.SetBitmap(self.c64bmp)
+      source_bmp = self.c64bmp
+    source_dc = wx.MemoryDC(source_bmp)
+    print("rx={},ry={}".format(self.relx,self.rely))
+    dest_x = self.relx*8*self.scale
+    dest_y = self.rely*8*self.scale
+    dest_dc.Blit(dest_x, dest_y, source_bmp.GetWidth(), source_bmp.GetHeight(), source_dc, 0, 0, wx.COPY, useMask=False)
+    self.bmp.SetBitmap(dest_bmp)
 
-    self.draw_hitboxes()
+  # - - - - - - - - - - - - - - - - - - -
+
+  def update_image(self):
+    if self.animateFlag:
+      self.DrawAnimFrame()
+    else:
+      if self.toggle_view.IsChecked():
+        self.bmp.SetBitmap(self.png)
+      else:
+        self.bmp.SetBitmap(self.c64bmp)
+
+      self.draw_hitboxes()
+
     self.bmp.Refresh()
 
     self.update_scrollbars()

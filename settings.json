@@ -9525,7 +9525,7 @@
                     "name": "ryu_hadouken5", 
                     "py/object": "__main__.PNG"
                 }, 
-                "ryu_hadproj1": {
+                "ryu_hadproj01": {
                     "crop": [
                         374, 
                         636, 
@@ -9558,7 +9558,295 @@
                             0
                         ]
                     }, 
-                    "name": "ryu_hadproj1", 
+                    "name": "ryu_hadproj01", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj02": {
+                    "crop": [
+                        417, 
+                        636, 
+                        48, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            13, 
+                            16, 
+                            31, 
+                            43
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj02", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj03": {
+                    "crop": [
+                        460, 
+                        627, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            17, 
+                            20, 
+                            32, 
+                            40
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj03", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj04": {
+                    "crop": [
+                        478, 
+                        664, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            20, 
+                            20, 
+                            37, 
+                            40
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj04", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj05": {
+                    "crop": [
+                        496, 
+                        627, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            36, 
+                            25, 
+                            45, 
+                            37
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj05", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj06": {
+                    "crop": [
+                        506, 
+                        664, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            29, 
+                            18, 
+                            40, 
+                            43
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj06", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj07": {
+                    "crop": [
+                        532, 
+                        628, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            29, 
+                            18, 
+                            47, 
+                            41
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj07", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj08": {
+                    "crop": [
+                        535, 
+                        664, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            33, 
+                            19, 
+                            51, 
+                            42
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj08", 
+                    "py/object": "__main__.PNG"
+                }, 
+                "ryu_hadproj09": {
+                    "crop": [
+                        556, 
+                        627, 
+                        88, 
+                        64
+                    ], 
+                    "hitboxes": {
+                        "Attack": [
+                            43, 
+                            19, 
+                            53, 
+                            42
+                        ], 
+                        "Feet": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Head": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ], 
+                        "Torso": [
+                            0, 
+                            0, 
+                            0, 
+                            0
+                        ]
+                    }, 
+                    "name": "ryu_hadproj09", 
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hadproj10": {
@@ -9883,294 +10171,6 @@
                         ]
                     }, 
                     "name": "ryu_hadproj18", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj2": {
-                    "crop": [
-                        417, 
-                        636, 
-                        48, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            13, 
-                            16, 
-                            31, 
-                            43
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj2", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj3": {
-                    "crop": [
-                        460, 
-                        627, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            17, 
-                            20, 
-                            32, 
-                            40
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj3", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj4": {
-                    "crop": [
-                        478, 
-                        664, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            20, 
-                            20, 
-                            37, 
-                            40
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj4", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj5": {
-                    "crop": [
-                        496, 
-                        627, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            36, 
-                            25, 
-                            45, 
-                            37
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj5", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj6": {
-                    "crop": [
-                        506, 
-                        664, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            29, 
-                            18, 
-                            40, 
-                            43
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj6", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj7": {
-                    "crop": [
-                        532, 
-                        628, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            29, 
-                            18, 
-                            47, 
-                            41
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj7", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj8": {
-                    "crop": [
-                        535, 
-                        664, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            33, 
-                            19, 
-                            51, 
-                            42
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj8", 
-                    "py/object": "__main__.PNG"
-                }, 
-                "ryu_hadproj9": {
-                    "crop": [
-                        556, 
-                        627, 
-                        88, 
-                        64
-                    ], 
-                    "hitboxes": {
-                        "Attack": [
-                            43, 
-                            19, 
-                            53, 
-                            42
-                        ], 
-                        "Feet": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Head": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ], 
-                        "Torso": [
-                            0, 
-                            0, 
-                            0, 
-                            0
-                        ]
-                    }, 
-                    "name": "ryu_hadproj9", 
                     "py/object": "__main__.PNG"
                 }, 
                 "ryu_hit1": {
@@ -13627,6 +13627,180 @@
                     ], 
                     "rows": 0
                 }, 
+                "ryu_flkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_flkick1", 
+                        "ryu_flkick2"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_flpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_flpunch1", 
+                        "ryu_flpunch2", 
+                        "ryu_flpunch3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_fmkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_fmkick1", 
+                        "ryu_fmkick2", 
+                        "ryu_fmkick3"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_fmpunch": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 1, 
+                    "pngs": [
+                        "ryu_fmpunch1", 
+                        "ryu_fmpunch2", 
+                        "ryu_fmpunch3", 
+                        "ryu_fmpunch4"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hadouken": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hadouken1", 
+                        "ryu_hadouken2", 
+                        "ryu_hadouken3", 
+                        "ryu_hadouken4", 
+                        "ryu_hadouken5"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hadproj": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hadproj03", 
+                        "ryu_hadproj04", 
+                        "ryu_hadproj05", 
+                        "ryu_hadproj06", 
+                        "ryu_hadproj07", 
+                        "ryu_hadproj08", 
+                        "ryu_hadproj09", 
+                        "ryu_hadproj10", 
+                        "ryu_hadproj11", 
+                        "ryu_hadproj12", 
+                        "ryu_hadproj13", 
+                        "ryu_hadproj14"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hadproj_end": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hadproj15", 
+                        "ryu_hadproj16", 
+                        "ryu_hadproj17", 
+                        "ryu_hadproj18"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hadproj_start": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hadproj01", 
+                        "ryu_hadproj02"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hit": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hit1", 
+                        "ryu_hit2", 
+                        "ryu_hit3", 
+                        "ryu_hit4"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_hkick": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_hkick1", 
+                        "ryu_hkick2", 
+                        "ryu_hkick3", 
+                        "ryu_hkick4", 
+                        "ryu_hkick5"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [], 
+                    "rely": [], 
+                    "rows": 0
+                }, 
                 "ryu_idle": {
                     "animlength": 0, 
                     "cols": 0, 
@@ -13641,6 +13815,55 @@
                     "py/object": "__main__.Anim", 
                     "relx": [], 
                     "rely": [], 
+                    "rows": 0
+                }, 
+                "ryu_jump": {
+                    "animlength": 0, 
+                    "cols": 0, 
+                    "frame": [
+                        0, 
+                        0, 
+                        1, 
+                        1, 
+                        2, 
+                        2, 
+                        1, 
+                        1, 
+                        0, 
+                        0
+                    ], 
+                    "name": "", 
+                    "pingpong": 0, 
+                    "pngs": [
+                        "ryu_jump2", 
+                        "ryu_jump3", 
+                        "ryu_jump4"
+                    ], 
+                    "py/object": "__main__.Anim", 
+                    "relx": [
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0, 
+                        0
+                    ], 
+                    "rely": [
+                        -3, 
+                        -3, 
+                        -2, 
+                        -1, 
+                        -1, 
+                        1, 
+                        1, 
+                        2, 
+                        3, 
+                        3
+                    ], 
                     "rows": 0
                 }, 
                 "ryu_victoryalt": {

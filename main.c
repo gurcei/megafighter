@@ -29,6 +29,19 @@ extern int sky_idx;
 // ================================
 // GLOBALS
 // ================================
+struct dmagic_dmalist {
+  unsigned char command;
+  unsigned int count;
+  unsigned int source_addr;
+  unsigned char source_bank;
+  unsigned int dest_addr;
+  unsigned char dest_bank;
+  unsigned int modulo;
+};
+
+struct dmagic_dmalist dmalist;
+
+unsigned char data_buffer[128];
 unsigned char hit, hithead, hittorso, hitfeet;
 unsigned char* ptr, *ptr2;
 int bx, by, cx, cy;
@@ -64,28 +77,28 @@ enum anim_ids
   RYU_WALK, RYU_WALKB,
   RYU_JUMP, RYU_FJUMP, RYU_BJUMP,
   RYU_CROUCHBLOCK,
-  RYU_LPUNCH, RYU_MHPUNCH,
-  RYU_FLPUNCH, RYU_FMPUNCH, RYU_FHPUNCH,
+  /*RYU_LPUNCH,*/ RYU_MHPUNCH,
+  //RYU_FLPUNCH, RYU_FMPUNCH, RYU_FHPUNCH,
   RYU_LMKICK, RYU_HKICK,
-  RYU_FLKICK, RYU_FMKICK, RYU_FHKICK,
-  RYU_CROUCH_LPUNCH, RYU_CROUCH_MPUNCH, RYU_CROUCH_HPUNCH,
-  RYU_CROUCH_LKICK, RYU_CROUCH_MKICK, RYU_CROUCH_HKICK,
-  RYU_JUMP_LMHPUNCH,
-  RYU_JUMP_LMKICK, RYU_JUMP_HKICK,
-  RYU_FJUMP_LPUNCH,
-  RYU_FJUMP_MHKICK,
+  //RYU_FLKICK, RYU_FMKICK, RYU_FHKICK,
+  /*RYU_CROUCH_LPUNCH, RYU_CROUCH_MPUNCH,*/ RYU_CROUCH_HPUNCH,
+  /*RYU_CROUCH_LKICK, RYU_CROUCH_MKICK,*/ RYU_CROUCH_HKICK,
+  //RYU_JUMP_LMHPUNCH,
+  //RYU_JUMP_LMKICK, RYU_JUMP_HKICK,
+  //RYU_FJUMP_LPUNCH,
+  //RYU_FJUMP_MHKICK,
   RYU_SHOURYUKEN, RYU_TATSUMAKI,
   RYU_HADOUKEN,
   RYU_HADPROJ_START, RYU_HADPROJ, RYU_HADPROJ_END,
-  RYU_SHOULDERTOSS, RYU_BACKROLL,
+  //RYU_SHOULDERTOSS, RYU_BACKROLL,
   RYU_HIT, RYU_FACEHIT, RYU_CROUCHHIT,
-  RYU_KNOCKDOWN, RYU_STUNNED, RYU_KO,
-  RYU_VICTORY, RYU_VICTORYALT,
+  RYU_KNOCKDOWN,// RYU_STUNNED, RYU_KO,
+  //RYU_VICTORY, RYU_VICTORYALT,
   //RYU_MUGSHOT,
   RYU_MAX
 };
 
-#define FIRST_ATTACK   RYU_LPUNCH
+#define FIRST_ATTACK   RYU_MHPUNCH
 
 unsigned char punch_style = FIRST_ATTACK;
 
@@ -96,43 +109,43 @@ unsigned int anim_ryu_jump[] = { RYU_JUMP2, RYU_JUMP3, RYU_JUMP4 };
 unsigned int anim_ryu_fjump[] = { RYU_FJUMP2, RYU_FJUMP3, RYU_FJUMP4, RYU_FJUMP5, RYU_FJUMP6, RYU_FJUMP7 };
 unsigned int anim_ryu_bjump[] = { RYU_FJUMP7, RYU_FJUMP6, RYU_FJUMP5, RYU_FJUMP4, RYU_FJUMP3, RYU_FJUMP2 };
 unsigned int anim_ryu_crouchblock[] = { RYU_CROUCH1, RYU_CROUCH2, RYU_BLOCK1, RYU_BLOCK2 };
-unsigned int anim_ryu_lpunch[] = { RYU_LPUNCH1, RYU_LPUNCH2, RYU_LPUNCH1 };
+//unsigned int anim_ryu_lpunch[] = { RYU_LPUNCH1, RYU_LPUNCH2, RYU_LPUNCH1 };
 unsigned int anim_ryu_mhpunch[] = { RYU_MHPUNCH1, RYU_MHPUNCH2, RYU_MHPUNCH3 };
-unsigned int anim_ryu_flpunch[] = { RYU_FLPUNCH1, RYU_FLPUNCH2, RYU_FLPUNCH3 };
-unsigned int anim_ryu_fmpunch[] = { RYU_FMPUNCH1, RYU_FMPUNCH2, RYU_FMPUNCH3, RYU_FMPUNCH4 };
-unsigned int anim_ryu_fhpunch[] = { RYU_FHPUNCH1, RYU_FHPUNCH2, RYU_FHPUNCH3, RYU_FHPUNCH4 };
+//unsigned int anim_ryu_flpunch[] = { RYU_FLPUNCH1, RYU_FLPUNCH2, RYU_FLPUNCH3 };
+//unsigned int anim_ryu_fmpunch[] = { RYU_FMPUNCH1, RYU_FMPUNCH2, RYU_FMPUNCH3, RYU_FMPUNCH4 };
+//unsigned int anim_ryu_fhpunch[] = { RYU_FHPUNCH1, RYU_FHPUNCH2, RYU_FHPUNCH3, RYU_FHPUNCH4 };
 unsigned int anim_ryu_lmkick[] = { RYU_LMKICK1, RYU_LMKICK2 };
 unsigned int anim_ryu_hkick[] = { RYU_HKICK1, RYU_HKICK2, RYU_HKICK3, RYU_HKICK4, RYU_HKICK5 };
-unsigned int anim_ryu_flkick[] = { RYU_FLKICK1, RYU_FLKICK2 };
-unsigned int anim_ryu_fmkick[] = { RYU_FMKICK1, RYU_FMKICK2, RYU_FMKICK3 };
-unsigned int anim_ryu_fhkick[] = { RYU_FHKICK1, RYU_FHKICK2, RYU_FHKICK3 };
-unsigned int anim_ryu_crouch_lpunch[] = { RYU_CROUCH_LPUNCH1, RYU_CROUCH_LPUNCH2 };
-unsigned int anim_ryu_crouch_mpunch[] = { RYU_CROUCH_MPUNCH1, RYU_CROUCH_MPUNCH2 };
+//unsigned int anim_ryu_flkick[] = { RYU_FLKICK1, RYU_FLKICK2 };
+//unsigned int anim_ryu_fmkick[] = { RYU_FMKICK1, RYU_FMKICK2, RYU_FMKICK3 };
+//unsigned int anim_ryu_fhkick[] = { RYU_FHKICK1, RYU_FHKICK2, RYU_FHKICK3 };
+//unsigned int anim_ryu_crouch_lpunch[] = { RYU_CROUCH_LPUNCH1, RYU_CROUCH_LPUNCH2 };
+//unsigned int anim_ryu_crouch_mpunch[] = { RYU_CROUCH_MPUNCH1, RYU_CROUCH_MPUNCH2 };
 unsigned int anim_ryu_crouch_hpunch[] = { RYU_CROUCH_HPUNCH1, RYU_CROUCH_HPUNCH2, RYU_CROUCH_HPUNCH3 };
-unsigned int anim_ryu_crouch_lkick[] = { RYU_CROUCH_LKICK1, RYU_CROUCH_LKICK2 };
-unsigned int anim_ryu_crouch_mkick[] = { RYU_CROUCH_MKICK1, RYU_CROUCH_MKICK2 };
+//unsigned int anim_ryu_crouch_lkick[] = { RYU_CROUCH_LKICK1, RYU_CROUCH_LKICK2 };
+//unsigned int anim_ryu_crouch_mkick[] = { RYU_CROUCH_MKICK1, RYU_CROUCH_MKICK2 };
 unsigned int anim_ryu_crouch_hkick[] = { RYU_CROUCH_HKICK1, RYU_CROUCH_HKICK2, RYU_CROUCH_HKICK3, RYU_CROUCH_HKICK4, RYU_CROUCH_HKICK5 };
-unsigned int anim_ryu_jump_lmhpunch[] = { RYU_JUMP_LMHPUNCH1, RYU_JUMP_LMHPUNCH2, RYU_JUMP_LMHPUNCH3 };
-unsigned int anim_ryu_jump_lmkick[] = { RYU_JUMP_LMKICK1, RYU_JUMP_LMKICK2 };
-unsigned int anim_ryu_jump_hkick[] = { RYU_JUMP_HKICK1, RYU_JUMP_HKICK2, RYU_JUMP_HKICK3 };
-unsigned int anim_ryu_fjump_lpunch[] = { RYU_FJUMP_LPUNCH1, RYU_FJUMP_LPUNCH2 };
-unsigned int anim_ryu_fjump_mhkick[] = { RYU_FJUMP_MHKICK1, RYU_FJUMP_MHKICK2, RYU_FJUMP_MHKICK3 };
+//unsigned int anim_ryu_jump_lmhpunch[] = { RYU_JUMP_LMHPUNCH1, RYU_JUMP_LMHPUNCH2, RYU_JUMP_LMHPUNCH3 };
+//unsigned int anim_ryu_jump_lmkick[] = { RYU_JUMP_LMKICK1, RYU_JUMP_LMKICK2 };
+//unsigned int anim_ryu_jump_hkick[] = { RYU_JUMP_HKICK1, RYU_JUMP_HKICK2, RYU_JUMP_HKICK3 };
+//unsigned int anim_ryu_fjump_lpunch[] = { RYU_FJUMP_LPUNCH1, RYU_FJUMP_LPUNCH2 };
+//unsigned int anim_ryu_fjump_mhkick[] = { RYU_FJUMP_MHKICK1, RYU_FJUMP_MHKICK2, RYU_FJUMP_MHKICK3 };
 unsigned int anim_ryu_shouryuken[] = { RYU_SHOURYUKEN1, RYU_SHOURYUKEN2, RYU_SHOURYUKEN3, RYU_SHOURYUKEN4, RYU_SHOURYUKEN5, RYU_SHOURYUKEN6, RYU_SHOURYUKEN7 };
 unsigned int anim_ryu_tatsumaki[] = { RYU_TATSUMAKI1, RYU_TATSUMAKI2, RYU_TATSUMAKI3, RYU_TATSUMAKI4, RYU_TATSUMAKI5, RYU_TATSUMAKI6, RYU_TATSUMAKI7, RYU_TATSUMAKI8, RYU_TATSUMAKI9 };
 unsigned int anim_ryu_hadouken[] = { RYU_HADOUKEN1, RYU_HADOUKEN2, RYU_HADOUKEN3, RYU_HADOUKEN4, RYU_HADOUKEN5 };
 unsigned int anim_ryu_hadproj_start[] = { RYU_HADPROJ01, RYU_HADPROJ02 };
 unsigned int anim_ryu_hadproj[] = { RYU_HADPROJ03, RYU_HADPROJ04, RYU_HADPROJ05, RYU_HADPROJ06, RYU_HADPROJ07, RYU_HADPROJ08, RYU_HADPROJ09, RYU_HADPROJ10, RYU_HADPROJ11, RYU_HADPROJ12, RYU_HADPROJ13, RYU_HADPROJ14 };
 unsigned int anim_ryu_hadproj_end[] = { RYU_HADPROJ15, RYU_HADPROJ16, RYU_HADPROJ17, RYU_HADPROJ18 };
-unsigned int anim_ryu_shouldertoss[] = { RYU_SHOULDERTOSS1, RYU_SHOULDERTOSS2, RYU_SHOULDERTOSS3, RYU_SHOULDERTOSS4, RYU_SHOULDERTOSS5 };
-unsigned int anim_ryu_backroll[] = { RYU_BACKROLL1, RYU_BACKROLL2, RYU_BACKROLL3, RYU_BACKROLL4, RYU_BACKROLL5, RYU_BACKROLL6, RYU_BACKROLL7 };
+//unsigned int anim_ryu_shouldertoss[] = { RYU_SHOULDERTOSS1, RYU_SHOULDERTOSS2, RYU_SHOULDERTOSS3, RYU_SHOULDERTOSS4, RYU_SHOULDERTOSS5 };
+//unsigned int anim_ryu_backroll[] = { RYU_BACKROLL1, RYU_BACKROLL2, RYU_BACKROLL3, RYU_BACKROLL4, RYU_BACKROLL5, RYU_BACKROLL6, RYU_BACKROLL7 };
 unsigned int anim_ryu_hit[] = { RYU_HIT1, RYU_HIT2, RYU_HIT3, RYU_HIT4 };
 unsigned int anim_ryu_facehit[] = { RYU_FACEHIT1, RYU_FACEHIT2, RYU_FACEHIT3, RYU_FACEHIT4 };
 unsigned int anim_ryu_crouchhit[] = { RYU_CROUCHHIT1, RYU_CROUCHHIT2, RYU_CROUCHHIT3 };
 unsigned int anim_ryu_knockdown[] = { RYU_KNOCKDOWN1, RYU_KNOCKDOWN2, RYU_KNOCKDOWN3, RYU_KNOCKDOWN4, RYU_KNOCKDOWN5, RYU_KNOCKDOWN6, RYU_KNOCKDOWN7, RYU_KNOCKDOWN8 };
-unsigned int anim_ryu_stunned[] = { RYU_STUNNED1, RYU_STUNNED2, RYU_STUNNED3 };
-unsigned int anim_ryu_ko[] = { RYU_KO1, RYU_KO2, RYU_KO3, RYU_KO4, RYU_KO5 };
-unsigned int anim_ryu_victory[] = { RYU_VICTORY1, RYU_VICTORY2, RYU_VICTORY3 };
-unsigned int anim_ryu_victoryalt[] = { RYU_VICTORYALT1, RYU_VICTORYALT2, RYU_VICTORYALT3, RYU_VICTORYALT4, RYU_VICTORYALT5, RYU_VICTORYALT6, RYU_VICTORYALT7 };
+//unsigned int anim_ryu_stunned[] = { RYU_STUNNED1, RYU_STUNNED2, RYU_STUNNED3 };
+//unsigned int anim_ryu_ko[] = { RYU_KO1, RYU_KO2, RYU_KO3, RYU_KO4, RYU_KO5 };
+//unsigned int anim_ryu_victory[] = { RYU_VICTORY1, RYU_VICTORY2, RYU_VICTORY3 };
+//unsigned int anim_ryu_victoryalt[] = { RYU_VICTORYALT1, RYU_VICTORYALT2, RYU_VICTORYALT3, RYU_VICTORYALT4, RYU_VICTORYALT5, RYU_VICTORYALT6, RYU_VICTORYALT7 };
 //unsigned int anim_ryu_mugshot[] = { RYU_MUGSHOT1, RYU_MUGSHOT2, RYU_MUGSHOT3 };
 
 typedef struct
@@ -237,43 +250,43 @@ anim_detail anims[RYU_MAX] =
   { anim_ryu_fjump,  7, 0, 10, 13 }, // RYU_FJUMP
   { anim_ryu_bjump,  7, 0, 10, 13 }, // RYU_BJUMP
   { anim_ryu_crouchblock,  4, 0, 6, 13 },  // RYU_CROUCHBLOCK
-  { anim_ryu_lpunch,  3, 0, 8, 14 },  // RYU_LPUNCH
+  //{ anim_ryu_lpunch,  3, 0, 8, 14 },  // RYU_LPUNCH
   { anim_ryu_mhpunch,  3, 1, 10, 14 }, // RYU_MHPUNCH
-  { anim_ryu_flpunch,  3, 0, 7, 14 },  // RYU_FLPUNCH
-  { anim_ryu_fmpunch,  4, 1, 8, 14 },  // RYU_FMPUNCH
-  { anim_ryu_fhpunch,  4, 1, 8, 14 },  // RYU_FHPUNCH
+  //{ anim_ryu_flpunch,  3, 0, 7, 14 },  // RYU_FLPUNCH
+  //{ anim_ryu_fmpunch,  4, 1, 8, 14 },  // RYU_FMPUNCH
+  //{ anim_ryu_fhpunch,  4, 1, 8, 14 },  // RYU_FHPUNCH
   { anim_ryu_lmkick,  2, 1, 9, 16 },  // RYU_LMKICK
   { anim_ryu_hkick,  5, 0, 10, 16 }, // RYU_HKICK
-  { anim_ryu_flkick,  2, 1, 10, 16 }, // RYU_FLKICK
-  { anim_ryu_fmkick,  3, 1, 8, 16 },  // RYU_FMKICK
-  { anim_ryu_fhkick,  3, 1, 11, 16 }, // RYU_FHKICK
-  { anim_ryu_crouch_lpunch,  2, 1, 9, 16 },  // RYU_CROUCH_LPUNCH
-  { anim_ryu_crouch_mpunch,  2, 1, 9, 16 },  // RYU_CROUCH_MPUNCH
+  //{ anim_ryu_flkick,  2, 1, 10, 16 }, // RYU_FLKICK
+  //{ anim_ryu_fmkick,  3, 1, 8, 16 },  // RYU_FMKICK
+  //{ anim_ryu_fhkick,  3, 1, 11, 16 }, // RYU_FHKICK
+  //{ anim_ryu_crouch_lpunch,  2, 1, 9, 16 },  // RYU_CROUCH_LPUNCH
+  //{ anim_ryu_crouch_mpunch,  2, 1, 9, 16 },  // RYU_CROUCH_MPUNCH
   { anim_ryu_crouch_hpunch,  3, 1, 7, 16 },  // RYU_CROUCH_HPUNCH
-  { anim_ryu_crouch_lkick,  2, 1, 10, 16 }, // RYU_CROUCH_LKICK
-  { anim_ryu_crouch_mkick,  2, 1, 12, 16 }, // RYU_CROUCH_MKICK
+  //{ anim_ryu_crouch_lkick,  2, 1, 10, 16 }, // RYU_CROUCH_LKICK
+  //{ anim_ryu_crouch_mkick,  2, 1, 12, 16 }, // RYU_CROUCH_MKICK
   { anim_ryu_crouch_hkick,  5, 0, 10, 16 }, // RYU_CROUCH_HKICK
-  { anim_ryu_jump_lmhpunch,  3, 0, 7,  18 }, // RYU_JUMP_LMHPUNCH
-  { anim_ryu_jump_lmkick,  2, 0, 7,  18 }, // RYU_JUMP_LMKICK
-  { anim_ryu_jump_hkick,  3, 0, 8,  18 }, // RYU_JUMP_HKICK
-  { anim_ryu_fjump_lpunch,  2, 0, 6,  12 }, // RYU_FJUMP_LPUNCH
-  { anim_ryu_fjump_mhkick,  3, 0, 9,  12 }, // RYU_FJUMP_MHKICK
+  //{ anim_ryu_jump_lmhpunch,  3, 0, 7,  18 }, // RYU_JUMP_LMHPUNCH
+  //{ anim_ryu_jump_lmkick,  2, 0, 7,  18 }, // RYU_JUMP_LMKICK
+  //{ anim_ryu_jump_hkick,  3, 0, 8,  18 }, // RYU_JUMP_HKICK
+  //{ anim_ryu_fjump_lpunch,  2, 0, 6,  12 }, // RYU_FJUMP_LPUNCH
+  //{ anim_ryu_fjump_mhkick,  3, 0, 9,  12 }, // RYU_FJUMP_MHKICK
   { anim_ryu_shouryuken,  7, 0, 7,  18 }, // RYU_SHOURYUKEN
   { anim_ryu_tatsumaki,  9, 0, 12, 18 }, // RYU_TATSUMAKI
   { anim_ryu_hadouken,  5, 0, 12, 12 }, // RYU_HADOUKEN
   { anim_ryu_hadproj_start,  2, 0, 6,  8  }, // RYU_HADPROJ_START
   { anim_ryu_hadproj,  12, 0, 11, 8  }, // RYU_HADPROJ
   { anim_ryu_hadproj_end,  4, 0, 6,  8  }, // RYU_HADPROJ_END
-  { anim_ryu_shouldertoss,  5, 0, 9,  13 }, // RYU_SHOULDERTOSS
-  { anim_ryu_backroll,  7, 0, 10, 12 }, // RYU_BACKROLL
+  //{ anim_ryu_shouldertoss,  5, 0, 9,  13 }, // RYU_SHOULDERTOSS
+  //{ anim_ryu_backroll,  7, 0, 10, 12 }, // RYU_BACKROLL
   { anim_ryu_hit,  4, 0, 7,  15 }, // RYU_HIT
   { anim_ryu_facehit,  4, 0, 8,  15 }, // RYU_FACEHIT
   { anim_ryu_crouchhit,  3, 0, 9,  15 }, // RYU_CROUCHHIT
   { anim_ryu_knockdown,  8, 0, 10, 15 }, // RYU_KNOCKDOWN
-  { anim_ryu_stunned,  3, 1, 8,  15 }, // RYU_STUNNED
-  { anim_ryu_ko,  5, 0, 10, 15 }, // RYU_KO
-  { anim_ryu_victory,  3, 0, 7,  16 }, // RYU_VICTORY
-  { anim_ryu_victoryalt,  7, 1, 7,  16 }, // RYU_VICTORYALT
+  //{ anim_ryu_stunned,  3, 1, 8,  15 }, // RYU_STUNNED
+  //{ anim_ryu_ko,  5, 0, 10, 15 }, // RYU_KO
+  //{ anim_ryu_victory,  3, 0, 7,  16 }, // RYU_VICTORY
+  //{ anim_ryu_victoryalt,  7, 1, 7,  16 }, // RYU_VICTORYALT
   //{ anim_ryu_mugshot,  3, 0, 11, 15 }, // RYU_MUGSHOT
 };
 
@@ -649,7 +662,7 @@ void get_keyboard_input(void)
 				sprites[pi].anim_idx = 0;
 				sprites[pi].anim_dir = 1;
 				if (punch_style == RYU_MAX)
-					punch_style = RYU_LPUNCH;
+					punch_style = FIRST_ATTACK;
 			}
 			else if (key & 1 && !sprites[pi].jumping && sprites[pi].anim == RYU_IDLE) // up
 			{
@@ -2092,6 +2105,64 @@ void game_main(void)
 }
 //#endif // SAVEMEM
 
+void c65_io_enable(void)
+{
+  // Gate C65 IO enable
+  Poke(0xd02fU,0xA5);
+  Poke(0xd02fU,0x96);
+  // Force back to 3.5MHz
+  Poke(0xD031,Peek(0xD031)|0x40);
+}
+
+void do_dma(void)
+{
+  c65_io_enable();
+
+#ifdef MEGA65
+  // Now run DMA job (to and from low 1MB, and list is in low 1MB)
+  Poke(0xd702U,0);
+  Poke(0xd704U,0);
+  Poke(0xd705U,0);
+  Poke(0xd706U,0);
+#endif
+  Poke(0xd701U,((unsigned int)&dmalist)>>8);
+  Poke(0xd700U,((unsigned int)&dmalist)&0xff); // triggers DMA
+}
+
+void lcopy(long source_address, long destination_address,
+    unsigned int count)
+{
+  dmalist.command=0x00; // copy
+  dmalist.count=count;
+  dmalist.source_addr=source_address&0xffff;
+  dmalist.source_bank=(source_address>>16)&0x7f;
+  dmalist.dest_addr=destination_address&0xffff;
+  dmalist.dest_bank=(destination_address>>16)&0x7f;
+
+  do_dma();
+  return;
+}
+
+void load_reu_data(void)
+{
+  FILE *f;
+  int r, k;
+
+  f = fopen("data.reu", "rb");
+  while (!feof(f))
+  {
+    r=fread(data_buffer,1,128,f);
+    //for (k = 0; k < r; k++)
+    //{
+    //  Poke(1024+k, data_buffer[k]);
+    //}
+
+    lcopy(&data_buffer, 0x00010000, 128);
+    lcopy(0x00010000, 1024, 128);
+    exit(0);
+  }
+}
+
 void main(void)
 {
   unsigned int i, j, seg_idx;
@@ -2103,6 +2174,8 @@ void main(void)
   // switch back to upper-case
   // https://www.cc65.org/mailarchive/2004-09/4446.html
   Poke(0xd018, 0x15);
+
+  load_reu_data();
 
   // size is 7 x 14 char-blocks
   // = 784 bytes = 0x0310
@@ -2119,7 +2192,7 @@ void main(void)
   Poke(0xea32, 0x7e);
   Poke(0xea33, 0xea);
 
-  loc = 0x00080000;
+  loc = 0x00040000;
   seg_idx = 0;
   for (i = 0; i < BMP_MAX; i++)
   {

@@ -86,11 +86,9 @@ data.reu: $(DATAFILES) $(W64FILES) Petscii/intro.bin
 
 	# reu bank 3 and beyond will hold digi-sound wave samples
 	cat $(W64FILES) >> data.reu
-	dd if=/dev/zero of=data.reu bs=1 count=1 seek=524287
+	dd if=/dev/zero of=data.reu bs=1 count=1 seek=262143
 
-	# skipping bank 4, seems like the reu-copy corrupts a little bit in here?
-
-	# reu bank 8 and onwards is bitmap data
+	# reu bank 4 and onwards is bitmap data
 	cat $(DATAFILES) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu
@@ -127,7 +125,7 @@ gidemo.prg gidemo.lbl: data.reu $(ASSFILES) gidemo.cfg
 
 gidemo.d81: gidemo.prg
 	rm -f gidemo.d81
-	cbmconvert -v2 -D8o gidemo.d81 gidemo.prg
+	cbmconvert -v2 -D8o gidemo.d81 gidemo.prg data.reu
 
 clean:
 	rm -f gidemo.map

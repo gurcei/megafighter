@@ -120,8 +120,8 @@ unsigned int anim_ryu_fjump_mhkick[] = { RYU_FJUMP_MHKICK1, RYU_FJUMP_MHKICK2, R
 unsigned int anim_ryu_shouryuken[] = { RYU_SHOURYUKEN1, RYU_SHOURYUKEN2, RYU_SHOURYUKEN3, RYU_SHOURYUKEN4, RYU_SHOURYUKEN5, RYU_SHOURYUKEN6, RYU_SHOURYUKEN7 };
 unsigned int anim_ryu_tatsumaki[] = { RYU_TATSUMAKI1, RYU_TATSUMAKI2, RYU_TATSUMAKI3, RYU_TATSUMAKI4, RYU_TATSUMAKI5, RYU_TATSUMAKI6, RYU_TATSUMAKI7, RYU_TATSUMAKI8, RYU_TATSUMAKI9 };
 unsigned int anim_ryu_hadouken[] = { RYU_HADOUKEN1, RYU_HADOUKEN2, RYU_HADOUKEN3, RYU_HADOUKEN4, RYU_HADOUKEN5 };
-unsigned int anim_ryu_hadproj_start[] = { RYU_HADPROJ1, RYU_HADPROJ2 };
-unsigned int anim_ryu_hadproj[] = { RYU_HADPROJ3, RYU_HADPROJ4, RYU_HADPROJ5, RYU_HADPROJ6, RYU_HADPROJ7, RYU_HADPROJ8, RYU_HADPROJ9, RYU_HADPROJ10, RYU_HADPROJ11, RYU_HADPROJ12, RYU_HADPROJ13, RYU_HADPROJ14 };
+unsigned int anim_ryu_hadproj_start[] = { RYU_HADPROJ01, RYU_HADPROJ02 };
+unsigned int anim_ryu_hadproj[] = { RYU_HADPROJ03, RYU_HADPROJ04, RYU_HADPROJ05, RYU_HADPROJ06, RYU_HADPROJ07, RYU_HADPROJ08, RYU_HADPROJ09, RYU_HADPROJ10, RYU_HADPROJ11, RYU_HADPROJ12, RYU_HADPROJ13, RYU_HADPROJ14 };
 unsigned int anim_ryu_hadproj_end[] = { RYU_HADPROJ15, RYU_HADPROJ16, RYU_HADPROJ17, RYU_HADPROJ18 };
 unsigned int anim_ryu_shouldertoss[] = { RYU_SHOULDERTOSS1, RYU_SHOULDERTOSS2, RYU_SHOULDERTOSS3, RYU_SHOULDERTOSS4, RYU_SHOULDERTOSS5 };
 unsigned int anim_ryu_backroll[] = { RYU_BACKROLL1, RYU_BACKROLL2, RYU_BACKROLL3, RYU_BACKROLL4, RYU_BACKROLL5, RYU_BACKROLL6, RYU_BACKROLL7 };
@@ -222,7 +222,7 @@ typedef struct
   unsigned int* frames;
   unsigned char frame_count;
   unsigned char pingpong;
-  unsigned int  cols;
+  unsigned char  cols;
   unsigned char rows;
 } anim_detail;
 

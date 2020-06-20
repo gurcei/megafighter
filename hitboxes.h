@@ -567,63 +567,63 @@ type_hitbox lstHitBoxes[] =
     0, 0, 0, 0
   },
   {
-    "Graphics/Ryu/ryu_hadproj5.png",
+    "Graphics/Ryu/ryu_hadproj05.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     36, 25, 45, 37
   },
   {
-    "Graphics/Ryu/ryu_hadproj4.png",
+    "Graphics/Ryu/ryu_hadproj04.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     20, 20, 37, 40
   },
   {
-    "Graphics/Ryu/ryu_hadproj7.png",
+    "Graphics/Ryu/ryu_hadproj07.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     29, 18, 47, 41
   },
   {
-    "Graphics/Ryu/ryu_hadproj6.png",
+    "Graphics/Ryu/ryu_hadproj06.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     29, 18, 40, 43
   },
   {
-    "Graphics/Ryu/ryu_hadproj1.png",
+    "Graphics/Ryu/ryu_hadproj01.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     15, 10, 34, 48
   },
   {
-    "Graphics/Ryu/ryu_hadproj3.png",
+    "Graphics/Ryu/ryu_hadproj03.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     17, 20, 32, 40
   },
   {
-    "Graphics/Ryu/ryu_hadproj2.png",
+    "Graphics/Ryu/ryu_hadproj02.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     13, 16, 31, 43
   },
   {
-    "Graphics/Ryu/ryu_hadproj9.png",
+    "Graphics/Ryu/ryu_hadproj09.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,
     43, 19, 53, 42
   },
   {
-    "Graphics/Ryu/ryu_hadproj8.png",
+    "Graphics/Ryu/ryu_hadproj08.png",
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0,

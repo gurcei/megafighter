@@ -38,11 +38,12 @@ SEGS_META_FILES_REV=$(DATAFILES_REV:bin=bin.segs_meta)
 SHORTDATAFILES_REV=$(foreach file,$(DATAFILES_REV),$(shell basename ${file}))
 ID_NAMES_REV=`echo $(SHORTDATAFILES_REV:.bin=,) | tr \[a-z\] \[A-Z\]`
 
-all: gidemo.d64 data.reu util.h
+all: gidemo.d81 data.reu util.h
 
 run:
+	/Users/tramvo/c64/mega65/xemu/build/bin/xmega65.native -hyperdebug -loadcram ../../../mega65-core/bin/COLOURRAM.BIN -skipunhandledmem -newhack -8 gidemo.d81 -fpga 12
 	#open -a /Applications/Vice/x64.app/Contents/MacOS/x64 gidemo.d64
-	/Applications/Vice/x64.app/Contents/MacOS/x64 -reu -reusize 16384 -reuimage data.reu -moncommands commands.txt gidemo.d64 &
+	#/Applications/Vice/x64.app/Contents/MacOS/x64 -reu -reusize 16384 -reuimage data.reu -moncommands commands.txt gidemo.d64 &
 	#cmd /c "start c:/Users/gurcei/Downloads/GTK3VICE-3.3-win32-r35872/x64.exe --reuimage data.reu gidemo.d64"
 
 %.s: %.c $(DATAFILES) $(W64FILES) gidemo.cfg ascii8x8.bin
@@ -96,7 +97,6 @@ data.reu: $(DATAFILES) $(W64FILES) Petscii/intro.bin
 	cat $(DATAFILES_REV) >> data.reu
 	echo "sizeof(DATAFILES)"
 	ls -lh data.reu
-	dd if=/dev/zero of=data.reu bs=1 count=1 seek=16777215
 
 util.h: gidemo.lbl
 	cat gidemo.lbl | grep \.func_ | gsed "s/\(.*\) \(.*\) \.\(.*\)/\#define \U\3 \"$$\2\"/" > util.h
@@ -125,16 +125,16 @@ wav64: wav64.c
 gidemo.prg gidemo.lbl: data.reu $(ASSFILES) gidemo.cfg
 	$(CL65) $(COPTS) $(LOPTS) -vm -l gidemo.list -m gidemo.map -Ln gidemo.lbl -o gidemo.prg $(ASSFILES)
 
-gidemo.d64: gidemo.prg
-	rm -f gidemo.d64
-	cbmconvert -v2 -D4o gidemo.d64 gidemo.prg
+gidemo.d81: gidemo.prg
+	rm -f gidemo.d81
+	cbmconvert -v2 -D8o gidemo.d81 gidemo.prg
 
 clean:
 	rm -f gidemo.map
 	rm -f gidemo.prg
 	rm -f main.s main.o
 	rm -f gidemo.list
-	rm -f gidemo.d64
+	rm -f gidemo.d81
 	rm -f asciih ascii.h ascii8x8.bin
 	rm -f data.reu
 	rm -f *.bin *.bin.bmp_meta *.bin.segs_meta

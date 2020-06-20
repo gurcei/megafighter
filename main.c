@@ -2146,20 +2146,19 @@ void lcopy(long source_address, long destination_address,
 void load_reu_data(void)
 {
   FILE *f;
-  int r, k;
+  int r;
+  long loc = 0x00010000L;
 
   f = fopen("data.reu", "rb");
   while (!feof(f))
   {
     r=fread(data_buffer,1,128,f);
-    //for (k = 0; k < r; k++)
-    //{
-    //  Poke(1024+k, data_buffer[k]);
-    //}
 
-    lcopy(&data_buffer, 0x00010000, 128);
-    lcopy(0x00010000, 1024, 128);
-    exit(0);
+    //lcopy(&data_buffer, loc, r);
+    //lcopy(loc, 1024, r);
+    lcopy(&data_buffer, 1024, r);
+//    loc += r;
+  exit(0);
   }
 }
 

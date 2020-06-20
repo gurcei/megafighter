@@ -125,7 +125,7 @@ gidemo.prg gidemo.lbl: data.reu $(ASSFILES) gidemo.cfg
 
 gidemo.d81: gidemo.prg
 	rm -f gidemo.d81
-	cbmconvert -v2 -D8o gidemo.d81 gidemo.prg data.reu
+	cbmconvert -v2 -D8o gidemo.d81 gidemo.prg autoboot.c65 data.reu
 
 clean:
 	rm -f gidemo.map
